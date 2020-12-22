@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="861f84ae146042c296a4ece9712216fa" Name="Diagram1">
+        <EntityTypeShape EntityType="MISDataModel.C_ParameterValueFinance" Width="1.5" PointX="5.25" PointY="227.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ParameterValueInvoicing" Width="1.5" PointX="5.25" PointY="229.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ParameterValueProduce" Width="1.5" PointX="5.25" PointY="232.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_TransactionDoc" Width="1.5" PointX="3" PointY="190.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_TransactionItems" Width="1.5" PointX="13.5" PointY="211.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AC_Account" Width="1.5" PointX="51.5" PointY="209.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AC_Voucher" Width="1.5" PointX="56" PointY="216.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AC_VoucherItems" Width="1.5" PointX="53.75" PointY="209" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AccuracyScrewsRoller" Width="1.5" PointX="30.75" PointY="177.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AccuracySize" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AccuracyTap" Width="1.5" PointX="30.75" PointY="182.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AccuracyThreadGauge" Width="1.5" PointX="30.75" PointY="167.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Address" Width="1.5" PointX="12" PointY="237.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AddressSet" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AppAuthorize" Width="1.5" PointX="8.25" PointY="231.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Applications" Width="1.5" PointX="6" PointY="240.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Assembly" Width="1.5" PointX="5.25" PointY="235.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AssemblyItems" Width="1.5" PointX="50.75" PointY="226.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Assets" Width="1.5" PointX="11.25" PointY="228.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AssetsCategory" Width="1.5" PointX="9" PointY="242.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.AssetsItems" Width="1.5" PointX="13.5" PointY="220.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BadDebtCod" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Bank" Width="1.5" PointX="3.75" PointY="187.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BankAccount" Width="1.5" PointX="6" PointY="190.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Bankbook" Width="1.5" PointX="11.5" PointY="194.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BankbookCategory" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BankBookLog" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BOMFrameItems" Width="1.5" PointX="16.5" PointY="233" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BOMFrames" Width="1.5" PointX="15.75" PointY="264" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BOMItems" Width="1.5" PointX="19.5" PointY="232.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BOMReplaces" Width="1.5" PointX="27.75" PointY="231.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.BOMs" Width="1.5" PointX="20.25" PointY="212.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CallIns" Width="1.5" PointX="18.75" PointY="237.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CheckReportForms" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CInvoiceItems" Width="1.5" PointX="19.5" PointY="222.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CInvoices" Width="1.5" PointX="7.5" PointY="215.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ClassTypes" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ComeinChkYM" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ComeinItems" Width="1.5" PointX="48" PointY="220.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Comeins" Width="1.5" PointX="5.25" PointY="210.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CommonWords" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ControllerCollate" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CostSets" Width="1.5" PointX="56.75" PointY="239.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Country" Width="1.5" PointX="9.75" PointY="238.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Currency" Width="1.5" PointX="0.75" PointY="190.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CurrencyDecs" Width="1.5" PointX="3" PointY="207.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CurrencyExchangRate" Width="1.5" PointX="3" PointY="210.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CustomerApply" Width="1.5" PointX="25.5" PointY="229" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CustomerPhoneNumber" Width="1.5" PointX="16.5" PointY="229.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.CustomGrade" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Department" Width="1.5" PointX="30" PointY="195.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.DesignClassify" Width="1.5" PointX="15.75" PointY="267.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.DesignFigures" Width="1.5" PointX="18" PointY="266.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeEducation" Width="1.5" PointX="30" PointY="199.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeFamilyMember" Width="1.5" PointX="30" PointY="202.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeJobHistory" Width="1.5" PointX="30" PointY="206.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeLanguage" Width="1.5" PointX="30" PointY="210.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Employees" Width="1.5" PointX="27.75" PointY="220.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryAdjusts" Width="1.5" PointX="30" PointY="229.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryCalculateSet" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryClassifys" Width="1.5" PointX="30.75" PointY="192.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryDetails" Width="1.5" PointX="33" PointY="225.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryItemSet" Width="1.5" PointX="33" PointY="192.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryParameters" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalarys" Width="1.5" PointX="30" PointY="261.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSalaryTitleSet" Width="1.5" PointX="6.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EmployeeSkill" Width="1.5" PointX="30" PointY="239.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EncodingCategory" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EncodingItemValues" Width="1.5" PointX="27.75" PointY="107.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EncodingRuleItems" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EncodingRules" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EquipmentKanban" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EquipmentSetting" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Evaluate" Width="1.5" PointX="30.75" PointY="217.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EvaluateFigures" Width="1.5" PointX="28.5" PointY="192.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EvaluateParameter" Width="1.5" PointX="16.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EvaluateSA" Width="1.5" PointX="30.75" PointY="189.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EvaluateSurface" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EvaluateTapShape" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Forum" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ImageStores" Width="1.5" PointX="25.5" PointY="214.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.InOrderItems" Width="1.5" PointX="41.25" PointY="221.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.InOrders" Width="1.5" PointX="39" PointY="206.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.InventoryItems" Width="1.5" PointX="16.5" PointY="220.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Inventorys" Width="1.5" PointX="30" PointY="281.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.InvoiceItems" Width="1.5" PointX="59.25" PointY="220.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Invoices" Width="1.5" PointX="53" PointY="215.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.InvoiceSets" Width="1.5" PointX="18.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Iso1502_Table4" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Iso1502_Table5" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Iso965_1_Table1" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Iso965_1_Table5" Width="1.5" PointX="18.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Iso965_1_Table6" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.IsoVoucherItems" Width="1.5" PointX="13" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.IsoVouchers" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.MeasuredPaper" Width="1.5" PointX="38.25" PointY="222.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.MeasuredPaperSet" Width="1.5" PointX="20.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.MeasuredValue" Width="1.5" PointX="43.5" PointY="217.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.MemberApply" Width="1.5" PointX="30" PointY="247.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Membership" Width="1.5" PointX="27.75" PointY="285.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.NoBuild" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.NoBuildItems" Width="1.5" PointX="8" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OAuthMembership" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OrderItems" Width="1.5" PointX="36" PointY="214.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Orders" Width="1.5" PointX="27.75" PointY="210.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Organization" Width="1.5" PointX="20.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OutsideBackItems" Width="1.5" PointX="53" PointY="233" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OutsideBacks" Width="1.5" PointX="50.75" PointY="239.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OutsideProcessingItems" Width="1.5" PointX="56" PointY="233" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.OutsideProcessings" Width="1.5" PointX="53.75" PointY="244.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ParameterNotes" Width="1.5" PointX="6" PointY="223.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ParameterSet" Width="1.5" PointX="8.25" PointY="227.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.PartnerCategory" Width="1.5" PointX="12" PointY="248.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.PartnerContact" Width="1.5" PointX="16.5" PointY="241" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Partners" Width="1.5" PointX="14.25" PointY="225.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.PartnersBadDebt" Width="1.5" PointX="20.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Partnership" Width="1.5" PointX="5.25" PointY="256.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Payments" Width="1.5" PointX="8.25" PointY="198.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Persons" Width="1.5" PointX="8.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductCategorys" Width="1.5" PointX="10.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesign3Pins" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesignFigures" Width="1.5" PointX="22.5" PointY="267.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesignGearSets" Width="1.5" PointX="22.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesignLogs" Width="1.5" PointX="22.5" PointY="269.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesigns" Width="1.5" PointX="20.25" PointY="253.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesignsHandleSets" Width="1.5" PointX="22.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductImages" Width="1.5" PointX="24.75" PointY="238" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductNameRefers" Width="1.5" PointX="22.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductPrices" Width="1.5" PointX="24.75" PointY="240.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Products" Width="1.5" PointX="22.5" PointY="227.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductStore" Width="1.5" PointX="13.5" PointY="243.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductStoreBatchNumberList" Width="1.5" PointX="22.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductStoreBatchNumbers" Width="1.5" PointX="22.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductStoreItem" Width="1.5" PointX="18.75" PointY="227.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductStoreItemList" Width="1.5" PointX="21" PointY="215.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.PurchaseItems" Width="1.5" PointX="45.75" PointY="221.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Purchases" Width="1.5" PointX="38.5" PointY="211.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.QCStandardItems" Width="1.5" PointX="48.5" PointY="236.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.QCStandards" Width="1.5" PointX="20.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.QuotationItems" Width="1.5" PointX="13.5" PointY="203.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Quotations" Width="1.5" PointX="9" PointY="189" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ReceivePayment" Width="1.5" PointX="16.5" PointY="211.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.RequisitionItems" Width="1.5" PointX="41.25" PointY="214.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Requisitions" Width="1.5" PointX="32.25" PointY="210.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Roles" Width="1.5" PointX="33.75" PointY="221.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SaleChkDefYM" Width="1.5" PointX="22.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SaleChkYM" Width="1.5" PointX="16.5" PointY="245.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SaleItems" Width="1.5" PointX="53.75" PointY="221.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Sales" Width="1.5" PointX="50.75" PointY="212.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SalesCheckout" Width="1.5" PointX="0.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Salesman" Width="1.5" PointX="30" PointY="242.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SentCarItems" Width="1.5" PointX="56" PointY="260.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SentCars" Width="1.5" PointX="27.75" PointY="306.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ShareFiles" Width="1.5" PointX="27.75" PointY="311.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SheetTail" Width="1.5" PointX="2.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.StandardSet" Width="1.5" PointX="28.5" PointY="186.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Storehouse" Width="1.5" PointX="8.25" PointY="211.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.StoreSpace" Width="1.5" PointX="10.5" PointY="223.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SupplierCategory" Width="1.5" PointX="16.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.sysdiagrams" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.TaxType" Width="1.5" PointX="0.75" PointY="184.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Tenants" Width="1.5" PointX="3" PointY="226" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.TestData" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Todo" Width="1.5" PointX="27.75" PointY="314.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.UnitSet" Width="1.5" PointX="24.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.UserActivityLog" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.UserActivityTime" Width="1.5" PointX="27.75" PointY="319.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Users" Width="1.5" PointX="25.5" PointY="218.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.VoucherType" Width="1.5" PointX="24.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WebNews" Width="1.5" PointX="10.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkCheckItems" Width="1.5" PointX="56.75" PointY="243.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkDayBadItems" Width="1.5" PointX="59" PointY="224.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkDayReports" Width="1.5" PointX="56.75" PointY="223" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkflowItems" Width="1.5" PointX="21.5" PointY="239.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.Workflows" Width="1.5" PointX="15.75" PointY="270" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkInFactory" Width="1.5" PointX="24.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkItems" Width="1.5" PointX="54.5" PointY="239.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkOrderItems" Width="1.5" PointX="50.75" PointY="232.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkOrders" Width="1.5" PointX="48.5" PointY="227.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.WorkProgress" Width="1.5" PointX="24.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_Assets" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_AssetsChk" Width="1.5" PointX="0.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ChgCustomer" Width="1.5" PointX="2.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_Cust" Width="1.5" PointX="26.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_InventoryBak" Width="1.5" PointX="26.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_InventoryItems" Width="1.5" PointX="26.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_Inventorys" Width="1.5" PointX="18.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ProductStore" Width="1.5" PointX="20.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ProductStoreItem" Width="1.5" PointX="26.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ReportTempItems" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.C_ReportTemps" Width="1.5" PointX="28.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.EquipmentOutput" Width="1.5" PointX="8.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.IsoBadReason" Width="1.5" PointX="10.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.ProductDesignFieldNote" Width="1.5" PointX="28.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.SetBPS" Width="1.5" PointX="12.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.VoucherTypes" Width="1.5" PointX="14.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_Address" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_Assets" Width="1.5" PointX="30.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_AssetsItems" Width="1.5" PointX="30.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_OrderItemAddress" Width="1.5" PointX="30.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_Products" Width="1.5" PointX="30.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_ProductStoreItems" Width="1.5" PointX="30.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_Sale_RPT_SaleDate" Width="1.5" PointX="20.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_使用者角色表" Width="1.5" PointX="32.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.View_使用者表" Width="1.5" PointX="32.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MISDataModel.VRP_Sales" Width="1.5" PointX="4.75" PointY="32.75" IsExpanded="true" />
+        <AssociationConnector Association="MISDataModel.FK_ParameterValueFinance_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ParameterValue_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ParameterValueProduce_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionDoc_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionDoc_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionDoc_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionDoc_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionDoc_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionItems_TransactionDoc" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransactionItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AC_VoucherItems_AC_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AC_Voucher_AC_VoucherItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AC_Voucher_Comeins" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AC_Voucher_Sales" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AccuracyScrewsRoller_StandardSet" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AccuracyTap_StandardSet" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ThreadGaugeAccuracy_StandardSet" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Address_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_DeliveryAddresss" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Company_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CustomerApply_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CustomerApply_Address1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Invoice_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AppAuthorize_Applications" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AppAuthorize_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Roles_Applications" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Assembly_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Assembly_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Assembly_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Assembly_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_Assembly" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_QCStandardItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssemblyItems_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Assets_AssetsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssetsList_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMFrameItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMReplaces_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CInvoiceItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ComeinItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InOrderItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InventoryItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InvoiceItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OrderItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_Assets_Makings" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductStore_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseOrderItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_QuotationItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_RequisitionItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleItems_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_AssetsCategory_ImageStores" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_DesignFigures_AssetsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OrderItems_AssetsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_QuotationItems_AssetsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_AssetsItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BankAccount_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BankAccount_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Bankbook_BankAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Payments_BankAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ReceivePayment_BankAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_TransBankbook_BankAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Bankbook_Payment" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Bankbook_ReceivePayment" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMFrameItems_BOMFrames" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_DesignFigures_BOMFrames" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMItems_BOMs" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_BOMReplaces_BOMItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_BOMs" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CallIns_PartnerContact" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CallIns_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CInvoiceItems_CInvoices" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CInvoices_Comeins" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ComeinItems_ComeinItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ComeinItems_Comeins" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ComeinItems_PurchaseItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_CreateUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Comeins_UpdateUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_UserActivityLog_ControllerCollate" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CostSets_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CurrencyDecs_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CurrencyExchangRate_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Storehouse_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Tenants_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CustomerApply_Membership" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CustomerApply_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CustomerApply_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PhoneNumbers_PhoneNumbers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Department_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Employees_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Requisitions_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_DesignFigures_DesignClassify" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_DesignFigures_Workflows" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductDesigns_DesignFigures" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeEducation_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeFamilyMember_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeJobHistory_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeLanguage_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Employees_ImageStores" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Employees_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSalaryAdjusts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSalaryDetails_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSalarys_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSkill_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Inventorys_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Inventorys_Employees1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Inventorys_Employees2" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Inventorys_Employees3" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Inventorys_Employees4" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MeasuredValue_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MeasuredValue_MeasuredEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Requisitions_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Salesman_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSalaryDetails_EmployeeSalaryClassifys" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EmployeeSalaryItemSet_EmployeeSalaryClassifys" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingRules_EncodingCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingItemValues_EncodingRuleItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingItemValues_EncodingRuleItems1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingItemValues_ImageStores" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingRuleItems_EncodingRuleItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EncodingRuleItems_EncodingRules" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Evaluate_EvaluateFigures" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Evaluate_StandardSet" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Evaluate_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OrderItems_Evaluate" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_QuotationItems_Evaluate" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EvaluateSA_StandardSet" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_EvaluateSA_StandardSet1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InOrderItems_InOrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InOrderItems_InOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InOrderItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_InOrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InventoryItems_InventoryItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InventoryItems_Inventorys" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_InvoiceItems_Invoices" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Invoices_Sales" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_IsoVoucherItems_IsoVouchers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MeasuredPaper_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MeasuredValue_MeasuredPaper" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MemberApply_Membership" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_MemberApply_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Membership_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Users_Membership1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_NoBuildItems_NoBuild" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OrderItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OrderItems_QuotationItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_RequisitionItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCarItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_CreateUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_ReceivePayment" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_Salesman" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Orders_UpdateUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ReceivePayment_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Requisitions_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideBackItems_OutsideBacks" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideBackItems_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideBackItems_WorkOrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideProcessingItems_OutsideProcessings" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideProcessingItems_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_OutsideProcessingItems_WorkOrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ParameterSet_ParameterNotes" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ParameterSet_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partners_CustomerCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partners_SupplierCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PartnerContact_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partners_Salesman" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partners_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partners_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ReceivePayment_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleChkYM_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Users_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkflowItems_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrderItems_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_Partners" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partnership_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Partnership_Tenants1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductDesignFigures_ProductDesigns" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductDesignLogs_ProductDesigns" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductDesigns_Workflows" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_ProductDesigns" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductImages_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_ProductPrices" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Products_Workflows" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductStoreItem_ProductStore" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductStoreItem_Storehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ProductStoreItemList_ProductStoreItem" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseItems_RequisitionItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseOrderItems_PurchaseOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseOrderItems_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_PurchaseOrders_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_CreateUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_Requisitions" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Purchases_UpdateUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_QuotationItems_Quotations" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_Salesman" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Quotations_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ReceivePayment_Sales" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_RequisitionItems_Requisitions" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_UsersInRoles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleItems_SaleItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleItems_Sales1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SaleItems_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCarItems_SaleItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_CreateUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Salesman" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_TaxType" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_Tenant" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_UpdateUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Sales_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCarItems_SentCars" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCarItems_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCarItems_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCars_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_SentCars_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_ShareFiles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Storehouse_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_StoreSpace_Storehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Users_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Todo_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Todo_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_Todo_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_UserActivitiyLog_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_CheckItems_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayBadItems_WorkDayReports" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_WorkOrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkDayReports_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkflowItems_Workflows" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkflowItems_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrderItems_WorkItems" ManuallyRouted="false" />
+        <AssociationConnector Association="MISDataModel.FK_WorkOrderItems_WorkOrders" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
