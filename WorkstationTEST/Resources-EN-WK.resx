@@ -150,6 +150,9 @@
   <data name="label7" xml:space="preserve">
     <value>MakeNo</value>
   </data>
+  <data name="label8" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="label9" xml:space="preserve">
     <value>MakeQTY</value>
   </data>

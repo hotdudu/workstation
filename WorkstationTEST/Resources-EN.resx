@@ -195,4 +195,7 @@
   <data name="connected" xml:space="preserve">
     <value>connected</value>
   </data>
+  <data name="nodata" xml:space="preserve">
+    <value>No Records</value>
+  </data>
 </root>

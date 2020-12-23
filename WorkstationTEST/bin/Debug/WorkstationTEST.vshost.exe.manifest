@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="614400">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="614912">
       <assemblyIdentity name="WorkstationTEST" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ky7uT18nC6ca4SpKOEntltkYaytMIT+0xZ8HLW12wgs=</dsig:DigestValue>
+        <dsig:DigestValue>ROMT6sgtggIn5oZnh0YJNZ+wG/n0eCVsI1i/KSCKRKE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -166,15 +166,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>akAPMG5FTmNP14xWmmSPlATbMZgvrsH4Yfld2NEP6ls=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="LocalDB.mdb" size="59342848">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>l1Q9pv7Zz956Iimyn8SMMGmM++PKD8C48V4oVK6Ln2c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WorkstationTEST.exe.config" size="1596">

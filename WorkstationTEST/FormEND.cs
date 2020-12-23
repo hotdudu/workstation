@@ -1464,6 +1464,7 @@ namespace WorkstationTEST
             }
             else
             {
+                emptydata[0].Text = rtext["nodata"];
                 emptydata[0].Visible = true;
             }
             var numpad = tabPage2.Controls.Find("NumPanel", true);

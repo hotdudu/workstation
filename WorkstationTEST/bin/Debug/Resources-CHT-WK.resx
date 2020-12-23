@@ -150,6 +150,9 @@
   <data name="label7" xml:space="preserve">
     <value>製造番號</value>
   </data>
+  <data name="label8" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
   <data name="label9" xml:space="preserve">
     <value>製造數量</value>
   </data>

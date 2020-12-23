@@ -481,7 +481,7 @@
             this.label5.AutoSize = true;
             this.label5.CausesValidation = false;
             this.label5.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(181, 64);
+            this.label5.Location = new System.Drawing.Point(143, 64);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 19);
             this.label5.TabIndex = 102;
@@ -493,7 +493,7 @@
             this.label4.AutoSize = true;
             this.label4.CausesValidation = false;
             this.label4.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(181, 4);
+            this.label4.Location = new System.Drawing.Point(147, 4);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 19);
             this.label4.TabIndex = 101;

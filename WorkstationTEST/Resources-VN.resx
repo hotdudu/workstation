@@ -195,4 +195,7 @@
   <data name="connected" xml:space="preserve">
     <value>kết nối</value>
   </data>
+  <data name="nodata" xml:space="preserve">
+    <value>無資料</value>
+  </data>
 </root>

@@ -124,7 +124,7 @@ namespace WorkstationTEST
             btn.Name = bname;
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
-            btn.Size = new Size(160, 165);
+            btn.Size = new Size(130, 165);
             btn.Margin = new Padding(20, 20, 20, 20);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
@@ -139,11 +139,11 @@ namespace WorkstationTEST
             btn.Name = bname;
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
-            btn.Size = new Size(140, 160);
+            btn.Size = new Size(130, 165);
             btn.Margin = new Padding(20, 20, 20, 20);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
-            btn.Image = SetQR(qr, 80, 80, "QR");
+            btn.Image = SetQR(qr, 50, 50, "QR");
             btn.Tag = savestr;
             btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
             btn.Left = icol * (ispace * 2 + btn.Width) + ispace;
@@ -248,14 +248,20 @@ namespace WorkstationTEST
             rect.Inflate(-5, -5);
             using (StringFormat sf = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far })
             {
+  
                 using (Brush brush = new SolidBrush(ForeColor))
                 {
-                    Font f = new Font("", 14, FontStyle.Bold);
-                    Font f2 = new Font("", 16, FontStyle.Bold);
+                    Font f = new Font("", 14, FontStyle.Bold);                   
                     pevent.Graphics.DrawString(LeftText, f, brush, rect, sf);
+
+                }
+                var fcolor = Color.CadetBlue;
+                using (Brush brush2 = new SolidBrush(fcolor))
+                {
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Near;
-                    pevent.Graphics.DrawString(TopText, f2, brush, rect, sf);
+                    Font f2 = new Font("", 16, FontStyle.Bold);
+                    pevent.Graphics.DrawString(TopText, f2, brush2, rect, sf);
                 }
             }
         }

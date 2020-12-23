@@ -50,7 +50,6 @@ D:\share\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.csproj.Genera
 D:\share\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.exe.manifest
 D:\share\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.application
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\bin\Debug\config.ini
-D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\bin\Debug\LocalDB.mdb
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\bin\Debug\WorkstationTEST.exe.config
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\bin\Debug\WorkstationTEST.exe.manifest
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\bin\Debug\WorkstationTEST.application

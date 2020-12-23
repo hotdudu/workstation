@@ -49,16 +49,18 @@
             this.endwork = new WorkstationTEST.XButton();
             this.startwork = new WorkstationTEST.XButton();
             this.button2 = new System.Windows.Forms.Button();
+            this.IN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // labSQLstatus
             // 
+            this.labSQLstatus.AutoSize = true;
             this.labSQLstatus.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labSQLstatus.ForeColor = System.Drawing.Color.Blue;
-            this.labSQLstatus.Location = new System.Drawing.Point(402, 549);
+            this.labSQLstatus.Location = new System.Drawing.Point(624, 549);
             this.labSQLstatus.Name = "labSQLstatus";
-            this.labSQLstatus.Size = new System.Drawing.Size(76, 27);
+            this.labSQLstatus.Size = new System.Drawing.Size(68, 27);
             this.labSQLstatus.TabIndex = 13;
             this.labSQLstatus.Text = "斷線";
             this.labSQLstatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,7 +69,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 25F);
-            this.label2.Location = new System.Drawing.Point(279, 545);
+            this.label2.Location = new System.Drawing.Point(501, 545);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 34);
             this.label2.TabIndex = 12;
@@ -75,11 +77,12 @@
             // 
             // labScannerStatus
             // 
+            this.labScannerStatus.AutoSize = true;
             this.labScannerStatus.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labScannerStatus.ForeColor = System.Drawing.Color.Blue;
             this.labScannerStatus.Location = new System.Drawing.Point(161, 549);
             this.labScannerStatus.Name = "labScannerStatus";
-            this.labScannerStatus.Size = new System.Drawing.Size(76, 27);
+            this.labScannerStatus.Size = new System.Drawing.Size(68, 27);
             this.labScannerStatus.TabIndex = 11;
             this.labScannerStatus.Text = "斷開";
             this.labScannerStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,9 +99,9 @@
             // 
             // laberror
             // 
-            this.laberror.Location = new System.Drawing.Point(505, 546);
+            this.laberror.Location = new System.Drawing.Point(779, 548);
             this.laberror.Name = "laberror";
-            this.laberror.Size = new System.Drawing.Size(152, 30);
+            this.laberror.Size = new System.Drawing.Size(353, 30);
             this.laberror.TabIndex = 14;
             // 
             // dataGridView1
@@ -160,7 +163,7 @@
             // 
             // CHT
             // 
-            this.CHT.Location = new System.Drawing.Point(1102, 41);
+            this.CHT.Location = new System.Drawing.Point(1102, 26);
             this.CHT.Name = "CHT";
             this.CHT.Size = new System.Drawing.Size(75, 23);
             this.CHT.TabIndex = 20;
@@ -170,7 +173,7 @@
             // 
             // EN
             // 
-            this.EN.Location = new System.Drawing.Point(1102, 80);
+            this.EN.Location = new System.Drawing.Point(1102, 63);
             this.EN.Name = "EN";
             this.EN.Size = new System.Drawing.Size(75, 23);
             this.EN.TabIndex = 21;
@@ -180,7 +183,7 @@
             // 
             // VN
             // 
-            this.VN.Location = new System.Drawing.Point(1102, 119);
+            this.VN.Location = new System.Drawing.Point(1102, 100);
             this.VN.Name = "VN";
             this.VN.Size = new System.Drawing.Size(75, 23);
             this.VN.TabIndex = 22;
@@ -244,13 +247,24 @@
             this.button2.TabIndex = 24;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // IN
+            // 
+            this.IN.Location = new System.Drawing.Point(1102, 138);
+            this.IN.Name = "IN";
+            this.IN.Size = new System.Drawing.Size(75, 23);
+            this.IN.TabIndex = 25;
+            this.IN.Text = "Bahasa";
+            this.IN.UseVisualStyleBackColor = true;
             // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 647);
+            this.Controls.Add(this.IN);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.start2);
             this.Controls.Add(this.VN);
@@ -299,5 +313,6 @@
         private System.Windows.Forms.Button VN;
         private XButton start2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button IN;
     }
 }

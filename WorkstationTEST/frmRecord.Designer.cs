@@ -297,7 +297,7 @@
             this.totalcount.AutoSize = true;
             this.totalcount.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.totalcount.ForeColor = System.Drawing.Color.ForestGreen;
-            this.totalcount.Location = new System.Drawing.Point(794, 7);
+            this.totalcount.Location = new System.Drawing.Point(787, 6);
             this.totalcount.Name = "totalcount";
             this.totalcount.Size = new System.Drawing.Size(0, 19);
             this.totalcount.TabIndex = 28;
@@ -307,7 +307,7 @@
             this.nowrecord.AutoSize = true;
             this.nowrecord.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.nowrecord.ForeColor = System.Drawing.Color.ForestGreen;
-            this.nowrecord.Location = new System.Drawing.Point(982, 7);
+            this.nowrecord.Location = new System.Drawing.Point(996, 7);
             this.nowrecord.Name = "nowrecord";
             this.nowrecord.Size = new System.Drawing.Size(0, 19);
             this.nowrecord.TabIndex = 29;
@@ -317,7 +317,7 @@
             this.tqty.AutoSize = true;
             this.tqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tqty.ForeColor = System.Drawing.Color.ForestGreen;
-            this.tqty.Location = new System.Drawing.Point(830, 7);
+            this.tqty.Location = new System.Drawing.Point(844, 7);
             this.tqty.Name = "tqty";
             this.tqty.Size = new System.Drawing.Size(0, 19);
             this.tqty.TabIndex = 30;
@@ -327,7 +327,7 @@
             this.totalcount2.AutoSize = true;
             this.totalcount2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.totalcount2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.totalcount2.Location = new System.Drawing.Point(879, 7);
+            this.totalcount2.Location = new System.Drawing.Point(893, 7);
             this.totalcount2.Name = "totalcount2";
             this.totalcount2.Size = new System.Drawing.Size(0, 19);
             this.totalcount2.TabIndex = 31;
@@ -337,7 +337,7 @@
             this.cqty.AutoSize = true;
             this.cqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cqty.ForeColor = System.Drawing.Color.ForestGreen;
-            this.cqty.Location = new System.Drawing.Point(1063, 3);
+            this.cqty.Location = new System.Drawing.Point(1077, 3);
             this.cqty.Name = "cqty";
             this.cqty.Size = new System.Drawing.Size(0, 19);
             this.cqty.TabIndex = 32;
@@ -347,7 +347,7 @@
             this.nowrecord2.AutoSize = true;
             this.nowrecord2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.nowrecord2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.nowrecord2.Location = new System.Drawing.Point(1078, 6);
+            this.nowrecord2.Location = new System.Drawing.Point(1092, 6);
             this.nowrecord2.Name = "nowrecord2";
             this.nowrecord2.Size = new System.Drawing.Size(0, 19);
             this.nowrecord2.TabIndex = 33;

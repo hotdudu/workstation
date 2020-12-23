@@ -21,6 +21,8 @@ namespace WorkstationTEST
 
         private void frmRecord_Load(object sender, EventArgs e)
         {
+            Dictionary<string, string> rtext = CreateElement.loadresx("WK");
+            label8.Text = rtext[label8.Name];
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmPTbtnU, "Insert::Insert", "上一筆");

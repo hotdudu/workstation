@@ -341,11 +341,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LocalDB.mdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -378,16 +373,6 @@
       <TargetPath>
       </TargetPath>
       <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="LocalDB.mdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
