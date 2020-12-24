@@ -22,12 +22,13 @@ namespace WorkstationTEST
         private void frmRecord_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
+            Dictionary<string, string> rtext2 = CreateElement.loadresx("ST");
             label8.Text = rtext[label8.Name];
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn(frmPTbtnU, "Insert::Insert", "上一筆");
-            setpageup.SetBtn(frmPTbtnD, "Delete::Delete", "下一筆");
-            setpageup.SetBtn(save, "F12::F12", "儲存");
+            setpageup.SetBtn(frmPTbtnU, "Insert::Insert", rtext2["button1"]);
+            setpageup.SetBtn(frmPTbtnD, "Delete::Delete", rtext2["button2"]);
+            setpageup.SetBtn(save, "F12::F12",rtext["WKsave"]);
             setpageup.SetBtn(next, "Return::Return", "Enter");
             var ry = frmREno.Location.Y + frmREno.Height + 5;
             var rx = 10;

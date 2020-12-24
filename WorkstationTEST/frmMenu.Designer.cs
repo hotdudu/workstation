@@ -258,6 +258,7 @@
             this.IN.TabIndex = 25;
             this.IN.Text = "Bahasa";
             this.IN.UseVisualStyleBackColor = true;
+            this.IN.Click += new System.EventHandler(this.IN_Click);
             // 
             // frmMenu
             // 

@@ -37,8 +37,8 @@ namespace WorkstationTEST
             Console.WriteLine("frmWKload");
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn((XButton)frmWKbtnU, "Insert::Insert", "上一頁");
-            setpageup.SetBtn((XButton)frmWKbtnD, "Delete::Delete", "下一頁");
+            setpageup.SetBtn((XButton)frmWKbtnU, "Insert::Insert", rtext["frmWKbtnU"]);
+            setpageup.SetBtn((XButton)frmWKbtnD, "Delete::Delete", rtext["frmWKbtnD"]);
             getwitem.Clear();
             getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
             if (getwitem.Count > 0)

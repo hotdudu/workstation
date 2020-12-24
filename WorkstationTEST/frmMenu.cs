@@ -28,28 +28,48 @@ namespace WorkstationTEST
         {
             InitializeComponent();
             var load = new loading();
+            var lang = "";
             load.Show();
             dataGridView1.DataSource = getdatatable();
-            dataGridView1.Columns[0].HeaderText = "員工編號";
-            dataGridView1.Columns[1].HeaderText = "工令編號";
-            dataGridView1.Columns[2].HeaderText = "規格";
-            dataGridView1.Columns[3].HeaderText = "工作日期";
+            dataGridView1.Columns[0].HeaderText = rtext["emp"];
+            dataGridView1.Columns[1].HeaderText = rtext["makeno"];
+            dataGridView1.Columns[2].HeaderText = rtext["spec"];
+            dataGridView1.Columns[3].HeaderText = rtext["workdate"];
 
-            dataGridView1.Columns[4].HeaderText = "製程編號";
+            dataGridView1.Columns[4].HeaderText = rtext["procno"];
 
-            dataGridView1.Columns[5].HeaderText = "仕掛數";
-            dataGridView1.Columns[6].HeaderText = "完成數";
-            dataGridView1.Columns[7].HeaderText = "不良數";
-            dataGridView1.Columns[8].HeaderText = "GO完成數";
-            dataGridView1.Columns[9].HeaderText = "GO不良數";
-            dataGridView1.Columns[10].HeaderText = "NOGO完成數";
-            dataGridView1.Columns[11].HeaderText = "NOGO不良數";
-            dataGridView1.Columns[12].HeaderText = "工作分鐘數";
-            dataGridView1.Columns[13].HeaderText = "製程名稱";
-            dataGridView1.Columns[14].HeaderText = "開始時間";
-            dataGridView1.Columns[15].HeaderText = "結束時間";
-            dataGridView1.Columns[16].HeaderText = "上傳狀態";
-            dataGridView1.Columns[17].HeaderText = "單位";           
+            dataGridView1.Columns[5].HeaderText = rtext["makeqty"];
+            dataGridView1.Columns[6].HeaderText = rtext["completeqty"];
+            dataGridView1.Columns[7].HeaderText = rtext["badqty"];
+            dataGridView1.Columns[8].HeaderText = "GO"+Environment.NewLine+ rtext["completeqty"];
+            dataGridView1.Columns[9].HeaderText = "GO" + Environment.NewLine + rtext["badqty"];
+            dataGridView1.Columns[10].HeaderText = "NOGO" + Environment.NewLine + rtext["completeqty"];
+            dataGridView1.Columns[11].HeaderText = "NOGO" + Environment.NewLine + rtext["badqty"];
+            dataGridView1.Columns[12].HeaderText =rtext["update"];
+            dataGridView1.Columns[13].HeaderText = rtext["procname"];
+            dataGridView1.Columns[14].HeaderText = rtext["starttime"];
+            dataGridView1.Columns[15].HeaderText = rtext["endtime"];
+            dataGridView1.Columns[16].HeaderText = rtext["wminute"];
+            dataGridView1.Columns[17].HeaderText = rtext["unit"];
+
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                lang=oTINI.getKeyValue("SYSTEM", "LANGUAGE", "");
+            }
+            if (lang == "CHT")
+            {
+                dataGridView1.Columns[0].Width = 60;
+                dataGridView1.Columns[3].Width = 90;
+                dataGridView1.Columns[4].Width = 60;
+                dataGridView1.Columns[5].Width = 70;
+                dataGridView1.Columns[6].Width = 70;
+                dataGridView1.Columns[7].Width = 70;
+                dataGridView1.Columns[8].Width = 70;
+                dataGridView1.Columns[9].Width = 70;
+                dataGridView1.Columns[10].Width = 70;
+                dataGridView1.Columns[11].Width = 70;
+            }
+
             load.Close();
            // System.Timers.Timer timer = new System.Timers.Timer(2000);
            // timer.AutoReset = true;
@@ -385,11 +405,12 @@ namespace WorkstationTEST
                 table.Columns.Add("BadGoQty", typeof(string));
                 table.Columns.Add("CompletNgQty", typeof(string));
                 table.Columns.Add("BadNgQty", typeof(string));
-                table.Columns.Add("WorkTime", typeof(string));
+                table.Columns.Add("isupdate", typeof(string));
+
                 table.Columns.Add("WorkName", typeof(string));
                 table.Columns.Add("StartTime", typeof(string));
                 table.Columns.Add("EndTime", typeof(string));
-                table.Columns.Add("isupdate", typeof(string));
+                table.Columns.Add("WorkTime", typeof(string));
                 table.Columns.Add("Unit", typeof(string));
                 string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
                 string cnStr = "data source=" + dbPath + ";Version=3;";
@@ -460,7 +481,8 @@ namespace WorkstationTEST
                     DateTime wdate = new DateTime();
                     var isdate = DateTime.TryParse(r.WorkDate, out wdate);
                     Console.WriteLine("en=" + r.EmpNo);
-                    table.Rows.Add(r.EmpNo, r.MakeNo, r.Specification,wdate.ToShortDateString(), r.WorkNo, r.WorkQty, r.CompleteQty, r.BadQty,r.CompletGoQty,r.BadGoQty,r.CompletNgQty,r.BadNgQty, r.WorkTime, r.WorkName, r.StartTime,r.EndTime,r.isupdate==true?"成功":(r.WorkTime.HasValue?"失敗":""),r.UseUnits);
+                    table.Rows.Add(r.EmpNo, r.MakeNo, r.Specification,wdate.ToShortDateString(), r.WorkNo, r.WorkQty, r.CompleteQty, r.BadQty,r.CompletGoQty,r.BadGoQty,r.CompletNgQty,r.BadNgQty,
+                        r.isupdate == true ? rtext["success"] : (r.WorkTime.HasValue ? rtext["failure"] : ""), r.WorkName, r.StartTime,r.EndTime, r.WorkTime, r.UseUnits);
                 }
                 return table;
             }
@@ -488,7 +510,17 @@ namespace WorkstationTEST
             serialPort1.Parity = System.IO.Ports.Parity.None;
             serialPort1.StopBits = System.IO.Ports.StopBits.One;
             if (!serialPort1.IsOpen)
+            {
+                try
+                {
                 serialPort1.Open();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("開啟掃描器異常");
+                }
+            }
+                
             //Console.WriteLine("isopen:"+serialPort1.IsOpen);
         }
         public void setkeymap(string keychar, string data = "", bool isp = false)
@@ -596,6 +628,11 @@ namespace WorkstationTEST
             ChangeLang(((Button)sender).Name);
         }
 
+        private void IN_Click(object sender, EventArgs e)
+        {
+            ChangeLang(((Button)sender).Name);
+        }
+
         private void start2_Click(object sender, EventArgs e)
         {
             tempclose("m");
@@ -632,5 +669,7 @@ namespace WorkstationTEST
                 }
             }
         }
+
+
     }
 }

@@ -198,4 +198,28 @@
   <data name="nodata" xml:space="preserve">
     <value>無資料</value>
   </data>
+  <data name="workdate" xml:space="preserve">
+    <value>ngày làm việc</value>
+  </data>
+  <data name="procname" xml:space="preserve">
+    <value>tên quy trình</value>
+  </data>
+  <data name="procno" xml:space="preserve">
+    <value>số quá trình</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>đơn vị</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>cập nhật trạng thái</value>
+  </data>
+  <data name="wminute" xml:space="preserve">
+    <value>thời gian làm việc(phút)</value>
+  </data>
+  <data name="failure" xml:space="preserve">
+    <value>sự thất bại</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>sự thành công</value>
+  </data>
 </root>

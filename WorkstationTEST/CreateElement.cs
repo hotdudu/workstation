@@ -248,7 +248,6 @@ namespace WorkstationTEST
             rect.Inflate(-5, -5);
             using (StringFormat sf = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far })
             {
-  
                 using (Brush brush = new SolidBrush(ForeColor))
                 {
                     Font f = new Font("", 14, FontStyle.Bold);                   

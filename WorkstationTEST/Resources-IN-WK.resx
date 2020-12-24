@@ -117,109 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="badqty" xml:space="preserve">
-    <value>Bad QTY</value>
+  <data name="frmWKbtnD" xml:space="preserve">
+    <value>NextPage</value>
   </data>
-  <data name="button1" xml:space="preserve">
-    <value>Prev</value>
+  <data name="frmWKbtnU" xml:space="preserve">
+    <value>PrevPage</value>
   </data>
-  <data name="button2" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="button3" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="completeqty" xml:space="preserve">
-    <value>WorkQTY</value>
-  </data>
-  <data name="current" xml:space="preserve">
-    <value>Current</value>
-  </data>
-  <data name="Disconnected" xml:space="preserve">
-    <value>Disconnected</value>
-  </data>
-  <data name="emp" xml:space="preserve">
-    <value>Employee</value>
-  </data>
-  <data name="endtime" xml:space="preserve">
-    <value>Finish Time</value>
-  </data>
-  <data name="endwork" xml:space="preserve">
-    <value>End Work</value>
+  <data name="infotitle" xml:space="preserve">
+    <value>akan menyisipkan :</value>
   </data>
   <data name="label1" xml:space="preserve">
-    <value>Latest 100 Records</value>
+    <value>Ketik MakeNo</value>
+  </data>
+  <data name="label12" xml:space="preserve">
+    <value>Nomor aset</value>
+  </data>
+  <data name="label13" xml:space="preserve">
+    <value>Spesifikasi</value>
   </data>
   <data name="label2" xml:space="preserve">
-    <value>Database</value>
+    <value>Pilih Proses</value>
   </data>
-  <data name="label23" xml:space="preserve">
-    <value>Scanner</value>
+  <data name="label21" xml:space="preserve">
+    <value>Ucapan</value>
   </data>
-  <data name="makeno" xml:space="preserve">
-    <value>MakeNo</value>
+  <data name="label4" xml:space="preserve">
+    <value>Karyawan</value>
   </data>
-  <data name="makeqty" xml:space="preserve">
-    <value>MakeQTY</value>
+  <data name="label5" xml:space="preserve">
+    <value>Proses</value>
   </data>
-  <data name="ousidework" xml:space="preserve">
-    <value>outsource</value>
+  <data name="label7" xml:space="preserve">
+    <value>Buat Nomor</value>
   </data>
-  <data name="proc" xml:space="preserve">
-    <value>Process</value>
+  <data name="label8" xml:space="preserve">
+    <value>Cari</value>
   </data>
-  <data name="record" xml:space="preserve">
-    <value>Records</value>
+  <data name="label9" xml:space="preserve">
+    <value>Buat kuantitas</value>
   </data>
-  <data name="spec" xml:space="preserve">
-    <value>Specification</value>
+  <data name="labelname" xml:space="preserve">
+    <value>Nama Aset</value>
   </data>
-  <data name="starttime" xml:space="preserve">
-    <value>StartTime</value>
-  </data>
-  <data name="startwork" xml:space="preserve">
-    <value>StartWork</value>
-  </data>
-  <data name="total" xml:space="preserve">
-    <value>Total</value>
-  </data>
-  <data name="txtinfo" xml:space="preserve">
-    <value>Select EmployeeNo</value>
-  </data>
-  <data name="unwork" xml:space="preserve">
-    <value>Unfinished</value>
-  </data>
-  <data name="worktime" xml:space="preserve">
-    <value>WorkTime</value>
-  </data>
-  <data name="connected" xml:space="preserve">
-    <value>connected</value>
-  </data>
-  <data name="nodata" xml:space="preserve">
-    <value>No Records</value>
-  </data>
-  <data name="workdate" xml:space="preserve">
-    <value>WorkDate</value>
-  </data>
-  <data name="procname" xml:space="preserve">
-    <value>ProcessName</value>
-  </data>
-  <data name="procno" xml:space="preserve">
-    <value>ProcessNo</value>
-  </data>
-  <data name="unit" xml:space="preserve">
-    <value>Unit</value>
-  </data>
-  <data name="update" xml:space="preserve">
-    <value>Update Status</value>
-  </data>
-  <data name="wminute" xml:space="preserve">
-    <value>WorkTime(minute)</value>
-  </data>
-  <data name="failure" xml:space="preserve">
-    <value>failure</value>
-  </data>
-  <data name="success" xml:space="preserve">
-    <value>Success</value>
+  <data name="WKsave" xml:space="preserve">
+    <value>Menyimpan</value>
   </data>
 </root>

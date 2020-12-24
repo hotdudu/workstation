@@ -21,6 +21,7 @@ namespace WorkstationTEST
         delegate void loadtab(TabControl taba);
         public TabControl tab;
         List<Emp> getemp = new List<Emp>();
+        Dictionary<string, string> rtext = CreateElement.loadresx("WK");
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -147,8 +148,8 @@ namespace WorkstationTEST
         {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn(frmEmpPageU, "Insert::Insert", "上一頁");
-            setpageup.SetBtn(frmEmpPageD, "Delete::Delete", "下一頁");
+            setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
+            setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
             getemp = new API("/CHG/Main/Home/getEmployee/", "http://").GetEmp();
             Int32 tlpColumCount = tableLayoutPanel1.ColumnCount;
             Int32 tlpRowCount = tableLayoutPanel1.RowCount;

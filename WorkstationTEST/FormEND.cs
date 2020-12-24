@@ -473,7 +473,17 @@ namespace WorkstationTEST
             serialPort1.Parity = System.IO.Ports.Parity.None;
             serialPort1.StopBits = System.IO.Ports.StopBits.One;
             if (!serialPort1.IsOpen)
-                serialPort1.Open();
+            {
+                try
+                {
+                    serialPort1.Open();
+                }
+                catch(Exception ex)
+                {
+                    //MessageBox.Show("開啟掃描器異常");
+                }
+            }
+               
             Console.WriteLine("isopen:"+serialPort1.IsOpen);
         }
 
@@ -994,6 +1004,8 @@ namespace WorkstationTEST
 
         public void UpdateRecordCom()
         {
+            string[] notincludelist = new string[] { "D16" };
+
             var s = new saving();
             s.Show();
             var DayReportIdS = tabPage2.Controls.Find("DayReportId", true);
@@ -1008,6 +1020,7 @@ namespace WorkstationTEST
             var WorkTimeS = tabPage2.Controls.Find("BTN-WorkTime", true);
             var MakeNoS= tabPage2.Controls.Find("BTN-MakeNo", true);
             var Units = tabPage2.Controls.Find("BTN-UseUnits", true);
+            var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);
             //local
             var EmpnoS = tabPage1.Controls.Find("frmEmpshowno", true);
             var WorkDateS= tabPage2.Controls.Find("BTN-WorkDate", true);
@@ -1033,6 +1046,7 @@ namespace WorkstationTEST
             string WorkOrderItemId = WorkOrderItemIdS.Length > 0 ? WorkOrderItemIdS[0].Text : "";
             string WorkId = WorkIdS.Length > 0 ? WorkIdS[0].Text : "";
             string Unit = Units.Length > 0 ? Units[0].Text : "";
+            string WorkNo = WorkNoS.Length > 0 ? WorkNoS[0].Text : "";
             var middletimestart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
             var middletimeend = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 0, 0);
             if (StartTime <= middletimestart && EndTime >= middletimeend)
@@ -1042,9 +1056,29 @@ namespace WorkstationTEST
             if (Unit == "Set")
             {
                 if (CompletGoQty + CompletNgQty > 0)
-                    CompleteQty = (CompletGoQty + CompletNgQty) / 2;
+                {
+                    if (notincludelist.Contains(WorkNo))
+                    {
+                        CompleteQty = CompletGoQty + CompletNgQty;
+                    }
+                    else
+                    {
+                        CompleteQty = (CompletGoQty + CompletNgQty) / 2;
+                    }
+                }
+                   
                 if (BadGoQty + BadNgQty > 0)
-                    BadQty = (BadGoQty + BadNgQty) / 2;
+                {
+                    if (notincludelist.Contains(WorkNo))
+                    {
+                        BadQty = BadGoQty + BadNgQty;
+                    }
+                    else
+                    {
+                        BadQty = (BadGoQty + BadNgQty) / 2;
+                    }
+                }
+                    
             }
 
             /*var ri = ((TableLayoutPanel)rpanel[0]).RowCount;

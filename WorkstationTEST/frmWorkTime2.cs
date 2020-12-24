@@ -24,10 +24,14 @@ namespace WorkstationTEST
         {
             label7.Text = rtext2["infotitle"];
             label13.Text = rtext2["label7"];
-
+            label12.Text = rtext2["label4"];
+            label2.Text = rtext["completeqty"]; 
+            label3.Text = rtext["badqty"];
+            label21.Text = rtext["proc"];
+            label1.Text = rtext["worktime"];
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn(save, "F12::F12", "儲存");
+            setpageup.SetBtn(save, "F12::F12", rtext2["WKsave"]);
             var tableheadstr = new string[] {};
             var textarray = new string[] { };
             if (Unit=="Set")

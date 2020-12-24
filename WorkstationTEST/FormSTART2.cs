@@ -37,8 +37,16 @@ namespace WorkstationTEST
         public string sComport = new API("x", "x").COMPORT;
         delegate void Display(Byte[] buffer);
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
+        string lang = "";
+
+
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                lang = oTINI.getKeyValue("SYSTEM", "LANGUAGE", "");
+            }
             switch ((sender as TabControl).SelectedIndex)
             {
                 case 0:
@@ -109,6 +117,21 @@ namespace WorkstationTEST
                     {
                         TextBox templab = new TextBox();
                         templab.Text = tableheadstr[a];
+                        if (textarray[a].ToLower().Contains("bad"))
+                        {
+                            templab.BackColor = Color.Red;
+                        }
+                        if (lang != "CHT")
+                        {
+                            if(textarray[a] == "NoGoCompleteQty" || textarray[a] == "NoGoBadQty")
+                            {
+                                templab.Width = 150;
+                            }
+                            if (textarray[a] == "GoCompleteQty" || textarray[a] == "GoBadQty")
+                            {
+                                templab.Width = 120;
+                            }
+                        }
                         templab.ReadOnly = true;
                         templab.Margin = new Padding(0);
                         templab.TabIndex = 999;
@@ -116,6 +139,21 @@ namespace WorkstationTEST
                         rpc.Controls.Add(templab, a, 0);
                         TextBox numbox = new TextBox();
                         numbox.Name = textarray[a];
+                        if(textarray[a].ToLower().Contains("bad"))
+                        {
+                            numbox.ForeColor = Color.Red;
+                        }
+                        if (lang != "CHT")
+                        {
+                            if (textarray[a] == "NoGoCompleteQty" || textarray[a] == "NoGoBadQty")
+                            {
+                                numbox.Width = 150;
+                            }
+                            if (textarray[a] == "GoCompleteQty" || textarray[a] == "GoBadQty")
+                            {
+                                numbox.Width = 120;
+                            }
+                        }
                         numbox.TabIndex = a + 1;
                         numbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
                         numbox.GotFocus += new EventHandler(BtnGotfocus);
@@ -1107,6 +1145,7 @@ namespace WorkstationTEST
             var oemp = tabPage1.Controls.Find("frmEmpshowno",true);
             var omkno = tabPage2.Controls.Find("WKSaveMakeNo", true);
             var owkn = tabPage2.Controls.Find("WKSaveWorkName", true);
+            var owkno = tabPage2.Controls.Find("WKSaveWorkNo", true);
             var owko = tabPage2.Controls.Find("frmWKWorkitem", true);
             var ocq = tabPage3.Controls.Find("CompleteQty", true);
             var obq = tabPage3.Controls.Find("BadQty", true);
@@ -1115,6 +1154,7 @@ namespace WorkstationTEST
             var obcq = tabPage3.Controls.Find("GoBadQty", true);
             var obnq = tabPage3.Controls.Find("NoGoBadQty", true);
             var owt = tabPage3.Controls.Find("WorkTime", true);
+            string[] notincludelist = new string[] { "D16" };
             try
             {
                 if (oemp.Length > 0)
@@ -1150,7 +1190,15 @@ namespace WorkstationTEST
                     decimal.TryParse(ognq[0].Text, out nq);
                     if (cq > 0 || nq > 0)
                     {
-                        tq = (cq + nq) / 2;
+                        if (notincludelist.Contains(owkno[0].Text))
+                        {
+                            tq = cq + nq;
+                        }
+                        else
+                        {
+                            tq = (cq + nq) / 2;
+                        }
+
                     }
                     msgcomplet[0].Text = tq.ToString();
                 }
@@ -1163,7 +1211,15 @@ namespace WorkstationTEST
                     decimal.TryParse(obnq[0].Text, out bnq);
                     if (bcq > 0 || bnq > 0)
                     {
-                        btq = (bcq + bnq) / 2;
+                        if (notincludelist.Contains(owkno[0].Text))
+                        {
+                            btq = bcq + bnq;
+                        }
+                        else
+                        {
+                            btq = (bcq + bnq) / 2;
+                        }
+
                     }
                     msgbad[0].Text = btq.ToString();
                 }

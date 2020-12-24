@@ -70,7 +70,7 @@
             // 
             this.SaveStat.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveStat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.SaveStat.Location = new System.Drawing.Point(711, 83);
+            this.SaveStat.Location = new System.Drawing.Point(773, 83);
             this.SaveStat.Name = "SaveStat";
             this.SaveStat.Size = new System.Drawing.Size(164, 33);
             this.SaveStat.TabIndex = 27;
@@ -122,25 +122,25 @@
             this.RPanel.AutoSize = true;
             this.RPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RPanel.ColumnCount = 13;
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.RPanel.Location = new System.Drawing.Point(5, 21);
             this.RPanel.Name = "RPanel";
             this.RPanel.RowCount = 2;
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.Size = new System.Drawing.Size(1300, 0);
+            this.RPanel.Size = new System.Drawing.Size(0, 0);
             this.RPanel.TabIndex = 29;
             // 
             // focust
@@ -177,7 +177,7 @@
             this.panel3.Controls.Add(this.label13);
             this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Location = new System.Drawing.Point(688, 18);
+            this.panel3.Location = new System.Drawing.Point(750, 18);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(359, 283);
             this.panel3.TabIndex = 33;
@@ -186,7 +186,7 @@
             // 
             this.msgworktime.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgworktime.ForeColor = System.Drawing.Color.Blue;
-            this.msgworktime.Location = new System.Drawing.Point(115, 213);
+            this.msgworktime.Location = new System.Drawing.Point(145, 214);
             this.msgworktime.Name = "msgworktime";
             this.msgworktime.Size = new System.Drawing.Size(175, 23);
             this.msgworktime.TabIndex = 24;
@@ -196,9 +196,9 @@
             // 
             this.msgwork.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgwork.ForeColor = System.Drawing.Color.Blue;
-            this.msgwork.Location = new System.Drawing.Point(115, 179);
+            this.msgwork.Location = new System.Drawing.Point(145, 180);
             this.msgwork.Name = "msgwork";
-            this.msgwork.Size = new System.Drawing.Size(157, 23);
+            this.msgwork.Size = new System.Drawing.Size(196, 23);
             this.msgwork.TabIndex = 23;
             this.msgwork.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -206,7 +206,7 @@
             // 
             this.msgbad.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgbad.ForeColor = System.Drawing.Color.Blue;
-            this.msgbad.Location = new System.Drawing.Point(115, 145);
+            this.msgbad.Location = new System.Drawing.Point(145, 146);
             this.msgbad.Name = "msgbad";
             this.msgbad.Size = new System.Drawing.Size(100, 23);
             this.msgbad.TabIndex = 22;
@@ -216,7 +216,7 @@
             // 
             this.msgcomplet.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgcomplet.ForeColor = System.Drawing.Color.Blue;
-            this.msgcomplet.Location = new System.Drawing.Point(115, 113);
+            this.msgcomplet.Location = new System.Drawing.Point(145, 114);
             this.msgcomplet.Name = "msgcomplet";
             this.msgcomplet.Size = new System.Drawing.Size(100, 23);
             this.msgcomplet.TabIndex = 21;
@@ -226,7 +226,7 @@
             // 
             this.msgmkno.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgmkno.ForeColor = System.Drawing.Color.Blue;
-            this.msgmkno.Location = new System.Drawing.Point(115, 78);
+            this.msgmkno.Location = new System.Drawing.Point(145, 79);
             this.msgmkno.Name = "msgmkno";
             this.msgmkno.Size = new System.Drawing.Size(175, 23);
             this.msgmkno.TabIndex = 20;
@@ -236,9 +236,9 @@
             // 
             this.msgemp.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgemp.ForeColor = System.Drawing.Color.Blue;
-            this.msgemp.Location = new System.Drawing.Point(115, 41);
+            this.msgemp.Location = new System.Drawing.Point(145, 41);
             this.msgemp.Name = "msgemp";
-            this.msgemp.Size = new System.Drawing.Size(213, 23);
+            this.msgemp.Size = new System.Drawing.Size(175, 23);
             this.msgemp.TabIndex = 19;
             this.msgemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -246,7 +246,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(24, 145);
+            this.label3.Location = new System.Drawing.Point(5, 145);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 24);
             this.label3.TabIndex = 18;
@@ -256,7 +256,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(24, 113);
+            this.label2.Location = new System.Drawing.Point(5, 113);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 24);
             this.label2.TabIndex = 17;
@@ -266,7 +266,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(43, 213);
+            this.label1.Location = new System.Drawing.Point(5, 213);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 24);
             this.label1.TabIndex = 16;
@@ -276,7 +276,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label21.Location = new System.Drawing.Point(43, 179);
+            this.label21.Location = new System.Drawing.Point(5, 179);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(58, 24);
             this.label21.TabIndex = 14;
@@ -296,7 +296,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(43, 41);
+            this.label12.Location = new System.Drawing.Point(5, 40);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 24);
             this.label12.TabIndex = 5;

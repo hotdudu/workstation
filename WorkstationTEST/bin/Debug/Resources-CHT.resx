@@ -198,4 +198,28 @@
   <data name="nodata" xml:space="preserve">
     <value>無資料</value>
   </data>
+  <data name="workdate" xml:space="preserve">
+    <value>工作日期</value>
+  </data>
+  <data name="procname" xml:space="preserve">
+    <value>製程名稱</value>
+  </data>
+  <data name="procno" xml:space="preserve">
+    <value>製程編號</value>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>單位</value>
+  </data>
+  <data name="update" xml:space="preserve">
+    <value>上傳狀態</value>
+  </data>
+  <data name="wminute" xml:space="preserve">
+    <value>工作分鐘數</value>
+  </data>
+  <data name="failure" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>成功</value>
+  </data>
 </root>

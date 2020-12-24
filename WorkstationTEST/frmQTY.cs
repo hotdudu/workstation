@@ -19,10 +19,12 @@ namespace WorkstationTEST
 
         private void frmQTY_Load(object sender, EventArgs e)
         {
+            Dictionary<string, string> rtext = CreateElement.loadresx("WK");
+
             // SaveStat.Visible = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn((XButton)save, "Insert::Insert", "儲存");
+            setpageup.SetBtn((XButton)save, "Insert::Insert", rtext["WKsave"]);
             Int32 tlpColumCount = NumPanel.ColumnCount;
             Int32 tlpRowCount = NumPanel.RowCount;
             int num = 10;
