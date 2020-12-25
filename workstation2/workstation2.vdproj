@@ -15,37 +15,67 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_006AB4114D49426B807F8D3D83BDAA85"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0347C68B5F464CDEB2B5D20A9B138C3C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_13C5B0F4806E1DA3162062DC1C67DE52"
         "OwnerKey" = "8:_A65C30ECF8A74464B2DAFF701B0FDD8A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_14DF5A4793C64FC28402AC3D55707EC8"
+        "MsmKey" = "8:_2EA1F86A66014FA487CEF319A02A482C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1C3D87C23AAD46FC85EFC1F26EFC8F73"
+        "MsmKey" = "8:_39594BF9EFB348C3884408EF575765D3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8F62C490768B4235882023CDED14CD68"
+        "MsmKey" = "8:_39845C1CDE984F859916BF0C7F37AF49"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4355FD9EBFDA4E72AFFB41EEC9B5D609"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_436561790816495F8B4BB66503290C08"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6293F6C7067549858DE624CE5FFF648A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_68D82F11F66C4ADAAA933D00138DE20B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6E58CFC63C0D459493C3D13EF69DFD01"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_77A4C867993F43ECBBAD21685E2C65F3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8AAF0E193E674C7D90BEDE16CB38D9BB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,7 +105,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BF88CB45C3C3433A9F9D9C66EDDC091D"
+        "MsmKey" = "8:_B053A3445F2E4F5B85D00057237EF8D6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -99,7 +129,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CD321248456141888FAAE880359EAC93"
+        "MsmKey" = "8:_D46F4CAE0C564C75986B0D6917B091F0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -112,18 +142,6 @@
         "Entry"
         {
         "MsmKey" = "8:_E5C19B2F34E844A9BC5CC0DE9AAF46FC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F97482D49B7C44A6B3EFDB2F3771C3A5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FAA4AF0DEFC8440288DB7FB0DEEE3A03"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -238,6 +256,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -268,46 +294,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_006AB4114D49426B807F8D3D83BDAA85"
-            {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-VN-ST.resx"
-            "TargetName" = "8:Resources-VN-ST.resx"
-            "Tag" = "8:"
-            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0347C68B5F464CDEB2B5D20A9B138C3C"
-            {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-CHT-ST.resx"
-            "TargetName" = "8:Resources-CHT-ST.resx"
-            "Tag" = "8:"
-            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_13C5B0F4806E1DA3162062DC1C67DE52"
             {
             "AssemblyRegister" = "3:1"
@@ -339,9 +325,49 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14DF5A4793C64FC28402AC3D55707EC8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2EA1F86A66014FA487CEF319A02A482C"
             {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-EN.resx"
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-VN.resx"
+            "TargetName" = "8:Resources-VN.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_39594BF9EFB348C3884408EF575765D3"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-CHT-ST.resx"
+            "TargetName" = "8:Resources-CHT-ST.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_39845C1CDE984F859916BF0C7F37AF49"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-EN.resx"
             "TargetName" = "8:Resources-EN.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
@@ -359,10 +385,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C3D87C23AAD46FC85EFC1F26EFC8F73"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4355FD9EBFDA4E72AFFB41EEC9B5D609"
             {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-EN-WK.resx"
-            "TargetName" = "8:Resources-EN-WK.resx"
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-IN-WK.resx"
+            "TargetName" = "8:Resources-IN-WK.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
             "Condition" = "8:"
@@ -379,10 +405,110 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8F62C490768B4235882023CDED14CD68"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_436561790816495F8B4BB66503290C08"
             {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-VN.resx"
-            "TargetName" = "8:Resources-VN.resx"
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-VN-ST.resx"
+            "TargetName" = "8:Resources-VN-ST.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6293F6C7067549858DE624CE5FFF648A"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-CHT.resx"
+            "TargetName" = "8:Resources-CHT.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_68D82F11F66C4ADAAA933D00138DE20B"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-EN-ST.resx"
+            "TargetName" = "8:Resources-EN-ST.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6E58CFC63C0D459493C3D13EF69DFD01"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-IN-ST.resx"
+            "TargetName" = "8:Resources-IN-ST.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77A4C867993F43ECBBAD21685E2C65F3"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-IN.resx"
+            "TargetName" = "8:Resources-IN.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AAF0E193E674C7D90BEDE16CB38D9BB"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-CHT-WK.resx"
+            "TargetName" = "8:Resources-CHT-WK.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
             "Condition" = "8:"
@@ -450,10 +576,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BF88CB45C3C3433A9F9D9C66EDDC091D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B053A3445F2E4F5B85D00057237EF8D6"
             {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-CHT-WK.resx"
-            "TargetName" = "8:Resources-CHT-WK.resx"
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-EN-WK.resx"
+            "TargetName" = "8:Resources-EN-WK.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
             "Condition" = "8:"
@@ -563,9 +689,9 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CD321248456141888FAAE880359EAC93"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D46F4CAE0C564C75986B0D6917B091F0"
             {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-VN-WK.resx"
+            "SourcePath" = "8:..\\WorkstationTEST\\Resources-VN-WK.resx"
             "TargetName" = "8:Resources-VN-WK.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
@@ -618,46 +744,6 @@
             {
             "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\SQLite.Interop.dll"
             "TargetName" = "8:SQLite.Interop.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F97482D49B7C44A6B3EFDB2F3771C3A5"
-            {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-CHT.resx"
-            "TargetName" = "8:Resources-CHT.resx"
-            "Tag" = "8:"
-            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAA4AF0DEFC8440288DB7FB0DEEE3A03"
-            {
-            "SourcePath" = "8:..\\WorkstationTEST\\bin\\Debug\\Resources-EN-ST.resx"
-            "TargetName" = "8:Resources-EN-ST.resx"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
             "Condition" = "8:"

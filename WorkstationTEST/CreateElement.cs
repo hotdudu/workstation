@@ -99,7 +99,7 @@ namespace WorkstationTEST
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Tag = btext;
-            btn.Image = SetQR(qr, 50, 50, "QR");
+            btn.Image = SetQR(qr, 80, 80, "QR");
 
             return btn;
         }
@@ -113,7 +113,7 @@ namespace WorkstationTEST
             btn.Margin = new Padding(20, 50, 20, 50);           
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
-            btn.Image = SetQR(qr, 50, 50, "QR");
+            btn.Image = SetQR(qr, 80, 80, "QR");
             btn.Tag = no+":"+name;
             return btn;
         }
@@ -124,11 +124,11 @@ namespace WorkstationTEST
             btn.Name = bname;
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
-            btn.Size = new Size(130, 165);
-            btn.Margin = new Padding(20, 20, 20, 20);
+            btn.Size = new Size(170, 150);
+            btn.Margin = new Padding(5, 20, 5, 20);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
-            btn.Image = SetQR(qr,50, 50, "QR");
+            btn.Image = SetQR(qr,80, 80, "QR");
             btn.Tag = savestr;
             return btn;
         }
@@ -139,14 +139,14 @@ namespace WorkstationTEST
             btn.Name = bname;
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
-            btn.Size = new Size(130, 165);
-            btn.Margin = new Padding(20, 20, 20, 20);
+            btn.Size = new Size(190, 150);
+            btn.Margin = new Padding(0, 20, 0, 20);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
-            btn.Image = SetQR(qr, 50, 50, "QR");
+            btn.Image = SetQR(qr, 80, 80, "QR");
             btn.Tag = savestr;
             btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
-            btn.Left = icol * (ispace * 2 + btn.Width) + ispace;
+            btn.Left = icol * (ispace + btn.Width);
             btn.Parent = p;
             return btn;
         }
@@ -175,7 +175,7 @@ namespace WorkstationTEST
             btn.LeftText = name;
             btn.TopText = key;
             btn.Size = new Size(130, 110);
-            btn.Image = SetQR(no, 50, 50, "QR");
+            btn.Image = SetQR(no, 80, 80, "QR");
             btn.Tag = no;
             btn.ImageAlign = ContentAlignment.MiddleCenter;
         }
