@@ -717,7 +717,7 @@ namespace WorkstationTEST
                     var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
                     var frmWKRecordnow = frmWKRecordnows[0];
                     var frmWKRecordT = frmWKRecordTs[0];
-                    int iSpace = 30;
+                    int iSpace = 5;
                     int iCol = 0;
                     int iRow = 0;
                     int ItemsOneRow = 5;
@@ -1156,10 +1156,11 @@ namespace WorkstationTEST
                 }
             }
             var height = wkp.Height;
-            if (wkp.VerticalScroll.Value - (height) < wkp.VerticalScroll.Minimum)
+            var vheight = nowrow * wkp.Height;
+            if (vheight - (height) < wkp.VerticalScroll.Minimum)
             { wkp.VerticalScroll.Value = wkp.VerticalScroll.Minimum; }
             else
-            { wkp.VerticalScroll.Value -= height; }
+            { wkp.VerticalScroll.Value = vheight; }
             wkp.PerformLayout();
         }
 
@@ -1171,29 +1172,41 @@ namespace WorkstationTEST
             var nowrow = 0;
             var tempn = int.TryParse(wkrnow[0].Text, out nowrow);
             var totalitem = 10;
+            var totoalrow = Math.Ceiling(wkp.Controls.Count / (decimal)totalitem);
             nowrow++;
-            wkrnow[0].Text = nowrow.ToString();
+            if(nowrow<totoalrow)
+                wkrnow[0].Text = nowrow.ToString();
             var startnum = nowrow * totalitem + 1;
             var endnum = (nowrow + 1) * totalitem;
             var npoint = 0;
-            foreach (Control contr in wkp.Controls)
+
+            var height =wkp.Height;
+            var vheight= nowrow * wkp.Height;
+
+
+            /* if (vheight+ height > wkp.VerticalScroll.Maximum)
+             { wkp.VerticalScroll.Value = wkp.VerticalScroll.Maximum; }
+             else
+             {  }*/
+            if (nowrow < totoalrow)
             {
-                npoint++;
-                if (npoint >= startnum && npoint <= endnum&& npoint<=wkp.Controls.Count)
+                foreach (Control contr in wkp.Controls)
                 {
-                    contr.Visible = true;
+                    npoint++;
+                    if (npoint >= startnum && npoint <= endnum && npoint <= wkp.Controls.Count)
+                    {
+                        contr.Visible = true;
+                    }
+                    else
+                    {
+                        contr.Visible = false;
+                    }
                 }
-                else
-                {
-                    contr.Visible = false;
-                }
+                wkp.VerticalScroll.Value = vheight;
+                wkp.PerformLayout();
             }
-            var height = wkp.Height;
-            if (wkp.VerticalScroll.Value + height > wkp.VerticalScroll.Maximum)
-            { wkp.VerticalScroll.Value = wkp.VerticalScroll.Maximum; }
-            else
-            { wkp.VerticalScroll.Value += height; }
-            wkp.PerformLayout();
+
+
         }
 
         private void CloseSerialOnExit()
@@ -1273,7 +1286,7 @@ namespace WorkstationTEST
                 List<Button> btnemplist = new List<Button>();
                 if (getwitem.Count() > 0)
                 {
-                    int iSpace = 30;
+                    int iSpace = 5;
                     int iCol = 0;
                     int iRow = 0;
                     int ItemsOneRow = 5;

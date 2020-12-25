@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="616448">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="616960">
       <assemblyIdentity name="WorkstationTEST" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>tK/A0Rdp1AUc83P506dgf8KenpzwmjLQM/h5BdUyq3w=</dsig:DigestValue>
+        <dsig:DigestValue>zzNd845W/YOKXGszOtbxgU6klQ+mOxWxwMKwW3gFieM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

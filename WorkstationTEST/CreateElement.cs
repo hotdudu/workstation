@@ -174,7 +174,7 @@ namespace WorkstationTEST
             Console.WriteLine("myEnum=" + myEnum);
             btn.LeftText = name;
             btn.TopText = key;
-            btn.Size = new Size(130, 110);
+            btn.Size = new Size(195, 110);
             btn.Image = SetQR(no, 80, 80, "QR");
             btn.Tag = no;
             btn.ImageAlign = ContentAlignment.MiddleCenter;

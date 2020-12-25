@@ -517,7 +517,7 @@
             this.WKPanel.AutoScrollMinSize = new System.Drawing.Size(900, 218);
             this.WKPanel.Location = new System.Drawing.Point(10, 186);
             this.WKPanel.Name = "WKPanel";
-            this.WKPanel.Size = new System.Drawing.Size(1027, 428);
+            this.WKPanel.Size = new System.Drawing.Size(1027, 325);
             this.WKPanel.TabIndex = 104;
             // 
             // WKsave

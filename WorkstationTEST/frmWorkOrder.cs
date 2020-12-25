@@ -52,7 +52,7 @@ namespace WorkstationTEST
             List<Button> btnemplist = new List<Button>();
             if (getwitem.Count() > 0)
             {
-                int iSpace = 30;
+                int iSpace = 5;
                 int iCol = 0;
                 int iRow = 0;
                 int ItemsOneRow = 5;
@@ -96,7 +96,7 @@ namespace WorkstationTEST
         {
             var text =  (sender as TextBox).Text;
             infotitle.Text = "";
-            int iSpace = 30;
+            int iSpace = 5;
             int iCol = 0;
             int iRow = 0;
             int ItemsOneRow = 5;
@@ -308,43 +308,48 @@ namespace WorkstationTEST
             }
 
             var height = WKPanel.Height;
-            if (WKPanel.VerticalScroll.Value - (height) < WKPanel.VerticalScroll.Minimum)
+            var vheight = nowrow * WKPanel.Height;
+            if (vheight - (height) < WKPanel.VerticalScroll.Minimum)
             { WKPanel.VerticalScroll.Value = WKPanel.VerticalScroll.Minimum; }
             else
-            { WKPanel.VerticalScroll.Value -= height; }
+            { WKPanel.VerticalScroll.Value = vheight; }
             WKPanel.PerformLayout();
         }
 
         private void frmWKbtnD_Click(object sender, EventArgs e)
         {
-            var nowrow = 0;
+           var nowrow = 0;
             var tempn = int.TryParse(frmWKRecordnow.Text, out nowrow);
             var totalitem = 10;
+            var totoalrow = Math.Ceiling(WKPanel.Controls.Count / (decimal)totalitem);
             nowrow++;
-            frmWKRecordnow.Text = nowrow.ToString();
+            if (nowrow < totoalrow)
+                frmWKRecordnow.Text = nowrow.ToString();
             var startnum = nowrow * totalitem + 1;
             var endnum = (nowrow + 1) * totalitem;
             var npoint = 0;
-            foreach (Control contr in WKPanel.Controls)
-            {
-                npoint++;
-                Console.Write("ptype=" + contr.GetType() + "," + WKPanel.Controls.Count);
-                if (npoint >= startnum && npoint <= endnum && npoint <= WKPanel.Controls.Count)
-                {
-                    contr.Visible = true;
-                }
-                else
-                {
-                    contr.Visible = false;
-                }
-            }
+
 
             var height = WKPanel.Height;
-            if (WKPanel.VerticalScroll.Value + height > WKPanel.VerticalScroll.Maximum)
-            { WKPanel.VerticalScroll.Value = WKPanel.VerticalScroll.Maximum; }
-            else
-            { WKPanel.VerticalScroll.Value += height; }
-            WKPanel.PerformLayout();
+            var vheight = WKPanel.Height * nowrow;
+            if (nowrow < totoalrow)
+            {
+                foreach (Control contr in WKPanel.Controls)
+                {
+                    npoint++;
+                    Console.Write("ptype=" + contr.GetType() + "," + WKPanel.Controls.Count);
+                    if (npoint >= startnum && npoint <= endnum && npoint <= WKPanel.Controls.Count)
+                    {
+                        contr.Visible = true;
+                    }
+                    else
+                    {
+                        contr.Visible = false;
+                    }
+                }
+                WKPanel.VerticalScroll.Value = vheight;
+                WKPanel.PerformLayout();
+            }
         }
 
         private void labSpec_Click(object sender, EventArgs e)
