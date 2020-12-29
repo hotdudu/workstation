@@ -19,6 +19,7 @@ namespace WorkstationTEST
         List<Partner> getpt = new List<Partner>();
         private void frmPartner_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmPTbtnU, "Insert::Insert", "上一頁");
             setpageup.SetBtn(frmPTbtnD, "Delete::Delete", "下一頁");

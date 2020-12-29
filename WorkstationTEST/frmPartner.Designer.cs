@@ -28,61 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.frmPTbtnD = new XButton();
-            this.PTPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.frmPTbtnU = new XButton();
-            this.save = new XButton();
+            this.frmPTbtnD = new WorkstationTEST.XButton();
+            this.frmPTbtnU = new WorkstationTEST.XButton();
+            this.save = new WorkstationTEST.XButton();
             this.frmPTRecordnow = new System.Windows.Forms.Label();
             this.frmPTshowno = new System.Windows.Forms.TextBox();
             this.PTSavePartnerId = new System.Windows.Forms.TextBox();
             this.frmPTRecordT = new System.Windows.Forms.Label();
+            this.PTPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // frmPTbtnD
             // 
-            this.frmPTbtnD.Location = new System.Drawing.Point(593, 415);
+            this.frmPTbtnD.LeftText = null;
+            this.frmPTbtnD.Location = new System.Drawing.Point(577, 500);
             this.frmPTbtnD.Name = "frmPTbtnD";
             this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
             this.frmPTbtnD.TabIndex = 5;
-            this.frmPTbtnD.Text = "frmPTbtnD";
+            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnD.TopText = null;
             this.frmPTbtnD.UseVisualStyleBackColor = true;
             this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
             // 
-            // PTPanel
-            // 
-            this.PTPanel.AutoSize = true;
-            this.PTPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.PTPanel.ColumnCount = 5;
-            this.PTPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.PTPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.PTPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.PTPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.PTPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.PTPanel.Location = new System.Drawing.Point(10, 113);
-            this.PTPanel.Name = "PTPanel";
-            this.PTPanel.RowCount = 2;
-            this.PTPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.PTPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.PTPanel.Size = new System.Drawing.Size(0, 0);
-            this.PTPanel.TabIndex = 2;
-            // 
             // frmPTbtnU
             // 
+            this.frmPTbtnU.LeftText = null;
             this.frmPTbtnU.Location = new System.Drawing.Point(593, 206);
             this.frmPTbtnU.Name = "frmPTbtnU";
             this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
             this.frmPTbtnU.TabIndex = 4;
-            this.frmPTbtnU.Text = "frmPTbtnU";
+            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnU.TopText = null;
             this.frmPTbtnU.UseVisualStyleBackColor = true;
             this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(874, 99);
+            this.save.LeftText = null;
+            this.save.Location = new System.Drawing.Point(1030, 143);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(86, 73);
             this.save.TabIndex = 6;
-            this.save.Text = "button1";
+            this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.save.TopText = null;
             this.save.UseVisualStyleBackColor = true;
             this.save.Visible = false;
             // 
@@ -109,7 +97,6 @@
             this.PTSavePartnerId.Name = "PTSavePartnerId";
             this.PTSavePartnerId.Size = new System.Drawing.Size(100, 22);
             this.PTSavePartnerId.TabIndex = 9;
-            this.PTSavePartnerId.Visible = false;
             // 
             // frmPTRecordT
             // 
@@ -121,11 +108,21 @@
             this.frmPTRecordT.Text = "frmPTRecordT";
             this.frmPTRecordT.Visible = false;
             // 
+            // PTPanel
+            // 
+            this.PTPanel.AutoScroll = true;
+            this.PTPanel.AutoScrollMinSize = new System.Drawing.Size(900, 218);
+            this.PTPanel.Location = new System.Drawing.Point(3, 62);
+            this.PTPanel.Name = "PTPanel";
+            this.PTPanel.Size = new System.Drawing.Size(1021, 432);
+            this.PTPanel.TabIndex = 105;
+            // 
             // frmPartner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1261, 645);
+            this.Controls.Add(this.PTPanel);
             this.Controls.Add(this.frmPTRecordT);
             this.Controls.Add(this.PTSavePartnerId);
             this.Controls.Add(this.frmPTshowno);
@@ -133,7 +130,6 @@
             this.Controls.Add(this.save);
             this.Controls.Add(this.frmPTbtnD);
             this.Controls.Add(this.frmPTbtnU);
-            this.Controls.Add(this.PTPanel);
             this.Name = "frmPartner";
             this.Text = "frmPartner";
             this.Load += new System.EventHandler(this.frmPartner_Load);
@@ -143,8 +139,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel PTPanel;
         private XButton frmPTbtnU;
         private XButton save;
         private System.Windows.Forms.Label frmPTRecordnow;
@@ -152,5 +146,6 @@
         private System.Windows.Forms.TextBox PTSavePartnerId;
         private XButton frmPTbtnD;
         private System.Windows.Forms.Label frmPTRecordT;
+        private System.Windows.Forms.Panel PTPanel;
     }
 }

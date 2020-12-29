@@ -150,14 +150,35 @@ namespace WorkstationTEST
             btn.Parent = p;
             return btn;
         }
-        public Button CreatePTBtn(string no, string name, Guid PId,string key)
+        public Button CreatePTBtn(string no, string name, Guid PId,string key, int irow, int icol, int ispace, Control p)
         {
             var savestr = no + ":" + PId.ToString();
             Console.WriteLine("PTbtn=" + savestr);
             XButton btn = new XButton();
             btn.Name = bname;
             var qr = no + "::" + key;
-            btn.LeftText =name;
+            btn.LeftText = no + Environment.NewLine + name;
+            btn.TopText = key;
+            btn.Size = new Size(190, 150);
+            btn.Margin = new Padding(0, 20, 0, 20);
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+            btn.TopText = key;
+            btn.Image = SetQR(qr, 80, 80, "QR");
+            btn.Tag = savestr;
+            btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
+            btn.Left = icol * (ispace + btn.Width);
+            btn.Parent = p;
+            return btn;
+        }
+
+        public Button CreatePTBtnWithXY(string no, string name, Guid PId, string key)
+        {
+            var savestr = no + ":" + PId.ToString();
+            Console.WriteLine("PTbtn=" + savestr);
+            XButton btn = new XButton();
+            btn.Name = bname;
+            var qr = no + "::" + key;
+            btn.LeftText = name;
             btn.TopText = key;
             btn.Size = new Size(160, 165);
             btn.Margin = new Padding(20, 20, 20, 20);
@@ -166,6 +187,7 @@ namespace WorkstationTEST
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             return btn;
         }
+
         public void SetBtn(XButton btn,string no,string name)
         {
             var btnarray = no.Split(new string[] { "::" }, StringSplitOptions.None);
