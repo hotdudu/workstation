@@ -45,7 +45,7 @@ namespace WorkstationTEST
                     tabPage1.Controls.Add(frmEmp);
                     break;
                 case 2:
-                    var frmWK = new frmWorkOrder2();
+                    var frmWK = new frmWorkOrder3();
                     frmWK.TopLevel = false;
                     frmWK.Visible = true;
                     frmWK.Height = tabControl1.Height - 50;
@@ -91,6 +91,8 @@ namespace WorkstationTEST
                     qty[0].TextChanged += new EventHandler(gettab4);
                     var save = frmQTY.Controls.Find("save", false);
                     save[0].Click += new EventHandler(savetab);
+                    var qtyfocus= frmQTY.Controls.Find("outqty",true);
+                    ActiveControl = qtyfocus[0];
                     break;
             }
         }
@@ -235,28 +237,37 @@ namespace WorkstationTEST
             var workorderitemId = tabPage3.Controls.Find("WKSaveWitemId", true);
             var workorderid = tabPage3.Controls.Find("WKSaveWorderId",true);
             var workid= tabPage3.Controls.Find("WKSaveWorkId", true);
-            var partnerid = tabPage3.Controls.Find("PTSavePartnerId", true);
-            var comqty = tabPage4.Controls.Find("frmNumshowno", true);
+            var partnerid = tabPage2.Controls.Find("PTSavePartnerId", true);
+            var comqty = tabPage4.Controls.Find("outqty", true);
+            var price = tabPage4.Controls.Find("price", true);
             var MakeNo = tabPage3.Controls.Find("WKSaveMakeNo", true);
             var Specification = tabPage3.Controls.Find("WKSaveSpecification", true);
             var WorkNo = tabPage3.Controls.Find("WKSaveWorkNo", true);
             var Workqty = tabPage3.Controls.Find("WKSaveWorkqty", true);
+            var tenantids= tabPage3.Controls.Find("WKtenantId", true);
             var WorkName = tabPage3.Controls.Find("WKSaveWorkName", true);
+            var AssetsIds = tabPage3.Controls.Find("WKAssetsId", true);
+            var chkousides = tabPage4.Controls.Find("chkouside", true);
             var starttime = DateTime.Now;
+            var workdate = DateTime.Today;
+            var ischk =(CheckBox)chkousides[0];
             int tid = 101;
+            var createempno = empno[0].Text;
+            var tenantid = tenantids[0].Text;
+            var pid = partnerid[0].Text;
             Guid dayreportid = Guid.NewGuid();
             Console.WriteLine("empno=" + empno[0].Text+"witenid="+workorderitemId[0].Text+",woid="+workorderid[0].Text+",workid="+workid[0].Text+",pid="+partnerid[0].Text+",qty="+comqty[0].Text+",did="+dayreportid+",won="+WorkName[0].Text+",wn="+WorkNo[0].Text+",mk="+MakeNo[0].Text+",wq="+Workqty[0].Text+",sp="+Specification[0].Text);
-            string dbPath = Directory.GetCurrentDirectory()+ "\\"+"wd2.db3";
+            string dbPath = Directory.GetCurrentDirectory()+ "\\"+"wd3.db3";
             string cnStr = "data source=" + dbPath+ ";Version=3;";
             Console.WriteLine("db=" + File.Exists(dbPath)+","+dbPath);
             if (File.Exists(dbPath))
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo)";
+                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price)";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
-                    cmd.Parameters.AddWithValue("@TenantId", tid);
+                    cmd.Parameters.AddWithValue("@TenantId",tenantid);
                     cmd.Parameters.AddWithValue("@WorkOrderId", workorderid[0].Text);
                     cmd.Parameters.AddWithValue("@WorkOrderItemId", workorderitemId[0].Text);
                     cmd.Parameters.AddWithValue("@WorkId", workid[0].Text);
@@ -264,16 +275,21 @@ namespace WorkstationTEST
                     cmd.Parameters.AddWithValue("@PartnerId", partnerid[0].Text);
                     cmd.Parameters.AddWithValue("@EmpNo", empno[0].Text);
                     cmd.Parameters.AddWithValue("@CompleteQty", comqty[0].Text);
-                    cmd.Parameters.AddWithValue("@WorkQty", Workqty[0].Text );
+                    cmd.Parameters.AddWithValue("@WorkQty", Workqty[0].Text);
                     cmd.Parameters.AddWithValue("@MakeNo", MakeNo[0].Text);
                     cmd.Parameters.AddWithValue("@WorkNo", WorkNo[0].Text);
                     cmd.Parameters.AddWithValue("@WorkName", WorkName[0].Text);
                     cmd.Parameters.AddWithValue("@Specification", Specification[0].Text);
+                    cmd.Parameters.AddWithValue("@AssetsId", AssetsIds[0].Text);
+                     cmd.Parameters.AddWithValue("@WorkDate", workdate);
+                    cmd.Parameters.AddWithValue("@Out", true);
+                    cmd.Parameters.AddWithValue("@Price", price[0].Text);
+                    cmd.Parameters.AddWithValue("@isupdate", false);
                     conn.Open();
                     try
                     {
                         cmd.ExecuteNonQuery();
-                       var savestat= tabPage4.Controls.Find("SaveStat", true);
+                        var savestat = tabPage4.Controls.Find("SaveStat", true);
                         savestat[0].Visible = true;
                         savestat[0].Text = "儲存成功";
                         cleardata();
@@ -281,6 +297,44 @@ namespace WorkstationTEST
                     catch (Exception ex)
                     {
                         throw new Exception(ex.Message);
+                    }
+
+
+                    if (ischk.Checked)
+                    {
+                        var selectScript = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
+                        SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                        cmd2.Parameters.AddWithValue("@WorkDate", workdate);
+                        cmd2.Parameters.AddWithValue("@PartnerId", pid);
+                        cmd2.Parameters.AddWithValue("@TenantId", tenantid);
+                        var EmpNos = "";
+                        var DayReportIds = "";
+                        var CompleteQtys = "";
+                        var WorkIds = "";
+                        var WorkOrderIds = "";
+                        var WorkOrderItemIds = "";
+                        var AssetsIdset = "";
+                        var Prices = "";
+                        var i = 0;
+                        using (SQLiteDataReader row = cmd2.ExecuteReader())
+                        {
+                            while (row.Read())
+                            {
+                                DayReportIds = DayReportIds+(i==0?"":",")+(row["DayReportId"] as string ?? "");
+                                CompleteQtys = CompleteQtys + (i == 0 ? "" : ",") + (row["CompleteQty"] as decimal? ?? null);
+                                WorkIds = WorkIds + (i == 0 ? "" : ",") + (row["WorkId"] as string ?? "");
+                                WorkOrderIds = WorkOrderIds + (i == 0 ? "" : ",") + (row["WorkOrderId"] as string ?? "");
+                                WorkOrderItemIds = WorkOrderItemIds + (i == 0 ? "" : ",") + (row["WorkOrderItemId"] as string ?? "");
+                                EmpNos = EmpNos + (i == 0 ? "" : ",") + row["EmpNo"] as string ?? "";
+                                AssetsIdset = AssetsIdset + (i == 0 ? "" : ",") + (row["AssetsId"] as string ?? "");
+                                Prices = Prices + (i == 0 ? "" : ",") + (row["Price"] as decimal? ?? null);
+                                i++;
+                            }
+                        }
+                        var upwk = new API("/CHG/Main/Home/AddOutsource/", "http://").UploadServerOut(EmpNos,CompleteQtys,DayReportIds,WorkOrderIds,WorkIds,WorkOrderItemIds,AssetsIdset,Prices,createempno,tenantid, pid);
+                    }
+                    else
+                    {
                     }
 
                 }
@@ -362,8 +416,8 @@ namespace WorkstationTEST
                 List<Workitem> Wgetwitem = new List<Workitem>();
                 if (keyupper == "Return")
                 {
-                    List<WorkOrder> Wgetworkorder = new List<WorkOrder>();
-                    Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101, wkmo[0].Text.ToUpper());
+                    List<WorkOrderO> Wgetworkorder = new List<WorkOrderO>();
+                    Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrderO(101, wkmo[0].Text.ToUpper());
                     Guid? wid = null;
                     if (Wgetworkorder.Count > 0)
                     {
@@ -374,7 +428,8 @@ namespace WorkstationTEST
                         var labQty = tabPage3.Controls.Find("labQty", true);
                         var labUnit = tabPage3.Controls.Find("labUnit", true);
                         var labAssetsNames = tabPage3.Controls.Find("labAssetsName", true);
-
+                        var WKAssetsIds= tabPage3.Controls.Find("WKAssetsId", true);
+                        var WKtenatIds = tabPage3.Controls.Find("WKtenantId", true);
                         labSpec[0].Text = Wgetworkorder[0].Specification;
                         labRemark[0].Text = Wgetworkorder[0].Remark;
                         labPName[0].Text = Wgetworkorder[0].AssetsNo;
@@ -382,6 +437,8 @@ namespace WorkstationTEST
                         labQty[0].Text = Wgetworkorder[0].MakeQty.ToString();
                         labUnit[0].Text = Wgetworkorder[0].UseUnits;
                         labAssetsNames[0].Text = Wgetworkorder[0].AssetsName;
+                        WKAssetsIds[0].Text = Wgetworkorder[0].AssetsId.HasValue? Wgetworkorder[0].AssetsId.ToString():"";
+                        WKtenatIds[0].Text = Wgetworkorder[0].TenantId.ToString();
                         wid = Wgetworkorder[0].WorkOrderId;
                         wkmo[0].Tag = wid.ToString();
                     }
@@ -525,12 +582,21 @@ namespace WorkstationTEST
                 if (keyarray.Contains(keyupper))
                 {
                     Console.WriteLine("kc");
+                    var wkrec = tabPage2.Controls.Find("frmPTRecordnow", true);
+                    var wkrecn = 0;
+                    var tempcn = int.TryParse(wkrec[0].Text, out wkrecn);
                     for (var i = 0; i < keyarray.Length; i++)
                     {
                         if (keyarray[i] == keyupper)
                         {
+                            var middlestr = "";
+                            if (wkrecn > 0)
+                            {
+                                middlestr = (wkrecn * 10).ToString();
+                            }
                             Console.WriteLine("ke=" + keyupper + "," + keyarray[i]);
-                            var estr = "BTNfrmEmp" + (i + 1);
+                            var estr = "BTNfrmEmp" + (wkrecn * 10 + i + 1);
+                            Console.WriteLine("estr=" + estr);
                             var tempbtn = tabPage2.Controls.Find(estr, true);
                             if (tempbtn.Length > 0)
                             {
@@ -544,28 +610,52 @@ namespace WorkstationTEST
 
             if (t == 3)
             {
+                if (keyupper == "Return")
+                {
+                    SendKeys.Send("{TAB}");
+                }
                 var save = tabPage4.Controls.Find("save", true);
-                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                string clearkey = "Divide";
+                string[] keyarray = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
                 if (keyupper == "S")
                 {
                     ((Button)save[0]).PerformClick();
                 }
                 if (keyarray.Contains(keyupper))
                 {
-                    Console.WriteLine("kc");
+                    Console.WriteLine("kc" + "," + t);
                     for (var i = 0; i < keyarray.Length; i++)
                     {
                         if (keyarray[i] == keyupper)
                         {
-                            
-                            var estr = "BTNfrmEmp" + (i +1);
-                            Console.WriteLine("ke=" + keyupper + "," + keyarray[i]+estr);
-                            var tempbtn = tabPage4.Controls.Find(estr, true);
-                            if (tempbtn.Length > 0)
+                            var estr = "BTNfrmEmp" + (i + 1);
+                            Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
+                            if (keyupper == clearkey)
                             {
-                                ((Button)(tempbtn[0])).PerformClick();
-                                Console.WriteLine("per:" + keychar);
+                                var ft = tabPage4.Controls.Find("focust", true);
+                                var numno = tabPage3.Controls.Find(ft[0].Text, true);
+                                if (numno.Length > 0)
+                                {
+                                    numno[0].Text = "";
+                                }
                             }
+                            else
+                            {
+                                if (isbarcode)
+                                {
+                                    var tempbtn = tabPage3.Controls.Find(estr, true);
+                                    if (tempbtn.Length > 0)
+                                    {
+                                        ((Button)(tempbtn[0])).PerformClick();
+                                        Console.WriteLine("per:" + keychar);
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
                         }
                     }
                 }
@@ -818,8 +908,9 @@ namespace WorkstationTEST
             var ln = tabPage3.Controls.Find("labPName", true);
             var ls = tabPage3.Controls.Find("labSpec", true);
             var lq = tabPage3.Controls.Find("labQty", true);
+            var wktid = tabPage3.Controls.Find("WKtenantId", true);
             //wk
-            var emn = tabPage1.Controls.Find("frmEmpshowno", true); 
+            //var emn = tabPage1.Controls.Find("frmEmpshowno", true); 
             var emr = tabPage1.Controls.Find("frmEmpRecordnow", true);
             var emt = tabPage1.Controls.Find("frmEmpRecordT", true);
             try
@@ -838,13 +929,14 @@ namespace WorkstationTEST
                 wkss[0].Text = string.Empty;
                 wksw[0].Text = string.Empty;
                 wkt[0].Text = string.Empty;
-                emn[0].Text = string.Empty;
+                //emn[0].Text = string.Empty;
                 emr[0].Text = string.Empty;
                 emt[0].Text = string.Empty;
                 ln[0].Text = string.Empty;
                 lw[0].Text = string.Empty;
                 ls[0].Text = string.Empty;
                 lq[0].Text = string.Empty;
+                wktid[0].Text = string.Empty;
             }
             catch(Exception ex)
             {

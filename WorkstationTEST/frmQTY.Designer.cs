@@ -49,6 +49,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.save = new WorkstationTEST.XButton();
+            this.chkouside = new System.Windows.Forms.CheckBox();
+            this.btnoutside = new WorkstationTEST.XButton();
+            this.RIPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.focust = new System.Windows.Forms.TextBox();
             frmNumbtnD = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +69,7 @@
             // 
             // frmNumshowno
             // 
-            this.frmNumshowno.Location = new System.Drawing.Point(250, 41);
+            this.frmNumshowno.Location = new System.Drawing.Point(444, 387);
             this.frmNumshowno.Name = "frmNumshowno";
             this.frmNumshowno.Size = new System.Drawing.Size(174, 22);
             this.frmNumshowno.TabIndex = 14;
@@ -178,7 +182,7 @@
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(655, 97);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(477, 283);
+            this.panel3.Size = new System.Drawing.Size(477, 251);
             this.panel3.TabIndex = 16;
             // 
             // msgworktime
@@ -268,7 +272,7 @@
             // save
             // 
             this.save.LeftText = null;
-            this.save.Location = new System.Drawing.Point(925, 428);
+            this.save.Location = new System.Drawing.Point(922, 522);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(86, 73);
             this.save.TabIndex = 12;
@@ -276,11 +280,60 @@
             this.save.TopText = null;
             this.save.UseVisualStyleBackColor = true;
             // 
+            // chkouside
+            // 
+            this.chkouside.AutoSize = true;
+            this.chkouside.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.chkouside.Location = new System.Drawing.Point(922, 354);
+            this.chkouside.Name = "chkouside";
+            this.chkouside.Size = new System.Drawing.Size(139, 25);
+            this.chkouside.TabIndex = 17;
+            this.chkouside.Text = "產生外包單";
+            this.chkouside.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.chkouside.UseVisualStyleBackColor = true;
+            // 
+            // btnoutside
+            // 
+            this.btnoutside.LeftText = null;
+            this.btnoutside.Location = new System.Drawing.Point(922, 385);
+            this.btnoutside.Name = "btnoutside";
+            this.btnoutside.Size = new System.Drawing.Size(75, 23);
+            this.btnoutside.TabIndex = 18;
+            this.btnoutside.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnoutside.TopText = null;
+            this.btnoutside.UseVisualStyleBackColor = true;
+            this.btnoutside.Click += new System.EventHandler(this.btnoutside_Click);
+            // 
+            // RIPanel
+            // 
+            this.RIPanel.AutoSize = true;
+            this.RIPanel.ColumnCount = 2;
+            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RIPanel.Location = new System.Drawing.Point(2, 12);
+            this.RIPanel.Name = "RIPanel";
+            this.RIPanel.RowCount = 2;
+            this.RIPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.RIPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.RIPanel.Size = new System.Drawing.Size(209, 67);
+            this.RIPanel.TabIndex = 19;
+            // 
+            // focust
+            // 
+            this.focust.Location = new System.Drawing.Point(678, 497);
+            this.focust.Name = "focust";
+            this.focust.Size = new System.Drawing.Size(174, 22);
+            this.focust.TabIndex = 20;
+            // 
             // frmQTY
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 639);
+            this.Controls.Add(this.focust);
+            this.Controls.Add(this.RIPanel);
+            this.Controls.Add(this.btnoutside);
+            this.Controls.Add(this.chkouside);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.SaveStat);
             this.Controls.Add(this.frmNumshowno);
@@ -321,5 +374,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkouside;
+        private XButton btnoutside;
+        private System.Windows.Forms.TableLayoutPanel RIPanel;
+        private System.Windows.Forms.TextBox focust;
     }
 }

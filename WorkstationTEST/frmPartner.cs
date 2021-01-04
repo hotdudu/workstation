@@ -16,52 +16,54 @@ namespace WorkstationTEST
         {
             InitializeComponent();
         }
-        List<Partner> getpt = new List<Partner>();
+        List<Partner> getwitem = new List<Partner>();
         private void frmPartner_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmPTbtnU, "Insert::Insert", "上一頁");
             setpageup.SetBtn(frmPTbtnD, "Delete::Delete", "下一頁");
-            getpt = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(101);
-            Int32 tlpColumCount = PTPanel.ColumnCount;
-            Int32 tlpRowCount = PTPanel.RowCount;
+            getwitem = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(101);
+            //Int32 tlpColumCount = PTPanel.ColumnCount;
+            //Int32 tlpRowCount = PTPanel.RowCount;
             List<Button> btnemplist = new List<Button>();
-            Console.WriteLine("ptlength=" + getpt.Count);
-            if (getpt.Count() > 0)
+            if (getwitem.Count() > 0)
             {
+                int iSpace = 5;
+                int iCol = 0;
+                int iRow = 0;
+                int ItemsOneRow = 5;
+                int totalitem = 10;
+                int btnnum = 0;
                 var empitemcount = 0;
                 var keynum = 0;
-                foreach (var empitem in getpt)
+                foreach (var empitem in getwitem)
                 {
+                    iRow = keynum / ItemsOneRow;
+                    iCol = keynum % ItemsOneRow;
                     var prestr = "BTNfrmEmp";
                     empitemcount++;
-                    if ((empitemcount - 1) != 0 && (empitemcount - 1) % (tlpRowCount * tlpColumCount) == 0)
-                        keynum = 0;
+                    if (btnnum + 1 > totalitem)
+                    {
+                        btnnum = 0;
+                    }
+                    btnnum++;
                     keynum++;
+                    var btnkey = "F" + btnnum;
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
-                    var btnkey = "F" + keynum;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtn(empitem.PartnerNo, thisbtntext,empitem.PartnerId,btnkey);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(empitem.PartnerNo, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
                     empbtn = sethandler(empbtn);
+                    if (keynum > totalitem)
+                    {
+                        empbtn.Visible = false;
+                    }
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
                     btnemplist.Add(empbtn);
                 }
-                Console.WriteLine("btn=" + btnemplist.Count + "," + tlpColumCount + "," + tlpRowCount);
-                var j = 0;
-                var recordL = 0;
-                for (var i = 0; i < tlpRowCount; i += tlpColumCount)
-                {
-                    for (; j < btnemplist.Count && j < tlpColumCount * tlpRowCount; j++)
-                    {
-                        recordL++;
-                        Console.WriteLine("L-i=" + i + ",j=" + j + ",name=" + btnemplist[j].Name);
-                        PTPanel.Controls.Add(btnemplist[j], j, i);
-                        frmPTRecordnow.Text = j.ToString();
-                    }
-                }
-                frmPTRecordT.Text = recordL.ToString();
-                Console.WriteLine("record=" + frmPTRecordnow.Text);
+                frmPTRecordnow.Text = "0";
             }
         }
 
@@ -92,123 +94,72 @@ namespace WorkstationTEST
 
         private void frmPTbtnU_Click(object sender, EventArgs e)
         {
-            Int32 tlpColumCount = PTPanel.ColumnCount;
-            Int32 tlpRowCount = PTPanel.RowCount;
-            List<Button> btnemplist = new List<Button>();
-            int nowrecord = 0;
-            int recordT = 0;
-            bool trynowrecord = int.TryParse(frmPTRecordnow.Text, out nowrecord);
-            bool tryrecordT = int.TryParse(frmPTRecordT.Text, out recordT);
-            var looplimit = nowrecord - recordT;
-            var loopinit = looplimit + 1 - (tlpColumCount * tlpRowCount);
-            if (trynowrecord && looplimit > 0)
+            var nowrow = 0;
+            var tempn = int.TryParse(frmPTRecordnow.Text, out nowrow);
+            var totalitem = 10;
+            if (nowrow > 0)
+                nowrow--;
+            frmPTRecordnow.Text = nowrow.ToString();
+            var startnum = nowrow * totalitem + 1;
+            var endnum = (nowrow + 1) * totalitem;
+            var npoint = 0;
+            foreach (Control contr in PTPanel.Controls)
             {
-                for (int i = PTPanel.Controls.Count - 1; i >= 0; --i)
-                    PTPanel.Controls[i].Dispose();
-                PTPanel.Controls.Clear();
-            }
-            Console.WriteLine("U-nowrecord=" + nowrecord);
-            if (nowrecord > 0)
-            {
-                Console.WriteLine("U-getemp=" + getpt.Count());
-                if (getpt.Count() > 0)
+                npoint++;
+                if (npoint >= startnum && npoint <= endnum && npoint <= PTPanel.Controls.Count)
                 {
-                    var empitemcount = 0;
-
-                    var j = loopinit;
-                    var recordU = 0;
-                    Console.WriteLine("U-j=" + j + ",row=" + tlpRowCount + ",col=" + tlpColumCount);
-                    if (j >= 0 && looplimit > 0)
-                    {
-                        var reali = 0;
-                        Console.WriteLine("U-loop=" + loopinit + ",looplimit=" + looplimit);
-                        for (var i = loopinit; i < loopinit + (tlpColumCount * tlpRowCount); i += tlpColumCount)
-                        {
-                            reali++;
-                            var realj = 0;
-                            for (; j < getpt.Count && j < i + tlpColumCount; j++)
-                            {
-                                recordU++;
-                                Console.WriteLine("U-i=" + i + ",j=" + j + ",name=" + getpt[j].ShortName + ",ri=" + reali + ",rj=" + realj);
-                                var prestr = "BTNfrmEmp";
-                                empitemcount++;
-                                var keynum = j % (tlpColumCount * tlpRowCount) + 1;
-                                var btnkey = "F" + keynum;
-                                var poststr = empitemcount.ToString("##");
-                                var thisbtnname = prestr + poststr;
-                                var thisbtntext = getpt[j].ShortName;
-                                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtn(getpt[j].PartnerNo, thisbtntext, getpt[j].PartnerId,btnkey);
-                                empbtn = sethandler(empbtn);
-                                PTPanel.Controls.Add(empbtn, realj, reali - 1);
-                                frmPTRecordnow.Text = j.ToString();
-                                realj++;
-                            }
-                        }
-                        frmPTRecordT.Text = recordU.ToString();
-                    }
-
-                    Console.WriteLine("record=" + frmPTRecordnow.Text);
+                    contr.Visible = true;
+                }
+                else
+                {
+                    contr.Visible = false;
                 }
             }
+
+            var height = PTPanel.Height;
+            var vheight = nowrow * PTPanel.Height;
+            if (vheight - (height) < PTPanel.VerticalScroll.Minimum)
+            { PTPanel.VerticalScroll.Value = PTPanel.VerticalScroll.Minimum; }
+            else
+            { PTPanel.VerticalScroll.Value = vheight; }
+            PTPanel.PerformLayout();
         }
 
         private void frmPTbtnD_Click(object sender, EventArgs e)
         {
-            Int32 tlpColumCount = PTPanel.ColumnCount;
-            Int32 tlpRowCount = PTPanel.RowCount;
-            List<Button> btnemplist = new List<Button>();
-            int nowrecord = 0;
-            bool trynowrecord = int.TryParse(frmPTRecordnow.Text, out nowrecord);
-            if (trynowrecord && nowrecord < getpt.Count - 1)
+            var nowrow = 0;
+            var tempn = int.TryParse(frmPTRecordnow.Text, out nowrow);
+            var totalitem = 10;
+            var totoalrow = Math.Ceiling(PTPanel.Controls.Count / (decimal)totalitem);
+            nowrow++;
+            if (nowrow < totoalrow)
+                frmPTRecordnow.Text = nowrow.ToString();
+            var startnum = nowrow * totalitem + 1;
+            var endnum = (nowrow + 1) * totalitem;
+            var npoint = 0;
+
+
+            var height = PTPanel.Height;
+            var vheight = PTPanel.Height * nowrow;
+            if (nowrow < totoalrow)
             {
-                for (int i = PTPanel.Controls.Count - 1; i >= 0; --i)
-                    PTPanel.Controls[i].Dispose();
-                PTPanel.Controls.Clear();
-            }
-            Console.WriteLine("D-nowrecord=" + nowrecord);
-            if (nowrecord > 0)
-            {
-                Console.WriteLine("D-getemp=" + getpt.Count());
-                if (getpt.Count() > 0)
+                foreach (Control contr in PTPanel.Controls)
                 {
-                    var empitemcount = 0;
-                    var j = nowrecord + 1;
-
-                    Console.WriteLine("D-j=" + j + ",row=" + tlpRowCount + ",col=" + tlpColumCount);
-                    if (j > 0 && nowrecord < getpt.Count - 1)
+                    npoint++;
+                    Console.Write("ptype=" + contr.GetType() + "," + PTPanel.Controls.Count);
+                    if (npoint >= startnum && npoint <= endnum && npoint <= PTPanel.Controls.Count)
                     {
-                        var reali = 0;
-                        var recordD = 0;
-                        Console.WriteLine("d-tlpRowCount=" + tlpRowCount);
-                        for (var i = nowrecord + 1; i < (nowrecord + 1) + (tlpColumCount * tlpRowCount); i += tlpColumCount)
-                        {
-                            reali++;
-                            var realj = 0;
-                            for (; j < getpt.Count && j < i + tlpColumCount; j++)
-                            {
-                                recordD++;
-                                Console.WriteLine("D-i=" + i + ",j=" + j + ",name=" + getpt[j].PartnerNo + ",ri=" + reali + ",rj=" + realj);
-                                var prestr = "BTNfrmEmp";
-                                empitemcount++;
-                                empitemcount++;
-                                var keynum = j % (tlpColumCount * tlpRowCount) + 1;
-                                var btnkey = "F" + keynum;
-                                var poststr = empitemcount.ToString("##");
-                                var thisbtnname = prestr + poststr;
-                                var thisbtntext = getpt[j].ShortName;
-                                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtn(getpt[j].PartnerNo, thisbtntext, getpt[j].PartnerId,btnkey);
-                                empbtn = sethandler(empbtn);
-                                PTPanel.Controls.Add(empbtn, realj, reali - 1);
-                                frmPTRecordnow.Text = j.ToString();
-                                realj++;
-                            }
-                        }
-                        frmPTRecordT.Text = recordD.ToString();
+                        contr.Visible = true;
                     }
-
-                    Console.WriteLine("record=" + frmPTRecordnow.Text);
+                    else
+                    {
+                        contr.Visible = false;
+                    }
                 }
+                PTPanel.VerticalScroll.Value = vheight;
+                PTPanel.PerformLayout();
             }
+
         }
     }
 }

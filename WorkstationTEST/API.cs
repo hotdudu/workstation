@@ -265,6 +265,40 @@ namespace WorkstationTEST
             }
             return witemobj;
         }
+
+        public List<WorkOrderO> GetWorkOrderO(int tenantid, string makeno)
+        {
+            var client = new HttpClient();
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("makeno",makeno),
+                new KeyValuePair<string, string>("tenantid",tenantid.ToString()),
+                })
+            };//"http://localhost:56893/CHG/Main/Home/getinfo/"
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+            List<WorkOrderO> witemobj = new List<WorkOrderO>();
+            if (res.StatusCode.ToString() == "OK")
+            {
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+                witemobj = JsonConvert.DeserializeObject<List<WorkOrderO>>(res.Content.ReadAsStringAsync().Result);
+                foreach (var item in witemobj)
+                {
+                    Console.WriteLine("r=" + item.Specification);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("伺服器連線異常");
+            }
+            return witemobj;
+        }
         public List<Partner> GetPartner(int? tenantid)
         {
             var client = new HttpClient();
@@ -391,6 +425,77 @@ namespace WorkstationTEST
             result.ermsg = ermsg;
             return result;
         }
+
+        public returnmsg UploadServerOut(string EmpNo, string CompleteQty,string DayReportId,string WorkOrderId,string WorkId,string WorkOrderItemId,string AssetsId,string Price,string createempno,string tenantid,string pid)
+        {
+            var client = new HttpClient();
+
+
+            var keyValues = new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("CompleteQty", CompleteQty),        
+                new KeyValuePair<string,string>("DayReportId", DayReportId),
+                new KeyValuePair<string, string>("EmpNo", EmpNo),
+                new KeyValuePair<string, string>("WorkId",WorkId),
+                new KeyValuePair<string, string>("WorkOrderId",WorkOrderId),
+                new KeyValuePair<string, string>("WorkOrderItemId",WorkOrderItemId),
+                new KeyValuePair<string, string>("AssetsId",AssetsId),
+                new KeyValuePair<string, string>("Price",Price),
+                new KeyValuePair<string, string>("createempno", createempno),
+                new KeyValuePair<string, string>("TenantId", tenantid),
+                new KeyValuePair<string, string>("PartnerId", pid),
+                };
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(keyValues),
+
+            };
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Guid? dayid = null;
+            var ermsg = "";
+            var result = new returnmsg();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                if (ex is TaskCanceledException)
+                {
+
+                    result.ermsg = "連線逾時";
+                    return result;
+                }
+                else
+                {
+                    result.ermsg = "伺服器發生錯誤";
+                    return result;
+                }
+            }
+
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+
+            if (res.StatusCode.ToString() == "OK")
+            {
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+
+                dayid = JsonConvert.DeserializeObject<Guid>(res.Content.ReadAsStringAsync().Result);
+            }
+            else if (res.StatusCode.ToString() == "BadRequest")
+            {
+                ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                Console.WriteLine("伺服器連線異常");
+            }
+            result.dayid = dayid;
+            result.ermsg = ermsg;
+            return result;
+        }
     }
 
     public class Emp {
@@ -429,6 +534,10 @@ namespace WorkstationTEST
         public string AssetsName { get; set; }
         public int TenantId { get; set; }
         public string UseUnits { get; set; }
+    }
+    public class WorkOrderO:WorkOrder
+    {
+        public Guid? AssetsId { get; set; }
     }
     public class WorkDayReport
     {

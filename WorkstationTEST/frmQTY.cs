@@ -25,11 +25,31 @@ namespace WorkstationTEST
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
             setpageup.SetBtn((XButton)save, "Insert::Insert", rtext["WKsave"]);
+            setpageup.SetBtn((XButton)btnoutside, "F11::F11", "勾選");
             Int32 tlpColumCount = NumPanel.ColumnCount;
             Int32 tlpRowCount = NumPanel.RowCount;
             int num = 10;
+            var tableheadstr = new string[] { "數量", "單價"};
+            var textarray = new string[] { "outqty", "price"};
             string[] numlist = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".","Clear" };
             string[] keylist = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
+
+            for (var a = 0; a < tableheadstr.Count(); a++)
+            {
+                TextBox templab = new TextBox();
+                templab.Text = tableheadstr[a];
+                templab.ReadOnly = true;
+                templab.Margin = new Padding(0);
+                templab.TabIndex = 999;
+                templab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+                RIPanel.Controls.Add(templab, a, 0);
+                TextBox numbox = new TextBox();
+                numbox.Name = textarray[a];
+                numbox.TabIndex = a + 1;
+                numbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+                numbox.GotFocus += new EventHandler(BtnGotfocus);
+                RIPanel.Controls.Add(numbox, a, 1);
+            }
             List<Button> btnemplist = new List<Button>();
                 var empitemcount = 0;
                 
@@ -86,5 +106,19 @@ namespace WorkstationTEST
 
         }
 
+        private void btnoutside_Click(object sender, EventArgs e)
+        {
+            if (chkouside.Checked == true)
+                chkouside.Checked = false;
+            else
+                chkouside.Checked = true;
+
+        }
+
+        private void BtnGotfocus(object sender, EventArgs e)
+        {
+            TextBox tmpButton = (TextBox)sender;
+            focust.Text = tmpButton.Name;
+        }
     }
 }

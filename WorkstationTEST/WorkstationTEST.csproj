@@ -210,6 +210,12 @@
     <Compile Include="frmWorkOrder.Designer.cs">
       <DependentUpon>frmWorkOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmWorkOrder3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWorkOrder3.Designer.cs">
+      <DependentUpon>frmWorkOrder3.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmWorkOrder2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +295,9 @@
     <EmbeddedResource Include="frmWorkOrder.resx">
       <DependentUpon>frmWorkOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmWorkOrder3.resx">
+      <DependentUpon>frmWorkOrder3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmWorkOrder2.resx">
       <DependentUpon>frmWorkOrder2.cs</DependentUpon>
     </EmbeddedResource>
@@ -333,6 +342,7 @@
     </Compile>
     <None Include="wd.db" />
     <None Include="wd2.db3" />
+    <None Include="wd3.db3" />
     <None Include="WorkstationTEST_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

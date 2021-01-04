@@ -950,7 +950,6 @@ namespace WorkstationTEST
                         {
                             if (keyarray[i] == keyupper)
                             {
-
                                 var estr = "BTNfrmEmp" + (i + 1);
                                 Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
                                 if (keyupper == clearkey)

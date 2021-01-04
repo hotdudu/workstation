@@ -28,51 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.frmPTbtnD = new WorkstationTEST.XButton();
-            this.frmPTbtnU = new WorkstationTEST.XButton();
-            this.save = new WorkstationTEST.XButton();
             this.frmPTRecordnow = new System.Windows.Forms.Label();
             this.frmPTshowno = new System.Windows.Forms.TextBox();
             this.PTSavePartnerId = new System.Windows.Forms.TextBox();
             this.frmPTRecordT = new System.Windows.Forms.Label();
             this.PTPanel = new System.Windows.Forms.Panel();
+            this.save = new WorkstationTEST.XButton();
+            this.frmPTbtnD = new WorkstationTEST.XButton();
+            this.frmPTbtnU = new WorkstationTEST.XButton();
             this.SuspendLayout();
-            // 
-            // frmPTbtnD
-            // 
-            this.frmPTbtnD.LeftText = null;
-            this.frmPTbtnD.Location = new System.Drawing.Point(577, 500);
-            this.frmPTbtnD.Name = "frmPTbtnD";
-            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnD.TabIndex = 5;
-            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnD.TopText = null;
-            this.frmPTbtnD.UseVisualStyleBackColor = true;
-            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
-            // 
-            // frmPTbtnU
-            // 
-            this.frmPTbtnU.LeftText = null;
-            this.frmPTbtnU.Location = new System.Drawing.Point(593, 206);
-            this.frmPTbtnU.Name = "frmPTbtnU";
-            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnU.TabIndex = 4;
-            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnU.TopText = null;
-            this.frmPTbtnU.UseVisualStyleBackColor = true;
-            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
-            // 
-            // save
-            // 
-            this.save.LeftText = null;
-            this.save.Location = new System.Drawing.Point(1030, 143);
-            this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(86, 73);
-            this.save.TabIndex = 6;
-            this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.save.TopText = null;
-            this.save.UseVisualStyleBackColor = true;
-            this.save.Visible = false;
             // 
             // frmPTRecordnow
             // 
@@ -114,8 +78,44 @@
             this.PTPanel.AutoScrollMinSize = new System.Drawing.Size(900, 218);
             this.PTPanel.Location = new System.Drawing.Point(3, 62);
             this.PTPanel.Name = "PTPanel";
-            this.PTPanel.Size = new System.Drawing.Size(1021, 432);
+            this.PTPanel.Size = new System.Drawing.Size(1021, 325);
             this.PTPanel.TabIndex = 105;
+            // 
+            // save
+            // 
+            this.save.LeftText = null;
+            this.save.Location = new System.Drawing.Point(1030, 143);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(86, 73);
+            this.save.TabIndex = 6;
+            this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.save.TopText = null;
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Visible = false;
+            // 
+            // frmPTbtnD
+            // 
+            this.frmPTbtnD.LeftText = null;
+            this.frmPTbtnD.Location = new System.Drawing.Point(577, 500);
+            this.frmPTbtnD.Name = "frmPTbtnD";
+            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnD.TabIndex = 5;
+            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnD.TopText = null;
+            this.frmPTbtnD.UseVisualStyleBackColor = true;
+            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
+            // 
+            // frmPTbtnU
+            // 
+            this.frmPTbtnU.LeftText = null;
+            this.frmPTbtnU.Location = new System.Drawing.Point(593, 206);
+            this.frmPTbtnU.Name = "frmPTbtnU";
+            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnU.TabIndex = 4;
+            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnU.TopText = null;
+            this.frmPTbtnU.UseVisualStyleBackColor = true;
+            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
             // 
             // frmPartner
             // 
