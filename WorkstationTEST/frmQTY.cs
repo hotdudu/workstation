@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace WorkstationTEST
             // SaveStat.Visible = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn((XButton)save, "Insert::Insert", rtext["WKsave"]);
+            setpageup.SetBtn((XButton)save, "F12::F12", rtext["WKsave"]);
             setpageup.SetBtn((XButton)btnoutside, "F11::F11", "勾選");
             Int32 tlpColumCount = NumPanel.ColumnCount;
             Int32 tlpRowCount = NumPanel.RowCount;
@@ -33,7 +35,6 @@ namespace WorkstationTEST
             var textarray = new string[] { "outqty", "price"};
             string[] numlist = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".","Clear" };
             string[] keylist = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
-
             for (var a = 0; a < tableheadstr.Count(); a++)
             {
                 TextBox templab = new TextBox();
@@ -78,6 +79,8 @@ namespace WorkstationTEST
                 }
                 Console.WriteLine("record=" + frmNumRecordnow.Text);
 
+
+
         }
 
         public void SetEmpNO(string info)
@@ -119,6 +122,11 @@ namespace WorkstationTEST
         {
             TextBox tmpButton = (TextBox)sender;
             focust.Text = tmpButton.Name;
+        }
+
+        private void Qpanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

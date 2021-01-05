@@ -57,8 +57,10 @@ namespace WorkstationTEST
                     tabPage3.Controls.Add(frmWK);
                     var wk = frmWK.Controls.Find("frmWKWorkitem", false);
                     var mk = frmWK.Controls.Find("frmWKMakeno", false);
+                    var wkt = frmWK.Controls.Find("WKtenantId", false);
                     ActiveControl = mk[0];
                     wk[0].TextChanged += new EventHandler(gettab3);
+                    wkt[0].TextChanged += new EventHandler(UpdatePID);
                     Console.WriteLine(frmWK.Name);
                     break;
                 case 1:
@@ -92,6 +94,7 @@ namespace WorkstationTEST
                     var save = frmQTY.Controls.Find("save", false);
                     save[0].Click += new EventHandler(savetab);
                     var qtyfocus= frmQTY.Controls.Find("outqty",true);
+                    showinfo();
                     ActiveControl = qtyfocus[0];
                     break;
             }
@@ -110,6 +113,7 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(button1, "PageUp::PageUp", "上一步");
             setpageup.SetBtn(button3, "Escape::Escape", "關閉視窗");
+            setpageup.SetBtn(Button4, "Home::Home", "完成");
             setpageup.SetBtn(button2, "PageDown::Next", "下一步");
             var frmEmp = new frmEmp();
             frmEmp.TopLevel = false;
@@ -210,6 +214,23 @@ namespace WorkstationTEST
             }
             return data;
         }
+        private void UpdatePID(object sender, EventArgs e)
+        {
+            var tid = 0;
+            int.TryParse(((TextBox)sender).Text, out tid);
+            var pnos = tabPage2.Controls.Find("frmPTshowno", true);
+            var pids = tabPage2.Controls.Find("PTSavePartnerId", true);
+            var pno = pnos[0].Text;
+            var pid = pids[0].Text;
+            List<Partner> getpt = new API("/CHG/Main/Home/getinfo/", "http://").GetPartner2(tid, pno);
+            Console.WriteLine("tenantid change:tid:" +tid+",pno="+pno+",pid="+pid);
+            if (getpt.Count > 0)
+            {
+                pids[0].Text = getpt.First().PartnerId.ToString();
+                Console.WriteLine("tenantid change:newpid:" + pids[0].Text);
+            }
+
+        }
         private void gettab(object sender, EventArgs e)
         {
             this.tabControl1.SelectedTab = tabPage2;
@@ -248,6 +269,7 @@ namespace WorkstationTEST
             var WorkName = tabPage3.Controls.Find("WKSaveWorkName", true);
             var AssetsIds = tabPage3.Controls.Find("WKAssetsId", true);
             var chkousides = tabPage4.Controls.Find("chkouside", true);
+            var AssetsNo = tabPage3.Controls.Find("labPName", true);
             var starttime = DateTime.Now;
             var workdate = DateTime.Today;
             var ischk =(CheckBox)chkousides[0];
@@ -255,6 +277,7 @@ namespace WorkstationTEST
             var createempno = empno[0].Text;
             var tenantid = tenantids[0].Text;
             var pid = partnerid[0].Text;
+            var assetsno = AssetsNo[0].Text;
             Guid dayreportid = Guid.NewGuid();
             Console.WriteLine("empno=" + empno[0].Text+"witenid="+workorderitemId[0].Text+",woid="+workorderid[0].Text+",workid="+workid[0].Text+",pid="+partnerid[0].Text+",qty="+comqty[0].Text+",did="+dayreportid+",won="+WorkName[0].Text+",wn="+WorkNo[0].Text+",mk="+MakeNo[0].Text+",wq="+Workqty[0].Text+",sp="+Specification[0].Text);
             string dbPath = Directory.GetCurrentDirectory()+ "\\"+"wd3.db3";
@@ -264,7 +287,7 @@ namespace WorkstationTEST
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price)";
+                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price,AssetsNo) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price,@AssetsNo)";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
                     cmd.Parameters.AddWithValue("@TenantId",tenantid);
@@ -285,58 +308,76 @@ namespace WorkstationTEST
                     cmd.Parameters.AddWithValue("@Out", true);
                     cmd.Parameters.AddWithValue("@Price", price[0].Text);
                     cmd.Parameters.AddWithValue("@isupdate", false);
+                    cmd.Parameters.AddWithValue("@AssetsNo", assetsno);
                     conn.Open();
                     try
                     {
                         cmd.ExecuteNonQuery();
                         var savestat = tabPage4.Controls.Find("SaveStat", true);
-                        savestat[0].Visible = true;
+                        savestat[0].Visible = false;
                         savestat[0].Text = "儲存成功";
-                        cleardata();
+
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception(ex.Message);
+                        MessageBox.Show("儲存本地資料發生錯誤:"+ex);
                     }
 
 
                     if (ischk.Checked)
                     {
-                        var selectScript = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
-                        SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
-                        cmd2.Parameters.AddWithValue("@WorkDate", workdate);
-                        cmd2.Parameters.AddWithValue("@PartnerId", pid);
-                        cmd2.Parameters.AddWithValue("@TenantId", tenantid);
-                        var EmpNos = "";
-                        var DayReportIds = "";
-                        var CompleteQtys = "";
-                        var WorkIds = "";
-                        var WorkOrderIds = "";
-                        var WorkOrderItemIds = "";
-                        var AssetsIdset = "";
-                        var Prices = "";
-                        var i = 0;
-                        using (SQLiteDataReader row = cmd2.ExecuteReader())
+                        try
                         {
-                            while (row.Read())
+                            var selectScript = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
+                            SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                            cmd2.Parameters.AddWithValue("@WorkDate", workdate);
+                            cmd2.Parameters.AddWithValue("@PartnerId", pid);
+                            cmd2.Parameters.AddWithValue("@TenantId", tenantid);
+                            var EmpNos = "";
+                            var DayReportIds = "";
+                            var CompleteQtys = "";
+                            var WorkIds = "";
+                            var WorkOrderIds = "";
+                            var WorkOrderItemIds = "";
+                            var AssetsIdset = "";
+                            var Prices = "";
+                            var i = 0;
+                            using (SQLiteDataReader row = cmd2.ExecuteReader())
                             {
-                                DayReportIds = DayReportIds+(i==0?"":",")+(row["DayReportId"] as string ?? "");
-                                CompleteQtys = CompleteQtys + (i == 0 ? "" : ",") + (row["CompleteQty"] as decimal? ?? null);
-                                WorkIds = WorkIds + (i == 0 ? "" : ",") + (row["WorkId"] as string ?? "");
-                                WorkOrderIds = WorkOrderIds + (i == 0 ? "" : ",") + (row["WorkOrderId"] as string ?? "");
-                                WorkOrderItemIds = WorkOrderItemIds + (i == 0 ? "" : ",") + (row["WorkOrderItemId"] as string ?? "");
-                                EmpNos = EmpNos + (i == 0 ? "" : ",") + row["EmpNo"] as string ?? "";
-                                AssetsIdset = AssetsIdset + (i == 0 ? "" : ",") + (row["AssetsId"] as string ?? "");
-                                Prices = Prices + (i == 0 ? "" : ",") + (row["Price"] as decimal? ?? null);
-                                i++;
+                                while (row.Read())
+                                {
+                                    DayReportIds = DayReportIds + (i == 0 ? "" : ",") + (row["DayReportId"] as string ?? "");
+                                    CompleteQtys = CompleteQtys + (i == 0 ? "" : ",") + (row["CompleteQty"] as decimal? ?? null);
+                                    WorkIds = WorkIds + (i == 0 ? "" : ",") + (row["WorkId"] as string ?? "");
+                                    WorkOrderIds = WorkOrderIds + (i == 0 ? "" : ",") + (row["WorkOrderId"] as string ?? "");
+                                    WorkOrderItemIds = WorkOrderItemIds + (i == 0 ? "" : ",") + (row["WorkOrderItemId"] as string ?? "");
+                                    EmpNos = EmpNos + (i == 0 ? "" : ",") + row["EmpNo"] as string ?? "";
+                                    AssetsIdset = AssetsIdset + (i == 0 ? "" : ",") + (row["AssetsId"] as string ?? "");
+                                    Prices = Prices + (i == 0 ? "" : ",") + (row["Price"] as decimal? ?? null);
+                                    i++;
+                                }
+                            }
+                            var upwk = new API("/CHG/Main/Home/AddOutsource/", "http://").UploadServerOut(EmpNos, CompleteQtys, DayReportIds, WorkOrderIds, WorkIds, WorkOrderItemIds, AssetsIdset, Prices, createempno, tenantid, pid);
+                            if (upwk.dayid.Count > 0)
+                            {
+                                List<Guid> daylist = upwk.dayid;
+                                foreach (var upitem in daylist)
+                                {
+                                    UpdateRecord(upitem.ToString());
+                                }
                             }
                         }
-                        var upwk = new API("/CHG/Main/Home/AddOutsource/", "http://").UploadServerOut(EmpNos,CompleteQtys,DayReportIds,WorkOrderIds,WorkIds,WorkOrderItemIds,AssetsIdset,Prices,createempno,tenantid, pid);
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("上傳資料失敗:" + ex.Message);
+                        }
+
                     }
                     else
                     {
                     }
-
+                    cleardata(false);
+                    tabControl1.SelectedIndex = 2;
                 }
             }
         }
@@ -614,12 +655,18 @@ namespace WorkstationTEST
                 {
                     SendKeys.Send("{TAB}");
                 }
-                var save = tabPage4.Controls.Find("save", true);
+
                 string clearkey = "Divide";
                 string[] keyarray = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
-                if (keyupper == "S")
+                if (keyupper == "F12")
                 {
+                    var save = tabPage4.Controls.Find("save", true);
                     ((Button)save[0]).PerformClick();
+                }
+                if (keyupper == "F11")
+                {
+                    var outchk = tabPage4.Controls.Find("btnoutside", true);
+                    ((Button)outchk[0]).PerformClick();
                 }
                 if (keyarray.Contains(keyupper))
                 {
@@ -858,10 +905,7 @@ namespace WorkstationTEST
             frmWKWorkitem.Text = wkno;
             WKSaveWitemId.Text = witemid;
             WKSaveWorkId.Text = workid;
-
-
             WKSaveWorkNo.Text = wkno;
-
             WKSaveWorkName.Text = infoarray[2];
             Console.WriteLine("wkno=" + frmWKWorkitem.Text + ",witemid=" + witemid + ",workid=" + workid + ",workorderid=" + WKSaveWorderId.Text);
         }
@@ -884,7 +928,7 @@ namespace WorkstationTEST
                 this.tabControl1.SelectedIndex = t + 1;
             }
         }
-        public void cleardata() {
+        public void cleardata(bool finish) {
             //num
             var nno = tabPage4.Controls.Find("frmNumshowno", true);
             //num
@@ -909,16 +953,15 @@ namespace WorkstationTEST
             var ls = tabPage3.Controls.Find("labSpec", true);
             var lq = tabPage3.Controls.Find("labQty", true);
             var wktid = tabPage3.Controls.Find("WKtenantId", true);
+            var la = tabPage3.Controls.Find("labAssetsName", true);
+            var lu = tabPage3.Controls.Find("labUnit", true);
             //wk
-            //var emn = tabPage1.Controls.Find("frmEmpshowno", true); 
+            var emn = tabPage1.Controls.Find("frmEmpshowno", true); 
             var emr = tabPage1.Controls.Find("frmEmpRecordnow", true);
             var emt = tabPage1.Controls.Find("frmEmpRecordT", true);
             try
             {
                 nno[0].Text = string.Empty;
-                pto[0].Text = string.Empty;
-                ptrn[0].Text = string.Empty;
-                ptrt[0].Text = string.Empty;
                 wki[0].Text = string.Empty;
                 wkm[0].Text = string.Empty;
                 wkn[0].Text = string.Empty;
@@ -929,14 +972,23 @@ namespace WorkstationTEST
                 wkss[0].Text = string.Empty;
                 wksw[0].Text = string.Empty;
                 wkt[0].Text = string.Empty;
-                //emn[0].Text = string.Empty;
-                emr[0].Text = string.Empty;
-                emt[0].Text = string.Empty;
+
                 ln[0].Text = string.Empty;
                 lw[0].Text = string.Empty;
                 ls[0].Text = string.Empty;
                 lq[0].Text = string.Empty;
+                la[0].Text = string.Empty;
+                lu[0].Text = string.Empty;
                 wktid[0].Text = string.Empty;
+                if (finish)
+                {
+                    pto[0].Text = string.Empty;
+                    ptrn[0].Text = string.Empty;
+                    ptrt[0].Text = string.Empty;
+                    emn[0].Text = string.Empty;
+                    emr[0].Text = string.Empty;
+                    emt[0].Text = string.Empty;
+                }
             }
             catch(Exception ex)
             {
@@ -1011,5 +1063,193 @@ namespace WorkstationTEST
                 }
             }
         }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+            cleardata(true);
+        }
+        private void showinfo()
+        {
+            var rhead = new string[] { "工令編號", "產品編號", "規格","製程", "數量", "價格" };
+            var workdate = DateTime.Today;
+            var tid = tabPage3.Controls.Find("WKtenantId", true);
+            var pid = tabPage2.Controls.Find("PTSavePartnerId", true);
+            List<WorkDayReportOut> outwkitem = new List<WorkDayReportOut>();
+            var Q = tabPage4.Controls.Find("Qpanel", true);
+            for (int c = ((TableLayoutPanel)Q[0]).Controls.Count - 1; c >= 0; --c)
+                ((TableLayoutPanel)Q[0]).Controls[c].Dispose();
+            ((TableLayoutPanel)Q[0]).Controls.Clear();
+            var Q2 = tabPage4.Controls.Find("Qpanel2", true);
+            for (int d = ((TableLayoutPanel)Q2[0]).Controls.Count - 1; d >= 0; --d)
+                ((TableLayoutPanel)Q2[0]).Controls[d].Dispose();
+            ((TableLayoutPanel)Q2[0]).Controls.Clear();
+            for (var b = 0; b < rhead.Length; b++)
+            {
+                TextBox Qhead = new TextBox();
+                Qhead.TabIndex = 999;
+                Qhead.Text = rhead[b];
+                Qhead.ReadOnly = true;
+                ((TableLayoutPanel)Q[0]).Controls.Add(Qhead, b, 0);
+            }
+            for (var b = 0; b < rhead.Length; b++)
+            {
+                TextBox Qhead2 = new TextBox();
+                Qhead2.TabIndex = 999;
+                Qhead2.Text = rhead[b];
+                Qhead2.ReadOnly = true;
+                ((TableLayoutPanel)Q2[0]).Controls.Add(Qhead2, b, 0);
+            }
+            try
+            {
+                string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+                string cnStr = "data source=" + dbPath + ";Version=3;";
+                if (File.Exists(dbPath))
+                {
+                    using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                    {
+                        var selectScript = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
+                        SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                        cmd2.Parameters.AddWithValue("@WorkDate", workdate);
+                        cmd2.Parameters.AddWithValue("@PartnerId", pid[0].Text);
+                        cmd2.Parameters.AddWithValue("@TenantId", tid[0].Text);
+                        conn.Open();
+                        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd2);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "FirstTable");
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            Console.WriteLine("r=" + row["DayReportId"]);
+                            WorkDayReportOut wdr = new WorkDayReportOut()
+                            {
+                                DayReportId = (row["DayReportId"] as string ?? ""),
+                                CompleteQty = (row["CompleteQty"] as decimal? ?? null),
+                                Specification = (row["Specification"] as string ?? ""),
+                                WorkNo = (row["WorkNo"] as string ?? ""),
+                                WorkName = (row["WorkName"] as string ?? ""),
+                                EmpNo = row["EmpNo"] as string ?? "",
+                                Price = row["Price"] as decimal? ?? null,
+                                AssetsNo = (row["AssetsNo"] as string ?? ""),
+                                MakeNo = (row["MakeNo"] as string ?? ""),
+                            };
+                            outwkitem.Add(wdr);
+                        }
+
+                        Console.Write("wdr=" + outwkitem.Count);
+                        for(var j = 0; j < outwkitem.Count; j++)
+                        {
+                            TextBox tempinfo1 = new TextBox();
+                            tempinfo1.Text = outwkitem[j].MakeNo;
+                            tempinfo1.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo1, 0, j+1);
+
+                            TextBox tempinfo2 = new TextBox();
+                            tempinfo2.Text = outwkitem[j].AssetsNo;
+                            tempinfo2.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo2, 1, j+1);
+
+                            TextBox tempinfo3 = new TextBox();
+                            tempinfo3.Text = outwkitem[j].Specification;
+                            tempinfo3.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo3, 2, j+1);
+
+                            TextBox tempinfo4 = new TextBox();
+                            tempinfo4.Text = outwkitem[j].WorkNo+" "+outwkitem[j].WorkName;
+                            tempinfo4.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo4, 3, j+1);
+
+                            TextBox tempinfo5 = new TextBox();
+                            tempinfo5.Text = outwkitem[j].CompleteQty.ToString();
+                            tempinfo5.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo5, 4, j+1);
+
+                            TextBox tempinfo6 = new TextBox();
+                            tempinfo6.Text = outwkitem[j].Price.ToString();
+                            tempinfo6.ReadOnly = true;
+                            ((TableLayoutPanel)Q[0]).Controls.Add(tempinfo6, 5, j + 1);
+                        }
+                        var empno = tabPage1.Controls.Find("frmEmpshowno", true);
+                        var partnerid = tabPage2.Controls.Find("PTSavePartnerId", true);
+                        var comqty = tabPage4.Controls.Find("outqty", true);
+                        var price = tabPage4.Controls.Find("price", true);
+                        var MakeNo = tabPage3.Controls.Find("WKSaveMakeNo", true);
+                        var Specification = tabPage3.Controls.Find("WKSaveSpecification", true);
+                        var WorkNo = tabPage3.Controls.Find("WKSaveWorkNo", true);
+                        var tenantids = tabPage3.Controls.Find("WKtenantId", true);
+                        var WorkName = tabPage3.Controls.Find("WKSaveWorkName", true);
+                        var AssetsNo = tabPage3.Controls.Find("labPName", true);
+                        var starttime = DateTime.Now;
+                        var assetsno = AssetsNo[0].Text;
+                        TextBox ntempinfo1 = new TextBox();
+                        ntempinfo1.Text = MakeNo[0].Text;
+                        ntempinfo1.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo1, 0,1);
+
+                        TextBox ntempinfo2 = new TextBox();
+                        ntempinfo2.Text = AssetsNo[0].Text;
+                        ntempinfo2.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo2, 1,1);
+
+                        TextBox ntempinfo3 = new TextBox();
+                        ntempinfo3.Text = Specification[0].Text;
+                        ntempinfo3.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo3, 2,1);
+
+                        TextBox ntempinfo4 = new TextBox();
+                        ntempinfo4.Text = WorkNo[0].Text + " " + WorkName[0].Text;
+                        ntempinfo4.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo4, 3,1);
+
+                        TextBox ntempinfo5 = new TextBox();
+                        ntempinfo5.Text = comqty[0].Text;
+                        ntempinfo5.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo5, 4,1);
+
+                        TextBox ntempinfo6 = new TextBox();
+                        ntempinfo6.Text = price[0].Text;
+                        ntempinfo6.ReadOnly = true;
+                        ((TableLayoutPanel)Q2[0]).Controls.Add(ntempinfo6, 5,1);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public void UpdateRecord(string id)
+        {
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+            string cnStr = "data source=" + dbPath + ";Version=3;";
+            Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
+            List<WorkDayReport> wrecord = new List<WorkDayReport>();
+            if (File.Exists(dbPath))
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                {
+                    var insertScript = "UPDATE  WorkDayReports SET  isupdate=1 WHERE DayReportId=@DayReportId";
+                    SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
+                    cmd.Parameters.AddWithValue("@DayReportId", id);
+
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("更新上傳結果錯誤");
+                    }
+                    //參數是用@paramName
+
+
+                }
+            }
+
+        }
+
+
     }
 }

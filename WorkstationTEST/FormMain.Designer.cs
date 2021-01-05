@@ -38,6 +38,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.button3 = new WorkstationTEST.XButton();
+            this.Button4 = new WorkstationTEST.XButton();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,7 +130,7 @@
             // button3
             // 
             this.button3.LeftText = null;
-            this.button3.Location = new System.Drawing.Point(511, 12);
+            this.button3.Location = new System.Drawing.Point(378, 12);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 4;
@@ -138,11 +139,24 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // Button4
+            // 
+            this.Button4.LeftText = null;
+            this.Button4.Location = new System.Drawing.Point(650, 13);
+            this.Button4.Name = "Button4";
+            this.Button4.Size = new System.Drawing.Size(75, 23);
+            this.Button4.TabIndex = 5;
+            this.Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.Button4.TopText = null;
+            this.Button4.UseVisualStyleBackColor = true;
+            this.Button4.Click += new System.EventHandler(this.Button4_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 646);
+            this.Controls.Add(this.Button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
@@ -167,5 +181,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabControl tabControl1;
+        private XButton Button4;
     }
 }
