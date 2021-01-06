@@ -107,7 +107,7 @@ namespace WorkstationTEST
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
                 getwitem.Clear();
-                getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrderO(101,makeno);
+                getworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(101,makeno);
                 if (getworkorder.Count > 0)
                 {
                     labSpec.Text = getworkorder[0].Specification;
@@ -119,6 +119,8 @@ namespace WorkstationTEST
                     labAssetsName.Text = getworkorder[0].AssetsName;
                     WKAssetsId.Text = getworkorder[0].AssetsId.HasValue ? getworkorder[0].AssetsId.ToString() : "";
                     WKtenantId.Text = getworkorder[0].TenantId.ToString();
+                    WKprice.Text = getworkorder[0].Price.ToString();
+                    UpdatePID();
                 }
                 else
                 {
@@ -240,8 +242,6 @@ namespace WorkstationTEST
                     Console.WriteLine("record=" + frmWKRecordnow.Text);
                 }
             }
-           // frmWKMakeno.Select();
-           // ActiveControl = frmWKMakeno;
         }
 
         public void SetEmpNO(string info,bool isdef=false)
@@ -432,6 +432,22 @@ namespace WorkstationTEST
 
         private void infotitle_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void UpdatePID()
+        {
+            var tid = 0;
+
+            int.TryParse(WKtenantId.Text, out tid);
+            var pno = WKpno.Text;
+            List<Partner> getpt = new API("/CHG/Main/Home/getPartnerId/", "http://").GetPartner2(tid, pno);
+            Console.WriteLine("tenantid change:tid:" + tid + ",pno=" + pno);
+            if (getpt.Count > 0)
+            {
+                WKPartnerId.Text = getpt.First().PartnerId.ToString();
+                Console.WriteLine("tenantid change:newpid:" + WKPartnerId.Text);
+            }
 
         }
     }

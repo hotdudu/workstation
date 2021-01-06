@@ -51,7 +51,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_494AD40254174314BBBA9966C384E4F9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6293F6C7067549858DE624CE5FFF648A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6584621CB9C3496EA7A55448FA9C147C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -239,7 +251,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\workstation2.msi"
+        "OutputFilename" = "8:Release\\workstation2out.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -425,10 +437,50 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_494AD40254174314BBBA9966C384E4F9"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\wd3.db3"
+            "TargetName" = "8:wd3.db3"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6293F6C7067549858DE624CE5FFF648A"
             {
             "SourcePath" = "8:..\\WorkstationTEST\\Resources-CHT.resx"
             "TargetName" = "8:Resources-CHT.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6584621CB9C3496EA7A55448FA9C147C"
+            {
+            "SourcePath" = "8:..\\WorkstationTEST\\wd2.db3"
+            "TargetName" = "8:wd2.db3"
             "Tag" = "8:"
             "Folder" = "8:_6C65A01E8EAD418F81BC49F5E941D22A"
             "Condition" = "8:"
@@ -848,7 +900,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:workstation2"
         "ProductCode" = "8:{09A53E7C-F518-46E0-96CE-622883C68A73}"
-        "PackageCode" = "8:{5ED20B51-95B3-4EA8-8B33-E73604F977EA}"
+        "PackageCode" = "8:{9D810F49-5282-448F-B50A-2466F7FD431B}"
         "UpgradeCode" = "8:{8C6F37F2-E3B3-418B-85F5-2A4F8471D0F2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

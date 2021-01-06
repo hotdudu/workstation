@@ -71,6 +71,9 @@
             this.infotitle = new System.Windows.Forms.Label();
             this.WKAssetsId = new System.Windows.Forms.TextBox();
             this.WKtenantId = new System.Windows.Forms.TextBox();
+            this.WKpno = new System.Windows.Forms.TextBox();
+            this.WKPartnerId = new System.Windows.Forms.TextBox();
+            this.WKprice = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -551,6 +554,7 @@
             this.WKAssetsId.Size = new System.Drawing.Size(100, 22);
             this.WKAssetsId.TabIndex = 106;
             this.WKAssetsId.TabStop = false;
+            this.WKAssetsId.Visible = false;
             // 
             // WKtenantId
             // 
@@ -561,12 +565,49 @@
             this.WKtenantId.Size = new System.Drawing.Size(100, 22);
             this.WKtenantId.TabIndex = 107;
             this.WKtenantId.TabStop = false;
+            this.WKtenantId.Visible = false;
+            // 
+            // WKpno
+            // 
+            this.WKpno.CausesValidation = false;
+            this.WKpno.HideSelection = false;
+            this.WKpno.Location = new System.Drawing.Point(606, 490);
+            this.WKpno.Name = "WKpno";
+            this.WKpno.Size = new System.Drawing.Size(100, 22);
+            this.WKpno.TabIndex = 108;
+            this.WKpno.TabStop = false;
+            this.WKpno.Visible = false;
+            // 
+            // WKPartnerId
+            // 
+            this.WKPartnerId.CausesValidation = false;
+            this.WKPartnerId.HideSelection = false;
+            this.WKPartnerId.Location = new System.Drawing.Point(752, 490);
+            this.WKPartnerId.Name = "WKPartnerId";
+            this.WKPartnerId.Size = new System.Drawing.Size(100, 22);
+            this.WKPartnerId.TabIndex = 109;
+            this.WKPartnerId.TabStop = false;
+            this.WKPartnerId.Visible = false;
+            // 
+            // WKprice
+            // 
+            this.WKprice.CausesValidation = false;
+            this.WKprice.HideSelection = false;
+            this.WKprice.Location = new System.Drawing.Point(913, 490);
+            this.WKprice.Name = "WKprice";
+            this.WKprice.Size = new System.Drawing.Size(100, 22);
+            this.WKprice.TabIndex = 110;
+            this.WKprice.TabStop = false;
+            this.WKprice.Visible = false;
             // 
             // frmWorkOrder3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1252, 687);
+            this.Controls.Add(this.WKprice);
+            this.Controls.Add(this.WKPartnerId);
+            this.Controls.Add(this.WKpno);
             this.Controls.Add(this.WKtenantId);
             this.Controls.Add(this.WKAssetsId);
             this.Controls.Add(this.panel1);
@@ -647,5 +688,8 @@
         private System.Windows.Forms.Label infotitle;
         private System.Windows.Forms.TextBox WKAssetsId;
         private System.Windows.Forms.TextBox WKtenantId;
+        private System.Windows.Forms.TextBox WKpno;
+        private System.Windows.Forms.TextBox WKPartnerId;
+        private System.Windows.Forms.TextBox WKprice;
     }
 }

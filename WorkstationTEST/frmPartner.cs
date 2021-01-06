@@ -73,8 +73,10 @@ namespace WorkstationTEST
             Console.WriteLine("ptl="+PTarray.Length);
             var ptno = PTarray[0];
             var ptid = PTarray[1];
+            var ptname = PTarray[2];
             frmPTshowno.Text = ptno;
-            PTSavePartnerId.Text =ptid;
+            frmPTname.Text = ptname;
+           // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
             Console.WriteLine("ptno=" + frmPTshowno.Text + ",ptid=" + PTSavePartnerId.Text);
 
         }

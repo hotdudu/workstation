@@ -43,6 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Qpanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.frmQTYname = new System.Windows.Forms.Label();
             frmNumbtnD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -62,6 +64,7 @@
             this.frmNumshowno.Name = "frmNumshowno";
             this.frmNumshowno.Size = new System.Drawing.Size(174, 22);
             this.frmNumshowno.TabIndex = 14;
+            this.frmNumshowno.Visible = false;
             // 
             // frmNumRecordnow
             // 
@@ -167,6 +170,7 @@
             this.focust.Name = "focust";
             this.focust.Size = new System.Drawing.Size(174, 22);
             this.focust.TabIndex = 20;
+            this.focust.Visible = false;
             // 
             // Qpanel
             // 
@@ -178,12 +182,12 @@
             this.Qpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.Qpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.Qpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Qpanel.Location = new System.Drawing.Point(647, 50);
+            this.Qpanel.Location = new System.Drawing.Point(657, 50);
             this.Qpanel.Name = "Qpanel";
             this.Qpanel.RowCount = 2;
             this.Qpanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.Qpanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.Qpanel.Size = new System.Drawing.Size(406, 121);
+            this.Qpanel.Size = new System.Drawing.Size(458, 121);
             this.Qpanel.TabIndex = 21;
             this.Qpanel.Paint += new System.Windows.Forms.PaintEventHandler(this.Qpanel_Paint);
             // 
@@ -193,15 +197,15 @@
             this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.label1.Location = new System.Drawing.Point(682, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(286, 23);
+            this.label1.Size = new System.Drawing.Size(58, 23);
             this.label1.TabIndex = 22;
-            this.label1.Text = "今日同廠商外包項目:";
+            this.label1.Text = "今日";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label2.ForeColor = System.Drawing.Color.Green;
             this.label2.Location = new System.Drawing.Point(643, 174);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(286, 23);
@@ -219,19 +223,43 @@
             this.Qpanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.Qpanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.Qpanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Qpanel2.Location = new System.Drawing.Point(647, 200);
+            this.Qpanel2.Location = new System.Drawing.Point(657, 200);
             this.Qpanel2.Name = "Qpanel2";
             this.Qpanel2.RowCount = 2;
             this.Qpanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.Qpanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.Qpanel2.Size = new System.Drawing.Size(406, 121);
+            this.Qpanel2.Size = new System.Drawing.Size(458, 121);
             this.Qpanel2.TabIndex = 24;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label3.Location = new System.Drawing.Point(819, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 23);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "外包項目:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // frmQTYname
+            // 
+            this.frmQTYname.AutoSize = true;
+            this.frmQTYname.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.frmQTYname.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.frmQTYname.Location = new System.Drawing.Point(733, 13);
+            this.frmQTYname.Name = "frmQTYname";
+            this.frmQTYname.Size = new System.Drawing.Size(0, 21);
+            this.frmQTYname.TabIndex = 26;
+            this.frmQTYname.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmQTY
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1218, 639);
+            this.Controls.Add(this.frmQTYname);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.Qpanel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -271,5 +299,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel Qpanel2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label frmQTYname;
     }
 }

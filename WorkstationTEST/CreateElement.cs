@@ -171,14 +171,14 @@ namespace WorkstationTEST
 
         public Button CreatePTBtnWithXY(string no, string name, Guid PId, string key, int irow, int icol, int ispace, Control p)
         {
-            var savestr = no + ":" + PId.ToString();
+            var savestr = no + ":" + PId.ToString()+":"+name;
             Console.WriteLine("PTbtn=" + savestr);
             XButton btn = new XButton();
             btn.Name = bname;
             var qr = no + "::" + key;
-            btn.LeftText = name;
+            btn.LeftText = name+Environment.NewLine+no;
             btn.TopText = key;
-            btn.Size = new Size(190, 150);
+            btn.Size = new Size(190, 170);
             btn.Margin = new Padding(0, 20, 0, 20);
             btn.Image = SetQR(qr, 100, 100, "QR");
             btn.Tag = savestr;

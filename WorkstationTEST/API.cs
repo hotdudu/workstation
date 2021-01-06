@@ -567,6 +567,7 @@ namespace WorkstationTEST
     public class WorkOrderO:WorkOrder
     {
         public Guid? AssetsId { get; set; }
+        public decimal? Price { get; set; }
     }
     public class WorkDayReport
     {

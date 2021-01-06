@@ -57,10 +57,13 @@ namespace WorkstationTEST
                     tabPage3.Controls.Add(frmWK);
                     var wk = frmWK.Controls.Find("frmWKWorkitem", false);
                     var mk = frmWK.Controls.Find("frmWKMakeno", false);
-                    var wkt = frmWK.Controls.Find("WKtenantId", false);
+                    var wkpno = frmWK.Controls.Find("WKpno", false);
+                    var ptpno = tabPage2.Controls.Find("frmPTshowno", true);
+                    wkpno[0].Text = ptpno[0].Text;
+                    //var wkt = frmWK.Controls.Find("WKtenantId", false);
                     ActiveControl = mk[0];
                     wk[0].TextChanged += new EventHandler(gettab3);
-                    wkt[0].TextChanged += new EventHandler(UpdatePID);
+                   // wkt[0].TextChanged += new EventHandler(UpdatePID);
                     Console.WriteLine(frmWK.Name);
                     break;
                 case 1:
@@ -93,7 +96,13 @@ namespace WorkstationTEST
                     qty[0].TextChanged += new EventHandler(gettab4);
                     var save = frmQTY.Controls.Find("save", false);
                     save[0].Click += new EventHandler(savetab);
-                    var qtyfocus= frmQTY.Controls.Find("outqty",true);
+                    var qtyfocus = tabPage4.Controls.Find("outqty", true);
+                    var qtyprices = tabPage4.Controls.Find("price", true);
+                    var wkprices = tabPage3.Controls.Find("WKprice", true);
+                    var ptpname = tabPage2.Controls.Find("frmPTname", true);
+                    var qtyname = tabPage4.Controls.Find("frmQTYname", true);
+                    qtyname[0].Text = ptpname[0].Text;
+                    qtyprices[0].Text = wkprices[0].Text;
                     showinfo();
                     ActiveControl = qtyfocus[0];
                     break;
@@ -214,15 +223,16 @@ namespace WorkstationTEST
             }
             return data;
         }
-        private void UpdatePID(object sender, EventArgs e)
+        private void UpdatePID()
         {
             var tid = 0;
-            int.TryParse(((TextBox)sender).Text, out tid);
+            var tidc = tabPage3.Controls.Find("WKtenantId", true);
+            int.TryParse(tidc[0].Text, out tid);
             var pnos = tabPage2.Controls.Find("frmPTshowno", true);
-            var pids = tabPage2.Controls.Find("PTSavePartnerId", true);
+            var pids = tabPage3.Controls.Find("WKPartnerId", true);
             var pno = pnos[0].Text;
             var pid = pids[0].Text;
-            List<Partner> getpt = new API("/CHG/Main/Home/getinfo/", "http://").GetPartner2(tid, pno);
+            List<Partner> getpt = new API("/CHG/Main/Home/getPartnerId/", "http://").GetPartner2(tid, pno);
             Console.WriteLine("tenantid change:tid:" +tid+",pno="+pno+",pid="+pid);
             if (getpt.Count > 0)
             {
@@ -254,11 +264,12 @@ namespace WorkstationTEST
         }
         private void savetab(object sender, EventArgs e)
         {
+
             var empno = tabPage1.Controls.Find("frmEmpshowno", true);
             var workorderitemId = tabPage3.Controls.Find("WKSaveWitemId", true);
             var workorderid = tabPage3.Controls.Find("WKSaveWorderId",true);
             var workid= tabPage3.Controls.Find("WKSaveWorkId", true);
-            var partnerid = tabPage2.Controls.Find("PTSavePartnerId", true);
+            var partnerid = tabPage3.Controls.Find("WKPartnerId", true);
             var comqty = tabPage4.Controls.Find("outqty", true);
             var price = tabPage4.Controls.Find("price", true);
             var MakeNo = tabPage3.Controls.Find("WKSaveMakeNo", true);
@@ -271,7 +282,7 @@ namespace WorkstationTEST
             var chkousides = tabPage4.Controls.Find("chkouside", true);
             var AssetsNo = tabPage3.Controls.Find("labPName", true);
             var starttime = DateTime.Now;
-            var workdate = DateTime.Today;
+            var workdate = DateTime.Today.ToString("yyyy-MM-dd");
             var ischk =(CheckBox)chkousides[0];
             int tid = 101;
             var createempno = empno[0].Text;
@@ -285,6 +296,8 @@ namespace WorkstationTEST
             Console.WriteLine("db=" + File.Exists(dbPath)+","+dbPath);
             if (File.Exists(dbPath))
             {
+                var s = new saving();
+                s.Show();
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
                     var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price,AssetsNo) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price,@AssetsNo)";
@@ -379,6 +392,7 @@ namespace WorkstationTEST
                     cleardata(false);
                     tabControl1.SelectedIndex = 2;
                 }
+                s.Close();
             }
         }
         public static Control FindFocusedControl(Control control)
@@ -458,7 +472,7 @@ namespace WorkstationTEST
                 if (keyupper == "Return")
                 {
                     List<WorkOrderO> Wgetworkorder = new List<WorkOrderO>();
-                    Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrderO(101, wkmo[0].Text.ToUpper());
+                    Wgetworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(101, wkmo[0].Text.ToUpper());
                     Guid? wid = null;
                     if (Wgetworkorder.Count > 0)
                     {
@@ -471,6 +485,7 @@ namespace WorkstationTEST
                         var labAssetsNames = tabPage3.Controls.Find("labAssetsName", true);
                         var WKAssetsIds= tabPage3.Controls.Find("WKAssetsId", true);
                         var WKtenatIds = tabPage3.Controls.Find("WKtenantId", true);
+                        var WKprices = tabPage3.Controls.Find("WKprice", true);
                         labSpec[0].Text = Wgetworkorder[0].Specification;
                         labRemark[0].Text = Wgetworkorder[0].Remark;
                         labPName[0].Text = Wgetworkorder[0].AssetsNo;
@@ -480,8 +495,10 @@ namespace WorkstationTEST
                         labAssetsNames[0].Text = Wgetworkorder[0].AssetsName;
                         WKAssetsIds[0].Text = Wgetworkorder[0].AssetsId.HasValue? Wgetworkorder[0].AssetsId.ToString():"";
                         WKtenatIds[0].Text = Wgetworkorder[0].TenantId.ToString();
+                        WKprices[0].Text = Wgetworkorder[0].Price.ToString();
                         wid = Wgetworkorder[0].WorkOrderId;
                         wkmo[0].Tag = wid.ToString();
+                        UpdatePID();
                     }
                     else
                     {
@@ -1072,9 +1089,9 @@ namespace WorkstationTEST
         private void showinfo()
         {
             var rhead = new string[] { "工令編號", "產品編號", "規格","製程", "數量", "價格" };
-            var workdate = DateTime.Today;
+            var workdate = DateTime.Today.ToString("yyyy-MM-dd");
             var tid = tabPage3.Controls.Find("WKtenantId", true);
-            var pid = tabPage2.Controls.Find("PTSavePartnerId", true);
+            var pid = tabPage3.Controls.Find("WKPartnerId", true);
             List<WorkDayReportOut> outwkitem = new List<WorkDayReportOut>();
             var Q = tabPage4.Controls.Find("Qpanel", true);
             for (int c = ((TableLayoutPanel)Q[0]).Controls.Count - 1; c >= 0; --c)
@@ -1174,7 +1191,7 @@ namespace WorkstationTEST
                         var price = tabPage4.Controls.Find("price", true);
                         var MakeNo = tabPage3.Controls.Find("WKSaveMakeNo", true);
                         var Specification = tabPage3.Controls.Find("WKSaveSpecification", true);
-                        var WorkNo = tabPage3.Controls.Find("WKSaveWorkNo", true);
+                        var WorkNo = tabPage3.Controls.Find("frmWKWorkitem", true);
                         var tenantids = tabPage3.Controls.Find("WKtenantId", true);
                         var WorkName = tabPage3.Controls.Find("WKSaveWorkName", true);
                         var AssetsNo = tabPage3.Controls.Find("labPName", true);
