@@ -118,7 +118,7 @@
             // save
             // 
             this.save.LeftText = null;
-            this.save.Location = new System.Drawing.Point(922, 522);
+            this.save.Location = new System.Drawing.Point(922, 429);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(86, 73);
             this.save.TabIndex = 12;
@@ -130,7 +130,7 @@
             // 
             this.chkouside.AutoSize = true;
             this.chkouside.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.chkouside.Location = new System.Drawing.Point(922, 354);
+            this.chkouside.Location = new System.Drawing.Point(922, 281);
             this.chkouside.Name = "chkouside";
             this.chkouside.Size = new System.Drawing.Size(139, 25);
             this.chkouside.TabIndex = 17;
@@ -141,7 +141,7 @@
             // btnoutside
             // 
             this.btnoutside.LeftText = null;
-            this.btnoutside.Location = new System.Drawing.Point(922, 385);
+            this.btnoutside.Location = new System.Drawing.Point(922, 312);
             this.btnoutside.Name = "btnoutside";
             this.btnoutside.Size = new System.Drawing.Size(75, 23);
             this.btnoutside.TabIndex = 18;
@@ -228,7 +228,7 @@
             this.Qpanel2.RowCount = 2;
             this.Qpanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.Qpanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.Qpanel2.Size = new System.Drawing.Size(458, 121);
+            this.Qpanel2.Size = new System.Drawing.Size(458, 75);
             this.Qpanel2.TabIndex = 24;
             // 
             // label3
