@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -160,6 +162,22 @@ namespace WorkstationTEST
                 }
                 PTPanel.VerticalScroll.Value = vheight;
                 PTPanel.PerformLayout();
+            }
+
+        }
+        public string getpropername(string phone)
+        {
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+            string cnStr = "data source=" + dbPath + ";Version=3;";
+            if (File.Exists(dbPath))
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                {
+                    var selectScript = "SELECT * FROM LPartner L WHERE phone=@phone";
+                    SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                    cmd2.Parameters.AddWithValue("@phone", phone);
+                    conn.Open();
+                }
             }
 
         }

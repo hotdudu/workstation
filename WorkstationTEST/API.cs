@@ -499,7 +499,7 @@ namespace WorkstationTEST
                     // Message MS = JsonConvert.DeserializeObject<Message>(r);
                     // var Result = JsonConvert.SerializeObject(MS);
 
-                    dayid = JsonConvert.DeserializeObject<List<Guid>>(res.Content.ReadAsStringAsync().Result);
+                    result = JsonConvert.DeserializeObject<returnlistmsg>(res.Content.ReadAsStringAsync().Result);
                 }
                 else if (res.StatusCode.ToString() == "BadRequest")
                 {
@@ -521,8 +521,6 @@ namespace WorkstationTEST
                     ermsg = "伺服器發生錯誤";
                 }
             }
-            result.dayid = dayid;
-            result.ermsg = ermsg;
             return result;
         }
     }
@@ -626,7 +624,7 @@ namespace WorkstationTEST
     public class returnlistmsg
     {
         public List<Guid> dayid { get; set; }
-        public string ermsg { get; set; }
+        public string no { get; set; }
     }
     public class apiresult
     {
