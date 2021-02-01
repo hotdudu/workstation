@@ -117,6 +117,25 @@ namespace WorkstationTEST
             btn.Tag = no+":"+name;
             return btn;
         }
+
+        public Button CreateEmpBtnWithXY(string no, string name, Guid? empid, string key, int irow, int icol, int ispace, Control p)
+        {
+            XButton btn = new XButton();
+            btn.Name = bname;
+            var qr = no + "::" + key;
+            btn.LeftText = no + Environment.NewLine + name;
+            btn.Size = new Size(160, 165);
+            btn.Margin = new Padding(0, 20, 0, 20);
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+            btn.TopText = key;
+            btn.Image = SetQR(qr, 80, 80, "QR");
+            btn.Tag = no + ":" + name;
+            btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
+            btn.Left = icol * (ispace + btn.Width);
+            btn.Parent = p;
+            return btn;
+        }
+
         public Button CreateWKBtn(string no, string name, Guid WitemId,Guid WorkId,string key)
         {
             var savestr = WitemId.ToString() + ":" + WorkId.ToString() +":"+name +":"+no;

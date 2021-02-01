@@ -132,6 +132,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReturn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReturn.Designer.cs">
+      <DependentUpon>FormReturn.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSTART.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReturn.resx">
+      <DependentUpon>FormReturn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSTART.resx">
       <DependentUpon>FormSTART.cs</DependentUpon>

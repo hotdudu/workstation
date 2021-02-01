@@ -548,6 +548,7 @@ namespace WorkstationTEST
         public Guid PartnerId { get; set; }
         public string PartnerNo { get; set; }
         public string ShortName { get; set; }
+        public string CategoryName { get; set; }
     }
     public class WorkOrder
     {
@@ -599,6 +600,13 @@ namespace WorkstationTEST
         public bool localupdate { get; set; }
         public int itemno { get; set; }
 
+    }
+    public class WorkOutReport : WorkDayReport
+    {
+        public string OutNo { get; set; }
+        public decimal? RCompleteQty { get; set; }
+        public decimal? RBadQty { get; set; }
+        public bool? isreturn { get; set; }
     }
     public class WorkDayReportMenu : WorkDayReport
     {

@@ -33,10 +33,10 @@
             this.PTSavePartnerId = new System.Windows.Forms.TextBox();
             this.frmPTRecordT = new System.Windows.Forms.Label();
             this.PTPanel = new System.Windows.Forms.Panel();
+            this.frmPTname = new System.Windows.Forms.TextBox();
             this.save = new WorkstationTEST.XButton();
             this.frmPTbtnD = new WorkstationTEST.XButton();
             this.frmPTbtnU = new WorkstationTEST.XButton();
-            this.frmPTname = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // frmPTRecordnow
@@ -83,6 +83,14 @@
             this.PTPanel.Size = new System.Drawing.Size(1021, 355);
             this.PTPanel.TabIndex = 105;
             // 
+            // frmPTname
+            // 
+            this.frmPTname.Location = new System.Drawing.Point(958, 517);
+            this.frmPTname.Name = "frmPTname";
+            this.frmPTname.Size = new System.Drawing.Size(100, 22);
+            this.frmPTname.TabIndex = 106;
+            this.frmPTname.Visible = false;
+            // 
             // save
             // 
             this.save.LeftText = null;
@@ -118,14 +126,6 @@
             this.frmPTbtnU.TopText = null;
             this.frmPTbtnU.UseVisualStyleBackColor = true;
             this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
-            // 
-            // frmPTname
-            // 
-            this.frmPTname.Location = new System.Drawing.Point(958, 517);
-            this.frmPTname.Name = "frmPTname";
-            this.frmPTname.Size = new System.Drawing.Size(100, 22);
-            this.frmPTname.TabIndex = 106;
-            this.frmPTname.Visible = false;
             // 
             // frmPartner
             // 

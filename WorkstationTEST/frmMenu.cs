@@ -163,6 +163,7 @@ namespace WorkstationTEST
             setpageup.SetBtn(start2, "F2::F2", "開始工作2");
             setpageup.SetBtn(endwork, "F3::F3", "結束工作");
             setpageup.SetBtn(ousidework, "F4::F4", "外包");
+            setpageup.SetBtn(ousideworkR, "F5::F5", "外包送回");
             SetControlName(rtext);
             this.KeyPreview = true;
             this.Activate();
@@ -670,6 +671,10 @@ namespace WorkstationTEST
             }
         }
 
-
+        private void ousideworkR_Click(object sender, EventArgs e)
+        {
+            var r = new FormReturn();
+            r.Show();
+        }
     }
 }

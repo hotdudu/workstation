@@ -41,6 +41,12 @@ namespace WorkstationTEST
                 var keynum = 0;
                 foreach (var empitem in getwitem)
                 {
+                    var nowcate = getpropername(empitem.PartnerNo);
+                    if (nowcate == "")
+                    {
+                        nowcate = empitem.CategoryName;
+                        nowcate = nowcate.Substring(nowcate.IndexOf('-')+1);
+                    }
                     iRow = keynum / ItemsOneRow;
                     iCol = keynum % ItemsOneRow;
                     var prestr = "BTNfrmEmp";
@@ -55,7 +61,7 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(empitem.PartnerNo, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
                     empbtn = sethandler(empbtn);
                     if (keynum > totalitem)
                     {
@@ -169,6 +175,7 @@ namespace WorkstationTEST
         {
             string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
             string cnStr = "data source=" + dbPath + ";Version=3;";
+            var result = "";
             if (File.Exists(dbPath))
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
@@ -177,9 +184,16 @@ namespace WorkstationTEST
                     SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
                     cmd2.Parameters.AddWithValue("@phone", phone);
                     conn.Open();
+                    using (SQLiteDataReader row = cmd2.ExecuteReader())
+                    {
+                        while (row.Read())
+                        {
+                            result = row["cate"] as string ?? "";
+                        }
+                    }
                 }
             }
-
+            return result;
         }
     }
 }

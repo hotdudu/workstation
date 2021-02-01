@@ -374,9 +374,10 @@ namespace WorkstationTEST
                             if (upwk.dayid.Count > 0)
                             {
                                 List<Guid> daylist = upwk.dayid;
+                                var outno = upwk.no;
                                 foreach (var upitem in daylist)
                                 {
-                                    UpdateRecord(upitem.ToString());
+                                    UpdateRecord(upitem.ToString(),outno);
                                 }
                             }
                         }
@@ -1236,7 +1237,7 @@ namespace WorkstationTEST
             }
         }
 
-        public void UpdateRecord(string id)
+        public void UpdateRecord(string id,string no)
         {
             string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
             string cnStr = "data source=" + dbPath + ";Version=3;";
@@ -1246,10 +1247,10 @@ namespace WorkstationTEST
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "UPDATE  WorkDayReports SET  isupdate=1 WHERE DayReportId=@DayReportId";
+                    var insertScript = "UPDATE  WorkDayReports SET  isupdate=1,OutNo=@no WHERE DayReportId=@DayReportId";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@DayReportId", id);
-
+                    cmd.Parameters.AddWithValue("@no", no);
                     try
                     {
                         conn.Open();

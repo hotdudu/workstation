@@ -50,6 +50,7 @@
             this.startwork = new WorkstationTEST.XButton();
             this.button2 = new System.Windows.Forms.Button();
             this.IN = new System.Windows.Forms.Button();
+            this.ousideworkR = new WorkstationTEST.XButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -206,7 +207,7 @@
             // ousidework
             // 
             this.ousidework.LeftText = null;
-            this.ousidework.Location = new System.Drawing.Point(844, 12);
+            this.ousidework.Location = new System.Drawing.Point(703, 12);
             this.ousidework.Name = "ousidework";
             this.ousidework.Size = new System.Drawing.Size(132, 113);
             this.ousidework.TabIndex = 2;
@@ -260,11 +261,24 @@
             this.IN.UseVisualStyleBackColor = true;
             this.IN.Click += new System.EventHandler(this.IN_Click);
             // 
+            // ousideworkR
+            // 
+            this.ousideworkR.LeftText = null;
+            this.ousideworkR.Location = new System.Drawing.Point(907, 12);
+            this.ousideworkR.Name = "ousideworkR";
+            this.ousideworkR.Size = new System.Drawing.Size(126, 113);
+            this.ousideworkR.TabIndex = 26;
+            this.ousideworkR.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.ousideworkR.TopText = null;
+            this.ousideworkR.UseVisualStyleBackColor = true;
+            this.ousideworkR.Click += new System.EventHandler(this.ousideworkR_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 647);
+            this.Controls.Add(this.ousideworkR);
             this.Controls.Add(this.IN);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.start2);
@@ -315,5 +329,6 @@
         private XButton start2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button IN;
+        private XButton ousideworkR;
     }
 }
