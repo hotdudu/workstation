@@ -52,6 +52,16 @@
             this.frmEmpRecordT = new System.Windows.Forms.Label();
             this.EMPSave1 = new System.Windows.Forms.TextBox();
             this.RPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.focust = new System.Windows.Forms.TextBox();
+            this.frmRecordnow = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -271,6 +281,16 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.label3);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.label1);
+            this.tabPage3.Controls.Add(this.frmRecordnow);
+            this.tabPage3.Controls.Add(this.focust);
             this.tabPage3.Controls.Add(this.RPanel);
             this.tabPage3.Location = new System.Drawing.Point(4, 42);
             this.tabPage3.Name = "tabPage3";
@@ -334,6 +354,117 @@
             this.RPanel.Size = new System.Drawing.Size(1300, 0);
             this.RPanel.TabIndex = 4;
             // 
+            // focust
+            // 
+            this.focust.Location = new System.Drawing.Point(952, 354);
+            this.focust.Name = "focust";
+            this.focust.Size = new System.Drawing.Size(100, 46);
+            this.focust.TabIndex = 27;
+            // 
+            // frmRecordnow
+            // 
+            this.frmRecordnow.Location = new System.Drawing.Point(963, 313);
+            this.frmRecordnow.Name = "frmRecordnow";
+            this.frmRecordnow.Size = new System.Drawing.Size(89, 12);
+            this.frmRecordnow.TabIndex = 28;
+            this.frmRecordnow.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label7.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label7.Location = new System.Drawing.Point(660, 29);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 23);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "數量";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label7.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label6.Location = new System.Drawing.Point(563, 29);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 23);
+            this.label6.TabIndex = 34;
+            this.label6.Text = "加工日期";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label6.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label5.Location = new System.Drawing.Point(270, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(100, 23);
+            this.label5.TabIndex = 33;
+            this.label5.Text = "規格";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label5.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label4.Location = new System.Drawing.Point(366, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(200, 23);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "製程";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label4.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label2.Location = new System.Drawing.Point(757, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "單位";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "工令";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label3.Location = new System.Drawing.Point(123, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(150, 23);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "產品編號";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label8.Location = new System.Drawing.Point(854, 29);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 23);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "外包單號";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label8.Visible = false;
+            // 
             // FormReturn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -386,5 +517,15 @@
         private XButton frmPTbtnD;
         private XButton frmPTbtnU;
         private System.Windows.Forms.TableLayoutPanel RPanel;
+        private System.Windows.Forms.TextBox focust;
+        private System.Windows.Forms.Label frmRecordnow;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label8;
     }
 }

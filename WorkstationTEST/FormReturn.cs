@@ -208,7 +208,102 @@ namespace WorkstationTEST
 
         private void showrecord()
         {
+            var itemi = 0;
+            var itemj = 0;
+            var dayid = "";
+            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "數量", "單位", "外包單號" };
 
+            var widthlist = new List<int> { 100,100,150,150,150,150,150,150 };
+            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo" };
+            var editlist = new string[] { "RCompleteQty", "RBadQty" };
+            var hidelist = new string[] { "DayReportId" };
+            for(var i = 0; i < headlist.Count; i++)
+            {
+                Label LB = new Label();
+                LB.Width = widthlist[i];
+                LB.Text = headlist[i];
+                LB.Height = 50;
+                LB.Font = new Font("", 9, FontStyle.Bold);
+                LB.TabIndex = 999;           
+            }
+            List<TextBox> btnrlist = new List<TextBox>();
+            foreach (var ritem in nowrecord)
+            {
+                foreach (var prop in ritem.GetType().GetProperties())
+                {
+                    var cAssetsName = "";
+                    if (prop.Name == "DayReportId")
+                    {
+                        dayid = prop.GetValue(ritem).ToString();
+                    }
+                    var prestr = "BTN";
+                    var poststr = itemi.ToString("##");
+                    var poststr2 = itemj.ToString("##");
+                    bool isedit = editlist.Contains(prop.Name);
+                    var thisbtnname = prestr + "-" + prop.Name;
+                    string thisbtntext = dayid;
+                    if (displaylist.Contains(prop.Name))
+                    {
+                        itemj++;
+                        // Console.WriteLine("p=" + prop.Name + ",v=" + prop.GetValue(item).ToString());
+
+                        /* if (prop.Name == "EndTime")
+                         {
+                             TextBox endbtn = new CreateElement(dayid, "").CreateBtn(thisbtntext, isedit, itemj);
+                             btnemplist.Add(endbtn);
+                         }
+                         else
+                         {
+
+                         }*/
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, itemj, true);
+                        if (isedit)
+                        {
+                            empbtn.GotFocus += new EventHandler(BtnGotfocus);
+                        }
+                        btnrlist.Add(empbtn);
+                    }
+                    if (hidelist.Contains(prop.Name))
+                    {
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, false);
+                        btnrlist.Add(empbtn);
+                    }
+                }
+            }
+
+            int iSpace = 5;
+            int iCol = 0;
+            int iRow = 0;
+            int ItemsOneRow = displaylist.Count;
+            int btnnum = 0;
+            var empitemcount = 0;
+            var keynum = 0;
+            foreach (var rbitem in getpartner)
+            {
+                iRow = keynum / ItemsOneRow;
+                iCol = keynum % ItemsOneRow;
+                var prestr = "BTNfrmR";
+                empitemcount++;
+                if (btnnum + 1 > totalitem)
+                {
+                    btnnum = 0;
+                }
+                btnnum++;
+                keynum++;
+                var btnkey = "F" + btnnum;
+                var poststr = empitemcount.ToString("##");
+                var thisbtnname = prestr + poststr;
+                var thisbtntext = empitem.ShortName;
+                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
+                empbtn = sethandlerP(empbtn);
+                if (keynum > totalitem)
+                {
+                    empbtn.Visible = false;
+                }
+                empbtn.TabStop = false;
+                empbtn.TabIndex = 99;
+                btnemplist.Add(empbtn);
+            }
         }
 
         public void SetEmpNO(string info)
@@ -497,5 +592,11 @@ namespace WorkstationTEST
             return wrecord;
         }
 
+        private void BtnGotfocus(object sender, EventArgs e)
+        {
+            TextBox tmpButton = (TextBox)sender;
+            focust.Text = tmpButton.Name;
+            Console.Write("gotfocus=" + focust.Text);
+        }
     }
 }
