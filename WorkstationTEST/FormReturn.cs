@@ -114,7 +114,7 @@ namespace WorkstationTEST
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
             getemp = new API("/CHG/Main/Home/getEmployee/", "http://").GetEmp();
-            List<Button> btnemplist = new List<Button>();
+           // List<Button> btnemplist = new List<Button>();
             if (getemp.Count() > 0)
             {
                 int iSpace = 5;
@@ -150,7 +150,7 @@ namespace WorkstationTEST
                     }
                     empbtn.TabStop = false;
                     empbtn.TabIndex = 99;
-                    btnemplist.Add(empbtn);
+                   // btnemplist.Add(empbtn);
                 }
                 frmEmpRecordnow.Text = "0";
             }
@@ -159,7 +159,7 @@ namespace WorkstationTEST
         private void showpartner()
         {
             getpartner = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(101);
-            List<Button> btnemplist = new List<Button>();
+            //List<Button> btnemplist = new List<Button>();
             if (getpartner.Count() > 0)
             {
                 int iSpace = 5;
@@ -200,7 +200,7 @@ namespace WorkstationTEST
                     }
                     empbtn.TabStop = false;
                     empbtn.TabIndex = 99;
-                    btnemplist.Add(empbtn);
+                   // btnemplist.Add(empbtn);
                 }
                 frmPTRecordnow.Text = "0";
             }
@@ -212,7 +212,6 @@ namespace WorkstationTEST
             var itemj = 0;
             var dayid = "";
             var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "數量", "單位", "外包單號" };
-
             var widthlist = new List<int> { 100,100,150,150,150,150,150,150 };
             var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
@@ -278,31 +277,23 @@ namespace WorkstationTEST
             int btnnum = 0;
             var empitemcount = 0;
             var keynum = 0;
-            foreach (var rbitem in getpartner)
+            foreach (var rbitem in btnrlist)
             {
                 iRow = keynum / ItemsOneRow;
                 iCol = keynum % ItemsOneRow;
                 var prestr = "BTNfrmR";
                 empitemcount++;
-                if (btnnum + 1 > totalitem)
-                {
-                    btnnum = 0;
-                }
                 btnnum++;
                 keynum++;
-                var btnkey = "F" + btnnum;
-                var poststr = empitemcount.ToString("##");
-                var thisbtnname = prestr + poststr;
-                var thisbtntext = empitem.ShortName;
-                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
-                empbtn = sethandlerP(empbtn);
-                if (keynum > totalitem)
+                rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; ;
+                rbitem.Left = iCol * (iSpace + rbitem.Width);
+                rbitem.Parent = RPanel;
+                /*if (keynum > totalitem)
                 {
                     empbtn.Visible = false;
                 }
                 empbtn.TabStop = false;
-                empbtn.TabIndex = 99;
-                btnemplist.Add(empbtn);
+                empbtn.TabIndex = 99;*/
             }
         }
 

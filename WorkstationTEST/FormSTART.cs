@@ -1008,7 +1008,6 @@ namespace WorkstationTEST
             var WKSaveWorkIds = tabPage2.Controls.Find("WKSaveWorkId", true);
             var WKSaveWorkNos = tabPage2.Controls.Find("WKSaveWorkNo", true);
             var WKSaveWorkNames = tabPage2.Controls.Find("WKSaveWorkName", true);
-
             var WKSaveMakeNo = WKSaveMakeNos[0];
             var WKSaveSpecification = WKSaveSpecifications[0];
             var WKSaveWorkqty = WKSaveWorkqtys[0];

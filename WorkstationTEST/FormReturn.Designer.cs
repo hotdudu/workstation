@@ -346,7 +346,7 @@
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.Location = new System.Drawing.Point(3, 17);
+            this.RPanel.Location = new System.Drawing.Point(3, 52);
             this.RPanel.Name = "RPanel";
             this.RPanel.RowCount = 2;
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
