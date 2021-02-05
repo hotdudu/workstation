@@ -188,14 +188,14 @@ namespace WorkstationTEST
             return btn;
         }
 
-        public Button CreatePTBtnWithXY(string no, string name, Guid PId, string key, int irow, int icol, int ispace, Control p)
+        public Button CreatePTBtnWithXY(string cate, string name,string rno, Guid PId, string key, int irow, int icol, int ispace, Control p)
         {
-            var savestr = no + ":" + PId.ToString()+":"+name;
+            var savestr = cate + ":" + PId.ToString()+":"+name+":"+rno;
             Console.WriteLine("PTbtn=" + savestr);
             XButton btn = new XButton();
             btn.Name = bname;
-            var qr = no + "::" + key;
-            btn.LeftText = name+Environment.NewLine+no;
+            var qr = rno + "::" + key;
+            btn.LeftText = name+Environment.NewLine+cate;
             btn.TopText = key;
             btn.Size = new Size(190, 170);
             btn.Margin = new Padding(0, 20, 0, 20);

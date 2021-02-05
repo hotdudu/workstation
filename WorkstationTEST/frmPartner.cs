@@ -61,7 +61,7 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
                     empbtn = sethandler(empbtn);
                     if (keynum > totalitem)
                     {
@@ -79,9 +79,10 @@ namespace WorkstationTEST
         {
             var PTarray = info.Split(':');
             Console.WriteLine("ptl="+PTarray.Length);
-            var ptno = PTarray[0];
+            var ptno = PTarray[3];
             var ptid = PTarray[1];
             var ptname = PTarray[2];
+            var pcate= PTarray[0];
             frmPTshowno.Text = ptno;
             frmPTname.Text = ptname;
            // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
