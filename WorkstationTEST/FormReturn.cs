@@ -192,7 +192,7 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
                     empbtn = sethandlerP(empbtn);
                     if (keynum > totalitem)
                     {
