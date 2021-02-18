@@ -132,6 +132,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMultiTenant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMultiTenant.Designer.cs">
+      <DependentUpon>FormMultiTenant.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReturn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMultiTenant.resx">
+      <DependentUpon>FormMultiTenant.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReturn.resx">
       <DependentUpon>FormReturn.cs</DependentUpon>

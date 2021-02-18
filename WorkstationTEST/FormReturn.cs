@@ -285,7 +285,7 @@ namespace WorkstationTEST
                 empitemcount++;
                 btnnum++;
                 keynum++;
-                rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; ;
+                rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; 
                 rbitem.Left = iCol * (iSpace + rbitem.Width);
                 rbitem.Parent = RPanel;
                 /*if (keynum > totalitem)

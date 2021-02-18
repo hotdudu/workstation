@@ -28,6 +28,7 @@ namespace WorkstationTEST
             this.Activate();
             this.KeyDown+= new KeyEventHandler(mybutton_Click);
         }
+        Boolean debug = true;
         int fullwidth = 600;
         int fullheight = 600;
         int tabpageheight = 400;
@@ -487,6 +488,20 @@ namespace WorkstationTEST
                         var WKAssetsIds= tabPage3.Controls.Find("WKAssetsId", true);
                         var WKtenatIds = tabPage3.Controls.Find("WKtenantId", true);
                         var WKprices = tabPage3.Controls.Find("WKprice", true);
+                        var R_TenantId = "";
+                        if(Wgetworkorder.Count>1)
+                        {
+                            FormMultiTenant frmt = new FormMultiTenant();
+                            frmt.setTenant(Wgetworkorder);
+                            frmt.ShowDialog();
+                            R_TenantId = frmt.TenantId;
+                        }
+                        else
+                        {
+                            R_TenantId = Wgetworkorder[0].TenantId.ToString();
+                        }
+                        if(debug)
+                            MessageBox.Show(R_TenantId);
                         labSpec[0].Text = Wgetworkorder[0].Specification;
                         labRemark[0].Text = Wgetworkorder[0].Remark;
                         labPName[0].Text = Wgetworkorder[0].AssetsNo;
@@ -495,10 +510,11 @@ namespace WorkstationTEST
                         labUnit[0].Text = Wgetworkorder[0].UseUnits;
                         labAssetsNames[0].Text = Wgetworkorder[0].AssetsName;
                         WKAssetsIds[0].Text = Wgetworkorder[0].AssetsId.HasValue? Wgetworkorder[0].AssetsId.ToString():"";
-                        WKtenatIds[0].Text = Wgetworkorder[0].TenantId.ToString();
+                        WKtenatIds[0].Text =R_TenantId;
                         WKprices[0].Text = Wgetworkorder[0].Price.ToString();
                         wid = Wgetworkorder[0].WorkOrderId;
                         wkmo[0].Tag = wid.ToString();
+                       
                         UpdatePID();
                     }
                     else
