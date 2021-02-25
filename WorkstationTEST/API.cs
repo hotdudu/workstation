@@ -631,8 +631,8 @@ namespace WorkstationTEST
     }
     public class returnlistmsg
     {
-        public List<Guid> dayid { get; set; }
-        public string no { get; set; }
+        public List<Guid> ids { get; set; }
+        public List<String> no { get; set; }
     }
     public class apiresult
     {

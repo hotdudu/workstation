@@ -28,7 +28,7 @@ namespace WorkstationTEST
             this.Activate();
             this.KeyDown+= new KeyEventHandler(mybutton_Click);
         }
-        Boolean debug = true;
+        Boolean debug = false;
         int fullwidth = 600;
         int fullheight = 600;
         int tabpageheight = 400;
@@ -218,7 +218,7 @@ namespace WorkstationTEST
                 Console.WriteLine("pkey=" + pkey);
                 setkeymap(pkey);
             }
-            if (dataarray.Length == 3)
+            if (dataarray.Length >= 3)
             {
                 setkeymap("XXX",data);
             }
@@ -343,16 +343,19 @@ namespace WorkstationTEST
                         try
                         {
                             var selectScript = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
-                            SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                            var selectScript2 = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND isupdate=0 ";
+
+                            SQLiteCommand cmd2 = new SQLiteCommand(selectScript2, conn);
                             cmd2.Parameters.AddWithValue("@WorkDate", workdate);
                             cmd2.Parameters.AddWithValue("@PartnerId", pid);
-                            cmd2.Parameters.AddWithValue("@TenantId", tenantid);
+                           // cmd2.Parameters.AddWithValue("@TenantId", tenantid);
                             var EmpNos = "";
                             var DayReportIds = "";
                             var CompleteQtys = "";
                             var WorkIds = "";
                             var WorkOrderIds = "";
                             var WorkOrderItemIds = "";
+                            var tids = "";
                             var AssetsIdset = "";
                             var Prices = "";
                             var i = 0;
@@ -363,6 +366,7 @@ namespace WorkstationTEST
                                     DayReportIds = DayReportIds + (i == 0 ? "" : ",") + (row["DayReportId"] as string ?? "");
                                     CompleteQtys = CompleteQtys + (i == 0 ? "" : ",") + (row["CompleteQty"] as decimal? ?? null);
                                     WorkIds = WorkIds + (i == 0 ? "" : ",") + (row["WorkId"] as string ?? "");
+                                    tids = tids + (i == 0 ? "" : ",") + (row["TenantId"] as int? ?? 0);
                                     WorkOrderIds = WorkOrderIds + (i == 0 ? "" : ",") + (row["WorkOrderId"] as string ?? "");
                                     WorkOrderItemIds = WorkOrderItemIds + (i == 0 ? "" : ",") + (row["WorkOrderItemId"] as string ?? "");
                                     EmpNos = EmpNos + (i == 0 ? "" : ",") + row["EmpNo"] as string ?? "";
@@ -371,14 +375,15 @@ namespace WorkstationTEST
                                     i++;
                                 }
                             }
-                            var upwk = new API("/CHG/Main/Home/AddOutsource/", "http://").UploadServerOut(EmpNos, CompleteQtys, DayReportIds, WorkOrderIds, WorkIds, WorkOrderItemIds, AssetsIdset, Prices, createempno, tenantid, pid);
-                            if (upwk.dayid.Count > 0)
+                            var upwk = new API("/CHG/Main/Home/AddOutsource2/", "http://").UploadServerOut(EmpNos, CompleteQtys, DayReportIds, WorkOrderIds, WorkIds, WorkOrderItemIds, AssetsIdset, Prices, createempno, tids, pid);
+                            if (upwk.ids.Count > 0)
                             {
-                                List<Guid> daylist = upwk.dayid;
+                                List<Guid> daylist = upwk.ids;
+                                List<String> outlist = upwk.no;
                                 var outno = upwk.no;
-                                foreach (var upitem in daylist)
+                                for (var ui=0;ui<daylist.Count;ui++)
                                 {
-                                    UpdateRecord(upitem.ToString(),outno);
+                                    UpdateRecord(daylist[ui].ToString(),outlist[ui]);
                                 }
                             }
                         }
@@ -1143,10 +1148,12 @@ namespace WorkstationTEST
                     using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
                         var selectScript = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
-                        SQLiteCommand cmd2 = new SQLiteCommand(selectScript, conn);
+                        var selectScript2 = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND isupdate=0 ";
+
+                        SQLiteCommand cmd2 = new SQLiteCommand(selectScript2, conn);
                         cmd2.Parameters.AddWithValue("@WorkDate", workdate);
                         cmd2.Parameters.AddWithValue("@PartnerId", pid[0].Text);
-                        cmd2.Parameters.AddWithValue("@TenantId", tid[0].Text);
+                      //  cmd2.Parameters.AddWithValue("@TenantId", tid[0].Text);
                         conn.Open();
                         SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd2);
                         DataSet ds = new DataSet();

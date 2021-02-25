@@ -102,7 +102,7 @@ namespace WorkstationTEST
                 {
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
-                     wid = data[data.Length - 1];
+                     wid = data[data.Length - 2];//qr碼新增tenantid，陣列長度變為4
                 }
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
