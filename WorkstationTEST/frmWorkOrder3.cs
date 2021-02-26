@@ -19,6 +19,7 @@ namespace WorkstationTEST
         }
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrderO> getworkorder = new List<WorkOrderO>();
+        bool debug = false;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
@@ -97,12 +98,20 @@ namespace WorkstationTEST
                 Console.WriteLine("text=" + text);
                 string makeno = "";
                 string wid = "";
+                string tid = "";
+                var tidval = 0;
                 Console.WriteLine("m=" + text);
                 if (text.IndexOf("::") >= 0)
                 {
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
                      wid = data[data.Length - 2];//qr碼新增tenantid，陣列長度變為4
+                    tid = data[data.Length - 1];
+                    int.TryParse(tid, out tidval);
+                    if (debug)
+                    {
+                        MessageBox.Show("wid=" + wid + ",tid=" + tid);
+                    }
                 }
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
@@ -130,8 +139,12 @@ namespace WorkstationTEST
                 }
                 Guid gwid ;
                 var isguid = Guid.TryParse(wid, out gwid);
-                if(isguid)
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno,Guid.Parse(wid));
+                if (isguid)
+                {
+
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,makeno,Guid.Parse(wid));
+                }
+
                 else
                 {
                     Console.WriteLine("輸入工令格式錯誤");

@@ -20,6 +20,7 @@ namespace WorkstationTEST
         }
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrder> getworkorder = new List<WorkOrder>();
+        bool debug = true;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
@@ -101,6 +102,8 @@ namespace WorkstationTEST
             int iRow = 0;
             int ItemsOneRow = 5;
             var totalitem = 10;
+            var tid = "";
+            var tidval = 101;
             if (text!="")
             {
                 Console.WriteLine("text=" + text);
@@ -111,13 +114,21 @@ namespace WorkstationTEST
                 {
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
-                     wid = data[data.Length - 1];
+                        wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];
+                        tid = data[data.Length - 1];
+                        int.TryParse(tid, out tidval);
+                    if (debug)
+                    {
+                        MessageBox.Show("wid=" + wid + ",tid=" + tid);
+                    }
+
+                    WKSaveTenantId.Text = tid;
                 }
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
                 getwitem.Clear();
                 WKPanel.Controls.Clear();
-                getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101,makeno);
+                getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval,makeno);
                 if (getworkorder.Count > 0)
                 {
                     labSpec.Text = getworkorder[0].Specification;
@@ -137,7 +148,7 @@ namespace WorkstationTEST
                 Guid gwid ;
                 var isguid = Guid.TryParse(wid, out gwid);
                 if(isguid)
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno,Guid.Parse(wid));
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,makeno,Guid.Parse(wid));
                 else
                 {
                     Console.WriteLine("輸入工令格式錯誤");

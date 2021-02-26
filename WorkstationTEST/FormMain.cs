@@ -481,6 +481,7 @@ namespace WorkstationTEST
                     List<WorkOrderO> Wgetworkorder = new List<WorkOrderO>();
                     Wgetworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(101, wkmo[0].Text.ToUpper());
                     Guid? wid = null;
+                    var tid = 0;
                     if (Wgetworkorder.Count > 0)
                     {
                         var labSpec = tabPage3.Controls.Find("labSpec", true);
@@ -507,6 +508,7 @@ namespace WorkstationTEST
                         }
                         if(debug)
                             MessageBox.Show(R_TenantId);
+                        int.TryParse(R_TenantId, out tid);
                         labSpec[0].Text = Wgetworkorder[0].Specification;
                         labRemark[0].Text = Wgetworkorder[0].Remark;
                         labPName[0].Text = Wgetworkorder[0].AssetsNo;
@@ -529,7 +531,7 @@ namespace WorkstationTEST
                     }
 
                     if (wid.HasValue)
-                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(wkmo[0].Text, (Guid)wid);
+                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,wkmo[0].Text, (Guid)wid);
                     else
                     {
                         Console.WriteLine("輸入工令格式錯誤");
@@ -585,18 +587,21 @@ namespace WorkstationTEST
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
                 if (data == "")
                 {
+                    var tid = 0;
+                    var WKtenatIds = tabPage3.Controls.Find("WKtenantId", true);
+                    int.TryParse(WKtenatIds[0].Text, out tid);
                     var svmk = tabPage3.Controls.Find("labWorkOrder", true);
                     //Console.WriteLine("nodata:"+ svmk[0].Text.ToUpper());
                     if (keyupper == "Delete")
                     {
                         //((Button)down[0]).PerformClick();
 
-                        frmWKbtnD(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnD(tid,svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
                     }
                     if (keyupper == "Insert")
                     {
                         // ((Button)up[0]).PerformClick();
-                        frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnU(tid,svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
                     }
                     if (keyarray.Contains(keyupper))
                     {
@@ -748,9 +753,9 @@ namespace WorkstationTEST
             }
         }
 
-        private void frmWKbtnU(string makeno, Guid wid)
+        private void frmWKbtnU(int tid,string makeno, Guid wid)
         {
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
             Console.WriteLine("functionU:" + getwitem.Count);
             var WKPanels = tabPage3.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage3.Controls.Find("frmWKRecordnow", true);
@@ -820,10 +825,10 @@ namespace WorkstationTEST
             }
         }
 
-        private void frmWKbtnD(string makeno, Guid wid)
+        private void frmWKbtnD(int tid ,string makeno, Guid wid)
         {
             Console.WriteLine("makeno=" + makeno + ",w=" + wid);
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
             Console.WriteLine("functionD:" + getwitem.Count);
             var WKPanels = tabPage3.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage3.Controls.Find("frmWKRecordnow", true);

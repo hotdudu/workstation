@@ -342,7 +342,7 @@ namespace WorkstationTEST
                 Console.WriteLine("pkey=" + pkey);
                 setkeymap(pkey,"",false,true);
             }
-            if (dataarray.Length == 3)
+            if (dataarray.Length >= 3)
             {
                 var isp  = dataarray[1].StartsWith("P");
                 Console.WriteLine("showdata=" + isp);
@@ -423,6 +423,7 @@ namespace WorkstationTEST
             var WorkNo = tabPage2.Controls.Find("WKSaveWorkNo", true);
             var Workqty = tabPage2.Controls.Find("WKSaveWorkqty", true);
             var WorkName = tabPage2.Controls.Find("WKSaveWorkName", true);
+            var WKSaveTenantId = tabPage2.Controls.Find("WKSaveTenantId", true);
             var ocq = tabPage3.Controls.Find("CompleteQty", true);
             var obq = tabPage3.Controls.Find("BadQty", true);
             var ogcq = tabPage3.Controls.Find("GoCompleteQty", true);
@@ -434,7 +435,8 @@ namespace WorkstationTEST
             var workdate = starttime.ToString("yyyy-MM-dd");
             var smakeno = MakeNo[0].Text;
             string[] notincludelist = new string[] { "D16" };
-            int tid = 101;
+            int tid = 0;
+            int.TryParse(WKSaveTenantId[0].Text, out tid);
             Guid dayreportid = Guid.NewGuid();
           //  Console.WriteLine("empno=" + empno[0].Text + "witenid=" + workorderitemId[0].Text + ",woid=" + workorderid[0].Text + ",workid=" + workid[0].Text + ",bqty=" + bqty[0].Text + ",qty=" + comqty[0].Text + ",did=" + dayreportid + ",won=" + WorkName[0].Text + ",wn=" + WorkNo[0].Text + ",mk=" + MakeNo[0].Text + ",wq=" + Workqty[0].Text + ",sp=" + Specification[0].Text);
             string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
@@ -766,6 +768,7 @@ namespace WorkstationTEST
                     List<WorkOrder> Wgetworkorder = new List<WorkOrder>();
                     Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101, wkmo[0].Text.ToUpper());
                     Guid? wid = null;
+                    var tidval = 0;
                     if (Wgetworkorder.Count > 0)
                     {
                         var labSpec = tabPage2.Controls.Find("labSpec", true);
@@ -775,7 +778,7 @@ namespace WorkstationTEST
                         var labQty = tabPage2.Controls.Find("labQty", true);
                         var labUnit = tabPage2.Controls.Find("labUnit", true);
                         var labAssetsNames = tabPage2.Controls.Find("labAssetsName", true);
-                        
+                        var labWKSaveTenantId = tabPage2.Controls.Find("WKSaveTenantId", true);
                         labSpec[0].Text = Wgetworkorder[0].Specification;
                         labRemark[0].Text = Wgetworkorder[0].Remark;
                         labPName[0].Text = Wgetworkorder[0].AssetsNo;
@@ -783,6 +786,8 @@ namespace WorkstationTEST
                         labQty[0].Text = Wgetworkorder[0].MakeQty.ToString();
                         labUnit[0].Text = Wgetworkorder[0].UseUnits;
                         labAssetsNames[0].Text = Wgetworkorder[0].AssetsName;
+                        labWKSaveTenantId[0].Text = Wgetworkorder[0].TenantId.ToString();
+                        int.TryParse(labWKSaveTenantId[0].Text, out tidval);
                         wid = Wgetworkorder[0].WorkOrderId;
                         wkmo[0].Tag = wid.ToString();
                     }
@@ -793,7 +798,7 @@ namespace WorkstationTEST
                     }
 
                     if (wid.HasValue)
-                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(wkmo[0].Text,(Guid)wid);
+                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,wkmo[0].Text,(Guid)wid);
                     else
                     {
                         Console.WriteLine("輸入工令格式錯誤");
@@ -849,18 +854,21 @@ namespace WorkstationTEST
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
                 if (data == "")
                 {
+                    var labWKSaveTenantId = tabPage2.Controls.Find("WKSaveTenantId", true);
+                    var tid = 0;
+                    int.TryParse(labWKSaveTenantId[0].Text, out tid);
                     var svmk = tabPage2.Controls.Find("labWorkOrder", true);
                     //Console.WriteLine("nodata:"+ svmk[0].Text.ToUpper());
                     if (keyupper == "Delete")
                     {
                         //((Button)down[0]).PerformClick();
 
-                        frmWKbtnD(svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnD(tid,svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId[0].Text));
                     }
                     if (keyupper == "Insert")
                     {
                         // ((Button)up[0]).PerformClick();
-                        frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnU(tid,svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
                     }
                     if (keyarray.Contains(keyupper))
                     {
@@ -1232,9 +1240,9 @@ namespace WorkstationTEST
 
         }
 
-        private void frmWKbtnU(string makeno, Guid wid)
+        private void frmWKbtnU(int tid,string makeno, Guid wid)
         {
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
             Console.WriteLine("functionU:" + getwitem.Count);
             var WKPanels = tabPage2.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
@@ -1304,10 +1312,10 @@ namespace WorkstationTEST
             }
         }
 
-        private void frmWKbtnD(string makeno,Guid wid)
+        private void frmWKbtnD(int tid, string makeno,Guid wid)
         {
             Console.WriteLine("makeno=" + makeno + ",w=" + wid);
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
             Console.WriteLine("functionD:" + getwitem.Count);
             var WKPanels = tabPage2.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);

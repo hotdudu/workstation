@@ -137,7 +137,7 @@ namespace WorkstationTEST
             return empobj;
         }
 
-        public List<Workitem> GetWorkitem(string makeno, Guid wid)
+        public List<Workitem> GetWorkitem(int tid,string makeno, Guid wid)
         {
             var load = new loading();
             load.Show();
@@ -149,6 +149,7 @@ namespace WorkstationTEST
                 Method = HttpMethod.Post,
                 RequestUri = new Uri(this.URL),
                 Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                    new KeyValuePair<string, string>("tenantid",tid.ToString()),
                 new KeyValuePair<string, string>("makeno",makeno),
                 new KeyValuePair<string, string>("wid",wid.ToString()),
                 })

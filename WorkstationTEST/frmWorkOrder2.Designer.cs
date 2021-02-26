@@ -69,6 +69,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.infotitle = new System.Windows.Forms.Label();
+            this.WKSaveTenantId = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -540,11 +541,24 @@
             this.infotitle.Text = "已新增資料:";
             this.infotitle.Click += new System.EventHandler(this.infotitle_Click);
             // 
+            // WKSaveTenantId
+            // 
+            this.WKSaveTenantId.CausesValidation = false;
+            this.WKSaveTenantId.HideSelection = false;
+            this.WKSaveTenantId.Location = new System.Drawing.Point(470, 537);
+            this.WKSaveTenantId.Name = "WKSaveTenantId";
+            this.WKSaveTenantId.Size = new System.Drawing.Size(100, 22);
+            this.WKSaveTenantId.TabIndex = 105;
+            this.WKSaveTenantId.TabStop = false;
+            this.WKSaveTenantId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.WKSaveTenantId.Visible = false;
+            // 
             // frmWorkOrder2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1252, 687);
+            this.Controls.Add(this.WKSaveTenantId);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label3);
@@ -621,5 +635,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label infotitle;
+        private System.Windows.Forms.TextBox WKSaveTenantId;
     }
 }

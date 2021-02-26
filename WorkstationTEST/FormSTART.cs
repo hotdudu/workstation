@@ -239,7 +239,7 @@ namespace WorkstationTEST
                 Console.WriteLine("pkey=" + pkey);
                 setkeymap(pkey);
             }
-            if (dataarray.Length == 3)
+            if (dataarray.Length >= 3)
             {
                 var isp  = dataarray[1].StartsWith("P");
                 Console.WriteLine("showdata=" + isp);
@@ -351,8 +351,10 @@ namespace WorkstationTEST
             var WorkName = tabPage2.Controls.Find("WKSaveWorkName", true);
             var AssetsName = tabPage2.Controls.Find("labAssetsName", true);
             var Unit= tabPage2.Controls.Find("labUnit", true);
+            var WKSaveTenantId= tabPage2.Controls.Find("WKSaveTenantId", true);
             var starttime = DateTime.Now;
-            int tid = 101;
+            var tid = 0;
+            int.TryParse(WKSaveTenantId[0].Text, out tid);
             if(workid[0].Text == "")
             {
 
@@ -660,6 +662,8 @@ namespace WorkstationTEST
                  var wkmo = tabPage2.Controls.Find("frmWKMakeno", true);
                  var wksave= tabPage2.Controls.Find("WKsave", true); 
                  var wkrnow = tabPage2.Controls.Find("frmWKRecordnow", true);
+                var tid = "";
+                var tidval = 0;
                 List<Workitem> Wgetwitem = new List<Workitem>();
                 if (keyupper == "F12")
                 {
@@ -691,10 +695,11 @@ namespace WorkstationTEST
                         labAssetsName[0].Text = Wgetworkorder[0].AssetsName;
                         labUnit[0].Text = Wgetworkorder[0].UseUnits;
                         labWKSaveTenantId[0].Text = Wgetworkorder[0].TenantId.ToString();
+                        int.TryParse(labWKSaveTenantId[0].Text, out tidval);
                        // labWorkOrderItemId[0].Text = Wgetworkorder[0].ToString();
                        // labWorkOrderId[0].Text = Wgetworkorder[0].WorkOrderId.ToString();
                         //labWorkOrderId[0].Text = Wgetworkorder[0].WorkOrderId.ToString();
-
+                        
 
                         wid = Wgetworkorder[0].WorkOrderId;
                         wkmo[0].Tag = wid.ToString();
@@ -706,7 +711,9 @@ namespace WorkstationTEST
                     }
 
                     if (wid.HasValue)
-                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(wkmo[0].Text,(Guid)wid);
+                    {
+                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,wkmo[0].Text, (Guid)wid);
+                    }
                     else
                     {
                         Console.WriteLine("輸入工令格式錯誤");
