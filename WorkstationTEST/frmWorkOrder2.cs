@@ -99,16 +99,20 @@ namespace WorkstationTEST
                 string makeno = "";
                 string wid = "";
                 string tid = "";
-                int tidval = 101;
+                int? tidval = null;
                 Console.WriteLine("m=" + text);
                 if (text.IndexOf("::") >= 0)
                 {
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
-                     wid =data.Length==4?data[data.Length - 2]: data[data.Length - 1];
-                     tid = data[data.Length - 1];
-                     int.TryParse(tid, out tidval);
-                    if(debug)
+                    wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];
+                    tid = data.Length == 4 ? data[data.Length - 1] : "";
+                    if (data.Length == 4)
+                    {
+                        tidval = int.Parse(tid);
+                    }
+
+                    if (debug)
                     {
                         MessageBox.Show("wid=" + wid + ",tid=" + tid);
                     }
@@ -117,6 +121,7 @@ namespace WorkstationTEST
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
                 getwitem.Clear();
+                int maketid = 0;
                 getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval,makeno);
                 if (getworkorder.Count > 0)
                 {
@@ -127,6 +132,8 @@ namespace WorkstationTEST
                     labQty.Text = getworkorder[0].MakeQty.ToString();
                     labUnit.Text = getworkorder[0].UseUnits;
                     labAssetsName.Text = getworkorder[0].AssetsName;
+                    WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
+                    int.TryParse(WKSaveTenantId.Text, out maketid);
                 }
                 else
                 {
@@ -137,7 +144,7 @@ namespace WorkstationTEST
                 Guid gwid ;
                 var isguid = Guid.TryParse(wid, out gwid);
                 if(isguid)
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,makeno,Guid.Parse(wid));
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(maketid,makeno,Guid.Parse(wid));
                 else
                 {
                     Console.WriteLine("輸入工令格式錯誤");

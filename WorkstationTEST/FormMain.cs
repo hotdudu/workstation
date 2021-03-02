@@ -330,36 +330,40 @@ namespace WorkstationTEST
                         var savestat = tabPage4.Controls.Find("SaveStat", true);
                         savestat[0].Visible = false;
                         savestat[0].Text = "儲存成功";
+                        //conn.Close();
 
                     }
                     catch (Exception ex)
                     {
+                       // conn.Close();
                         MessageBox.Show("儲存本地資料發生錯誤:"+ex);
                     }
-
-
-                    if (ischk.Checked)
+                }
+                if (ischk.Checked)
+                {
+                    try
                     {
-                        try
+                        using (SQLiteConnection conn2 = new SQLiteConnection(cnStr))
                         {
                             var selectScript = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
                             var selectScript2 = "SELECT * FROM WorkDayReports W WHERE  WorkDate=@WorkDate AND PartnerId=@PartnerId AND isupdate=0 ";
-
-                            SQLiteCommand cmd2 = new SQLiteCommand(selectScript2, conn);
-                            cmd2.Parameters.AddWithValue("@WorkDate", workdate);
-                            cmd2.Parameters.AddWithValue("@PartnerId", pid);
-                           // cmd2.Parameters.AddWithValue("@TenantId", tenantid);
-                            var EmpNos = "";
-                            var DayReportIds = "";
-                            var CompleteQtys = "";
-                            var WorkIds = "";
-                            var WorkOrderIds = "";
-                            var WorkOrderItemIds = "";
-                            var tids = "";
-                            var AssetsIdset = "";
-                            var Prices = "";
+                            var selectScript3 = "SELECT * FROM WorkDayReports W WHERE DayReportId=@DayReportId AND isupdate=0";
+                            SQLiteCommand cmd2 = new SQLiteCommand(selectScript3, conn2);
+                            cmd2.Parameters.AddWithValue("@DayReportId", dayreportid);
+                            conn2.Open();
+                            // cmd2.Parameters.AddWithValue("@PartnerId", pid);
+                            // cmd2.Parameters.AddWithValue("@TenantId", tenantid);
+                            var EmpNos = empno[0].Text;
+                            var DayReportIds = dayreportid;
+                            var CompleteQtys = comqty[0].Text;
+                            var WorkIds = workid[0].Text;
+                            var WorkOrderIds = workorderid[0].Text;
+                            var WorkOrderItemIds = workorderitemId[0].Text;
+                            var tids = tenantid;
+                            var AssetsIdset = AssetsIds[0].Text;
+                            var Prices = price[0].Text;
                             var i = 0;
-                            using (SQLiteDataReader row = cmd2.ExecuteReader())
+                           /* using (SQLiteDataReader row = cmd2.ExecuteReader())
                             {
                                 while (row.Read())
                                 {
@@ -374,32 +378,51 @@ namespace WorkstationTEST
                                     Prices = Prices + (i == 0 ? "" : ",") + (row["Price"] as decimal? ?? null);
                                     i++;
                                 }
-                            }
-                            var upwk = new API("/CHG/Main/Home/AddOutsource2/", "http://").UploadServerOut(EmpNos, CompleteQtys, DayReportIds, WorkOrderIds, WorkIds, WorkOrderItemIds, AssetsIdset, Prices, createempno, tids, pid);
+                            }*/
+                            var upwk = new API("/CHG/Main/Home/AddOutsource2/", "http://").UploadServerOut(EmpNos, CompleteQtys, DayReportIds.ToString(), WorkOrderIds, WorkIds, WorkOrderItemIds, AssetsIdset, Prices, createempno, tids, pid);
                             if (upwk.ids.Count > 0)
                             {
                                 List<Guid> daylist = upwk.ids;
                                 List<String> outlist = upwk.no;
                                 var outno = upwk.no;
-                                for (var ui=0;ui<daylist.Count;ui++)
+                                for (var ui = 0; ui < daylist.Count; ui++)
                                 {
-                                    UpdateRecord(daylist[ui].ToString(),outlist[ui]);
+                                    UpdateRecord(daylist[ui].ToString(), outlist[ui]);
                                 }
                             }
-                        }
-                        catch(Exception ex)
-                        {
-                            MessageBox.Show("上傳資料失敗:" + ex.Message);
+                            else
+                            {
+                                MessageBox.Show("上傳資料失敗");
+                            }
                         }
 
+
                     }
-                    else
+                    catch (Exception ex)
                     {
+                        MessageBox.Show("上傳資料失敗:" + ex.Message);
                     }
-                    cleardata(false);
-                    tabControl1.SelectedIndex = 2;
+
                 }
+                else
+                {
+                }
+                var ititle = tabPage3.Controls.Find("infotitle", true);
+                var teno = tabPage3.Controls.Find("infoempno", true);
+                var tena = tabPage3.Controls.Find("infoempname", true);
+                var twno = tabPage3.Controls.Find("infowkno", true);
+                var twna = tabPage3.Controls.Find("infowkname", true);
+                ititle[0].Text = "已新增資料";
+                ititle[0].ForeColor = Color.MediumSeaGreen;
+                ititle[0].Font = new Font("", 16, FontStyle.Bold);
+                teno[0].Text = empno[0].Text;
+               // tena[0].Text = ena;
+                twno[0].Text = MakeNo[0].Text;
+                twna[0].Text = WorkNo[0].Text;
+                cleardata(false);
+                tabControl1.SelectedIndex = 2;
                 s.Close();
+
             }
         }
         public static Control FindFocusedControl(Control control)
@@ -1153,7 +1176,7 @@ namespace WorkstationTEST
                     using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
                         var selectScript = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND TenantId=@TenantId AND isupdate=0 ";
-                        var selectScript2 = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND isupdate=0 ";
+                        var selectScript2 = "SELECT * FROM WorkDayReports W WHERE WorkDate=@WorkDate AND PartnerId=@PartnerId AND isupdate=1 ";
 
                         SQLiteCommand cmd2 = new SQLiteCommand(selectScript2, conn);
                         cmd2.Parameters.AddWithValue("@WorkDate", workdate);
@@ -1180,7 +1203,7 @@ namespace WorkstationTEST
                             };
                             outwkitem.Add(wdr);
                         }
-
+                        conn.Close();
                         Console.Write("wdr=" + outwkitem.Count);
                         for(var j = 0; j < outwkitem.Count; j++)
                         {

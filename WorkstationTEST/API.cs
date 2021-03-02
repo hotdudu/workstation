@@ -233,7 +233,7 @@ namespace WorkstationTEST
 
             return witemobj;
         }
-        public List<WorkOrder> GetWorkOrder(int tenantid, string makeno)
+        public List<WorkOrder> GetWorkOrder(int? tenantid, string makeno)
         {
             var client = new HttpClient();
             var actrequest = new HttpRequestMessage()
@@ -267,7 +267,7 @@ namespace WorkstationTEST
             return witemobj;
         }
 
-        public List<WorkOrderO> GetWorkOrderO(int tenantid, string makeno)
+        public List<WorkOrderO> GetWorkOrderO(int? tenantid, string makeno)
         {
             var client = new HttpClient();
             var actrequest = new HttpRequestMessage()

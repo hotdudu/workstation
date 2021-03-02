@@ -856,7 +856,11 @@ namespace WorkstationTEST
                 {
                     var labWKSaveTenantId = tabPage2.Controls.Find("WKSaveTenantId", true);
                     var tid = 0;
-                    int.TryParse(labWKSaveTenantId[0].Text, out tid);
+                    if(labWKSaveTenantId.Length>0)
+                    {
+                        int.TryParse(labWKSaveTenantId[0].Text, out tid);
+                    }
+
                     var svmk = tabPage2.Controls.Find("labWorkOrder", true);
                     //Console.WriteLine("nodata:"+ svmk[0].Text.ToUpper());
                     if (keyupper == "Delete")

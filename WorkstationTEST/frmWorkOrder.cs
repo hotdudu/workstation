@@ -20,7 +20,7 @@ namespace WorkstationTEST
         }
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrder> getworkorder = new List<WorkOrder>();
-        bool debug = true;
+        bool debug = false;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
@@ -103,7 +103,7 @@ namespace WorkstationTEST
             int ItemsOneRow = 5;
             var totalitem = 10;
             var tid = "";
-            var tidval = 101;
+            int? tidval = null;
             if (text!="")
             {
                 Console.WriteLine("text=" + text);
@@ -115,8 +115,12 @@ namespace WorkstationTEST
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
                         wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];
-                        tid = data[data.Length - 1];
-                        int.TryParse(tid, out tidval);
+                        tid =data.Length==4? data[data.Length - 1]:"";
+                    if(data.Length == 4)
+                    {
+                        tidval = int.Parse(tid);
+                    }
+
                     if (debug)
                     {
                         MessageBox.Show("wid=" + wid + ",tid=" + tid);
@@ -129,6 +133,7 @@ namespace WorkstationTEST
                 getwitem.Clear();
                 WKPanel.Controls.Clear();
                 getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval,makeno);
+                int maketid = 0;
                 if (getworkorder.Count > 0)
                 {
                     labSpec.Text = getworkorder[0].Specification;
@@ -138,6 +143,8 @@ namespace WorkstationTEST
                     labQty.Text = getworkorder[0].MakeQty.ToString();
                     labAssetsName.Text = getworkorder[0].AssetsName;
                     labUnit.Text = getworkorder[0].UseUnits;
+                    WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
+                    int.TryParse(WKSaveTenantId.Text, out maketid);
                 }
                 else
                 {
@@ -148,7 +155,7 @@ namespace WorkstationTEST
                 Guid gwid ;
                 var isguid = Guid.TryParse(wid, out gwid);
                 if(isguid)
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,makeno,Guid.Parse(wid));
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(maketid, makeno,Guid.Parse(wid));
                 else
                 {
                     Console.WriteLine("輸入工令格式錯誤");

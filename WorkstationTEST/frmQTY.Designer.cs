@@ -129,6 +129,8 @@
             // chkouside
             // 
             this.chkouside.AutoSize = true;
+            this.chkouside.Checked = true;
+            this.chkouside.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkouside.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.chkouside.Location = new System.Drawing.Point(922, 281);
             this.chkouside.Name = "chkouside";
@@ -148,6 +150,7 @@
             this.btnoutside.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnoutside.TopText = null;
             this.btnoutside.UseVisualStyleBackColor = true;
+            this.btnoutside.Visible = false;
             this.btnoutside.Click += new System.EventHandler(this.btnoutside_Click);
             // 
             // RIPanel

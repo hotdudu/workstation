@@ -19,7 +19,7 @@ namespace WorkstationTEST
         }
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrderO> getworkorder = new List<WorkOrderO>();
-        bool debug = false;
+        bool debug = true;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
@@ -105,9 +105,14 @@ namespace WorkstationTEST
                 {
                     string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
                      makeno = data[0];
-                     wid = data[data.Length - 2];//qr碼新增tenantid，陣列長度變為4
-                    tid = data[data.Length - 1];
+                    wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];//qr碼新增tenantid，陣列長度變為4
+                    tid = data.Length == 4 ? data[data.Length - 1] : "";
                     int.TryParse(tid, out tidval);
+                    if (data.Length == 4)
+                    {
+                        tidval = int.Parse(tid);
+                    }
+                    WKtenantId.Text = tid;
                     if (debug)
                     {
                         MessageBox.Show("wid=" + wid + ",tid=" + tid);
@@ -116,9 +121,23 @@ namespace WorkstationTEST
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
                 getwitem.Clear();
-                getworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(101,makeno);
+                getworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(tidval,makeno);
                 if (getworkorder.Count > 0)
                 {
+                    var R_TenantId = "";
+                    if (getworkorder.Count > 1)
+                    {
+                        FormMultiTenant frmt = new FormMultiTenant();
+                        frmt.setTenant(getworkorder);
+                        frmt.ShowDialog();
+                        R_TenantId = frmt.TenantId;
+                    }
+                    else
+                    {
+                        R_TenantId = getworkorder[0].TenantId.ToString();
+                    }
+                    if (debug)
+                        MessageBox.Show(R_TenantId);
                     labSpec.Text = getworkorder[0].Specification;
                     labRemark.Text = getworkorder[0].Remark;
                     labPName.Text = getworkorder[0].AssetsNo;
@@ -127,7 +146,7 @@ namespace WorkstationTEST
                     labUnit.Text = getworkorder[0].UseUnits;
                     labAssetsName.Text = getworkorder[0].AssetsName;
                     WKAssetsId.Text = getworkorder[0].AssetsId.HasValue ? getworkorder[0].AssetsId.ToString() : "";
-                    WKtenantId.Text = getworkorder[0].TenantId.ToString();
+                    WKtenantId.Text = R_TenantId;
                     WKprice.Text = getworkorder[0].Price.ToString();
                     UpdatePID();
                 }
