@@ -31,8 +31,9 @@ namespace WorkstationTEST
             Int32 tlpColumCount = NumPanel.ColumnCount;
             Int32 tlpRowCount = NumPanel.RowCount;
             int num = 10;
-            var tableheadstr = new string[] { "數量", "單價"};
-            var textarray = new string[] { "outqty", "price"};
+            var tableheadstr = new string[] { "數量", "單價","公司"};
+            var tablereadonly = new bool[] {false,false,true };
+            var textarray = new string[] { "outqty", "price","Tenant"};
             string[] numlist = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".","Clear" };
             string[] keylist = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
             for (var a = 0; a < tableheadstr.Count(); a++)
@@ -46,6 +47,7 @@ namespace WorkstationTEST
                 RIPanel.Controls.Add(templab, a, 0);
                 TextBox numbox = new TextBox();
                 numbox.Name = textarray[a];
+                numbox.ReadOnly = tablereadonly[a];
                 numbox.TabIndex = a + 1;
                 numbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
                 numbox.GotFocus += new EventHandler(BtnGotfocus);

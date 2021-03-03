@@ -156,9 +156,10 @@
             // RIPanel
             // 
             this.RIPanel.AutoSize = true;
-            this.RIPanel.ColumnCount = 2;
-            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RIPanel.ColumnCount = 3;
+            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.RIPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.RIPanel.Location = new System.Drawing.Point(2, 12);
             this.RIPanel.Name = "RIPanel";
             this.RIPanel.RowCount = 2;

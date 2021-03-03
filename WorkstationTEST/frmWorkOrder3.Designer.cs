@@ -74,6 +74,7 @@
             this.WKpno = new System.Windows.Forms.TextBox();
             this.WKPartnerId = new System.Windows.Forms.TextBox();
             this.WKprice = new System.Windows.Forms.TextBox();
+            this.SetCompany = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -264,7 +265,7 @@
             // 
             this.frmWKbtnD.CausesValidation = false;
             this.frmWKbtnD.LeftText = null;
-            this.frmWKbtnD.Location = new System.Drawing.Point(787, 422);
+            this.frmWKbtnD.Location = new System.Drawing.Point(787, 390);
             this.frmWKbtnD.Name = "frmWKbtnD";
             this.frmWKbtnD.Size = new System.Drawing.Size(75, 23);
             this.frmWKbtnD.TabIndex = 99;
@@ -476,7 +477,7 @@
             this.infowkname.CausesValidation = false;
             this.infowkname.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.infowkname.ForeColor = System.Drawing.Color.MediumSeaGreen;
-            this.infowkname.Location = new System.Drawing.Point(412, 57);
+            this.infowkname.Location = new System.Drawing.Point(410, 57);
             this.infowkname.Name = "infowkname";
             this.infowkname.Size = new System.Drawing.Size(82, 27);
             this.infowkname.TabIndex = 106;
@@ -600,11 +601,22 @@
             this.WKprice.TabStop = false;
             this.WKprice.Visible = false;
             // 
+            // SetCompany
+            // 
+            this.SetCompany.Location = new System.Drawing.Point(445, 13);
+            this.SetCompany.Name = "SetCompany";
+            this.SetCompany.Size = new System.Drawing.Size(55, 40);
+            this.SetCompany.TabIndex = 111;
+            this.SetCompany.Text = "選擇\r\n公司";
+            this.SetCompany.UseVisualStyleBackColor = true;
+            this.SetCompany.Click += new System.EventHandler(this.SetCompany_Click);
+            // 
             // frmWorkOrder3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1252, 687);
+            this.Controls.Add(this.SetCompany);
             this.Controls.Add(this.WKprice);
             this.Controls.Add(this.WKPartnerId);
             this.Controls.Add(this.WKpno);
@@ -691,5 +703,6 @@
         private System.Windows.Forms.TextBox WKpno;
         private System.Windows.Forms.TextBox WKPartnerId;
         private System.Windows.Forms.TextBox WKprice;
+        private System.Windows.Forms.Button SetCompany;
     }
 }

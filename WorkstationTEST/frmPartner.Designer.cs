@@ -106,7 +106,7 @@
             // frmPTbtnD
             // 
             this.frmPTbtnD.LeftText = null;
-            this.frmPTbtnD.Location = new System.Drawing.Point(577, 500);
+            this.frmPTbtnD.Location = new System.Drawing.Point(591, 438);
             this.frmPTbtnD.Name = "frmPTbtnD";
             this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
             this.frmPTbtnD.TabIndex = 5;

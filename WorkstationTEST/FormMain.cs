@@ -20,6 +20,7 @@ namespace WorkstationTEST
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+        public string DefCompany = "";
         public FormMain(frmMenu fmenu)
         {
             this.Tag = fmenu;
@@ -27,6 +28,7 @@ namespace WorkstationTEST
             this.KeyPreview = true;
             this.Activate();
             this.KeyDown+= new KeyEventHandler(mybutton_Click);
+
         }
         Boolean debug = false;
         int fullwidth = 600;
@@ -34,6 +36,7 @@ namespace WorkstationTEST
         int tabpageheight = 400;
        // public string sIP;
         public string sComport = new API("x","x").COMPORT;
+
         delegate void Display(Byte[] buffer);
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -47,6 +50,7 @@ namespace WorkstationTEST
                     break;
                 case 2:
                     var frmWK = new frmWorkOrder3();
+                    DefCompany = frmWK.DefCompany;
                     frmWK.TopLevel = false;
                     frmWK.Visible = true;
                     frmWK.Height = tabControl1.Height - 50;
@@ -99,11 +103,20 @@ namespace WorkstationTEST
                     save[0].Click += new EventHandler(savetab);
                     var qtyfocus = tabPage4.Controls.Find("outqty", true);
                     var qtyprices = tabPage4.Controls.Find("price", true);
+                    var qtytenant = tabPage4.Controls.Find("Tenant", true); 
+                    var wktenant = tabPage3.Controls.Find("WKtenantId", true);
                     var wkprices = tabPage3.Controls.Find("WKprice", true);
                     var ptpname = tabPage2.Controls.Find("frmPTname", true);
                     var qtyname = tabPage4.Controls.Find("frmQTYname", true);
                     qtyname[0].Text = ptpname[0].Text;
                     qtyprices[0].Text = wkprices[0].Text;
+                    var wtid = "";
+                    if (wktenant.Length > 0)
+                    {
+                        wtid = wktenant[0].Text == "101" ? "精密" : "科技";
+                    }
+                    qtytenant[0].Text = wtid;
+
                     showinfo();
                     ActiveControl = qtyfocus[0];
                     break;
@@ -229,6 +242,11 @@ namespace WorkstationTEST
             var tid = 0;
             var tidc = tabPage3.Controls.Find("WKtenantId", true);
             int.TryParse(tidc[0].Text, out tid);
+            if (tid == 0)
+            {
+                int.TryParse(DefCompany, out tid);
+                tidc[0].Text = tid.ToString();
+            }
             var pnos = tabPage2.Controls.Find("frmPTshowno", true);
             var pids = tabPage3.Controls.Find("WKPartnerId", true);
             var pno = pnos[0].Text;
@@ -256,6 +274,7 @@ namespace WorkstationTEST
         }
         private void gettab3(object sender, EventArgs e)
         {
+            UpdatePID();
             this.tabControl1.SelectedTab = tabPage4;
             Console.WriteLine("name=" + this.tabControl1.SelectedTab.Name);
         }
@@ -1015,6 +1034,7 @@ namespace WorkstationTEST
             var wkss = tabPage3.Controls.Find("WKSaveSpecification", true);
             var wksq = tabPage3.Controls.Find("WKSaveWorkqty", true);
             var wkm = tabPage3.Controls.Find("WKSaveMakeNo", true);
+            var wkaid= tabPage3.Controls.Find("WKAssetsId", true);
             var lw = tabPage3.Controls.Find("labWorkOrder", true);
             var ln = tabPage3.Controls.Find("labPName", true);
             var ls = tabPage3.Controls.Find("labSpec", true);
@@ -1039,7 +1059,7 @@ namespace WorkstationTEST
                 wkss[0].Text = string.Empty;
                 wksw[0].Text = string.Empty;
                 wkt[0].Text = string.Empty;
-
+                wkaid[0].Text = string.Empty;
                 ln[0].Text = string.Empty;
                 lw[0].Text = string.Empty;
                 ls[0].Text = string.Empty;

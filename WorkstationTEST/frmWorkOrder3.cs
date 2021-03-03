@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,17 +13,23 @@ namespace WorkstationTEST
 {
     public partial class frmWorkOrder3 : Form
     {
+        public string DefCompany = "";
         public frmWorkOrder3()
         {
             InitializeComponent();
             Console.WriteLine("frmWK");
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+            }
         }
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrderO> getworkorder = new List<WorkOrderO>();
-        bool debug = true;
+        bool debug = false;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
+            WKtenantId.Text = DefCompany;
             label13.Text = rtext[label13.Name];
             label1.Text = rtext[label1.Name];
             label2.Text = rtext[label2.Name];
@@ -131,6 +138,7 @@ namespace WorkstationTEST
                         frmt.setTenant(getworkorder);
                         frmt.ShowDialog();
                         R_TenantId = frmt.TenantId;
+                        int.TryParse(R_TenantId, out tidval);
                     }
                     else
                     {
@@ -138,6 +146,7 @@ namespace WorkstationTEST
                     }
                     if (debug)
                         MessageBox.Show(R_TenantId);
+                    getworkorder = getworkorder.Where(x => x.TenantId == tidval).ToList();
                     labSpec.Text = getworkorder[0].Specification;
                     labRemark.Text = getworkorder[0].Remark;
                     labPName.Text = getworkorder[0].AssetsNo;
@@ -481,6 +490,83 @@ namespace WorkstationTEST
                 Console.WriteLine("tenantid change:newpid:" + WKPartnerId.Text);
             }
 
+        }
+
+        private void SetCompany_Click(object sender, EventArgs e)
+        {
+            var titem = new List<Tenant>();
+            int? tidval = null;
+            if (!string.IsNullOrEmpty(DefCompany))
+            {
+                tidval = int.Parse(DefCompany);
+            }
+            try
+            {
+                titem= new API("/CHG/Main/Home/getTenant/", "http://").GetTenant(tidval);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("tenant_error:" + ex.Message);
+            }
+            FormMultiTenant frmt = new FormMultiTenant();
+            frmt.setTenant2(titem);
+            frmt.ShowDialog();
+            WKtenantId.Text = frmt.TenantId;
+            getCommon();
+        }
+
+        private void getCommon()
+        {
+            getwitem.Clear();
+            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+            if (getwitem.Count > 0)
+            {
+                WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
+                frmWKMakeno.Tag = WKSaveWorderId.Text;
+            }
+            Int32 tlpColumCount = WKPanel.ColumnCount;
+            Int32 tlpRowCount = WKPanel.RowCount;
+            for (int i = WKPanel.Controls.Count - 1; i >= 0; --i)
+                WKPanel.Controls[i].Dispose();
+            WKPanel.Controls.Clear();
+            List<Button> btnemplist = new List<Button>();
+            if (getwitem.Count() > 0)
+            {
+                var empitemcount = 0;
+                var keynum = 0;
+                foreach (var empitem in getwitem)
+                {
+                    var prestr = "BTNfrmEmp";
+                    empitemcount++;
+                    if ((empitemcount - 1) != 0 && (empitemcount - 1) % (tlpRowCount * tlpColumCount) == 0)
+                        keynum = 0;
+                    keynum++;
+                    var btnkey = "F" + keynum;
+                    var poststr = empitemcount.ToString("##");
+                    var thisbtnname = prestr + poststr;
+                    var thisbtntext = empitem.WorkName;
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtn(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey);
+                    empbtn = sethandlerD(empbtn);
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
+                    btnemplist.Add(empbtn);
+                }
+                Console.WriteLine("btn=" + btnemplist.Count + "," + tlpColumCount + "," + tlpRowCount);
+                var j = 0;
+                var recordL = 0;
+                for (var i = 0; i < tlpRowCount; i += tlpColumCount)
+                {
+                    for (; j < btnemplist.Count && j < tlpColumCount * tlpRowCount; j++)
+                    {
+                        recordL++;
+                        Console.WriteLine("L-i=" + i + ",j=" + j + ",name=" + btnemplist[j].Name);
+                        WKPanel.Controls.Add(btnemplist[j], j, i);
+                        frmWKRecordnow.Text = j.ToString();
+                    }
+                }
+                frmWKRecordT.Text = recordL.ToString();
+                Console.WriteLine("record=" + frmWKRecordnow.Text);
+            }
         }
     }
 }

@@ -366,7 +366,38 @@ namespace WorkstationTEST
             }
             return witemobj;
         }
+        public List<Tenant> GetTenant(int? tenantid)
+        {
+            var client = new HttpClient();
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("tenantid",tenantid.ToString()),
+                })
+            };
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+            List<Tenant> tobj = new List<Tenant>();
+            if (res.StatusCode.ToString() == "OK")
+            {
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+                tobj = JsonConvert.DeserializeObject<List<Tenant>>(res.Content.ReadAsStringAsync().Result);
+                foreach (var item in tobj)
+                {
+                    Console.WriteLine("t=" + item.ShortName);
+                }
 
+            }
+            else
+            {
+                Console.WriteLine("伺服器連線異常");
+            }
+            return tobj;
+        }
         public returnmsg UploadServer(WorkDayReport wdr)
         {
             var client = new HttpClient();
@@ -640,6 +671,13 @@ namespace WorkstationTEST
         public string MakeNo { get; set; }
         public int index { get; set; }
         public List<TextBox> titem { get; set; }
+    }
+    public class Tenant
+    {
+        public string TenantId { get; set; }
+        public string ShortName { get; set; }
+        public string GroupId { get; set; }
+        public string Alias { get; set; }
     }
     public class ComboboxItem
     {

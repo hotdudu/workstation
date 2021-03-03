@@ -36,11 +36,12 @@
             // 
             // cancel
             // 
+            this.cancel.Font = new System.Drawing.Font("新細明體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cancel.Location = new System.Drawing.Point(123, 261);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 23);
             this.cancel.TabIndex = 0;
-            this.cancel.Text = "cancel";
+            this.cancel.Text = "取消";
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
@@ -52,22 +53,21 @@
             this.ok.TabIndex = 1;
             this.ok.Text = "ok";
             this.ok.UseVisualStyleBackColor = true;
+            this.ok.Visible = false;
             // 
             // FMT
             // 
+            this.FMT.AutoScroll = true;
             this.FMT.ColumnCount = 3;
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33444F));
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33444F));
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33112F));
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.FMT.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.FMT.Location = new System.Drawing.Point(42, 45);
             this.FMT.Name = "FMT";
             this.FMT.RowCount = 2;
-            this.FMT.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.FMT.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.FMT.Size = new System.Drawing.Size(315, 94);
+            this.FMT.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.FMT.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.FMT.Size = new System.Drawing.Size(456, 152);
             this.FMT.TabIndex = 2;
             // 
             // tenantvalue
