@@ -32,6 +32,7 @@
             this.ok = new System.Windows.Forms.Button();
             this.FMT = new System.Windows.Forms.TableLayoutPanel();
             this.tenantvalue = new System.Windows.Forms.Label();
+            this.Empno = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cancel
@@ -79,11 +80,21 @@
             this.tenantvalue.TabIndex = 3;
             this.tenantvalue.Visible = false;
             // 
+            // Empno
+            // 
+            this.Empno.AutoSize = true;
+            this.Empno.Location = new System.Drawing.Point(362, 214);
+            this.Empno.Name = "Empno";
+            this.Empno.Size = new System.Drawing.Size(0, 12);
+            this.Empno.TabIndex = 4;
+            this.Empno.Visible = false;
+            // 
             // FormMultiTenant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 397);
+            this.Controls.Add(this.Empno);
             this.Controls.Add(this.tenantvalue);
             this.Controls.Add(this.FMT);
             this.Controls.Add(this.ok);
@@ -101,5 +112,6 @@
         private System.Windows.Forms.Button ok;
         private System.Windows.Forms.TableLayoutPanel FMT;
         private System.Windows.Forms.Label tenantvalue;
+        private System.Windows.Forms.Label Empno;
     }
 }

@@ -24,6 +24,7 @@ namespace WorkstationTEST
         [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
        private  Dictionary<string, string> rtext = CreateElement.loadresx();
+        public string Menufilter = "";
         public frmMenu()
         {
             InitializeComponent();
@@ -55,6 +56,7 @@ namespace WorkstationTEST
             using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
             {
                 lang=oTINI.getKeyValue("SYSTEM", "LANGUAGE", "");
+                Menufilter= oTINI.getKeyValue("SYSTEM", "Menufilter", "");
             }
             if (lang == "CHT")
             {
@@ -425,13 +427,51 @@ namespace WorkstationTEST
                         try
                         {
                             var insertScript = "SELECT * FROM WorkDayReports ORDER BY StartTime DESC";
-                            if(empno!=" ")
-                                insertScript = "SELECT * FROM WorkDayReports WHERE EmpNo=@EmpNo ORDER BY StartTime DESC";
+                            var ismultipleno = false;
+                            var marray = Menufilter.Split(';');
+                            var msubarray = new List<string>();
+                            if (empno!=" ")
+                            {
+
+                                foreach (var item in marray)
+                                {
+                                    if (item.IndexOf(empno) > -1)
+                                    {
+                                        ismultipleno = true;
+                                        var inneritem = item.Split(',');
+                                        foreach (var inner in inneritem)
+                                        {
+                                            msubarray.Add(inner);
+                                        }
+                                    }
+                                }
+                                if (ismultipleno)
+                                {
+                                    insertScript= "SELECT * FROM WorkDayReports WHERE EmpNo=@EmpNo OR EmpNo=@EmpNo1 ORDER BY StartTime DESC";
+                                }
+                                else
+                                {
+                                    insertScript = "SELECT * FROM WorkDayReports WHERE EmpNo=@EmpNo ORDER BY StartTime DESC";
+                                }
+                            }
+
                             //wkd = conn.Query<WorkDayReport>(insertScript).ToList();
                             conn.Open();
                             var cmd =new SQLiteCommand(insertScript, conn);
                             if(empno!=" ")
-                                cmd.Parameters.AddWithValue("@EmpNo", empno);
+                            {
+                                if (ismultipleno)
+                                {
+                                    cmd.Parameters.AddWithValue("@EmpNo", msubarray[0]);
+                                    cmd.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
+                                }
+                                else
+                                {
+                                    cmd.Parameters.AddWithValue("@EmpNo", empno);
+
+                                }
+                            }
+
                             using (SQLiteDataReader row = cmd.ExecuteReader())
                             {
                                 while (row.Read())

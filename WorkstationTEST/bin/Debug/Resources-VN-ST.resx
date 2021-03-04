@@ -159,8 +159,14 @@
   <data name="makeqty" xml:space="preserve">
     <value>công việc định lượng</value>
   </data>
+  <data name="nextrecord" xml:space="preserve">
+    <value>kỷ lục tiếp theo</value>
+  </data>
   <data name="notselect" xml:space="preserve">
     <value>Please Select Process</value>
+  </data>
+  <data name="prevrecord" xml:space="preserve">
+    <value>kỷ lục trước đó</value>
   </data>
   <data name="proc" xml:space="preserve">
     <value>Quá trình</value>

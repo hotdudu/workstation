@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,18 @@ namespace WorkstationTEST
         public frmEmp()
         {
             InitializeComponent();
-
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
+                NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
+            }
             //tab = tab1;
         }
         delegate void loadtab(TabControl taba);
         public TabControl tab;
-        List<Emp> getemp = new List<Emp>();
+        List<Empm> getemp = new List<Empm>();
+        public string DepartNo = "";
+        public string NIG = "";
         Dictionary<string, string> rtext = CreateElement.loadresx("WK");
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -150,7 +157,7 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
-            getemp = new API("/CHG/Main/Home/getEmployee/", "http://").GetEmp();
+            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DepartNo,NIG);
             Int32 tlpColumCount = tableLayoutPanel1.ColumnCount;
             Int32 tlpRowCount = tableLayoutPanel1.RowCount;
             List<Button> btnemplist = new List<Button>();
@@ -168,8 +175,23 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.FullName;
-                    var btnkey = "F" + keynum;                   
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtn(empitem.EmployeeNo, thisbtntext,empitem.EmployeeId,btnkey);
+                    var btnkey = "F" + keynum;
+                    var rlist = empitem.Rlist;
+                    var IsMultiple = false;
+                    var rno = "";
+                    var rtenant = "";
+                    if (rlist.Count > 1)
+                    {
+                        IsMultiple = true;
+                        var ri = 0;
+                        foreach(var ritem in rlist)
+                        {
+                            rno += (ri == 0 ? ritem.no : "," + ritem.no);
+                            rtenant += (ri == 0 ? ritem.tenant : "," + ritem.tenant);
+                            ri++;
+                        }
+                    }                   
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnm(empitem.EmployeeNo, thisbtntext,empitem.EmployeeId,btnkey,IsMultiple,rno,rtenant);
                     empbtn = sethandler(empbtn);
                     btnemplist.Add(empbtn);
                 }
@@ -196,9 +218,19 @@ namespace WorkstationTEST
                 frmEmpshowno.Text = empinfos[0];
                 empname.Text = empinfos[1];
             }
+            else if(empinfos.Length==4)
+            {
+                var rno = empinfos[2].Split(',');
+                var rten = empinfos[3].Split(',');
+                FormMultiTenant frmt = new FormMultiTenant();
+                frmt.setTenantm(rno,rten);
+                frmt.ShowDialog();
+                frmEmpshowno.Text = frmt.Eno;
+                empname.Text = empinfos[1];
+            }
             else
             {
-                frmEmpshowno.Text=info;
+                frmEmpshowno.Text = info;
             }
           
         }

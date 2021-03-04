@@ -26,8 +26,8 @@ namespace WorkstationTEST
             label8.Text = rtext[label8.Name];
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn(frmPTbtnU, "Insert::Insert", rtext2["button1"]);
-            setpageup.SetBtn(frmPTbtnD, "Delete::Delete", rtext2["button2"]);
+            setpageup.SetBtn(frmPTbtnU, "Insert::Insert", rtext2["prevrecord"]);
+            setpageup.SetBtn(frmPTbtnD, "Delete::Delete", rtext2["nextrecord"]);
             setpageup.SetBtn(save, "F12::F12",rtext["WKsave"]);
             setpageup.SetBtn(next, "Return::Return", "Enter");
             var ry = frmREno.Location.Y + frmREno.Height + 5;

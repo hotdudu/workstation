@@ -136,6 +136,51 @@ namespace WorkstationTEST
             }
             return empobj;
         }
+        public List<Empm> GetEmpm(string DepartNo,string NIG)
+        {
+            var load = new loading();
+            load.Show();
+            var client = new HttpClient();
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("tenantid","101"),
+                 new KeyValuePair<string, string>("word",DepartNo),
+                 new KeyValuePair<string, string>("notingroup",NIG),
+                new KeyValuePair<string, string>("iswork","true"),
+                })
+            };//"http://localhost:56893/CHG/Main/Home/getEmployee/"
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+            List<Empm> empobj = new List<Empm>();
+            var defemplist = Empdef.Split(',');
+            if (res.StatusCode.ToString() == "OK")
+            {
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+                empobj = JsonConvert.DeserializeObject<List<Empm>>(res.Content.ReadAsStringAsync().Result);
+                Console.WriteLine("def=" + defemplist.Length);
+                if (empobj.Count > 0)
+                {
+                    empobj = empobj.Where(x => !defemplist.Contains(x.EmployeeNo)).OrderBy(x => x.EmployeeNo).ToList();
+                }
+                foreach (var item in empobj)
+                {
+                    Console.WriteLine("r=" + item.FullName);
+                }
+                load.Close();
+            }
+            else
+            {
+                load.Close();
+                MessageBox.Show("伺服器連線異常");
+                Console.WriteLine("伺服器連線異常");
+            }
+            return empobj;
+        }
 
         public List<Workitem> GetWorkitem(int tid,string makeno, Guid wid)
         {
@@ -562,6 +607,19 @@ namespace WorkstationTEST
         public string EmployeeNo { get; set; }
         public string FullName { get; set; }
         public string Lanaugage { get; set; }
+    }
+    public class Empm
+    {
+        public Guid EmployeeId { get; set; }
+        public string EmployeeNo { get; set; }
+        public string FullName { get; set; }
+        public string Lanaugage { get; set; }
+        public List<Empin> Rlist{ get; set; }
+    }
+    public class Empin
+    {
+        public string no { get; set; }
+        public string tenant { get; set; }
     }
     public class Workitem
     {

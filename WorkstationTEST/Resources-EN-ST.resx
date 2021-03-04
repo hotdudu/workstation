@@ -159,8 +159,14 @@
   <data name="makeqty" xml:space="preserve">
     <value>MakeQTY</value>
   </data>
+  <data name="nextrecord" xml:space="preserve">
+    <value>NextRecord</value>
+  </data>
   <data name="notselect" xml:space="preserve">
     <value>Please Select Process</value>
+  </data>
+  <data name="prevrecord" xml:space="preserve">
+    <value>PrevRecord</value>
   </data>
   <data name="proc" xml:space="preserve">
     <value>Process</value>

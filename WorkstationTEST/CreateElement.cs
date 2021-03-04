@@ -117,7 +117,28 @@ namespace WorkstationTEST
             btn.Tag = no+":"+name;
             return btn;
         }
+        public Button CreateEmpBtnm(string no, string name, Guid? empid, string key,bool IsMultiple,string rno,string rtenant)
+        {
+            XButton btn = new XButton();
+            btn.Name = bname;
+            var qr = no + "::" + key;
+            btn.LeftText = no + Environment.NewLine + name;
+            btn.Size = new Size(160, 165);
+            btn.Margin = new Padding(20, 50, 20, 50);
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+            btn.TopText = key;
+            btn.Image = SetQR(qr, 80, 80, "QR");
+            if(IsMultiple)
+            {
+                btn.Tag = no + ":" + name + ":" + rno + ":" + rtenant;
+            }
+            else
+            {
+                btn.Tag = no + ":" + name;
+            }
 
+            return btn;
+        }
         public Button CreateEmpBtnWithXY(string no, string name, Guid? empid, string key, int irow, int icol, int ispace, Control p)
         {
             XButton btn = new XButton();

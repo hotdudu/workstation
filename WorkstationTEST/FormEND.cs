@@ -17,6 +17,7 @@ namespace WorkstationTEST
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+        public string Menufilter = "";
         public FormEND(frmMenu fmenu)
         {
             InitializeComponent();
@@ -24,6 +25,10 @@ namespace WorkstationTEST
             this.KeyPreview = true;
             this.Activate();
             this.KeyDown += new KeyEventHandler(mybutton_Click);
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                Menufilter = oTINI.getKeyValue("SYSTEM", "Menufilter", "");
+            }
         }
         int fullwidth = 600;
         int fullheight = 600;
@@ -43,7 +48,7 @@ namespace WorkstationTEST
             switch ((sender as TabControl).SelectedIndex)
             {
                 case 0:
-                    var frmEmp = new frmEndEmp();
+                    var frmEmp = new frmEmp();
                     frmEmp.TopLevel = false;
                     frmEmp.Visible = true;
                     tabPage1.Controls.Add(frmEmp);
@@ -92,7 +97,7 @@ namespace WorkstationTEST
             tabPage1.Text = rtext["emp"];
             tabPage2.Text = rtext["unwork"];
             Console.WriteLine("fw=" + fullwidth + ",fh=" + fullheight + ",ch=" + this.tabpageheight);
-            var frmEmp = new frmEndEmp();
+            var frmEmp = new frmEmp();
             frmEmp.TopLevel = false;
             frmEmp.Visible = true;
             frmEmp.Height = tabControl1.Height - 50;
@@ -534,7 +539,7 @@ namespace WorkstationTEST
                     Console.WriteLine("pkey=" + pkey);
                     setkeymap(pkey);
                 }
-                if (dataarray.Length == 3)
+                if (dataarray.Length >= 3)
                 {
                     var isp = dataarray[1].StartsWith("P");
                     Console.WriteLine("showdata=" + isp);
@@ -583,7 +588,7 @@ namespace WorkstationTEST
                     Console.WriteLine("pkey=" + pkey);
                     setkeymap(pkey,"",true);
                 }
-                if (dataarray.Length == 3)
+                if (dataarray.Length >= 3)
                 {
                     setkeymap("XXX", data);
                 }
@@ -619,34 +624,102 @@ namespace WorkstationTEST
             string cnStr = "data source=" + dbPath + ";Version=3;";
             Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
             List<WorkDayReport> wrecord = new List<WorkDayReport>();
+            var ismultipleno = false;
+            var marray = Menufilter.Split(';');
+            var msubarray = new List<string>();
+            foreach (var item in marray)
+            {
+                if (item.IndexOf(eno) > -1)
+                {
+                    ismultipleno = true;
+                    var inneritem = item.Split(',');
+                    foreach (var inner in inneritem)
+                    {
+                        msubarray.Add(inner);
+                    }
+                }
+            }
             if (File.Exists(dbPath))
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND  EndTime IS NULL Order by StartTime";
-
+                    var insertScript = "";
+                    if (ismultipleno)
+                    {
+                        insertScript = "SELECT * FROM WorkDayReports  WHERE (EmpNo=@EmpNo OR EmpNo=@EmpNo1) AND  EndTime IS NULL Order by StartTime";
+                    }
+                    else
+                    {
+                        insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND  EndTime IS NULL Order by StartTime";
+                    }
                     if (makeno != string.Empty)
                     {
-                        insertScript= "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND MakeNo=@MakeNo AND EndTime IS NULL Order by StartTime";                       
+                        if (ismultipleno)
+                        {
+                            insertScript = "SELECT * FROM WorkDayReports  WHERE (EmpNo=@EmpNo OR EmpNo=@EmpNo1) AND MakeNo=@MakeNo AND EndTime IS NULL Order by StartTime";
+
+                        }
+                        else
+                        {
+                            insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND MakeNo=@MakeNo AND EndTime IS NULL Order by StartTime";
+                        }
                     }
                     else if(startno!=string.Empty)
                     {
-                        insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND MakeNo LIKE @startno AND EndTime IS NULL Order by StartTime";
+                        if (ismultipleno)
+                        {
+                            insertScript = "SELECT * FROM WorkDayReports  WHERE (EmpNo=@EmpNo OR EmpNo=@EmpNo1) AND MakeNo LIKE @startno AND EndTime IS NULL Order by StartTime";
+
+                        }
+                        else
+                        {
+                             insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo AND MakeNo LIKE @startno AND EndTime IS NULL Order by StartTime";
+
+                        }
                     }
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     if(makeno != string.Empty)
                     {
-                        cmd.Parameters.AddWithValue("@EmpNo", eno);
-                        cmd.Parameters.AddWithValue("@MakeNo", makeno);
+                        if (ismultipleno)
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", msubarray[0]);
+                            cmd.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
+                            cmd.Parameters.AddWithValue("@MakeNo", makeno);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", eno);
+                            cmd.Parameters.AddWithValue("@MakeNo", makeno);
+                        }
+
                     }
                     else if (startno != string.Empty)
                     {
-                        cmd.Parameters.AddWithValue("@EmpNo", eno);
-                        cmd.Parameters.AddWithValue("@startno", '%'+startno);
+                        if (ismultipleno)
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", msubarray[0]);
+                            cmd.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
+                            cmd.Parameters.AddWithValue("@startno", '%' + startno);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", eno);
+                            cmd.Parameters.AddWithValue("@startno", '%'+startno);
+                        }
+
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@EmpNo", eno);
+                        if(ismultipleno)
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", msubarray[0]);
+                            cmd.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@EmpNo", eno);
+                        }
+
                     }
                         conn.Open();
                     try

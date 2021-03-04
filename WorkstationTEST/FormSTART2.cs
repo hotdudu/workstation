@@ -50,7 +50,7 @@ namespace WorkstationTEST
             switch ((sender as TabControl).SelectedIndex)
             {
                 case 0:
-                    var frmEmp = new frmEmp2();
+                    var frmEmp = new frmEmp();
                     frmEmp.TopLevel = false;
                     frmEmp.Visible = true;
                     tabPage1.Controls.Add(frmEmp);
@@ -230,7 +230,7 @@ namespace WorkstationTEST
             setpageup.SetBtn(button2, "PageDown::Next", rtext[button2.Name]);
             setpageup.SetBtn(button3, "Home::Home", rtext[button3.Name]);
             setpageup.SetBtn2(button4, "Escape::Escape", rtext[button4.Name]);
-            var frmEmp = new frmEmp2();
+            var frmEmp = new frmEmp();
             frmEmp.TopLevel = false;
             frmEmp.Visible = true;
             frmEmp.Height = tabControl1.Height - 50;
@@ -587,6 +587,7 @@ namespace WorkstationTEST
             var tena = tabPage2.Controls.Find("infoempname", true); 
             var twno = tabPage2.Controls.Find("infowkno", true);
             var twna = tabPage2.Controls.Find("infowkname", true);
+            ititle[0].Text = rtext["inserted"];
             ititle[0].ForeColor = Color.MediumSeaGreen;
             ititle[0].Font = new Font("", 16, FontStyle.Bold);
             teno[0].Text = eno;

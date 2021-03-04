@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,18 @@ namespace WorkstationTEST
         {
             InitializeComponent();
             Console.WriteLine("frmWK");
-
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+            }
         }
+        public string DefCompany = "";
         List<Workitem> getwitem = new List<Workitem>();
         List<WorkOrder> getworkorder = new List<WorkOrder>();
         bool debug = false;
         private void frmWorkOrder_Load(object sender, EventArgs e)
         {
+            WKSaveTenantId.Text = DefCompany;
             Dictionary<string, string> rtext = CreateElement.loadresx("WK");
             label13.Text = rtext[label13.Name];
             label1.Text = rtext[label1.Name];
