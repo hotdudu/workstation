@@ -106,7 +106,7 @@ namespace WorkstationTEST
                 string makeno = "";
                 string wid = "";
                 string tid = "";
-                var tidval = 0;
+                int? tidval = null;
                 Console.WriteLine("m=" + text);
                 if (text.IndexOf("::") >= 0)
                 {
@@ -114,12 +114,16 @@ namespace WorkstationTEST
                      makeno = data[0];
                     wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];//qr碼新增tenantid，陣列長度變為4
                     tid = data.Length == 4 ? data[data.Length - 1] : "";
-                    int.TryParse(tid, out tidval);
                     if (data.Length == 4)
                     {
                         tidval = int.Parse(tid);
+                       // WKtenantId.Text = tid;
                     }
-                    WKtenantId.Text = tid;
+                   /* if (data.Length == 3)
+                    {
+                        tidval = int.Parse(WKtenantId.Text);
+                        WKtenantId.Text = tid;
+                    }*/
                     if (debug)
                     {
                         MessageBox.Show("wid=" + wid + ",tid=" + tid);
@@ -128,6 +132,7 @@ namespace WorkstationTEST
                 //frmWKMakeno.Text = makeno;
                 frmWKMakeno.Tag = wid;
                 getwitem.Clear();
+                int maketid = 0;
                 getworkorder = new API("/CHG/Main/Home/getinfo2/", "http://").GetWorkOrderO(tidval,makeno);
                 if (getworkorder.Count > 0)
                 {
@@ -138,14 +143,16 @@ namespace WorkstationTEST
                         frmt.setTenant(getworkorder);
                         frmt.ShowDialog();
                         R_TenantId = frmt.TenantId;
-                        int.TryParse(R_TenantId, out tidval);
                     }
                     else
                     {
                         R_TenantId = getworkorder[0].TenantId.ToString();
+
                     }
-                    if (debug)
-                        MessageBox.Show(R_TenantId);
+                    if (!string.IsNullOrEmpty(R_TenantId))
+                    {
+                        tidval = int.Parse(R_TenantId);
+                    }
                     getworkorder = getworkorder.Where(x => x.TenantId == tidval).ToList();
                     labSpec.Text = getworkorder[0].Specification;
                     labRemark.Text = getworkorder[0].Remark;
@@ -157,6 +164,7 @@ namespace WorkstationTEST
                     WKAssetsId.Text = getworkorder[0].AssetsId.HasValue ? getworkorder[0].AssetsId.ToString() : "";
                     WKtenantId.Text = R_TenantId;
                     WKprice.Text = getworkorder[0].Price.ToString();
+                    int.TryParse(WKtenantId.Text, out maketid);
                     UpdatePID();
                 }
                 else
@@ -170,7 +178,7 @@ namespace WorkstationTEST
                 if (isguid)
                 {
 
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,makeno,Guid.Parse(wid));
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(maketid,makeno,Guid.Parse(wid));
                 }
 
                 else

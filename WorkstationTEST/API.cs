@@ -22,6 +22,7 @@ namespace WorkstationTEST
         public string dbip;
         public string COMPORT;
         private string Empdef;
+        private string PTdef;
         private int timeout;
         public API(string url) {
             URL = url;
@@ -68,6 +69,10 @@ namespace WorkstationTEST
                             if (linear[0] == "Timeout")
                             {
                                 var tryint = int.TryParse(linear[1], out apitimeout);
+                            }
+                            if (linear[0] == "PTdef")
+                            {
+                                PTdef = linear[1];
                             }
                         }
                     }
@@ -359,12 +364,23 @@ namespace WorkstationTEST
             actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
             List<Partner> witemobj = new List<Partner>();
+            var ptf = "";
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                ptf = oTINI.getKeyValue("SYSTEM", "PTdef", "");
+            }
+            var defarray = ptf.Split(',');
             if (res.StatusCode.ToString() == "OK")
             {
+
                 //string r = res.Content.ReadAsStringAsync().Result.ToString();
                 // Message MS = JsonConvert.DeserializeObject<Message>(r);
                 // var Result = JsonConvert.SerializeObject(MS);
                 witemobj = JsonConvert.DeserializeObject<List<Partner>>(res.Content.ReadAsStringAsync().Result);
+                if (witemobj.Count > 0)
+                {
+                    witemobj = witemobj.Where(x => !defarray.Contains(x.ShortName)).ToList();
+                }
                 foreach (var item in witemobj)
                 {
                     Console.WriteLine("r=" + item.ShortName);
@@ -395,6 +411,7 @@ namespace WorkstationTEST
             List<Partner> witemobj = new List<Partner>();
             if (res.StatusCode.ToString() == "OK")
             {
+
                 //string r = res.Content.ReadAsStringAsync().Result.ToString();
                 // Message MS = JsonConvert.DeserializeObject<Message>(r);
                 // var Result = JsonConvert.SerializeObject(MS);

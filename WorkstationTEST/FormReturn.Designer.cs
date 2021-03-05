@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
@@ -48,20 +49,21 @@
             this.frmPTRecordnow = new System.Windows.Forms.Label();
             this.frmPTbtnD = new WorkstationTEST.XButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.frmEmpRecordT = new System.Windows.Forms.Label();
-            this.EMPSave1 = new System.Windows.Forms.TextBox();
-            this.RPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.focust = new System.Windows.Forms.TextBox();
-            this.frmRecordnow = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.frmRecordnow = new System.Windows.Forms.Label();
+            this.focust = new System.Windows.Forms.TextBox();
+            this.RPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.frmEmpRecordT = new System.Windows.Forms.Label();
+            this.EMPSave1 = new System.Windows.Forms.TextBox();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -299,75 +301,29 @@
             this.tabPage3.Text = "外包單";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // label8
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 42);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1179, 580);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "數量";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label8.Location = new System.Drawing.Point(854, 29);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 23);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "外包單號";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label8.Visible = false;
             // 
-            // frmEmpRecordT
+            // label3
             // 
-            this.frmEmpRecordT.AutoSize = true;
-            this.frmEmpRecordT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpRecordT.Location = new System.Drawing.Point(327, 748);
-            this.frmEmpRecordT.Name = "frmEmpRecordT";
-            this.frmEmpRecordT.Size = new System.Drawing.Size(85, 12);
-            this.frmEmpRecordT.TabIndex = 17;
-            this.frmEmpRecordT.Text = "frmEmpRecordT";
-            this.frmEmpRecordT.Visible = false;
-            // 
-            // EMPSave1
-            // 
-            this.EMPSave1.CausesValidation = false;
-            this.EMPSave1.Location = new System.Drawing.Point(574, 745);
-            this.EMPSave1.Name = "EMPSave1";
-            this.EMPSave1.Size = new System.Drawing.Size(100, 22);
-            this.EMPSave1.TabIndex = 16;
-            this.EMPSave1.Visible = false;
-            // 
-            // RPanel
-            // 
-            this.RPanel.AutoSize = true;
-            this.RPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.RPanel.ColumnCount = 13;
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.Location = new System.Drawing.Point(3, 52);
-            this.RPanel.Name = "RPanel";
-            this.RPanel.RowCount = 2;
-            this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.Size = new System.Drawing.Size(1300, 0);
-            this.RPanel.TabIndex = 4;
-            // 
-            // focust
-            // 
-            this.focust.Location = new System.Drawing.Point(952, 354);
-            this.focust.Name = "focust";
-            this.focust.Size = new System.Drawing.Size(100, 46);
-            this.focust.TabIndex = 27;
-            // 
-            // frmRecordnow
-            // 
-            this.frmRecordnow.Location = new System.Drawing.Point(963, 313);
-            this.frmRecordnow.Name = "frmRecordnow";
-            this.frmRecordnow.Size = new System.Drawing.Size(89, 12);
-            this.frmRecordnow.TabIndex = 28;
-            this.frmRecordnow.Visible = false;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label3.Location = new System.Drawing.Point(123, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(150, 23);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "產品編號";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.Visible = false;
             // 
             // label7
             // 
@@ -441,29 +397,75 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.Visible = false;
             // 
-            // label3
+            // frmRecordnow
             // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label3.Location = new System.Drawing.Point(123, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 23);
-            this.label3.TabIndex = 36;
-            this.label3.Text = "產品編號";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label3.Visible = false;
+            this.frmRecordnow.Location = new System.Drawing.Point(963, 313);
+            this.frmRecordnow.Name = "frmRecordnow";
+            this.frmRecordnow.Size = new System.Drawing.Size(89, 12);
+            this.frmRecordnow.TabIndex = 28;
+            this.frmRecordnow.Visible = false;
             // 
-            // label8
+            // focust
             // 
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label8.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label8.Location = new System.Drawing.Point(854, 29);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 23);
-            this.label8.TabIndex = 37;
-            this.label8.Text = "外包單號";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label8.Visible = false;
+            this.focust.Location = new System.Drawing.Point(952, 354);
+            this.focust.Name = "focust";
+            this.focust.Size = new System.Drawing.Size(100, 46);
+            this.focust.TabIndex = 27;
+            // 
+            // RPanel
+            // 
+            this.RPanel.AutoSize = true;
+            this.RPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RPanel.ColumnCount = 13;
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.Location = new System.Drawing.Point(3, 52);
+            this.RPanel.Name = "RPanel";
+            this.RPanel.RowCount = 2;
+            this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.RPanel.Size = new System.Drawing.Size(1300, 0);
+            this.RPanel.TabIndex = 4;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 42);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1179, 580);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "數量";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // frmEmpRecordT
+            // 
+            this.frmEmpRecordT.AutoSize = true;
+            this.frmEmpRecordT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpRecordT.Location = new System.Drawing.Point(327, 748);
+            this.frmEmpRecordT.Name = "frmEmpRecordT";
+            this.frmEmpRecordT.Size = new System.Drawing.Size(85, 12);
+            this.frmEmpRecordT.TabIndex = 17;
+            this.frmEmpRecordT.Text = "frmEmpRecordT";
+            this.frmEmpRecordT.Visible = false;
+            // 
+            // EMPSave1
+            // 
+            this.EMPSave1.CausesValidation = false;
+            this.EMPSave1.Location = new System.Drawing.Point(574, 745);
+            this.EMPSave1.Name = "EMPSave1";
+            this.EMPSave1.Size = new System.Drawing.Size(100, 22);
+            this.EMPSave1.TabIndex = 16;
+            this.EMPSave1.Visible = false;
             // 
             // FormReturn
             // 
@@ -478,6 +480,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FormReturn";
             this.Text = "FormReturn";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormReturn_FormClosed);
             this.Load += new System.EventHandler(this.FormReturn_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -527,5 +530,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }

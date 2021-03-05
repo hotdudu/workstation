@@ -631,7 +631,11 @@ namespace WorkstationTEST
                 {
                     var tid = 0;
                     var WKtenatIds = tabPage3.Controls.Find("WKtenantId", true);
-                    int.TryParse(WKtenatIds[0].Text, out tid);
+                    if (WKtenatIds.Length > 0)
+                    {
+                        int.TryParse(WKtenatIds[0].Text, out tid);
+                    }
+
                     var svmk = tabPage3.Controls.Find("labWorkOrder", true);
                     //Console.WriteLine("nodata:"+ svmk[0].Text.ToUpper());
                     if (keyupper == "Delete")

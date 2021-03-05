@@ -125,6 +125,24 @@ namespace WorkstationTEST
                 getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval,makeno);
                 if (getworkorder.Count > 0)
                 {
+                    var R_TenantId = "";
+                    if (getworkorder.Count > 1)
+                    {
+                        FormMultiTenant frmt = new FormMultiTenant();
+                        frmt.setTenant(getworkorder);
+                        frmt.ShowDialog();
+                        R_TenantId = frmt.TenantId;
+                    }
+                    else
+                    {
+                        R_TenantId = getworkorder[0].TenantId.ToString();
+
+                    }
+                    if (!string.IsNullOrEmpty(R_TenantId))
+                    {
+                        tidval = int.Parse(R_TenantId);
+                    }
+                    getworkorder = getworkorder.Where(x => x.TenantId == tidval).ToList();
                     labSpec.Text = getworkorder[0].Specification;
                     labRemark.Text = getworkorder[0].Remark;
                     labPName.Text = getworkorder[0].AssetsNo;

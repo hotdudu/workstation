@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,11 +15,29 @@ namespace WorkstationTEST
 {
     public partial class FormReturn : Form
     {
-        public FormReturn()
+        [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
+        private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
+        static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+        public FormReturn(frmMenu fmenu)
         {
             InitializeComponent();
+            this.Tag = fmenu;
+            this.KeyPreview = true;
+            this.Activate();
+            this.KeyDown += new KeyEventHandler(mybutton_Click);
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
+                NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
+            }
         }
-        List<Emp> getemp = new List<Emp>();
+        string sIP = "61.221.176.176";
+        string sComport = new API("x", "x").COMPORT;
+        delegate void Display(Byte[] buffer);
+        private string DepartNo = "";//要過濾的部門編號開頭
+        private string NIG = "";//在過濾部門範圍外要新增的員工編號，只允許一位
+        List<Empm> getemp = new List<Empm>();
         List<Partner> getpartner = new List<Partner>();
         List<WorkOutReport> nowrecord = new List<WorkOutReport>();
         Dictionary<string, string> rtext = CreateElement.loadresx("WK");
@@ -80,6 +99,7 @@ namespace WorkstationTEST
             this.WindowState = FormWindowState.Maximized;
             showemp();
             frmEmpshowno.TextChanged += new EventHandler(gettab);
+            openseria();
         }
         private void gettab(object sender, EventArgs e)
         {
@@ -113,7 +133,7 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
-            getemp = new API("/CHG/Main/Home/getEmployee/", "http://").GetEmp();
+            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DepartNo, NIG);
            // List<Button> btnemplist = new List<Button>();
             if (getemp.Count() > 0)
             {
@@ -143,7 +163,7 @@ namespace WorkstationTEST
                     var thisbtntext = empitem.FullName;
                     Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnWithXY(empitem.EmployeeNo, thisbtntext, empitem.EmployeeId, btnkey, iRow, iCol, iSpace, EMPPanel);
 
-                    empbtn = sethandlerD(empbtn);
+                    empbtn = sethandlerEmp(empbtn);
                     if (keynum > totalitem)
                     {
                         empbtn.Visible = false;
@@ -193,7 +213,7 @@ namespace WorkstationTEST
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
                     Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
-                    empbtn = sethandlerP(empbtn);
+                    empbtn = sethandlerPartner(empbtn);
                     if (keynum > totalitem)
                     {
                         empbtn.Visible = false;
@@ -302,7 +322,7 @@ namespace WorkstationTEST
             frmEmpshowno.Text = info;
         }
 
-        public Button sethandlerD(Button bt)
+        public Button sethandlerEmp(Button bt)
         {
             Button sbt = bt;
             sbt.Click += new EventHandler(btnEMPALL_ClickD);
@@ -313,7 +333,7 @@ namespace WorkstationTEST
             Button tmpButton = (Button)sender;
             SetEmpNO(tmpButton.Tag.ToString());
         }
-        public Button sethandlerP(Button bt)
+        public Button sethandlerPartner(Button bt)
         {
             Button sbt = bt;
             sbt.Click += new EventHandler(btnEMPALL_ClickP);
@@ -322,7 +342,20 @@ namespace WorkstationTEST
         private void btnEMPALL_ClickP(object sender, EventArgs e)
         {
             Button tmpButton = (Button)sender;
-            SetEmpNO(tmpButton.Tag.ToString());
+            SetPNo(tmpButton.Tag.ToString());
+        }
+        public void SetPNo(string info)
+        {
+            var PTarray = info.Split(':');
+            Console.WriteLine("ptl=" + PTarray.Length);
+            var ptno = PTarray[3];
+            var ptid = PTarray[1];
+            var ptname = PTarray[2];
+            var pcate = PTarray[0];
+            frmPTshowno.Text = ptno;
+            frmPTname.Text = ptname;
+            // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
+            Console.WriteLine("ptno=" + frmPTshowno.Text + ",ptid=" + PTSavePartnerId.Text);
         }
 
         private void frmEmpPageU_Click(object sender, EventArgs e)
@@ -588,6 +621,296 @@ namespace WorkstationTEST
             TextBox tmpButton = (TextBox)sender;
             focust.Text = tmpButton.Name;
             Console.Write("gotfocus=" + focust.Text);
+        }
+
+        private void mybutton_Click(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("keycoe=" + e.KeyCode.ToString());
+            setkeymap(e.KeyCode.ToString());
+            //tmpb.PerformClick();
+        }
+
+        public void setkeymap(string keychar, string data = "", bool isbarcode = false)
+        {
+            var t = this.tabControl1.SelectedIndex;
+            Console.WriteLine("st=" + t + ",ind=" + keychar);
+            var keyupper = keychar.ToString();
+
+            if (keyupper == "PageUp")
+            {
+                button1.PerformClick();
+            }
+            if (keyupper == "Next")
+            {
+                button3.PerformClick();
+            }
+            if (keyupper == "Escape")
+            {
+                button2.PerformClick();
+            }
+            if (t == 0)
+            {
+                var up = tabPage1.Controls.Find("frmEmpPageU", true);
+                var down = tabPage1.Controls.Find("frmEmpPageD", true);
+                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                if (keyupper == "Delete")
+                {
+                    ((Button)down[0]).PerformClick();
+                }
+                if (keyupper == "Insert")
+                {
+                    ((Button)up[0]).PerformClick();
+                }
+                if (keyarray.Contains(keyupper))
+                {
+                    Console.WriteLine("kc");
+                    for (var i = 0; i < keyarray.Length; i++)
+                    {
+                        if (keyarray[i] == keyupper)
+                        {
+                            var estr = "BTNfrmEmp" + (i + 1);
+                            Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
+                            var tempbtn = tabPage1.Controls.Find(estr, true);
+                            if (tempbtn.Length > 0)
+                            {
+                                ((Button)(tempbtn[0])).PerformClick();
+                                Console.WriteLine("per:" + keychar);
+                            }
+                        }
+                    }
+                }
+            }
+            if (t == 1)
+            {
+                var up = tabPage1.Controls.Find("frmEmpPageU", true);
+                var down = tabPage1.Controls.Find("frmEmpPageD", true);
+                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                if (keyupper == "Delete")
+                {
+                    ((Button)down[0]).PerformClick();
+                }
+                if (keyupper == "Insert")
+                {
+                    ((Button)up[0]).PerformClick();
+                }
+                if (keyarray.Contains(keyupper))
+                {
+                    Console.WriteLine("kc");
+                    for (var i = 0; i < keyarray.Length; i++)
+                    {
+                        if (keyarray[i] == keyupper)
+                        {
+                            var estr = "BTNfrmP" + (i + 1);
+                            Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
+                            var tempbtn = tabPage2.Controls.Find(estr, true);
+                            if (tempbtn.Length > 0)
+                            {
+                                ((Button)(tempbtn[0])).PerformClick();
+                                Console.WriteLine("per:" + keychar);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FormReturn_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            tempclose();
+        }
+
+        private void tempclose()
+        {
+            var CloseDown = new System.Threading.Thread(new System.Threading.ThreadStart(CloseSerialOnExit));
+            CloseDown.Start();
+            Console.WriteLine("after start=" + serialPort1.IsOpen);
+            var isop = false;
+            execfrm();
+
+        }
+        private async void execfrm()
+        {
+            await Task.Delay(200);
+            Console.WriteLine("wait:" + serialPort1.IsOpen);
+            if (serialPort1.IsOpen)
+            {
+                await Task.Delay(800);
+            }
+            else
+            {
+                ((frmMenu)this.Tag).showmsg();
+                IntPtr ptr = FindWindow("frmMenu", null);
+                if (ptr != IntPtr.Zero)
+                {
+                    ShowWindow(ptr, 0);
+                }
+            }
+        }
+
+        private void CloseSerialOnExit()
+        {
+
+            try
+            {
+                serialPort1.DtrEnable = false;
+                serialPort1.RtsEnable = false;
+                serialPort1.DiscardInBuffer();
+                serialPort1.DiscardOutBuffer();
+                serialPort1.Close();
+                if (serialPort1.IsOpen)
+                {
+                    Console.WriteLine("menuopen");
+                }
+                else
+                {
+                    Console.WriteLine("menuclose");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("close:" + ex.Message);
+
+            }
+        }
+
+        private void DisplayTextSeria(Byte[] buffer)
+        {
+            var scanData = System.Text.Encoding.ASCII.GetString(buffer).ToString().Trim();
+            ShowDataSeria(scanData);
+
+        }
+
+        public void DisplayTextClick(string clickData)
+        { ShowDataClick(clickData); }
+        public string ShowDataClick(string data)
+        {
+            //Console.WriteLine(data);
+            int index = tabControl1.SelectedIndex;
+            var tabindex = tabControl1.SelectedIndex;
+            Console.WriteLine("nowtab=" + tabindex + "," + data);
+            if (tabindex == 0)
+            {
+
+                var dataarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
+                if (dataarray.Length == 3)
+                {
+                    var tt = tabPage1.Controls.Find("frmEmpshowno", true);
+                    tt[0].Text = data;
+                    Console.WriteLine("tt=" + tt[0].Name);
+                }
+                if (dataarray.Length == 2)
+                {
+                    var pkey = dataarray[1];
+                    Console.WriteLine("pkey=" + pkey);
+                    setkeymap(pkey);
+                }
+            }
+            if (tabindex == 1)
+            {
+                var dataarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
+                if (dataarray.Length == 2)
+                {
+                    var pkey = dataarray[1];
+                    Console.WriteLine("pkey=" + pkey);
+                    setkeymap(pkey);
+                }
+                if (dataarray.Length >= 3)
+                {
+                    var isp = dataarray[1].StartsWith("P");
+                    Console.WriteLine("showdata=" + isp);
+                    setkeymap("XXX", data);
+                }
+            }
+            if (tabindex == 2)
+            {
+
+            }
+            if (tabindex == 3)
+            {
+
+            }
+            return data;
+        }
+
+        public string ShowDataSeria(string data)
+        {
+            //Console.WriteLine(data);
+            int index = tabControl1.SelectedIndex;
+            var tabindex = tabControl1.SelectedIndex;
+            Console.WriteLine("nowtab=" + tabindex + "," + data);
+            if (tabindex == 0)
+            {
+
+                var dataarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
+                if (dataarray.Length == 3)
+                {
+                    var tt = tabPage1.Controls.Find("frmEmpshowno", true);
+                    tt[0].Text = data;
+                    Console.WriteLine("tt=" + tt[0].Name);
+                }
+                if (dataarray.Length == 2)
+                {
+                    var pkey = dataarray[1];
+                    Console.WriteLine("pkey=" + pkey);
+                    setkeymap(pkey);
+                }
+            }
+            if (tabindex == 1)
+            {
+                var dataarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
+                if (dataarray.Length == 2)
+                {
+                    var pkey = dataarray[1];
+                    Console.WriteLine("pkey=" + pkey);
+                    setkeymap(pkey, "", true);
+                }
+                if (dataarray.Length >= 3)
+                {
+                    setkeymap("XXX", data);
+                }
+            }
+            if (tabindex == 2)
+            {
+
+            }
+            if (tabindex == 3)
+            {
+
+            }
+            return data;
+        }
+
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            Byte[] buffer = new Byte[1024];
+            Int32 length = (sender as System.IO.Ports.SerialPort).Read(buffer, 0, buffer.Length);
+            Array.Resize(ref buffer, length);
+            Display d = new Display(DisplayTextSeria);
+            this.Invoke(d, new Object[] { buffer });
+        }
+
+        public void openseria()
+        {
+            serialPort1.PortName = sComport;
+            serialPort1.BaudRate = 115200;
+            serialPort1.DataBits = 8;
+            serialPort1.Parity = System.IO.Ports.Parity.None;
+            serialPort1.StopBits = System.IO.Ports.StopBits.One;
+            if (!serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.Open();
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("開啟掃描器異常");
+                }
+            }
+
+            Console.WriteLine("isopen:" + serialPort1.IsOpen);
         }
     }
 }

@@ -267,6 +267,11 @@ namespace WorkstationTEST
                     var m = new FormMain(this);
                     m.Show();
                 }
+                if (frm == "r")
+                {
+                    var m = new FormReturn(this);
+                    m.Show();
+                }
             }
             else
             {
@@ -288,6 +293,11 @@ namespace WorkstationTEST
                 if (frm == "o")
                 {
                     var m = new FormMain(this);
+                    m.Show();
+                }
+                if (frm == "r")
+                {
+                    var m = new FormReturn(this);
                     m.Show();
                 }
             }
@@ -713,8 +723,7 @@ namespace WorkstationTEST
 
         private void ousideworkR_Click(object sender, EventArgs e)
         {
-            var r = new FormReturn();
-            r.Show();
+            tempclose("r");
         }
     }
 }

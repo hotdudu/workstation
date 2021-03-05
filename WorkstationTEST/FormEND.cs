@@ -1311,7 +1311,6 @@ namespace WorkstationTEST
                 var indnum = 0;
                 if (pact == "o")
                 {
-
                     nowrecord = null;
                     //nowrecordselect = null;
                     nowrecord = getrecord(rEMP[0].Text);

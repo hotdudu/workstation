@@ -127,14 +127,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="679936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WorkstationTEST.exe" size="685568">
       <assemblyIdentity name="WorkstationTEST" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UP0xPayBEA14H7dxeH2zoCsmrXqhOnfTN3Yuise9jdo=</dsig:DigestValue>
+        <dsig:DigestValue>7mkqy8AOa1QJ43zy9QDMNfOLLzOpRgLLnoUgSTUvuZg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -159,13 +159,13 @@
       <dsig:DigestValue>zSobTjTd5xBRl86zOz8zVCjVYFzRjREhI6gEuNzB/Co=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="config.ini" size="203">
+  <file name="config.ini" size="307">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>nxleqjl7aDhQI589kKwMcrqiE3IIEsJv2DQ4cSrpqyo=</dsig:DigestValue>
+      <dsig:DigestValue>r0wH0QD+riliK6BYzW0Q9eenLCgES8oeqAPjXEx3WCk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WorkstationTEST.exe.config" size="1596">
