@@ -394,6 +394,51 @@ namespace WorkstationTEST
             return witemobj;
         }
 
+        public List<Partnerm> GetPartnerm(int? tenantid)
+        {
+            var client = new HttpClient();
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("tenantid",tenantid.ToString()),
+                })
+            };//"http://localhost:56893/CHG/Main/Home/getMakeno/"
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+            List<Partnerm> witemobj = new List<Partnerm>();
+            var ptf = "";
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                ptf = oTINI.getKeyValue("SYSTEM", "PTdef", "");
+            }
+            var defarray = ptf.Split(',');
+            if (res.StatusCode.ToString() == "OK")
+            {
+
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+                witemobj = JsonConvert.DeserializeObject<List<Partnerm>>(res.Content.ReadAsStringAsync().Result);
+                if (witemobj.Count > 0)
+                {
+                    witemobj = witemobj.Where(x => !defarray.Contains(x.ShortName)).ToList();
+                }
+                foreach (var item in witemobj)
+                {
+                    Console.WriteLine("r=" + item.ShortName);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("伺服器連線異常");
+            }
+            return witemobj;
+        }
+
+
         public List<Partner> GetPartner2(int tenantid,string pno)
         {
             var client = new HttpClient();
@@ -638,6 +683,10 @@ namespace WorkstationTEST
         public string no { get; set; }
         public string tenant { get; set; }
     }
+    public class Ptin : Empin
+    {
+        public Guid? id { get; set; }
+    }
     public class Workitem
     {
         public Guid? WorkOrderId { get; set; }
@@ -656,6 +705,10 @@ namespace WorkstationTEST
         public string PartnerNo { get; set; }
         public string ShortName { get; set; }
         public string CategoryName { get; set; }
+    }
+    public class Partnerm:Partner
+    {
+        public List<Empin> Rlist { get; set; }
     }
     public class WorkOrder
     {

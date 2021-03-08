@@ -19,6 +19,7 @@ namespace WorkstationTEST
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+        public bool debug = true;
         public FormReturn(frmMenu fmenu)
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace WorkstationTEST
         private string DepartNo = "";//要過濾的部門編號開頭
         private string NIG = "";//在過濾部門範圍外要新增的員工編號，只允許一位
         List<Empm> getemp = new List<Empm>();
-        List<Partner> getpartner = new List<Partner>();
+        List<Partnerm> getpartner = new List<Partnerm>();
         List<WorkOutReport> nowrecord = new List<WorkOutReport>();
         Dictionary<string, string> rtext = CreateElement.loadresx("WK");
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,7 +179,7 @@ namespace WorkstationTEST
 
         private void showpartner()
         {
-            getpartner = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(101);
+            getpartner = new API("/CHG/Main/Home/getPartner2/", "http://").GetPartnerm(101);
             //List<Button> btnemplist = new List<Button>();
             if (getpartner.Count() > 0)
             {
@@ -212,7 +213,22 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.ShortName;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXY(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel);
+                    var rlist = empitem.Rlist;
+                    var IsMultiple = false;
+                    var rno = "";
+                    var rtenant = "";
+                    if (rlist.Count > 1)
+                    {
+                        IsMultiple = true;
+                        var ri = 0;
+                        foreach (var ritem in rlist)
+                        {
+                            rno += (ri == 0 ? ritem.no : "," + ritem.no);
+                            rtenant += (ri == 0 ? ritem.tenant : "," + ritem.tenant);
+                            ri++;
+                        }
+                    }
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXYr(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel,rno,rtenant);
                     empbtn = sethandlerPartner(empbtn);
                     if (keynum > totalitem)
                     {
@@ -231,8 +247,8 @@ namespace WorkstationTEST
             var itemi = 0;
             var itemj = 0;
             var dayid = "";
-            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "數量", "單位", "外包單號" };
-            var widthlist = new List<int> { 100,100,150,150,150,150,150,150 };
+            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "外包數", "單位", "外包單號","完成數","不良數" };
+            var widthlist = new List<int> { 100,100,150,150,150,150,150,150,150,150 };
             var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
@@ -246,6 +262,71 @@ namespace WorkstationTEST
                 LB.TabIndex = 999;           
             }
             List<TextBox> btnrlist = new List<TextBox>();
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
+            string cnStr = "data source=" + dbPath + ";Version=3;";
+            if (File.Exists(dbPath))
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                {
+                    var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND isreturn=0 Order by StartTime";
+                    SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
+                    if (debug)
+                        MessageBox.Show("partnerid=" + PTSavePartnerId.Text);
+                    cmd.Parameters.AddWithValue("@PartnerId", PTSavePartnerId.Text);
+                    conn.Open();
+                    try
+                    {
+                        // SQLiteDataReader reader = cmd.ExecuteReader();
+                        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "FirstTable");
+                        Console.WriteLine("rl=" + ds.Tables[0].Rows.Count);
+                        int itemcount = 0;
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            itemcount++;
+                            Console.WriteLine("r=" + row["DayReportId"]);
+                            var ritem = new WorkOutReport()
+                            {
+                                DayReportId = row["DayReportId"] as string ?? "",
+                                AssetsName = row["AssetsName"] as string ?? "",
+                                TenantId = row["TenantId"] as int? ?? default(int),
+                                EmployeeId = row["EmployeeId"] as string ?? "",
+                                EndTime = row["EndTime"] as DateTime? ?? null,
+                                AdjustTime = row["AdjustTime"] as decimal? ?? null,
+                                BadQty = row["BadQty"] as decimal? ?? null,
+                                CompleteQty = row["CompleteQty"] as decimal? ?? null,
+                                StartTime = row["StartTime"] as DateTime? ?? null,
+                                WorkDate = row["WorkDate"] as string ?? "",
+                                WorkId = row["WorkId"] as string ?? "",
+                                WorkOrderId = row["WorkOrderId"] as string ?? "",
+                                WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
+                                WorkQty = row["WorkQty"] as decimal? ?? null,
+                                Specification = row["Specification"] as string ?? "",
+                                WorkName = row["WorkName"] as string ?? "",
+                                WorkNo = row["WorkNo"] as string ?? "",
+                                MakeNo = row["MakeNo"] as string ?? "",
+                                EmpNo = row["EmpNo"] as string ?? "",
+                                MNo = row["MNo"] as string ?? "",
+                                CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
+                                CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
+                                BadGoQty = row["BadGoQty"] as decimal? ?? null,
+                                BadNgQty = row["BadNgQty"] as decimal? ?? null,
+                                itemno = itemcount,
+                                UseUnits = row["Unit"] as string ?? "",
+                                OutNo= row["OutNo"] as string ?? "",
+                                RBadQty = row["RBadQty"] as decimal? ?? null,
+                                RCompleteQty = row["RCompleteQty"] as decimal? ?? null,
+                            };
+                            nowrecord.Add(ritem);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
+            }
             foreach (var ritem in nowrecord)
             {
                 foreach (var prop in ritem.GetType().GetProperties())
@@ -308,6 +389,7 @@ namespace WorkstationTEST
                 rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; 
                 rbitem.Left = iCol * (iSpace + rbitem.Width);
                 rbitem.Parent = RPanel;
+
                 /*if (keynum > totalitem)
                 {
                     empbtn.Visible = false;
@@ -348,10 +430,26 @@ namespace WorkstationTEST
         {
             var PTarray = info.Split(':');
             Console.WriteLine("ptl=" + PTarray.Length);
-            var ptno = PTarray[3];
-            var ptid = PTarray[1];
-            var ptname = PTarray[2];
-            var pcate = PTarray[0];
+            var ptno = "";
+            var ptid = "";
+            var ptname = "";
+            var pcate = "";
+            if (PTarray.Length > 4)
+            {
+                var rno = PTarray[4].Split(',');
+                var rten = PTarray[5].Split(',');
+                FormMultiTenant frmt = new FormMultiTenant();
+                frmt.setTenantm(rno, rten);
+                frmt.ShowDialog();
+            }
+            else
+            {
+                ptno= PTarray[3];
+                ptid= PTarray[1];
+                ptname= PTarray[2];
+                pcate=PTarray[0];
+            }
+            PTSavePartnerId.Text=
             frmPTshowno.Text = ptno;
             frmPTname.Text = ptname;
             // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid

@@ -229,6 +229,30 @@ namespace WorkstationTEST
             return btn;
         }
 
+        public Button CreatePTBtnWithXYr(string cate, string name, string rno, Guid PId, string key, int irow, int icol, int ispace, Control p,bool IsMultiple,string rarray,string tenant,string pid)
+        {
+            var savestr = cate + ":" + PId.ToString() + ":" + name + ":" + rno;
+            if (IsMultiple)
+            {
+                savestr+= ":" + rarray + ":" + tenant;
+            }
+            Console.WriteLine("PTbtn=" + savestr);
+            XButton btn = new XButton();
+            btn.Name = bname;
+            var qr = rno + "::" + key;
+            btn.LeftText = name + Environment.NewLine + cate;
+            btn.TopText = key;
+            btn.Size = new Size(190, 170);
+            btn.Margin = new Padding(0, 20, 0, 20);
+            btn.Image = SetQR(qr, 100, 100, "QR");
+            btn.Tag = savestr;
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+            btn.Top = irow * (ispace * 2 + btn.Height) + ispace;
+            btn.Left = icol * (ispace + btn.Width);
+            btn.Parent = p;
+            return btn;
+        }
+
         public void SetBtn(XButton btn,string no,string name)
         {
             var btnarray = no.Split(new string[] { "::" }, StringSplitOptions.None);
