@@ -29,25 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button3 = new WorkstationTEST.XButton();
-            this.button2 = new WorkstationTEST.XButton();
-            this.button1 = new WorkstationTEST.XButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.EMPPanel = new System.Windows.Forms.Panel();
-            this.frmEmpPageU = new WorkstationTEST.XButton();
-            this.frmEmpPageD = new WorkstationTEST.XButton();
             this.frmEmpRecordnow = new System.Windows.Forms.Label();
             this.frmEmpshowno = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.frmPTbtnU = new WorkstationTEST.XButton();
             this.frmPTname = new System.Windows.Forms.TextBox();
             this.frmPTRecordT = new System.Windows.Forms.Label();
             this.PTPanel = new System.Windows.Forms.Panel();
             this.PTSavePartnerId = new System.Windows.Forms.TextBox();
             this.frmPTshowno = new System.Windows.Forms.TextBox();
             this.frmPTRecordnow = new System.Windows.Forms.Label();
-            this.frmPTbtnD = new WorkstationTEST.XButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,44 +57,18 @@
             this.frmEmpRecordT = new System.Windows.Forms.Label();
             this.EMPSave1 = new System.Windows.Forms.TextBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.button3 = new WorkstationTEST.XButton();
+            this.button2 = new WorkstationTEST.XButton();
+            this.button1 = new WorkstationTEST.XButton();
+            this.frmEmpPageU = new WorkstationTEST.XButton();
+            this.frmEmpPageD = new WorkstationTEST.XButton();
+            this.frmPTbtnU = new WorkstationTEST.XButton();
+            this.frmPTbtnD = new WorkstationTEST.XButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button3
-            // 
-            this.button3.LeftText = null;
-            this.button3.Location = new System.Drawing.Point(1036, 9);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button3.TopText = null;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.LeftText = null;
-            this.button2.Location = new System.Drawing.Point(541, 9);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button2.TopText = null;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.LeftText = null;
-            this.button1.Location = new System.Drawing.Point(42, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.TopText = null;
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // tabControl1
             // 
@@ -143,32 +110,6 @@
             this.EMPPanel.Size = new System.Drawing.Size(1027, 350);
             this.EMPPanel.TabIndex = 14;
             // 
-            // frmEmpPageU
-            // 
-            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageU.LeftText = null;
-            this.frmEmpPageU.Location = new System.Drawing.Point(1020, 58);
-            this.frmEmpPageU.Name = "frmEmpPageU";
-            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageU.TabIndex = 12;
-            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageU.TopText = null;
-            this.frmEmpPageU.UseVisualStyleBackColor = true;
-            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
-            // 
-            // frmEmpPageD
-            // 
-            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageD.LeftText = null;
-            this.frmEmpPageD.Location = new System.Drawing.Point(1020, 254);
-            this.frmEmpPageD.Name = "frmEmpPageD";
-            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageD.TabIndex = 13;
-            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageD.TopText = null;
-            this.frmEmpPageD.UseVisualStyleBackColor = true;
-            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
-            // 
             // frmEmpRecordnow
             // 
             this.frmEmpRecordnow.AutoSize = true;
@@ -204,18 +145,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "廠商";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // frmPTbtnU
-            // 
-            this.frmPTbtnU.LeftText = null;
-            this.frmPTbtnU.Location = new System.Drawing.Point(1020, 62);
-            this.frmPTbtnU.Name = "frmPTbtnU";
-            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnU.TabIndex = 114;
-            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnU.TopText = null;
-            this.frmPTbtnU.UseVisualStyleBackColor = true;
-            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
             // 
             // frmPTname
             // 
@@ -269,18 +198,6 @@
             this.frmPTRecordnow.Text = "frmPTRecordnow";
             this.frmPTRecordnow.Visible = false;
             // 
-            // frmPTbtnD
-            // 
-            this.frmPTbtnD.LeftText = null;
-            this.frmPTbtnD.Location = new System.Drawing.Point(1020, 226);
-            this.frmPTbtnD.Name = "frmPTbtnD";
-            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnD.TabIndex = 107;
-            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnD.TopText = null;
-            this.frmPTbtnD.UseVisualStyleBackColor = true;
-            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label8);
@@ -305,7 +222,7 @@
             // 
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label8.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label8.Location = new System.Drawing.Point(854, 29);
+            this.label8.Location = new System.Drawing.Point(833, 22);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 23);
             this.label8.TabIndex = 37;
@@ -317,7 +234,7 @@
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label3.Location = new System.Drawing.Point(123, 29);
+            this.label3.Location = new System.Drawing.Point(102, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(150, 23);
             this.label3.TabIndex = 36;
@@ -329,7 +246,7 @@
             // 
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label7.Location = new System.Drawing.Point(660, 29);
+            this.label7.Location = new System.Drawing.Point(639, 22);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 23);
             this.label7.TabIndex = 35;
@@ -341,7 +258,7 @@
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label6.Location = new System.Drawing.Point(563, 29);
+            this.label6.Location = new System.Drawing.Point(542, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 34;
@@ -353,7 +270,7 @@
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label5.Location = new System.Drawing.Point(270, 29);
+            this.label5.Location = new System.Drawing.Point(249, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 33;
@@ -365,7 +282,7 @@
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label4.Location = new System.Drawing.Point(366, 29);
+            this.label4.Location = new System.Drawing.Point(345, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(200, 23);
             this.label4.TabIndex = 32;
@@ -377,7 +294,7 @@
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label2.Location = new System.Drawing.Point(757, 29);
+            this.label2.Location = new System.Drawing.Point(736, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 23);
             this.label2.TabIndex = 30;
@@ -389,7 +306,7 @@
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Location = new System.Drawing.Point(5, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 29;
@@ -414,8 +331,8 @@
             // 
             // RPanel
             // 
-            this.RPanel.AutoSize = true;
-            this.RPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RPanel.AutoScroll = true;
+            this.RPanel.AutoScrollMinSize = new System.Drawing.Size(800, 80);
             this.RPanel.ColumnCount = 13;
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
@@ -430,12 +347,12 @@
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.Location = new System.Drawing.Point(3, 52);
+            this.RPanel.Location = new System.Drawing.Point(3, 56);
             this.RPanel.Name = "RPanel";
             this.RPanel.RowCount = 2;
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.Size = new System.Drawing.Size(1300, 0);
+            this.RPanel.Size = new System.Drawing.Size(1000, 100);
             this.RPanel.TabIndex = 4;
             // 
             // tabPage4
@@ -466,6 +383,89 @@
             this.EMPSave1.Size = new System.Drawing.Size(100, 22);
             this.EMPSave1.TabIndex = 16;
             this.EMPSave1.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.LeftText = null;
+            this.button3.Location = new System.Drawing.Point(1036, 9);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 7;
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button3.TopText = null;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.LeftText = null;
+            this.button2.Location = new System.Drawing.Point(541, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button2.TopText = null;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.LeftText = null;
+            this.button1.Location = new System.Drawing.Point(42, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.TopText = null;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // frmEmpPageU
+            // 
+            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageU.LeftText = null;
+            this.frmEmpPageU.Location = new System.Drawing.Point(1020, 58);
+            this.frmEmpPageU.Name = "frmEmpPageU";
+            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageU.TabIndex = 12;
+            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageU.TopText = null;
+            this.frmEmpPageU.UseVisualStyleBackColor = true;
+            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
+            // 
+            // frmEmpPageD
+            // 
+            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageD.LeftText = null;
+            this.frmEmpPageD.Location = new System.Drawing.Point(1020, 254);
+            this.frmEmpPageD.Name = "frmEmpPageD";
+            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageD.TabIndex = 13;
+            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageD.TopText = null;
+            this.frmEmpPageD.UseVisualStyleBackColor = true;
+            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
+            // 
+            // frmPTbtnU
+            // 
+            this.frmPTbtnU.LeftText = null;
+            this.frmPTbtnU.Location = new System.Drawing.Point(1020, 62);
+            this.frmPTbtnU.Name = "frmPTbtnU";
+            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnU.TabIndex = 114;
+            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnU.TopText = null;
+            this.frmPTbtnU.UseVisualStyleBackColor = true;
+            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
+            // 
+            // frmPTbtnD
+            // 
+            this.frmPTbtnD.LeftText = null;
+            this.frmPTbtnD.Location = new System.Drawing.Point(1020, 226);
+            this.frmPTbtnD.Name = "frmPTbtnD";
+            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnD.TabIndex = 107;
+            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnD.TopText = null;
+            this.frmPTbtnD.UseVisualStyleBackColor = true;
+            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
             // 
             // FormReturn
             // 

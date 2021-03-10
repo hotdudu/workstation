@@ -18,6 +18,7 @@ namespace WorkstationTEST
         }
         public string TenantId { get { return tenantvalue.Text; } }
         public string Eno { get { return Empno.Text; } }
+        public string PartnerId { get { return partneridvalue.Text; } }
         public void setTenant(string[] plist)
         {
             var wnoar = new List<TextBox>();
@@ -273,6 +274,55 @@ namespace WorkstationTEST
             }
 
         }
+        public void setTenantm(string[] rno, string[] tenant, string[] rpid)
+        {
+            var wnoar = new List<TextBox>();
+            var tidar = new List<TextBox>();
+            var btnar = new List<Button>();
+            int iSpace = 2;
+            int iCol = 0;
+            int iRow = 0;
+            int keynum = 0;
+            FMT.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
+            for (var i = 0; i < rno.Length; i++)
+            {
+                int wh = 40;
+                int ww = 100;
+                var tidstr = tenant[i] == "103" ? "科技" : (tenant[i] == "101" ? "精密" : tenant[i]);
+                TextBox widtext = new TextBox();
+                widtext.Tag = tenant[i];
+                widtext.Visible = false;
+                TextBox wnotext = new TextBox();
+                wnotext.ReadOnly = true;
+                wnotext.Font = new Font("", 16, FontStyle.Bold);
+                wnotext.Tag = rno[i];
+                wnotext.Height = wh; widtext.Width = ww;
+                wnotext.Text = rno[i];
+                wnotext.Top = keynum * (iSpace * 2 + wnotext.Height) + iSpace;
+                wnotext.Left = 0 * (iSpace + wnotext.Width);
+                wnotext.Parent = this.FMT;
+                TextBox tidtext = new TextBox();
+                tidtext.Font = new Font("", 16, FontStyle.Bold);
+                tidtext.ReadOnly = true;
+                tidtext.Height = wh; tidtext.Width = ww;
+                tidtext.Text = tidstr;
+                tidtext.Top = keynum * (iSpace * 2 + wnotext.Height) + iSpace;
+                tidtext.Left = 1 * (iSpace + wnotext.Width);
+                tidtext.Parent = this.FMT;
+                Button tidbtn = new Button();
+                tidbtn.Font = new Font("", 16, FontStyle.Bold);
+                tidbtn.Height = wh; tidbtn.Width = ww;
+                tidbtn.Tag = tenant[i] + ":" + rno[i]+":"+rpid[i];
+                tidbtn.BackColor = Color.MediumSeaGreen;
+                tidbtn.Text = "確定";
+                tidbtn.Top = keynum * (iSpace * 2 + wnotext.Height) + iSpace;
+                tidbtn.Left = 2 * (iSpace + wnotext.Width);
+                tidbtn.Parent = this.FMT;
+                tidbtn.Click += new EventHandler(btnEMPALL_ClickP);
+                keynum++;
+            }
+
+        }
 
 
         private void btnEMPALL_ClickD(object sender, EventArgs e)
@@ -288,6 +338,16 @@ namespace WorkstationTEST
             var rs = rdata.Split(':');
             tenantvalue.Text = rs[0];
             Empno.Text = rs[1];
+            DialogResult = DialogResult.OK;
+        }
+        private void btnEMPALL_ClickP(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            string rdata = tmpButton.Tag.ToString();
+            var rs = rdata.Split(':');
+            tenantvalue.Text = rs[0];
+            Empno.Text = rs[1];
+            partneridvalue.Text = rs[2];
             DialogResult = DialogResult.OK;
         }
         private void cancel_Click(object sender, EventArgs e)

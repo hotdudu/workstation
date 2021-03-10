@@ -151,7 +151,7 @@ namespace WorkstationTEST
             btn.TopText = key;
             btn.Image = SetQR(qr, 80, 80, "QR");
             btn.Tag = no + ":" + name;
-            btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
+            btn.Top = irow * (ispace * 2 + btn.Height) + ispace;
             btn.Left = icol * (ispace + btn.Width);
             btn.Parent = p;
             return btn;
@@ -223,18 +223,18 @@ namespace WorkstationTEST
             btn.Image = SetQR(qr, 100, 100, "QR");
             btn.Tag = savestr;
             btn.ImageAlign = ContentAlignment.MiddleCenter;
-            btn.Top = irow * (ispace * 2 + btn.Height) + ispace; ;
+            btn.Top = irow * (ispace * 2 + btn.Height) + ispace;
             btn.Left = icol * (ispace + btn.Width);
             btn.Parent = p;
             return btn;
         }
 
-        public Button CreatePTBtnWithXYr(string cate, string name, string rno, Guid PId, string key, int irow, int icol, int ispace, Control p,bool IsMultiple,string rarray,string tenant,string pid)
+        public Button CreatePTBtnWithXYr(string cate, string name, string rno, Guid PId, string key, int irow, int icol, int ispace, Control p,bool IsMultiple,string rarray,string tenant,string PIds)
         {
             var savestr = cate + ":" + PId.ToString() + ":" + name + ":" + rno;
             if (IsMultiple)
             {
-                savestr+= ":" + rarray + ":" + tenant;
+                savestr+= ":" + rarray + ":" + tenant+":"+PIds;
             }
             Console.WriteLine("PTbtn=" + savestr);
             XButton btn = new XButton();

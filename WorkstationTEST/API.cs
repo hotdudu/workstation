@@ -685,7 +685,7 @@ namespace WorkstationTEST
     }
     public class Ptin : Empin
     {
-        public Guid? id { get; set; }
+        public Guid id { get; set; }
     }
     public class Workitem
     {
@@ -708,7 +708,7 @@ namespace WorkstationTEST
     }
     public class Partnerm:Partner
     {
-        public List<Empin> Rlist { get; set; }
+        public List<Ptin> Rlist { get; set; }
     }
     public class WorkOrder
     {
@@ -761,12 +761,40 @@ namespace WorkstationTEST
         public int itemno { get; set; }
 
     }
-    public class WorkOutReport : WorkDayReport
+    public class WorkOutReport
     {
+        public string DayReportId { get; set; }
+        public string AssetsName { get; set; }
+        public string MakeNo { get; set; }
+        public string Specification { get; set; }
+        public string WorkNo { get; set; }
+        public string WorkName { get; set; }
+        public decimal? WorkQty { get; set; }
+        public decimal? AdjustTime { get; set; }
+        public decimal? CompleteQty { get; set; }
+        public decimal? BadQty { get; set; }
+        public decimal? CompletGoQty { get; set; }
+        public decimal? CompletNgQty { get; set; }
+        public decimal? BadGoQty { get; set; }
+        public decimal? BadNgQty { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
+        public decimal? WorkTime { get; set; }
+        public int TenantId { get; set; }
+        public string EmployeeId { get; set; }
+        public string WorkOrderId { get; set; }
+        public string WorkOrderItemId { get; set; }
+        public string WorkId { get; set; }
+        public string WorkDate { get; set; }
+        public string MNo { get; set; }
+        public string EmpNo { get; set; }
+        public string UseUnits { get; set; }
+        public bool localupdate { get; set; }
+        public int itemno { get; set; }
         public string OutNo { get; set; }
+        public bool? isreturn { get; set; }
         public decimal? RCompleteQty { get; set; }
         public decimal? RBadQty { get; set; }
-        public bool? isreturn { get; set; }
     }
     public class WorkDayReportMenu : WorkDayReport
     {

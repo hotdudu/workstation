@@ -31,11 +31,14 @@ namespace WorkstationTEST
             {
                 DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
                 NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+
             }
         }
         string sIP = "61.221.176.176";
         string sComport = new API("x", "x").COMPORT;
         delegate void Display(Byte[] buffer);
+        private string DefCompany = "";//預設公司
         private string DepartNo = "";//要過濾的部門編號開頭
         private string NIG = "";//在過濾部門範圍外要新增的員工編號，只允許一位
         List<Empm> getemp = new List<Empm>();
@@ -179,7 +182,7 @@ namespace WorkstationTEST
 
         private void showpartner()
         {
-            getpartner = new API("/CHG/Main/Home/getPartner2/", "http://").GetPartnerm(101);
+            getpartner = new API("/CHG/Main/Home/getPartner2/", "http://").GetPartnerm(int.Parse(DefCompany));
             //List<Button> btnemplist = new List<Button>();
             if (getpartner.Count() > 0)
             {
@@ -217,6 +220,7 @@ namespace WorkstationTEST
                     var IsMultiple = false;
                     var rno = "";
                     var rtenant = "";
+                    var pids = "";
                     if (rlist.Count > 1)
                     {
                         IsMultiple = true;
@@ -225,10 +229,11 @@ namespace WorkstationTEST
                         {
                             rno += (ri == 0 ? ritem.no : "," + ritem.no);
                             rtenant += (ri == 0 ? ritem.tenant : "," + ritem.tenant);
+                            pids += (ri == 0 ? ritem.id.ToString() : "," + ritem.id.ToString());
                             ri++;
                         }
                     }
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXYr(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel,rno,rtenant);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXYr(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace,PTPanel,IsMultiple,rno,rtenant,pids);
                     empbtn = sethandlerPartner(empbtn);
                     if (keynum > totalitem)
                     {
@@ -244,12 +249,15 @@ namespace WorkstationTEST
 
         private void showrecord()
         {
+            nowrecord.Clear();
+            for (int c = RPanel.Controls.Count - 1; c >= 0; --c)
+                RPanel.Controls[c].Dispose();
             var itemi = 0;
             var itemj = 0;
             var dayid = "";
             var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "外包數", "單位", "外包單號","完成數","不良數" };
             var widthlist = new List<int> { 100,100,150,150,150,150,150,150,150,150 };
-            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo" };
+            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo", "RCompleteQty", "RBadQty" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
             for(var i = 0; i < headlist.Count; i++)
@@ -262,13 +270,13 @@ namespace WorkstationTEST
                 LB.TabIndex = 999;           
             }
             List<TextBox> btnrlist = new List<TextBox>();
-            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
             string cnStr = "data source=" + dbPath + ";Version=3;";
             if (File.Exists(dbPath))
             {
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND isreturn=0 Order by StartTime";
+                    var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND (isreturn=0 OR isreturn is null) Order by StartTime";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     if (debug)
                         MessageBox.Show("partnerid=" + PTSavePartnerId.Text);
@@ -317,6 +325,7 @@ namespace WorkstationTEST
                                 OutNo= row["OutNo"] as string ?? "",
                                 RBadQty = row["RBadQty"] as decimal? ?? null,
                                 RCompleteQty = row["RCompleteQty"] as decimal? ?? null,
+                                isreturn= row["isreturn"] as bool? ?? null,
                             };
                             nowrecord.Add(ritem);
                         }
@@ -345,18 +354,7 @@ namespace WorkstationTEST
                     if (displaylist.Contains(prop.Name))
                     {
                         itemj++;
-                        // Console.WriteLine("p=" + prop.Name + ",v=" + prop.GetValue(item).ToString());
-
-                        /* if (prop.Name == "EndTime")
-                         {
-                             TextBox endbtn = new CreateElement(dayid, "").CreateBtn(thisbtntext, isedit, itemj);
-                             btnemplist.Add(endbtn);
-                         }
-                         else
-                         {
-
-                         }*/
-                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, itemj, true);
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(prop.GetValue(ritem)?.ToString(), isedit, itemj, true);
                         if (isedit)
                         {
                             empbtn.GotFocus += new EventHandler(BtnGotfocus);
@@ -374,10 +372,11 @@ namespace WorkstationTEST
             int iSpace = 5;
             int iCol = 0;
             int iRow = 0;
-            int ItemsOneRow = displaylist.Count;
+            int ItemsOneRow = displaylist.Count-1;
             int btnnum = 0;
             var empitemcount = 0;
             var keynum = 0;
+            RPanel.ColumnCount = displaylist.Count - 2;
             foreach (var rbitem in btnrlist)
             {
                 iRow = keynum / ItemsOneRow;
@@ -386,8 +385,10 @@ namespace WorkstationTEST
                 empitemcount++;
                 btnnum++;
                 keynum++;
+
                 rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; 
                 rbitem.Left = iCol * (iSpace + rbitem.Width);
+                //rbitem.Text = rbitem.Top + "," + rbitem.Left;
                 rbitem.Parent = RPanel;
 
                 /*if (keynum > totalitem)
@@ -438,22 +439,29 @@ namespace WorkstationTEST
             {
                 var rno = PTarray[4].Split(',');
                 var rten = PTarray[5].Split(',');
+                var rpid = PTarray[6].Split(',');
+                if (debug)
+                {
+                    MessageBox.Show("rno=" + rno + ",rten=" + rten+",pid="+rpid);
+                }
                 FormMultiTenant frmt = new FormMultiTenant();
-                frmt.setTenantm(rno, rten);
+                frmt.setTenantm(rno, rten,rpid);
                 frmt.ShowDialog();
+                PTSavePartnerId.Text = frmt.PartnerId;
+
             }
-            else
-            {
-                ptno= PTarray[3];
-                ptid= PTarray[1];
-                ptname= PTarray[2];
-                pcate=PTarray[0];
-            }
-            PTSavePartnerId.Text=
+            ptno = PTarray[3];
+            ptid = PTarray[1];
+            ptname = PTarray[2];
+            pcate = PTarray[0];
+
             frmPTshowno.Text = ptno;
             frmPTname.Text = ptname;
             // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
-            Console.WriteLine("ptno=" + frmPTshowno.Text + ",ptid=" + PTSavePartnerId.Text);
+            if (debug)
+            {
+                MessageBox.Show("ptno=" + frmPTshowno.Text + ",ptid=" + PTSavePartnerId.Text);
+            }
         }
 
         private void frmEmpPageU_Click(object sender, EventArgs e)

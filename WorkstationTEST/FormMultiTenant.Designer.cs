@@ -33,6 +33,7 @@
             this.FMT = new System.Windows.Forms.TableLayoutPanel();
             this.tenantvalue = new System.Windows.Forms.Label();
             this.Empno = new System.Windows.Forms.Label();
+            this.partneridvalue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cancel
@@ -89,11 +90,21 @@
             this.Empno.TabIndex = 4;
             this.Empno.Visible = false;
             // 
+            // partneridvalue
+            // 
+            this.partneridvalue.AutoSize = true;
+            this.partneridvalue.Location = new System.Drawing.Point(454, 251);
+            this.partneridvalue.Name = "partneridvalue";
+            this.partneridvalue.Size = new System.Drawing.Size(0, 12);
+            this.partneridvalue.TabIndex = 5;
+            this.partneridvalue.Visible = false;
+            // 
             // FormMultiTenant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 397);
+            this.Controls.Add(this.partneridvalue);
             this.Controls.Add(this.Empno);
             this.Controls.Add(this.tenantvalue);
             this.Controls.Add(this.FMT);
@@ -113,5 +124,6 @@
         private System.Windows.Forms.TableLayoutPanel FMT;
         private System.Windows.Forms.Label tenantvalue;
         private System.Windows.Forms.Label Empno;
+        private System.Windows.Forms.Label partneridvalue;
     }
 }
