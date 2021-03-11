@@ -57,6 +57,8 @@
             this.frmEmpRecordT = new System.Windows.Forms.Label();
             this.EMPSave1 = new System.Windows.Forms.TextBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
@@ -200,6 +202,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.label7);
@@ -222,13 +226,12 @@
             // 
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label8.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label8.Location = new System.Drawing.Point(833, 22);
+            this.label8.Location = new System.Drawing.Point(803, 22);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 23);
             this.label8.TabIndex = 37;
             this.label8.Text = "外包單號";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label8.Visible = false;
             // 
             // label3
             // 
@@ -236,71 +239,66 @@
             this.label3.Font = new System.Drawing.Font("新細明體", 15F);
             this.label3.Location = new System.Drawing.Point(102, 22);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 23);
+            this.label3.Size = new System.Drawing.Size(100, 23);
             this.label3.TabIndex = 36;
             this.label3.Text = "產品編號";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label3.Visible = false;
             // 
             // label7
             // 
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label7.Location = new System.Drawing.Point(639, 22);
+            this.label7.Location = new System.Drawing.Point(603, 22);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 23);
             this.label7.TabIndex = 35;
-            this.label7.Text = "數量";
+            this.label7.Text = "外包數";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label7.Visible = false;
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label6.Location = new System.Drawing.Point(542, 22);
+            this.label6.Location = new System.Drawing.Point(502, 22);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 23);
+            this.label6.Size = new System.Drawing.Size(101, 23);
             this.label6.TabIndex = 34;
             this.label6.Text = "加工日期";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label6.Visible = false;
             // 
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label5.Location = new System.Drawing.Point(249, 22);
+            this.label5.Location = new System.Drawing.Point(202, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 33;
             this.label5.Text = "規格";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label5.Visible = false;
             // 
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label4.Location = new System.Drawing.Point(345, 22);
+            this.label4.Location = new System.Drawing.Point(301, 22);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(200, 23);
+            this.label4.Size = new System.Drawing.Size(201, 23);
             this.label4.TabIndex = 32;
             this.label4.Text = "製程";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label4.Visible = false;
             // 
             // label2
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("新細明體", 15F);
-            this.label2.Location = new System.Drawing.Point(736, 22);
+            this.label2.Location = new System.Drawing.Point(703, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 23);
             this.label2.TabIndex = 30;
             this.label2.Text = "單位";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label2.Visible = false;
             // 
             // label1
             // 
@@ -312,7 +310,6 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "工令";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Visible = false;
             // 
             // frmRecordnow
             // 
@@ -347,12 +344,12 @@
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.Location = new System.Drawing.Point(3, 56);
+            this.RPanel.Location = new System.Drawing.Point(3, 47);
             this.RPanel.Name = "RPanel";
             this.RPanel.RowCount = 2;
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.Size = new System.Drawing.Size(1000, 100);
+            this.RPanel.Size = new System.Drawing.Size(1173, 100);
             this.RPanel.TabIndex = 4;
             // 
             // tabPage4
@@ -383,6 +380,28 @@
             this.EMPSave1.Size = new System.Drawing.Size(100, 22);
             this.EMPSave1.TabIndex = 16;
             this.EMPSave1.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label9.Location = new System.Drawing.Point(903, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(100, 23);
+            this.label9.TabIndex = 38;
+            this.label9.Text = "完成數";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label10
+            // 
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Font = new System.Drawing.Font("新細明體", 15F);
+            this.label10.Location = new System.Drawing.Point(1003, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(100, 23);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "不良數";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button3
             // 
@@ -531,5 +550,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
     }
 }

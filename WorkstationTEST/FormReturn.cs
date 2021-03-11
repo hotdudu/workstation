@@ -41,6 +41,7 @@ namespace WorkstationTEST
         private string DefCompany = "";//預設公司
         private string DepartNo = "";//要過濾的部門編號開頭
         private string NIG = "";//在過濾部門範圍外要新增的員工編號，只允許一位
+        private string ButtonName = "out";//動態產生的按鈕prefix
         List<Empm> getemp = new List<Empm>();
         List<Partnerm> getpartner = new List<Partnerm>();
         List<WorkOutReport> nowrecord = new List<WorkOutReport>();
@@ -255,21 +256,37 @@ namespace WorkstationTEST
             var itemi = 0;
             var itemj = 0;
             var dayid = "";
-            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "加工日期", "外包數", "單位", "外包單號","完成數","不良數" };
-            var widthlist = new List<int> { 100,100,150,150,150,150,150,150,150,150 };
-            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "Unit", "OutNo", "RCompleteQty", "RBadQty" };
+            var headlist = new List<string> { "工令", "產品編號", "規格", "製程","", "加工日期", "外包數", "單位", "外包單號","完成數","不良數" };
+            var widthlist = new List<int> { 100,100,100,100,100,100,100,100,100,100,100 };
+            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "UseUnits", "OutNo", "RCompleteQty", "RBadQty" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
-            for(var i = 0; i < headlist.Count; i++)
-            {
-                Label LB = new Label();
-                LB.Width = widthlist[i];
-                LB.Text = headlist[i];
-                LB.Height = 50;
-                LB.Font = new Font("", 9, FontStyle.Bold);
-                LB.TabIndex = 999;           
-            }
             List<TextBox> btnrlist = new List<TextBox>();
+            List<Label> LBrlist = new List<Label>();
+            List<btnsize> btslist = new List<btnsize>();
+            var LBheight = 0;
+            for (var i = 0; i < headlist.Count; i++)
+            {
+
+                Label LB = new Label();
+                LB.MaximumSize = new Size(widthlist[i], 0);
+                LB.AutoSize = true;
+                LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                LB.Text = headlist[i];
+                LB.Font = new Font("", 15, FontStyle.Bold);
+                LB.TabIndex = 999;
+                if (LB.Height > LBheight)
+                    LBheight = LB.Height;
+                LBrlist.Add(LB);  
+            }
+            for(var lb=0;lb<LBrlist.Count;lb++)
+            {
+                LBrlist.ElementAt(lb).Height = LBheight;
+            }
+            for(var j = 0; j < displaylist.Count; j++)
+            {
+                btslist.Add(new btnsize() { name = displaylist[j], width = widthlist[j] });
+            }
             string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
             string cnStr = "data source=" + dbPath + ";Version=3;";
             if (File.Exists(dbPath))
@@ -297,7 +314,9 @@ namespace WorkstationTEST
                             var ritem = new WorkOutReport()
                             {
                                 DayReportId = row["DayReportId"] as string ?? "",
+                                AssetsNo = row["AssetsNo"] as string ?? "",
                                 AssetsName = row["AssetsName"] as string ?? "",
+                                AssetsId = row["AssetsId"] as string ?? "",
                                 TenantId = row["TenantId"] as int? ?? default(int),
                                 EmployeeId = row["EmployeeId"] as string ?? "",
                                 EndTime = row["EndTime"] as DateTime? ?? null,
@@ -305,7 +324,7 @@ namespace WorkstationTEST
                                 BadQty = row["BadQty"] as decimal? ?? null,
                                 CompleteQty = row["CompleteQty"] as decimal? ?? null,
                                 StartTime = row["StartTime"] as DateTime? ?? null,
-                                WorkDate = row["WorkDate"] as string ?? "",
+                                WorkDate = row["WorkDate"].ToString(),
                                 WorkId = row["WorkId"] as string ?? "",
                                 WorkOrderId = row["WorkOrderId"] as string ?? "",
                                 WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
@@ -336,8 +355,11 @@ namespace WorkstationTEST
                     }
                 }
             }
+            var recordcount = 0;
             foreach (var ritem in nowrecord)
             {
+                recordcount++;
+                var recordbtn = new TextBox();
                 foreach (var prop in ritem.GetType().GetProperties())
                 {
                     var cAssetsName = "";
@@ -354,7 +376,8 @@ namespace WorkstationTEST
                     if (displaylist.Contains(prop.Name))
                     {
                         itemj++;
-                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(prop.GetValue(ritem)?.ToString(), isedit, itemj, true);
+                        var d_textsize = btslist.Where(x => x.name == prop.Name).First();
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(prop.GetValue(ritem)?.ToString(), isedit, itemj, true,d_textsize.width);
                         if (isedit)
                         {
                             empbtn.GotFocus += new EventHandler(BtnGotfocus);
@@ -363,20 +386,42 @@ namespace WorkstationTEST
                     }
                     if (hidelist.Contains(prop.Name))
                     {
-                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, false);
-                        btnrlist.Add(empbtn);
+                        recordbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, true);
+                        recordbtn.Tag = recordbtn.Text;
+                        recordbtn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+                        recordbtn.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                        recordbtn.BackColor = Color.MediumSeaGreen;
+                        recordbtn.Font = new Font("Arial", 15, FontStyle.Bold);
+                        recordbtn.Name = ButtonName + recordcount;
+                        recordbtn.Text = recordbtn.Name; //"上傳";
+                        recordbtn.Click+= new EventHandler(btnEMPALL_ClickR);
+                        // btnrlist.Add(empbtn);
                     }
                 }
+                recordbtn.Tag += ":" + ritem.AssetsId + ":" + ritem.WorkId + ritem.WorkOrderItemId;
+                btnrlist.Add(recordbtn);
             }
 
-            int iSpace = 5;
+            int iSpace = 2;
             int iCol = 0;
             int iRow = 0;
-            int ItemsOneRow = displaylist.Count-1;
+            int ItemsOneRow = displaylist.Count;
             int btnnum = 0;
             var empitemcount = 0;
             var keynum = 0;
-            RPanel.ColumnCount = displaylist.Count - 2;
+            var Lkeynum = 0;
+            var Lcol = 0;
+            RPanel.ColumnCount = displaylist.Count+1;
+           /* foreach (var LBitem in LBrlist)
+            {
+                Lcol = Lkeynum % ItemsOneRow;
+                Lkeynum++;
+                LBitem.Top = 0 * (iSpace * 2 + LBitem.Height) + iSpace;
+                LBitem.Left = Lcol * (LBitem.Width)-5;
+                //rbitem.Text = rbitem.Top + "," + rbitem.Left;
+                LBitem.Parent = RPanel;
+                LBitem.Margin = new Padding(0);
+            }*/
             foreach (var rbitem in btnrlist)
             {
                 iRow = keynum / ItemsOneRow;
@@ -387,7 +432,7 @@ namespace WorkstationTEST
                 keynum++;
 
                 rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; 
-                rbitem.Left = iCol * (iSpace + rbitem.Width);
+                rbitem.Left = iCol * ( rbitem.Width);
                 //rbitem.Text = rbitem.Top + "," + rbitem.Left;
                 rbitem.Parent = RPanel;
 
@@ -404,7 +449,47 @@ namespace WorkstationTEST
         {
             frmEmpshowno.Text = info;
         }
+        public void SetRecord(string info,string name)
+        {
+            var dayreports = info.Split(':');
 
+            var recordcount = name.Replace(ButtonName, "");
+            if (debug)
+            {
+
+            }
+            List<Control> cons = new List<Control>();
+            var ct = RPanel.ColumnCount;
+            var empno = frmEmpshowno.Text.Contains(":") ? frmEmpshowno.Text.Split(':').First() : frmEmpshowno.Text;
+            var pid = PTSavePartnerId.Text;
+            var assetid = "";
+            var workid = "";
+            var workitemid = "";
+            var rqty = "";
+            var rbqty = "";         
+            if (dayreports.Length >= 3)
+            {
+                assetid = dayreports[1];
+                workid = dayreports[2];
+                workitemid = dayreports[3];
+            }
+            for (var i=0;i<ct;i++)
+            {
+                var ritem = RPanel.GetControlFromPosition(i, int.Parse(recordcount)-1);
+                if (ritem != null)
+                {
+                    cons.Add(ritem);
+                }
+            }
+            var a = 0;
+        }
+
+        private void btnEMPALL_ClickR(object sender, EventArgs e)
+        {
+            TextBox tmpButton = (TextBox)sender;
+            var btname = tmpButton.Name;
+            SetRecord(tmpButton.Tag.ToString(),btname);
+        }
         public Button sethandlerEmp(Button bt)
         {
             Button sbt = bt;
@@ -1017,6 +1102,11 @@ namespace WorkstationTEST
             }
 
             Console.WriteLine("isopen:" + serialPort1.IsOpen);
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

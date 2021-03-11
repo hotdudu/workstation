@@ -662,6 +662,71 @@ namespace WorkstationTEST
             }
             return result;
         }
+
+        public returnlistmsg UploadServerReturn(string EmpNo, string CompleteQty, string DayReportId, string WorkOrderId, string WorkId, string WorkOrderItemId, string AssetsId, string Price, string createempno, string tenantid, string pid)
+        {
+            var client = new HttpClient();
+
+
+            var keyValues = new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("CompleteQty", CompleteQty),
+                new KeyValuePair<string,string>("DayReportId", DayReportId),
+                new KeyValuePair<string, string>("EmpNo", EmpNo),
+                new KeyValuePair<string, string>("WorkId",WorkId),
+                new KeyValuePair<string, string>("WorkOrderId",WorkOrderId),
+                new KeyValuePair<string, string>("WorkOrderItemId",WorkOrderItemId),
+                new KeyValuePair<string, string>("AssetsId",AssetsId),
+                new KeyValuePair<string, string>("Price",Price),
+                new KeyValuePair<string, string>("createempno", createempno),
+                new KeyValuePair<string, string>("TenantId", tenantid),
+                new KeyValuePair<string, string>("PartnerId", pid),
+                };
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(keyValues),
+
+            };
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            List<Guid> dayid = new List<Guid>();
+            var ermsg = "";
+            var result = new returnlistmsg();
+            try
+            {
+                HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+
+                if (res.StatusCode.ToString() == "OK")
+                {
+                    //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                    // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                    // var Result = JsonConvert.SerializeObject(MS);
+
+                    result = JsonConvert.DeserializeObject<returnlistmsg>(res.Content.ReadAsStringAsync().Result);
+                }
+                else if (res.StatusCode.ToString() == "BadRequest")
+                {
+                    ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    Console.WriteLine("伺服器連線異常");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is TaskCanceledException)
+                {
+                    ermsg = "連線逾時";
+                }
+                else
+                {
+                    ermsg = "伺服器發生錯誤";
+                }
+            }
+            return result;
+        }
+
     }
 
     public class Emp {
@@ -728,6 +793,11 @@ namespace WorkstationTEST
         public Guid? AssetsId { get; set; }
         public decimal? Price { get; set; }
     }
+    public class btnsize
+    {
+        public string name { get; set; }
+        public int width { get; set; }
+    }
     public class WorkDayReport
     {
 
@@ -766,10 +836,13 @@ namespace WorkstationTEST
         public string DayReportId { get; set; }
         public string AssetsName { get; set; }
         public string MakeNo { get; set; }
-        public string Specification { get; set; }
+        public string AssetsNo { get; set; }
+        public string Specification { get; set;}
         public string WorkNo { get; set; }
         public string WorkName { get; set; }
+        public string WorkDate { get; set; }
         public decimal? WorkQty { get; set; }
+
         public decimal? AdjustTime { get; set; }
         public decimal? CompleteQty { get; set; }
         public decimal? BadQty { get; set; }
@@ -785,7 +858,7 @@ namespace WorkstationTEST
         public string WorkOrderId { get; set; }
         public string WorkOrderItemId { get; set; }
         public string WorkId { get; set; }
-        public string WorkDate { get; set; }
+        public string AssetsId { get; set; }
         public string MNo { get; set; }
         public string EmpNo { get; set; }
         public string UseUnits { get; set; }

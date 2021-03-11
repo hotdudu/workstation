@@ -52,14 +52,14 @@ namespace WorkstationTEST
             return btn;
         }
 
-        public TextBox CreateBtn(string str,bool isedit,int ind,bool visble)
+        public TextBox CreateBtn(string str,bool isedit,int ind,bool visble,int width=100,int height=100)
         {
             TextBox btn = new TextBox();
             btn.Name = bname;
             btn.Text = str;
             btn.ReadOnly = !isedit;
             btn.Tag = btext;
-            btn.Size = new Size(100, 100);
+            btn.Size = new Size(width, height);
             if(isedit)
             {
              btn.TabIndex = ind;
@@ -74,6 +74,26 @@ namespace WorkstationTEST
             return btn;
         }
 
+        public Button CreateReturnBtn(string str, bool isedit, int ind, bool visble, int width = 100, int height = 100)
+        {
+            Button btn = new Button();
+            btn.Name = bname;
+            btn.Text = str;
+            btn.Tag = btext;
+            btn.Size = new Size(width, height);
+            if (isedit)
+            {
+                btn.TabIndex = ind;
+            }
+            else
+            {
+                btn.TabIndex = 999;
+            }
+            btn.Visible = visble;
+            btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            btn.Margin = new Padding(0);
+            return btn;
+        }
         public Button CreateBtn(string str,int margin,string key)
         {
             Button btn = new Button();
