@@ -299,8 +299,9 @@ namespace WorkstationTEST
             var tenantids= tabPage3.Controls.Find("WKtenantId", true);
             var WorkName = tabPage3.Controls.Find("WKSaveWorkName", true);
             var AssetsIds = tabPage3.Controls.Find("WKAssetsId", true);
-            var chkousides = tabPage4.Controls.Find("chkouside", true);
+            var chkousides = tabPage4.Controls.Find("chkouside", true); 
             var AssetsNo = tabPage3.Controls.Find("labPName", true);
+            var Unit = tabPage3.Controls.Find("labUnit", true);
             var starttime = DateTime.Now;
             var workdate = DateTime.Today.ToString("yyyy-MM-dd");
             var ischk =(CheckBox)chkousides[0];
@@ -320,7 +321,8 @@ namespace WorkstationTEST
                 s.Show();
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
-                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price,AssetsNo) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price,@AssetsNo)";
+                    var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,PartnerId,EmpNo,CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsId,WorkDate,Price,AssetsNo,Unit) "+
+                        "VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @PartnerId, @EmpNo, @CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsId,@WorkDate,@Price,@AssetsNo,@Unit)";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
                     cmd.Parameters.AddWithValue("@TenantId",tenantid);
@@ -337,11 +339,12 @@ namespace WorkstationTEST
                     cmd.Parameters.AddWithValue("@WorkName", WorkName[0].Text);
                     cmd.Parameters.AddWithValue("@Specification", Specification[0].Text);
                     cmd.Parameters.AddWithValue("@AssetsId", AssetsIds[0].Text);
-                     cmd.Parameters.AddWithValue("@WorkDate", workdate);
+                    cmd.Parameters.AddWithValue("@WorkDate", workdate);
                     cmd.Parameters.AddWithValue("@Out", true);
                     cmd.Parameters.AddWithValue("@Price", price[0].Text);
                     cmd.Parameters.AddWithValue("@isupdate", false);
                     cmd.Parameters.AddWithValue("@AssetsNo", assetsno);
+                    cmd.Parameters.AddWithValue("@Unit", Unit[0].Text);
                     conn.Open();
                     try
                     {

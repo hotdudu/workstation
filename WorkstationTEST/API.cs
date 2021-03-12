@@ -24,7 +24,8 @@ namespace WorkstationTEST
         private string Empdef;
         private string PTdef;
         private int timeout;
-        public API(string url) {
+        public API(string url)
+        {
             URL = url;
             timeout = 20000;
         }
@@ -141,7 +142,7 @@ namespace WorkstationTEST
             }
             return empobj;
         }
-        public List<Empm> GetEmpm(string DepartNo,string NIG)
+        public List<Empm> GetEmpm(string DepartNo, string NIG)
         {
             var load = new loading();
             load.Show();
@@ -187,7 +188,7 @@ namespace WorkstationTEST
             return empobj;
         }
 
-        public List<Workitem> GetWorkitem(int tid,string makeno, Guid wid)
+        public List<Workitem> GetWorkitem(int tid, string makeno, Guid wid)
         {
             var load = new loading();
             load.Show();
@@ -439,7 +440,7 @@ namespace WorkstationTEST
         }
 
 
-        public List<Partner> GetPartner2(int tenantid,string pno)
+        public List<Partner> GetPartner2(int tenantid, string pno)
         {
             var client = new HttpClient();
             var actrequest = new HttpRequestMessage()
@@ -561,7 +562,7 @@ namespace WorkstationTEST
             {
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (ex is TaskCanceledException)
                 {
@@ -586,9 +587,9 @@ namespace WorkstationTEST
 
                 dayid = JsonConvert.DeserializeObject<Guid>(res.Content.ReadAsStringAsync().Result);
             }
-            else if(res.StatusCode.ToString()== "BadRequest")
+            else if (res.StatusCode.ToString() == "BadRequest")
             {
-                ermsg= JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);                
+                ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
             }
             else
             {
@@ -599,71 +600,7 @@ namespace WorkstationTEST
             return result;
         }
 
-        public returnlistmsg UploadServerOut(string EmpNo, string CompleteQty,string DayReportId,string WorkOrderId,string WorkId,string WorkOrderItemId,string AssetsId,string Price,string createempno,string tenantid,string pid)
-        {
-            var client = new HttpClient();
-
-
-            var keyValues = new List<KeyValuePair<string, string>> {
-                new KeyValuePair<string, string>("CompleteQty", CompleteQty),        
-                new KeyValuePair<string,string>("DayReportId", DayReportId),
-                new KeyValuePair<string, string>("EmpNo", EmpNo),
-                new KeyValuePair<string, string>("WorkId",WorkId),
-                new KeyValuePair<string, string>("WorkOrderId",WorkOrderId),
-                new KeyValuePair<string, string>("WorkOrderItemId",WorkOrderItemId),
-                new KeyValuePair<string, string>("AssetsId",AssetsId),
-                new KeyValuePair<string, string>("Price",Price),
-                new KeyValuePair<string, string>("createempno", createempno),
-                new KeyValuePair<string, string>("TenantId", tenantid),
-                new KeyValuePair<string, string>("PartnerId", pid),
-                };
-            var actrequest = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(this.URL),
-                Content = new FormUrlEncodedContent(keyValues),
-
-            };
-            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            List<Guid> dayid =new List<Guid>();
-            var ermsg = "";
-            var result = new returnlistmsg();
-            try
-            {
-                HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
-
-                if (res.StatusCode.ToString() == "OK")
-                {
-                    //string r = res.Content.ReadAsStringAsync().Result.ToString();
-                    // Message MS = JsonConvert.DeserializeObject<Message>(r);
-                    // var Result = JsonConvert.SerializeObject(MS);
-
-                    result = JsonConvert.DeserializeObject<returnlistmsg>(res.Content.ReadAsStringAsync().Result);
-                }
-                else if (res.StatusCode.ToString() == "BadRequest")
-                {
-                    ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
-                }
-                else
-                {
-                    Console.WriteLine("伺服器連線異常");
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ex is TaskCanceledException)
-                {
-                    ermsg = "連線逾時";
-                }
-                else
-                {
-                    ermsg = "伺服器發生錯誤";
-                }
-            }
-            return result;
-        }
-
-        public returnlistmsg UploadServerReturn(string EmpNo, string CompleteQty, string DayReportId, string WorkOrderId, string WorkId, string WorkOrderItemId, string AssetsId, string Price, string createempno, string tenantid, string pid)
+        public returnlistmsg UploadServerOut(string EmpNo, string CompleteQty, string DayReportId, string WorkOrderId, string WorkId, string WorkOrderItemId, string AssetsId, string Price, string createempno, string tenantid, string pid)
         {
             var client = new HttpClient();
 
@@ -727,9 +664,74 @@ namespace WorkstationTEST
             return result;
         }
 
+        public returnlistmsg UploadServerReturn(string EmpNo, string CompleteQty, string BadQty, string DayReportId, string WorkId, string WorkOrderItemId, string AssetsId, string Price, string createempno, string tenantid, string pid)
+        {
+            var client = new HttpClient();
+
+
+            var keyValues = new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("CompleteQty", CompleteQty),
+                new KeyValuePair<string, string>("BadQty", BadQty),
+                new KeyValuePair<string,string>("DayReportId", DayReportId),
+                new KeyValuePair<string, string>("EmpNo", EmpNo),
+                new KeyValuePair<string, string>("WorkId",WorkId),
+                new KeyValuePair<string, string>("WorkOrderItemId",WorkOrderItemId),
+                new KeyValuePair<string, string>("AssetsId",AssetsId),
+                new KeyValuePair<string, string>("Price",Price),
+                new KeyValuePair<string, string>("createempno", createempno),
+                new KeyValuePair<string, string>("TenantId", tenantid),
+                new KeyValuePair<string, string>("PartnerId", pid),
+                };
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(keyValues),
+
+            };
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            List<Guid> dayid = new List<Guid>();
+            var ermsg = "";
+            var result = new returnlistmsg();
+            try
+            {
+                HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+
+                if (res.StatusCode.ToString() == "OK")
+                {
+                    //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                    // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                    // var Result = JsonConvert.SerializeObject(MS);
+
+                    result = JsonConvert.DeserializeObject<returnlistmsg>(res.Content.ReadAsStringAsync().Result);
+                }
+                else if (res.StatusCode.ToString() == "BadRequest")
+                {
+                    ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    Console.WriteLine("伺服器連線異常");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is TaskCanceledException)
+                {
+                    ermsg = "連線逾時";
+                }
+                else
+                {
+                    ermsg = "伺服器發生錯誤";
+                }
+            }
+            return result;
+        }
+
     }
 
-    public class Emp {
+    public class Emp
+    {
         public Guid EmployeeId { get; set; }
         public string EmployeeNo { get; set; }
         public string FullName { get; set; }
@@ -741,7 +743,7 @@ namespace WorkstationTEST
         public string EmployeeNo { get; set; }
         public string FullName { get; set; }
         public string Lanaugage { get; set; }
-        public List<Empin> Rlist{ get; set; }
+        public List<Empin> Rlist { get; set; }
     }
     public class Empin
     {
@@ -771,7 +773,7 @@ namespace WorkstationTEST
         public string ShortName { get; set; }
         public string CategoryName { get; set; }
     }
-    public class Partnerm:Partner
+    public class Partnerm : Partner
     {
         public List<Ptin> Rlist { get; set; }
     }
@@ -788,7 +790,7 @@ namespace WorkstationTEST
         public int TenantId { get; set; }
         public string UseUnits { get; set; }
     }
-    public class WorkOrderO:WorkOrder
+    public class WorkOrderO : WorkOrder
     {
         public Guid? AssetsId { get; set; }
         public decimal? Price { get; set; }
@@ -837,7 +839,7 @@ namespace WorkstationTEST
         public string AssetsName { get; set; }
         public string MakeNo { get; set; }
         public string AssetsNo { get; set; }
-        public string Specification { get; set;}
+        public string Specification { get; set; }
         public string WorkNo { get; set; }
         public string WorkName { get; set; }
         public string WorkDate { get; set; }
@@ -854,6 +856,7 @@ namespace WorkstationTEST
         public DateTime? EndTime { get; set; }
         public decimal? WorkTime { get; set; }
         public int TenantId { get; set; }
+        public decimal? Price { get; set; }
         public string EmployeeId { get; set; }
         public string WorkOrderId { get; set; }
         public string WorkOrderItemId { get; set; }

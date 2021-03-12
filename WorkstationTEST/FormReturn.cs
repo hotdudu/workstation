@@ -54,11 +54,11 @@ namespace WorkstationTEST
                     break;
                 case 1:
                     showpartner();
-                    frmPTshowno.TextChanged+= new EventHandler(gettab2);
+                    frmPTshowno.TextChanged += new EventHandler(gettab2);
                     //mk[0].TextChanged += new EventHandler(gettabnowo);
                     break;
                 case 2:
-                    showrecord();
+                    showrecord("o");
                     break;
                 case 3:
                     /* var frmBQTY = new frmBadqty();
@@ -98,9 +98,14 @@ namespace WorkstationTEST
 
         private void FormReturn_Load(object sender, EventArgs e)
         {
-          //  this.TopLevel = false;
-          //  this.Visible = true;
-            
+            //  this.TopLevel = false;
+            //  this.Visible = true;
+            var setpageup = new CreateElement();
+            setpageup.SetBtn(button1, "PageUp::PageUp", "上一步");
+            setpageup.SetBtn(button2, "Escape::Escape", "關閉視窗");
+            setpageup.SetBtn(button4, "Home::Home", "完成");
+            setpageup.SetBtn(button3, "PageDown::Next", "下一步");
+            setpageup.SetBtn(save, "F12::F12", "全部上傳");
             this.WindowState = FormWindowState.Maximized;
             showemp();
             frmEmpshowno.TextChanged += new EventHandler(gettab);
@@ -139,7 +144,7 @@ namespace WorkstationTEST
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
             getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DepartNo, NIG);
-           // List<Button> btnemplist = new List<Button>();
+            // List<Button> btnemplist = new List<Button>();
             if (getemp.Count() > 0)
             {
                 int iSpace = 5;
@@ -175,7 +180,7 @@ namespace WorkstationTEST
                     }
                     empbtn.TabStop = false;
                     empbtn.TabIndex = 99;
-                   // btnemplist.Add(empbtn);
+                    // btnemplist.Add(empbtn);
                 }
                 frmEmpRecordnow.Text = "0";
             }
@@ -234,7 +239,7 @@ namespace WorkstationTEST
                             ri++;
                         }
                     }
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXYr(nowcate, thisbtntext,empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace,PTPanel,IsMultiple,rno,rtenant,pids);
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreatePTBtnWithXYr(nowcate, thisbtntext, empitem.PartnerNo, empitem.PartnerId, btnkey, iRow, iCol, iSpace, PTPanel, IsMultiple, rno, rtenant, pids);
                     empbtn = sethandlerPartner(empbtn);
                     if (keynum > totalitem)
                     {
@@ -242,23 +247,30 @@ namespace WorkstationTEST
                     }
                     empbtn.TabStop = false;
                     empbtn.TabIndex = 99;
-                   // btnemplist.Add(empbtn);
+                    // btnemplist.Add(empbtn);
                 }
                 frmPTRecordnow.Text = "0";
             }
         }
 
-        private void showrecord()
+        private void showrecord(string act,string info="")
         {
-            nowrecord.Clear();
+            RPanel.AutoScroll = false;              //
+            RPanel.HorizontalScroll.Enabled = false;//取消水平卷軸
+            RPanel.AutoScroll = true;               //
+            if (act == "o")
+            {
+                nowrecord.Clear();
+            }
+
             for (int c = RPanel.Controls.Count - 1; c >= 0; --c)
                 RPanel.Controls[c].Dispose();
             var itemi = 0;
             var itemj = 0;
             var dayid = "";
-            var headlist = new List<string> { "工令", "產品編號", "規格", "製程","", "加工日期", "外包數", "單位", "外包單號","完成數","不良數" };
-            var widthlist = new List<int> { 100,100,100,100,100,100,100,100,100,100,100 };
-            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification","WorkNo", "WorkName", "WorkDate", "CompleteQty", "UseUnits", "OutNo", "RCompleteQty", "RBadQty" };
+            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "", "加工日期", "外包數", "單位", "外包單號", "完成數", "不良數" };
+            var widthlist = new List<int> { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
+            var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification", "WorkNo", "WorkName", "WorkDate", "CompleteQty", "UseUnits", "OutNo", "RCompleteQty", "RBadQty" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
             List<TextBox> btnrlist = new List<TextBox>();
@@ -277,85 +289,94 @@ namespace WorkstationTEST
                 LB.TabIndex = 999;
                 if (LB.Height > LBheight)
                     LBheight = LB.Height;
-                LBrlist.Add(LB);  
+                LBrlist.Add(LB);
             }
-            for(var lb=0;lb<LBrlist.Count;lb++)
+            for (var lb = 0; lb < LBrlist.Count; lb++)
             {
                 LBrlist.ElementAt(lb).Height = LBheight;
             }
-            for(var j = 0; j < displaylist.Count; j++)
+            for (var j = 0; j < displaylist.Count; j++)
             {
                 btslist.Add(new btnsize() { name = displaylist[j], width = widthlist[j] });
             }
-            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
-            string cnStr = "data source=" + dbPath + ";Version=3;";
-            if (File.Exists(dbPath))
+            if (act == "o")
             {
-                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+                string cnStr = "data source=" + dbPath + ";Version=3;";
+                if (File.Exists(dbPath))
                 {
-                    var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND (isreturn=0 OR isreturn is null) Order by StartTime";
-                    SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
-                    if (debug)
-                        MessageBox.Show("partnerid=" + PTSavePartnerId.Text);
-                    cmd.Parameters.AddWithValue("@PartnerId", PTSavePartnerId.Text);
-                    conn.Open();
-                    try
+                    using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
-                        // SQLiteDataReader reader = cmd.ExecuteReader();
-                        SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-                        DataSet ds = new DataSet();
-                        adapter.Fill(ds, "FirstTable");
-                        Console.WriteLine("rl=" + ds.Tables[0].Rows.Count);
-                        int itemcount = 0;
-                        foreach (DataRow row in ds.Tables[0].Rows)
+                        var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND (isreturn=0 OR isreturn is null) Order by StartTime";
+                        SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
+                        if (debug)
+                            MessageBox.Show("partnerid=" + PTSavePartnerId.Text);
+                        cmd.Parameters.AddWithValue("@PartnerId", PTSavePartnerId.Text);
+                        conn.Open();
+                        try
                         {
-                            itemcount++;
-                            Console.WriteLine("r=" + row["DayReportId"]);
-                            var ritem = new WorkOutReport()
+                            // SQLiteDataReader reader = cmd.ExecuteReader();
+                            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+                            DataSet ds = new DataSet();
+                            adapter.Fill(ds, "FirstTable");
+                            Console.WriteLine("rl=" + ds.Tables[0].Rows.Count);
+                            int itemcount = 0;
+                            foreach (DataRow row in ds.Tables[0].Rows)
                             {
-                                DayReportId = row["DayReportId"] as string ?? "",
-                                AssetsNo = row["AssetsNo"] as string ?? "",
-                                AssetsName = row["AssetsName"] as string ?? "",
-                                AssetsId = row["AssetsId"] as string ?? "",
-                                TenantId = row["TenantId"] as int? ?? default(int),
-                                EmployeeId = row["EmployeeId"] as string ?? "",
-                                EndTime = row["EndTime"] as DateTime? ?? null,
-                                AdjustTime = row["AdjustTime"] as decimal? ?? null,
-                                BadQty = row["BadQty"] as decimal? ?? null,
-                                CompleteQty = row["CompleteQty"] as decimal? ?? null,
-                                StartTime = row["StartTime"] as DateTime? ?? null,
-                                WorkDate = row["WorkDate"].ToString(),
-                                WorkId = row["WorkId"] as string ?? "",
-                                WorkOrderId = row["WorkOrderId"] as string ?? "",
-                                WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
-                                WorkQty = row["WorkQty"] as decimal? ?? null,
-                                Specification = row["Specification"] as string ?? "",
-                                WorkName = row["WorkName"] as string ?? "",
-                                WorkNo = row["WorkNo"] as string ?? "",
-                                MakeNo = row["MakeNo"] as string ?? "",
-                                EmpNo = row["EmpNo"] as string ?? "",
-                                MNo = row["MNo"] as string ?? "",
-                                CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
-                                CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
-                                BadGoQty = row["BadGoQty"] as decimal? ?? null,
-                                BadNgQty = row["BadNgQty"] as decimal? ?? null,
-                                itemno = itemcount,
-                                UseUnits = row["Unit"] as string ?? "",
-                                OutNo= row["OutNo"] as string ?? "",
-                                RBadQty = row["RBadQty"] as decimal? ?? null,
-                                RCompleteQty = row["RCompleteQty"] as decimal? ?? null,
-                                isreturn= row["isreturn"] as bool? ?? null,
-                            };
-                            nowrecord.Add(ritem);
+                                itemcount++;
+                                Console.WriteLine("r=" + row["DayReportId"]);
+                                var ritem = new WorkOutReport()
+                                {
+                                    DayReportId = row["DayReportId"] as string ?? "",
+                                    AssetsNo = row["AssetsNo"] as string ?? "",
+                                    AssetsName = row["AssetsName"] as string ?? "",
+                                    AssetsId = row["AssetsId"] as string ?? "",
+                                    TenantId = row["TenantId"] as int? ?? default(int),
+                                    EmployeeId = row["EmployeeId"] as string ?? "",
+                                    EndTime = row["EndTime"] as DateTime? ?? null,
+                                    AdjustTime = row["AdjustTime"] as decimal? ?? null,
+                                    BadQty = row["BadQty"] as decimal? ?? null,
+                                    CompleteQty = row["CompleteQty"] as decimal? ?? null,
+                                    StartTime = row["StartTime"] as DateTime? ?? null,
+                                    WorkDate = row["WorkDate"].ToString(),
+                                    WorkId = row["WorkId"] as string ?? "",
+                                    WorkOrderId = row["WorkOrderId"] as string ?? "",
+                                    WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
+                                    WorkQty = row["WorkQty"] as decimal? ?? null,
+                                    Specification = row["Specification"] as string ?? "",
+                                    WorkName = row["WorkName"] as string ?? "",
+                                    WorkNo = row["WorkNo"] as string ?? "",
+                                    MakeNo = row["MakeNo"] as string ?? "",
+                                    EmpNo = row["EmpNo"] as string ?? "",
+                                    MNo = row["MNo"] as string ?? "",
+                                    Price = row["Price"] as decimal? ?? null,
+                                    CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
+                                    CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
+                                    BadGoQty = row["BadGoQty"] as decimal? ?? null,
+                                    BadNgQty = row["BadNgQty"] as decimal? ?? null,
+                                    itemno = itemcount,
+                                    UseUnits = row["Unit"] as string ?? "",
+                                    OutNo = row["OutNo"] as string ?? "",
+                                    RBadQty = row["RBadQty"] as decimal? ?? null,
+                                    RCompleteQty = row["RCompleteQty"] as decimal? ?? null,
+                                    isreturn = row["isreturn"] as bool? ?? null,
+                                };
+                                nowrecord.Add(ritem);
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(ex.Message);
+                        catch (Exception ex)
+                        {
+                            throw new Exception(ex.Message);
+                        }
                     }
                 }
             }
+            else
+            {
+                getsearch(act, info);
+            }
             var recordcount = 0;
+            var edittabcount = 1;
             foreach (var ritem in nowrecord)
             {
                 recordcount++;
@@ -377,11 +398,15 @@ namespace WorkstationTEST
                     {
                         itemj++;
                         var d_textsize = btslist.Where(x => x.name == prop.Name).First();
-                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(prop.GetValue(ritem)?.ToString(), isedit, itemj, true,d_textsize.width);
+
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(prop.GetValue(ritem)?.ToString(), isedit, itemj, true, d_textsize.width);
                         if (isedit)
                         {
                             empbtn.GotFocus += new EventHandler(BtnGotfocus);
+                            empbtn.TabIndex = edittabcount;
+                                edittabcount++;
                         }
+                       // empbtn.Text = empbtn.TabIndex.ToString();
                         btnrlist.Add(empbtn);
                     }
                     if (hidelist.Contains(prop.Name))
@@ -394,11 +419,11 @@ namespace WorkstationTEST
                         recordbtn.Font = new Font("Arial", 15, FontStyle.Bold);
                         recordbtn.Name = ButtonName + recordcount;
                         recordbtn.Text = recordbtn.Name; //"上傳";
-                        recordbtn.Click+= new EventHandler(btnEMPALL_ClickR);
+                        recordbtn.Click += new EventHandler(btnEMPALL_ClickR);
                         // btnrlist.Add(empbtn);
                     }
                 }
-                recordbtn.Tag += ":" + ritem.AssetsId + ":" + ritem.WorkId + ritem.WorkOrderItemId;
+                recordbtn.Tag += ":" + ritem.AssetsId + ":" + ritem.WorkId + ":" + ritem.WorkOrderItemId + ":" + ritem.TenantId + ":" + ritem.Price;
                 btnrlist.Add(recordbtn);
             }
 
@@ -411,17 +436,17 @@ namespace WorkstationTEST
             var keynum = 0;
             var Lkeynum = 0;
             var Lcol = 0;
-            RPanel.ColumnCount = displaylist.Count+1;
-           /* foreach (var LBitem in LBrlist)
-            {
-                Lcol = Lkeynum % ItemsOneRow;
-                Lkeynum++;
-                LBitem.Top = 0 * (iSpace * 2 + LBitem.Height) + iSpace;
-                LBitem.Left = Lcol * (LBitem.Width)-5;
-                //rbitem.Text = rbitem.Top + "," + rbitem.Left;
-                LBitem.Parent = RPanel;
-                LBitem.Margin = new Padding(0);
-            }*/
+            RPanel.ColumnCount = displaylist.Count + 1;
+            /* foreach (var LBitem in LBrlist)
+             {
+                 Lcol = Lkeynum % ItemsOneRow;
+                 Lkeynum++;
+                 LBitem.Top = 0 * (iSpace * 2 + LBitem.Height) + iSpace;
+                 LBitem.Left = Lcol * (LBitem.Width)-5;
+                 //rbitem.Text = rbitem.Top + "," + rbitem.Left;
+                 LBitem.Parent = RPanel;
+                 LBitem.Margin = new Padding(0);
+             }*/
             foreach (var rbitem in btnrlist)
             {
                 iRow = keynum / ItemsOneRow;
@@ -431,8 +456,8 @@ namespace WorkstationTEST
                 btnnum++;
                 keynum++;
 
-                rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace; 
-                rbitem.Left = iCol * ( rbitem.Width);
+                rbitem.Top = iRow * (iSpace * 2 + rbitem.Height) + iSpace;
+                rbitem.Left = iCol * (rbitem.Width);
                 //rbitem.Text = rbitem.Top + "," + rbitem.Left;
                 rbitem.Parent = RPanel;
 
@@ -449,7 +474,7 @@ namespace WorkstationTEST
         {
             frmEmpshowno.Text = info;
         }
-        public void SetRecord(string info,string name)
+        public void SetRecord(string info, string name)
         {
             var dayreports = info.Split(':');
 
@@ -465,30 +490,139 @@ namespace WorkstationTEST
             var assetid = "";
             var workid = "";
             var workitemid = "";
+            var tenant = "";
             var rqty = "";
-            var rbqty = "";         
+            var rbqty = "";
+            var dayreportid = "";
+            var price = "";
             if (dayreports.Length >= 3)
             {
+                dayreportid = dayreports[0];
                 assetid = dayreports[1];
                 workid = dayreports[2];
                 workitemid = dayreports[3];
+                tenant = dayreports[4];
+                price = dayreports[5];
             }
-            for (var i=0;i<ct;i++)
+            for (var i = 0; i < ct; i++)
             {
-                var ritem = RPanel.GetControlFromPosition(i, int.Parse(recordcount)-1);
+                var ritem = RPanel.GetControlFromPosition(i, int.Parse(recordcount) - 1);
                 if (ritem != null)
                 {
-                    cons.Add(ritem);
+                    if (ritem.Name == "BTN-RCompleteQty")
+                    {
+                        rqty = ritem.Text;
+                    }
+                    if (ritem.Name == "BTN-RBadQty")
+                    {
+                        rbqty = ritem.Text;
+                    }
+                    //cons.Add(ritem);
                 }
             }
-            var a = 0;
-        }
+            try
+            {
+                UpdateRecord(dayreportid,rqty,rbqty);
+                var ReturnResult = new API("/CHG/Main/Home/AddOutsourceReturn/", "http://").UploadServerReturn(empno, rqty, rbqty, dayreportid, workid, workitemid, assetid, price, "", tenant, pid);
+                if (ReturnResult.ids.Count > 0)
+                {
+                    List<Guid> daylist = ReturnResult.ids;
+                    List<String> outlist = ReturnResult.no;
+                    var outno = ReturnResult.no;
+                    for (var ui = 0; ui < daylist.Count; ui++)
+                    {
+                        UpdateRecord(daylist[ui].ToString(), outlist[ui]);
+                        nowrecord.RemoveAll(x => x.DayReportId == daylist[ui].ToString());
+                        var actbutton= RPanel.Controls.Find(name, false);
+                        if (actbutton.Length > 0)
+                        {
+                            actbutton[0].Text = outlist[ui].ToString();
+                            actbutton[0].BackColor = Color.Gray;
+                        }
 
+
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("上傳資料失敗");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("上傳資料失敗:"+ex.Message);
+            }
+
+        }
+        public void UpdateRecord(string id, string cqty,string bqty)
+        {
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+            string cnStr = "data source=" + dbPath + ";Version=3;";
+            Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
+            List<WorkDayReport> wrecord = new List<WorkDayReport>();
+            if (File.Exists(dbPath))
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                {
+                    var insertScript = "UPDATE  WorkDayReports SET  RCompleteQty=@cqty,RBadQty=@bqty WHERE DayReportId=@DayReportId";
+                    SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
+                    cmd.Parameters.AddWithValue("@DayReportId", id);
+                    cmd.Parameters.AddWithValue("@cqty", cqty);
+                    cmd.Parameters.AddWithValue("@bqty", bqty);
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("更新上傳結果錯誤");
+                    }
+                    //參數是用@paramName
+
+
+                }
+            }
+
+        }
+        public void UpdateRecord(string id, string no)
+        {
+            string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd3.db3";
+            string cnStr = "data source=" + dbPath + ";Version=3;";
+            Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
+            List<WorkDayReport> wrecord = new List<WorkDayReport>();
+            if (File.Exists(dbPath))
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(cnStr))
+                {
+                    var insertScript = "UPDATE  WorkDayReports SET  isreturn=1,ReturnNo=@no,EndTime=@now WHERE DayReportId=@DayReportId";
+                    SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
+                    cmd.Parameters.AddWithValue("@DayReportId", id);
+                    cmd.Parameters.AddWithValue("@no", no);
+                    cmd.Parameters.AddWithValue("@now", DateTime.Now);
+                    try
+                    {
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("更新上傳結果錯誤");
+                    }
+                    //參數是用@paramName
+
+
+                }
+            }
+
+        }
         private void btnEMPALL_ClickR(object sender, EventArgs e)
         {
             TextBox tmpButton = (TextBox)sender;
             var btname = tmpButton.Name;
-            SetRecord(tmpButton.Tag.ToString(),btname);
+            SetRecord(tmpButton.Tag.ToString(), btname);
         }
         public Button sethandlerEmp(Button bt)
         {
@@ -527,10 +661,10 @@ namespace WorkstationTEST
                 var rpid = PTarray[6].Split(',');
                 if (debug)
                 {
-                    MessageBox.Show("rno=" + rno + ",rten=" + rten+",pid="+rpid);
+                    MessageBox.Show("rno=" + rno + ",rten=" + rten + ",pid=" + rpid);
                 }
                 FormMultiTenant frmt = new FormMultiTenant();
-                frmt.setTenantm(rno, rten,rpid);
+                frmt.setTenantm(rno, rten, rpid);
                 frmt.ShowDialog();
                 PTSavePartnerId.Text = frmt.PartnerId;
 
@@ -728,14 +862,14 @@ namespace WorkstationTEST
 
                     if (outdate != string.Empty)
                     {
-                        insertScript += "AND "+ "WorkDate" + "="+ "@outdate";
+                        insertScript += "AND " + "WorkDate" + "=" + "@outdate";
                     }
 
                     if (outno != string.Empty)
                     {
                         insertScript += "AND " + "OutNo" + "=" + "@outno";
                     }
-                    insertScript += "Order by "+ordertable+" "+ direct;
+                    insertScript += "Order by " + ordertable + " " + direct;
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@pid", pid);
                     if (outdate != string.Empty)
@@ -839,6 +973,10 @@ namespace WorkstationTEST
             {
                 button2.PerformClick();
             }
+            if (keyupper == "F12")
+            {
+                save.PerformClick();
+            }
             if (t == 0)
             {
                 var up = tabPage1.Controls.Find("frmEmpPageU", true);
@@ -876,6 +1014,42 @@ namespace WorkstationTEST
                 var up = tabPage1.Controls.Find("frmEmpPageU", true);
                 var down = tabPage1.Controls.Find("frmEmpPageD", true);
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                if (keyupper == "Delete")
+                {
+                    ((Button)down[0]).PerformClick();
+                }
+                if (keyupper == "Insert")
+                {
+                    ((Button)up[0]).PerformClick();
+                }
+                if (keyarray.Contains(keyupper))
+                {
+                    Console.WriteLine("kc");
+                    for (var i = 0; i < keyarray.Length; i++)
+                    {
+                        if (keyarray[i] == keyupper)
+                        {
+                            var estr = "BTNfrmP" + (i + 1);
+                            Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
+                            var tempbtn = tabPage2.Controls.Find(estr, true);
+                            if (tempbtn.Length > 0)
+                            {
+                                ((Button)(tempbtn[0])).PerformClick();
+                                Console.WriteLine("per:" + keychar);
+                            }
+                        }
+                    }
+                }
+            }
+            if (t == 2)
+            {
+                var up = tabPage1.Controls.Find("frmEmpPageU", true);
+                var down = tabPage1.Controls.Find("frmEmpPageD", true);
+                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                if (keyupper == "Return")
+                {
+                    SendKeys.Send("{TAB}");
+                }
                 if (keyupper == "Delete")
                 {
                     ((Button)down[0]).PerformClick();
@@ -1107,6 +1281,124 @@ namespace WorkstationTEST
         private void label7_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtsearchbyW_TextChanged(object sender, EventArgs e)
+        {
+            TextBox nowstr = (TextBox)sender;
+            var realstr = nowstr.Text.TrimStart().TrimEnd();
+            showrecord("w", realstr);
+        }
+
+        private void txtsearchbyO_TextChanged(object sender, EventArgs e)
+        {
+            TextBox nowstr = (TextBox)sender;
+            var realstr = nowstr.Text.TrimStart().TrimEnd();
+            showrecord("r",realstr);
+        }
+
+        private void getsearch(string type,string realstr)
+        {
+            if (type == "w")
+            {
+                if (realstr != string.Empty)
+                {
+                    if (realstr.IndexOf("::") >= 0)
+                    {
+                        var makenoarray = realstr.Split(new string[] { "::" }, StringSplitOptions.None);
+                        var  workorderid = makenoarray[2];
+                        var makeno = makenoarray[0];
+                        nowrecord = nowrecord.Where(x => x.WorkOrderId == workorderid).ToList();
+                    }
+                    else
+                    {
+                        nowrecord = nowrecord.Where(x=>x.MakeNo.StartsWith(realstr.ToUpper())).ToList();
+                    }
+                }
+                else
+                {
+                }
+            }
+            if (type == "r")
+            {
+                if (realstr != string.Empty)
+                {
+                    nowrecord = nowrecord.Where(x => x.OutNo.StartsWith(realstr.ToUpper())).ToList();
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var t = this.tabControl1.SelectedIndex;
+            Console.WriteLine("t=" + t);
+            if (t > 0)
+            {
+                this.tabControl1.SelectedIndex = t - 1;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+                        this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+            cleardata(true);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var t = this.tabControl1.SelectedIndex;
+            if (t < this.tabControl1.Controls.Count - 1)
+            {
+                this.tabControl1.SelectedIndex = t + 1;
+            }
+        }
+
+        public void cleardata(bool finish)
+        {
+            try
+            {
+                frmEmpshowno.Text = string.Empty;
+                frmPTRecordnow.Text = string.Empty;
+                frmPTRecordT.Text= string.Empty;
+                frmPTshowno.Text = string.Empty;
+                if (finish)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("cleardata error:" + ex.Message);
+            }
+
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            var s = new saving();
+            s.Show();
+            var t = nowrecord.Count;
+            for (var i=0;i<t;i++)
+            {
+                i++;
+                var buttonname = ButtonName + i;
+                var con = RPanel.Controls.Find(buttonname, false);
+                if(con.Length>0)
+                {
+                    SetRecord(con[0].Tag.ToString(),con[0].Name);
+                }
+
+            }
+            s.Close();
         }
     }
 }

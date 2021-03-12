@@ -598,7 +598,7 @@ namespace WorkstationTEST
             }
             if (keyupper == "F5")
             {
-                button1.PerformClick();
+                ousideworkR.PerformClick();
             }
         }
         public void DisplayText(string clickData)
