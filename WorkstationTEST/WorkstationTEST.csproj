@@ -248,6 +248,12 @@
     </Compile>
     <Compile Include="ini.cs" />
     <Compile Include="Local.cs" />
+    <Compile Include="Numpad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Numpad.Designer.cs">
+      <DependentUpon>Numpad.cs</DependentUpon>
+    </Compile>
     <Compile Include="saving.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmWorkTime2.resx">
       <DependentUpon>frmWorkTime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Numpad.resx">
+      <DependentUpon>Numpad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="saving.resx">
       <DependentUpon>saving.cs</DependentUpon>
