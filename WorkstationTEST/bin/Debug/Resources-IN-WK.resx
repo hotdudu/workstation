@@ -148,13 +148,13 @@
     <value>Proses</value>
   </data>
   <data name="label7" xml:space="preserve">
-    <value>Buat Nomor</value>
+    <value>Nomor manufaktur</value>
   </data>
   <data name="label8" xml:space="preserve">
     <value>Cari</value>
   </data>
   <data name="label9" xml:space="preserve">
-    <value>Buat kuantitas</value>
+    <value>Kuantitas manufaktur</value>
   </data>
   <data name="labelname" xml:space="preserve">
     <value>Nama Aset</value>

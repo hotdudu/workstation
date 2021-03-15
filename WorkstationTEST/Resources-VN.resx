@@ -222,4 +222,7 @@
   <data name="success" xml:space="preserve">
     <value>sự thành công</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>đầu vào định lượng lớn hơn công việc định lượng</value>
+  </data>
 </root>

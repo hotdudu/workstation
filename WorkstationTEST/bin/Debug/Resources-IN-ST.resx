@@ -171,6 +171,9 @@
   <data name="proc" xml:space="preserve">
     <value>Proses</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>memasukkan kuantitas lebih besar dari Buat kuantitas</value>
+  </data>
   <data name="spec" xml:space="preserve">
     <value>Spesifikasi</value>
   </data>

@@ -222,4 +222,7 @@
   <data name="success" xml:space="preserve">
     <value>成功</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>輸入數量大於仕掛數</value>
+  </data>
 </root>

@@ -171,6 +171,9 @@
   <data name="proc" xml:space="preserve">
     <value>製程</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>輸入數量大於仕掛數</value>
+  </data>
   <data name="spec" xml:space="preserve">
     <value>規格</value>
   </data>

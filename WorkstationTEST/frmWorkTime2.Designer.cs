@@ -51,6 +51,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ermsg = new System.Windows.Forms.TextBox();
             frmNumbtnD = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -164,6 +166,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.ermsg);
             this.panel3.Controls.Add(this.msgworktime);
             this.panel3.Controls.Add(this.msgwork);
             this.panel3.Controls.Add(this.msgbad);
@@ -179,7 +182,7 @@
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(750, 18);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(359, 283);
+            this.panel3.Size = new System.Drawing.Size(359, 341);
             this.panel3.TabIndex = 33;
             // 
             // msgworktime
@@ -324,11 +327,36 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(929, 370);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 12);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "label4";
+            this.label4.Visible = false;
+            // 
+            // ermsg
+            // 
+            this.ermsg.BackColor = System.Drawing.SystemColors.Control;
+            this.ermsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ermsg.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ermsg.ForeColor = System.Drawing.Color.Red;
+            this.ermsg.Location = new System.Drawing.Point(11, 249);
+            this.ermsg.Multiline = true;
+            this.ermsg.Name = "ermsg";
+            this.ermsg.Size = new System.Drawing.Size(330, 79);
+            this.ermsg.TabIndex = 25;
+            this.ermsg.TabStop = false;
+            this.ermsg.Visible = false;
+            // 
             // frmWorkTime2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1143, 605);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.focust);
@@ -373,5 +401,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox ermsg;
     }
 }

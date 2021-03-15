@@ -201,8 +201,8 @@ namespace WorkstationTEST
                 RequestUri = new Uri(this.URL),
                 Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
                     new KeyValuePair<string, string>("tenantid",tid.ToString()),
-                new KeyValuePair<string, string>("makeno",makeno),
-                new KeyValuePair<string, string>("wid",wid.ToString()),
+                    new KeyValuePair<string, string>("makeno",makeno),
+                    new KeyValuePair<string, string>("wid",wid.ToString()),
                 })
             };//"http://localhost:56893/CHG/Main/Home/getMakeno/"
             actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

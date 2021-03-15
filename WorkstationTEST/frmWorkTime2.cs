@@ -100,7 +100,7 @@ namespace WorkstationTEST
             Console.WriteLine("record=" + frmNumRecordnow.Text);
         }
 
-        public void SetEmpNO(string info)
+        public void SetEmpNO(string info)   
         {
             var nowfocusc = this.Controls.Find(focust.Text, true);
             /* Control actfocused = null;

@@ -171,6 +171,9 @@
   <data name="proc" xml:space="preserve">
     <value>Quá trình</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>đầu vào định lượng lớn hơn công việc định lượng</value>
+  </data>
   <data name="spec" xml:space="preserve">
     <value>sự chỉ rõ</value>
   </data>

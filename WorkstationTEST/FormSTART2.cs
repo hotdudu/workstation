@@ -35,6 +35,7 @@ namespace WorkstationTEST
         int tabpageheight = 400;
         // public string sIP;
         public string sComport = new API("x", "x").COMPORT;
+        public bool debug = true;
         delegate void Display(Byte[] buffer);
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
         string lang = "";
@@ -103,7 +104,6 @@ namespace WorkstationTEST
                     var textarray = new string[] { };
                     if (initunit == "Set")
                     {
-
                         tableheadstr = new string[] { rtext["worktime"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"] };
                         textarray = new string[] { "WorkTime", "GoCompleteQty", "NoGoCompleteQty", "GoBadQty", "NoGoBadQty" };
 
@@ -408,8 +408,13 @@ namespace WorkstationTEST
         }   
         private void savetab(object sender, EventArgs e)
         {
-            var s = new saving();
-            s.Show();
+
+            var ermsg = tabPage3.Controls.Find("ermsg", true);
+            if (ermsg.Length > 0)
+            {
+                ermsg[0].Text = "";
+                ermsg[0].Visible = false;
+            }
             var empno = tabPage1.Controls.Find("frmEmpshowno", true);
             var workorderitemId = tabPage2.Controls.Find("WKSaveWitemId", true);
             var workorderid = tabPage2.Controls.Find("WKSaveWorderId", true);
@@ -431,6 +436,13 @@ namespace WorkstationTEST
             var obcq = tabPage3.Controls.Find("GoBadQty", true);
             var obnq = tabPage3.Controls.Find("NoGoBadQty", true);
             var owt = tabPage3.Controls.Find("WorkTime", true);
+            
+            var s = new saving();
+            s.Show();
+            if (debug)
+            {
+                MessageBox.Show("wid=" + workorderid[0].Text);
+            }
             var starttime = DateTime.Now;
             var workdate = starttime.ToString("yyyy-MM-dd");
             var smakeno = MakeNo[0].Text;
@@ -1154,12 +1166,14 @@ namespace WorkstationTEST
             var msgcomplet = tabPage3.Controls.Find("msgcomplet", true);
             var msgbad = tabPage3.Controls.Find("msgbad", true);
             var msgworktime = tabPage3.Controls.Find("msgworktime", true);
-
+            var makeqty = tabPage2.Controls.Find("labQty", true);
+            var ermsg= tabPage3.Controls.Find("ermsg", true);
             var oemp = tabPage1.Controls.Find("frmEmpshowno",true);
             var omkno = tabPage2.Controls.Find("WKSaveMakeNo", true);
             var owkn = tabPage2.Controls.Find("WKSaveWorkName", true);
             var owkno = tabPage2.Controls.Find("WKSaveWorkNo", true);
             var owko = tabPage2.Controls.Find("frmWKWorkitem", true);
+            var ounit = tabPage2.Controls.Find("labUnit", true);
             var ocq = tabPage3.Controls.Find("CompleteQty", true);
             var obq = tabPage3.Controls.Find("BadQty", true);
             var ogcq = tabPage3.Controls.Find("GoCompleteQty", true);
@@ -1170,6 +1184,23 @@ namespace WorkstationTEST
             string[] notincludelist = new string[] { "D16" };
             try
             {
+                var check_gocqty = 0m;
+                var check_gobqty = 0m;
+                var check_ngcqty = 0m;
+                var check_ngbqty = 0m;
+                var check_cqty = 0m;
+                var check_bqty = 0m;
+                var check_makeqty = 0m;
+                var check_makeno = "";
+                var unit = "";
+                if (ounit.Length > 0)
+                {
+                    unit = ounit[0].Text;
+                }
+                if (makeqty.Length > 0)
+                {
+                    decimal.TryParse(makeqty[0].Text, out check_makeqty);
+                }
                 if (oemp.Length > 0)
                 {
                     msgemp[0].Text = oemp[0].Text;
@@ -1177,6 +1208,7 @@ namespace WorkstationTEST
                 if (omkno.Length > 0)
                 {
                     msgmkno[0].Text = omkno[0].Text;
+                    check_makeno = omkno[0].Text.Trim();
                 }
                 if (owko.Length > 0 && owkn.Length>0)
                 {
@@ -1189,10 +1221,12 @@ namespace WorkstationTEST
                 if (ocq.Length > 0)
                 {
                     msgcomplet[0].Text = ocq[0].Text;
+                    decimal.TryParse(ocq[0].Text, out check_cqty);
                 }
                 if (obq.Length > 0)
                 {
                     msgbad[0].Text = obq[0].Text;
+                    decimal.TryParse(obq[0].Text, out check_bqty);
                 }
                 if (ogcq.Length > 0&&ognq.Length>0)
                 {
@@ -1213,6 +1247,7 @@ namespace WorkstationTEST
                         }
 
                     }
+                    check_cqty = tq;
                     msgcomplet[0].Text = tq.ToString();
                 }
                 if (obcq.Length > 0 && obnq.Length > 0)
@@ -1234,8 +1269,26 @@ namespace WorkstationTEST
                         }
 
                     }
+                    check_bqty = btq;
                     msgbad[0].Text = btq.ToString();
                 }
+                if (!string.IsNullOrEmpty(check_makeno))
+                {
+                    if (check_bqty + check_cqty > check_makeqty)
+                    {
+                        ermsg[0].Visible = true;
+                        ermsg[0].Text = rtext["qtygreat"]+" "+check_makeqty+unit;
+                    }
+                    else
+                    {
+                        ermsg[0].Visible = false;
+                    }
+                }
+                else
+                {
+                    ermsg[0].Visible = false;
+                }
+
             }
             catch(Exception ex)
             {

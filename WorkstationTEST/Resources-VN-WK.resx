@@ -124,42 +124,42 @@
     <value>上一頁</value>
   </data>
   <data name="infotitle" xml:space="preserve">
-    <value>將新增資料:</value>
+    <value>Will Insert:</value>
   </data>
   <data name="label1" xml:space="preserve">
-    <value>請輸入工令</value>
+    <value>Type MakeNo</value>
   </data>
   <data name="label12" xml:space="preserve">
-    <value>產品編號</value>
+    <value>AssetNo</value>
   </data>
   <data name="label13" xml:space="preserve">
-    <value>規        格</value>
+    <value>sự chỉ rõ</value>
   </data>
   <data name="label2" xml:space="preserve">
-    <value>請選擇工序</value>
+    <value>SelectProcess</value>
   </data>
   <data name="label21" xml:space="preserve">
-    <value>備        註</value>
+    <value>nhận xét</value>
   </data>
   <data name="label4" xml:space="preserve">
-    <value>員工</value>
+    <value>Nhân viên</value>
   </data>
   <data name="label5" xml:space="preserve">
-    <value>製程</value>
+    <value>Quá trình</value>
   </data>
   <data name="label7" xml:space="preserve">
-    <value>製造番號</value>
+    <value>Số sản xuất</value>
   </data>
   <data name="label8" xml:space="preserve">
-    <value>搜尋</value>
+    <value>Tìm kiếm</value>
   </data>
   <data name="label9" xml:space="preserve">
-    <value>製造數量</value>
+    <value>Số lượng sản xuất</value>
   </data>
   <data name="labelname" xml:space="preserve">
-    <value>品        名</value>
+    <value>Tên tài sản</value>
   </data>
   <data name="WKsave" xml:space="preserve">
-    <value>儲存</value>
+    <value>tiết kiệm</value>
   </data>
 </root>

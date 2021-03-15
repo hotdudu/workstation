@@ -1093,7 +1093,7 @@ namespace WorkstationTEST
             var WorkTimeS = tabPage2.Controls.Find("BTN-WorkTime", true);
             var MakeNoS= tabPage2.Controls.Find("BTN-MakeNo", true);
             var Units = tabPage2.Controls.Find("BTN-UseUnits", true);
-            var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);
+            var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);        
             //local
             var EmpnoS = tabPage1.Controls.Find("frmEmpshowno", true);
             var WorkDateS= tabPage2.Controls.Find("BTN-WorkDate", true);
@@ -1473,6 +1473,7 @@ namespace WorkstationTEST
                             TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, itemj,true);
                             if (isedit)
                             {
+                                empbtn.TextChanged += new EventHandler(CheckQTY);
                                 empbtn.GotFocus+= new EventHandler(BtnGotfocus);
                             }
                             btnemplist.Add(empbtn);
@@ -1621,6 +1622,62 @@ namespace WorkstationTEST
             //getfirstfocus[0].Text = whoisfocused;
             //Console.Write("firstfocus=" + whoisfocused);
 
+        }
+        private void CheckQTY(object sender, EventArgs e)
+        {
+            TextBox tmpButton = (TextBox)sender;
+
+            var CompleteQtyS = tabPage2.Controls.Find("BTN-CompleteQty", true);
+            var BadQtyS = tabPage2.Controls.Find("BTN-BadQty", true);
+            var CompletGoQtyS = tabPage2.Controls.Find("BTN-CompletGoQty", true);
+            var CompletNgQtyS = tabPage2.Controls.Find("BTN-CompletNgQty", true);
+            var BadGoQtyS = tabPage2.Controls.Find("BTN-BadGoQty", true);
+            var BadNgQtyS = tabPage2.Controls.Find("BTN-BadNgQty", true);
+            var MakeNoS = tabPage2.Controls.Find("BTN-MakeNo", true);
+            var Units = tabPage2.Controls.Find("BTN-UseUnits", true);
+            var WorkNoS = tabPage2.Controls.Find("BTN-WorkNo", true);
+            var WorkQtyS = tabPage2.Controls.Find("BTN-WorkQty", true);
+            var cqty = 0m;
+            var bqty = 0m;
+            var gcqty = 0m;
+            var ncqty = 0m;
+            var gbqty = 0m;
+            var nbqty = 0m;
+            var makeqty = 0m;
+            if (CompleteQtyS.Length > 0)
+                decimal.TryParse(CompleteQtyS[0].Text, out cqty);
+            if (BadQtyS.Length > 0)
+                decimal.TryParse(BadQtyS[0].Text, out bqty);
+            if (CompleteQtyS.Length > 0)
+                decimal.TryParse(CompleteQtyS[0].Text, out cqty);
+            if (CompletGoQtyS.Length > 0)
+                decimal.TryParse(CompletGoQtyS[0].Text, out gcqty);
+            if (CompletNgQtyS.Length > 0)
+                decimal.TryParse(CompletNgQtyS[0].Text, out ncqty);
+            if (BadGoQtyS.Length > 0)
+                decimal.TryParse(BadGoQtyS[0].Text, out gbqty);
+            if (BadNgQtyS.Length > 0)
+                decimal.TryParse(BadNgQtyS[0].Text, out nbqty);
+            if (WorkQtyS.Length > 0)
+                decimal.TryParse(WorkQtyS[0].Text, out makeqty);
+            if(CompletGoQtyS.Length > 0 && CompletNgQtyS.Length > 0 && BadGoQtyS.Length > 0 && BadNgQtyS.Length > 0)
+            {
+                cqty = (gcqty + ncqty) / 2;
+                bqty = (gbqty + nbqty) / 2;
+            }
+            if (makeqty > 0)
+            {
+                if (cqty + bqty > makeqty)
+                {
+                    ermsg.Visible = true;
+                    ermsg.Text = rtext["qtygreat"];
+                }
+                else
+                {
+                    ermsg.Visible = false;
+                    ermsg.Text = "";
+                }
+            }
         }
         private void BtnGotfocus(object sender, EventArgs e)
         {

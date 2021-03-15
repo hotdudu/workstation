@@ -36,6 +36,7 @@
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
+            this.ermsg = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,11 +116,26 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // ermsg
+            // 
+            this.ermsg.BackColor = System.Drawing.SystemColors.Control;
+            this.ermsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ermsg.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ermsg.ForeColor = System.Drawing.Color.Red;
+            this.ermsg.Location = new System.Drawing.Point(479, 129);
+            this.ermsg.Multiline = true;
+            this.ermsg.Name = "ermsg";
+            this.ermsg.ReadOnly = true;
+            this.ermsg.Size = new System.Drawing.Size(627, 41);
+            this.ermsg.TabIndex = 4;
+            this.ermsg.TabStop = false;
+            // 
             // FormEND
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 650);
+            this.Controls.Add(this.ermsg);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -130,6 +146,7 @@
             this.Load += new System.EventHandler(this.FormEND_Load);
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -142,5 +159,6 @@
         private XButton button1;
         private XButton button2;
         private XButton button3;
+        private System.Windows.Forms.TextBox ermsg;
     }
 }

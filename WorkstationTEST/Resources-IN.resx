@@ -222,4 +222,7 @@
   <data name="success" xml:space="preserve">
     <value>keberhasilan</value>
   </data>
+  <data name="qtygreat" xml:space="preserve">
+    <value>memasukkan kuantitas lebih besar dari Buat kuantitas</value>
+  </data>
 </root>

@@ -32,7 +32,6 @@ namespace WorkstationTEST
                 DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
                 NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
                 DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
-
             }
         }
         string sIP = "61.221.176.176";
