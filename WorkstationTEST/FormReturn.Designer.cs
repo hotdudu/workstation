@@ -32,21 +32,16 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.EMPPanel = new System.Windows.Forms.Panel();
-            this.frmEmpPageU = new WorkstationTEST.XButton();
-            this.frmEmpPageD = new WorkstationTEST.XButton();
             this.frmEmpRecordnow = new System.Windows.Forms.Label();
             this.frmEmpshowno = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.frmPTbtnU = new WorkstationTEST.XButton();
             this.frmPTname = new System.Windows.Forms.TextBox();
             this.frmPTRecordT = new System.Windows.Forms.Label();
             this.PTPanel = new System.Windows.Forms.Panel();
             this.PTSavePartnerId = new System.Windows.Forms.TextBox();
             this.frmPTshowno = new System.Windows.Forms.TextBox();
             this.frmPTRecordnow = new System.Windows.Forms.Label();
-            this.frmPTbtnD = new WorkstationTEST.XButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.save = new WorkstationTEST.XButton();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -69,10 +64,15 @@
             this.labsearchbyO = new System.Windows.Forms.Label();
             this.txtsearchbyW = new System.Windows.Forms.TextBox();
             this.labsearchbyW = new System.Windows.Forms.Label();
+            this.button4 = new WorkstationTEST.XButton();
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
-            this.button4 = new WorkstationTEST.XButton();
+            this.frmEmpPageU = new WorkstationTEST.XButton();
+            this.frmEmpPageD = new WorkstationTEST.XButton();
+            this.frmPTbtnU = new WorkstationTEST.XButton();
+            this.frmPTbtnD = new WorkstationTEST.XButton();
+            this.save = new WorkstationTEST.XButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -120,32 +120,6 @@
             this.EMPPanel.Size = new System.Drawing.Size(1027, 350);
             this.EMPPanel.TabIndex = 14;
             // 
-            // frmEmpPageU
-            // 
-            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageU.LeftText = null;
-            this.frmEmpPageU.Location = new System.Drawing.Point(1020, 58);
-            this.frmEmpPageU.Name = "frmEmpPageU";
-            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageU.TabIndex = 12;
-            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageU.TopText = null;
-            this.frmEmpPageU.UseVisualStyleBackColor = true;
-            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
-            // 
-            // frmEmpPageD
-            // 
-            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageD.LeftText = null;
-            this.frmEmpPageD.Location = new System.Drawing.Point(1020, 254);
-            this.frmEmpPageD.Name = "frmEmpPageD";
-            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageD.TabIndex = 13;
-            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageD.TopText = null;
-            this.frmEmpPageD.UseVisualStyleBackColor = true;
-            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
-            // 
             // frmEmpRecordnow
             // 
             this.frmEmpRecordnow.AutoSize = true;
@@ -181,18 +155,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "廠商";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // frmPTbtnU
-            // 
-            this.frmPTbtnU.LeftText = null;
-            this.frmPTbtnU.Location = new System.Drawing.Point(1020, 62);
-            this.frmPTbtnU.Name = "frmPTbtnU";
-            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnU.TabIndex = 114;
-            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnU.TopText = null;
-            this.frmPTbtnU.UseVisualStyleBackColor = true;
-            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
             // 
             // frmPTname
             // 
@@ -246,18 +208,6 @@
             this.frmPTRecordnow.Text = "frmPTRecordnow";
             this.frmPTRecordnow.Visible = false;
             // 
-            // frmPTbtnD
-            // 
-            this.frmPTbtnD.LeftText = null;
-            this.frmPTbtnD.Location = new System.Drawing.Point(1020, 226);
-            this.frmPTbtnD.Name = "frmPTbtnD";
-            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
-            this.frmPTbtnD.TabIndex = 107;
-            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmPTbtnD.TopText = null;
-            this.frmPTbtnD.UseVisualStyleBackColor = true;
-            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.save);
@@ -281,19 +231,6 @@
             this.tabPage3.Text = "外包單";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // save
-            // 
-            this.save.LeftText = null;
-            this.save.Location = new System.Drawing.Point(969, 343);
-            this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(75, 23);
-            this.save.TabIndex = 1000;
-            this.save.TabStop = false;
-            this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.save.TopText = null;
-            this.save.UseVisualStyleBackColor = true;
-            this.save.Click += new System.EventHandler(this.save_Click);
-            // 
             // label10
             // 
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -304,6 +241,7 @@
             this.label10.TabIndex = 999;
             this.label10.Text = "不良數";
             this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label10.Visible = false;
             // 
             // label9
             // 
@@ -315,6 +253,7 @@
             this.label9.TabIndex = 999;
             this.label9.Text = "完成數";
             this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label9.Visible = false;
             // 
             // label8
             // 
@@ -326,6 +265,7 @@
             this.label8.TabIndex = 999;
             this.label8.Text = "外包單號";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label8.Visible = false;
             // 
             // label3
             // 
@@ -337,6 +277,7 @@
             this.label3.TabIndex = 999;
             this.label3.Text = "產品編號";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.Visible = false;
             // 
             // label7
             // 
@@ -348,6 +289,7 @@
             this.label7.TabIndex = 999;
             this.label7.Text = "外包數";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label7.Visible = false;
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
@@ -360,6 +302,7 @@
             this.label6.TabIndex = 34;
             this.label6.Text = "加工日期";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label6.Visible = false;
             // 
             // label5
             // 
@@ -371,6 +314,7 @@
             this.label5.TabIndex = 999;
             this.label5.Text = "規格";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label5.Visible = false;
             // 
             // label4
             // 
@@ -382,6 +326,7 @@
             this.label4.TabIndex = 999;
             this.label4.Text = "製程";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label4.Visible = false;
             // 
             // label2
             // 
@@ -393,6 +338,7 @@
             this.label2.TabIndex = 999;
             this.label2.Text = "單位";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label2.Visible = false;
             // 
             // label1
             // 
@@ -404,6 +350,7 @@
             this.label1.TabIndex = 999;
             this.label1.Text = "工令";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Visible = false;
             // 
             // frmRecordnow
             // 
@@ -427,25 +374,25 @@
             this.RPanel.AutoScroll = true;
             this.RPanel.AutoScrollMinSize = new System.Drawing.Size(800, 80);
             this.RPanel.ColumnCount = 13;
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.RPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.RPanel.Location = new System.Drawing.Point(3, 47);
             this.RPanel.Name = "RPanel";
             this.RPanel.RowCount = 2;
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.RPanel.Size = new System.Drawing.Size(1181, 290);
+            this.RPanel.Size = new System.Drawing.Size(1211, 290);
             this.RPanel.TabIndex = 4;
             // 
             // tabPage4
@@ -524,6 +471,19 @@
             this.labsearchbyW.TabIndex = 999;
             this.labsearchbyW.Text = "依工令搜尋";
             // 
+            // button4
+            // 
+            this.button4.LeftText = null;
+            this.button4.Location = new System.Drawing.Point(698, 9);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 19;
+            this.button4.TabStop = false;
+            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button4.TopText = null;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // button3
             // 
             this.button3.LeftText = null;
@@ -563,18 +523,68 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
+            // frmEmpPageU
             // 
-            this.button4.LeftText = null;
-            this.button4.Location = new System.Drawing.Point(698, 9);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 19;
-            this.button4.TabStop = false;
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button4.TopText = null;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageU.LeftText = null;
+            this.frmEmpPageU.Location = new System.Drawing.Point(1020, 58);
+            this.frmEmpPageU.Name = "frmEmpPageU";
+            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageU.TabIndex = 12;
+            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageU.TopText = null;
+            this.frmEmpPageU.UseVisualStyleBackColor = true;
+            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
+            // 
+            // frmEmpPageD
+            // 
+            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageD.LeftText = null;
+            this.frmEmpPageD.Location = new System.Drawing.Point(1020, 254);
+            this.frmEmpPageD.Name = "frmEmpPageD";
+            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageD.TabIndex = 13;
+            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageD.TopText = null;
+            this.frmEmpPageD.UseVisualStyleBackColor = true;
+            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
+            // 
+            // frmPTbtnU
+            // 
+            this.frmPTbtnU.LeftText = null;
+            this.frmPTbtnU.Location = new System.Drawing.Point(1020, 62);
+            this.frmPTbtnU.Name = "frmPTbtnU";
+            this.frmPTbtnU.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnU.TabIndex = 114;
+            this.frmPTbtnU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnU.TopText = null;
+            this.frmPTbtnU.UseVisualStyleBackColor = true;
+            this.frmPTbtnU.Click += new System.EventHandler(this.frmPTbtnU_Click);
+            // 
+            // frmPTbtnD
+            // 
+            this.frmPTbtnD.LeftText = null;
+            this.frmPTbtnD.Location = new System.Drawing.Point(1020, 226);
+            this.frmPTbtnD.Name = "frmPTbtnD";
+            this.frmPTbtnD.Size = new System.Drawing.Size(75, 23);
+            this.frmPTbtnD.TabIndex = 107;
+            this.frmPTbtnD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmPTbtnD.TopText = null;
+            this.frmPTbtnD.UseVisualStyleBackColor = true;
+            this.frmPTbtnD.Click += new System.EventHandler(this.frmPTbtnD_Click);
+            // 
+            // save
+            // 
+            this.save.LeftText = null;
+            this.save.Location = new System.Drawing.Point(969, 343);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(75, 23);
+            this.save.TabIndex = 1000;
+            this.save.TabStop = false;
+            this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.save.TopText = null;
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // FormReturn
             // 

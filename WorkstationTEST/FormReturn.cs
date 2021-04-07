@@ -267,25 +267,26 @@ namespace WorkstationTEST
             var itemi = 0;
             var itemj = 0;
             var dayid = "";
-            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "", "加工日期", "外包數", "單位", "外包單號", "完成數", "不良數" };
-            var widthlist = new List<int> { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
+            var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "", "加工日期", "外包數", "單位", "外包單號", "完成"+Environment.NewLine+"數", "不良"+Environment.NewLine+"數", "執行" };
+            var widthlist = new List<int> { 110, 110, 110, 60, 80, 110, 80, 60, 135, 60, 60,135 };
             var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification", "WorkNo", "WorkName", "WorkDate", "CompleteQty", "UseUnits", "OutNo", "RCompleteQty", "RBadQty" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
             List<TextBox> btnrlist = new List<TextBox>();
             List<Label> LBrlist = new List<Label>();
             List<btnsize> btslist = new List<btnsize>();
-            var LBheight = 0;
+            var LBheight = 50;
             for (var i = 0; i < headlist.Count; i++)
             {
 
                 Label LB = new Label();
-                LB.MaximumSize = new Size(widthlist[i], 0);
-                LB.AutoSize = true;
+                LB.Width = widthlist[i];
+                LB.AutoSize = false;
                 LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                 LB.Text = headlist[i];
                 LB.Font = new Font("", 15, FontStyle.Bold);
                 LB.TabIndex = 999;
+                LB.Margin = new Padding(0);
                 if (LB.Height > LBheight)
                     LBheight = LB.Height;
                 LBrlist.Add(LB);
@@ -432,9 +433,10 @@ namespace WorkstationTEST
             int ItemsOneRow = displaylist.Count;
             int btnnum = 0;
             var empitemcount = 0;
-            var keynum = 0;
+            var keynum = 1;
             var Lkeynum = 0;
             var Lcol = 0;
+            var cnum = 0;
             RPanel.ColumnCount = displaylist.Count + 1;
             /* foreach (var LBitem in LBrlist)
              {
@@ -446,6 +448,25 @@ namespace WorkstationTEST
                  LBitem.Parent = RPanel;
                  LBitem.Margin = new Padding(0);
              }*/
+            foreach(var citem in LBrlist)
+            {
+                var LCol = cnum % ItemsOneRow;
+                if(citem.Width==50)
+                {
+                    Lkeynum += citem.Width+50;
+                }
+                else
+                {
+                    
+
+                }
+                Lkeynum += citem.Width;
+                cnum++;
+                citem.Top = 1 * (iSpace * 2 + citem.Height) + iSpace;
+                citem.Left = Lkeynum;
+                //rbitem.Text = rbitem.Top + "," + rbitem.Left;
+                citem.Parent = RPanel;
+            }
             foreach (var rbitem in btnrlist)
             {
                 iRow = keynum / ItemsOneRow;
@@ -537,6 +558,7 @@ namespace WorkstationTEST
                         {
                             actbutton[0].Text = outlist[ui].ToString();
                             actbutton[0].BackColor = Color.Gray;
+                            actbutton[0].Size = new Size(100, 50);
                         }
 
 
