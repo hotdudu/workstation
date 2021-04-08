@@ -19,6 +19,9 @@ namespace WorkstationTEST
         private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        public const int WM_CLOSE = 0x10;
         public bool debug = true;
         public FormReturn(frmMenu fmenu)
         {
@@ -403,6 +406,7 @@ namespace WorkstationTEST
                         if (isedit)
                         {
                             empbtn.GotFocus += new EventHandler(BtnGotfocus);
+                            empbtn.TextChanged += new EventHandler(TxtChanged);
                             empbtn.TabIndex = edittabcount;
                                 edittabcount++;
                         }
@@ -411,6 +415,7 @@ namespace WorkstationTEST
                     }
                     if (hidelist.Contains(prop.Name))
                     {
+                        var hnum = recordcount % 13;
                         recordbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, true);
                         recordbtn.Tag = recordbtn.Text;
                         recordbtn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -418,7 +423,7 @@ namespace WorkstationTEST
                         recordbtn.BackColor = Color.MediumSeaGreen;
                         recordbtn.Font = new Font("Arial", 15, FontStyle.Bold);
                         recordbtn.Name = ButtonName + recordcount;
-                        recordbtn.Text = recordbtn.Name; //"上傳";
+                        recordbtn.Text = "F" + hnum; //"上傳";
                         recordbtn.Click += new EventHandler(btnEMPALL_ClickR);
                         // btnrlist.Add(empbtn);
                     }
@@ -966,9 +971,41 @@ namespace WorkstationTEST
         {
             TextBox tmpButton = (TextBox)sender;
             focust.Text = tmpButton.Name;
-            Console.Write("gotfocus=" + focust.Text);
-        }
+            var x = tmpButton.Location.X + tmpButton.Width;
+            var y = tmpButton.Location.Y+ tmpButton.Height+305;
+            var tmplocation = new Point(x, y);
+            Console.WriteLine("act");
 
+            if (numstat.Text == "")
+            {
+                var num = new Numpad(serialPort1, tmplocation);
+                numstat.Text = "ok";
+                num.ShowDialog();
+                if (num.DialogResult == DialogResult.OK)
+                {
+                    tmpButton.Text = num.result;
+                    Console.Write("gotfocus=" + focust.Text);
+                }
+            }
+
+
+
+           // num.Close();
+        }
+        private void TxtChanged(object sender, EventArgs e)
+        {
+            TextBox tmpButton = (TextBox)sender;
+            IntPtr ptr = FindWindow(null, "Numpad");
+            if (ptr != IntPtr.Zero)
+            {
+                //找到則關閉MessageBox視窗
+                PostMessage(ptr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            }
+            numstat.Text = "";
+            SendKeys.Send("{TAB}");
+            Console.Write("gotchange=");
+            // num.Close();
+        }
         private void mybutton_Click(object sender, KeyEventArgs e)
         {
             Console.WriteLine("keycoe=" + e.KeyCode.ToString());

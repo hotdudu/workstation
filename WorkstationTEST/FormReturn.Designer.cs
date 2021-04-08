@@ -73,6 +73,7 @@
             this.frmPTbtnU = new WorkstationTEST.XButton();
             this.frmPTbtnD = new WorkstationTEST.XButton();
             this.save = new WorkstationTEST.XButton();
+            this.numstat = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -210,6 +211,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.numstat);
             this.tabPage3.Controls.Add(this.save);
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.label9);
@@ -586,6 +588,14 @@
             this.save.UseVisualStyleBackColor = true;
             this.save.Click += new System.EventHandler(this.save_Click);
             // 
+            // numstat
+            // 
+            this.numstat.AutoSize = true;
+            this.numstat.Location = new System.Drawing.Point(1105, 12);
+            this.numstat.Name = "numstat";
+            this.numstat.Size = new System.Drawing.Size(0, 32);
+            this.numstat.TabIndex = 20;
+            // 
             // FormReturn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -663,5 +673,6 @@
         private System.Windows.Forms.Label labsearchbyW;
         private XButton button4;
         private XButton save;
+        private System.Windows.Forms.Label numstat;
     }
 }

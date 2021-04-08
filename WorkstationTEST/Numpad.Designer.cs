@@ -41,22 +41,24 @@
             // 
             // NumPanel
             // 
-            this.NumPanel.ColumnCount = 2;
-            this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.NumPanel.ColumnCount = 3;
+            this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.NumPanel.Location = new System.Drawing.Point(12, 64);
             this.NumPanel.Name = "NumPanel";
-            this.NumPanel.RowCount = 2;
-            this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.NumPanel.Size = new System.Drawing.Size(501, 100);
+            this.NumPanel.RowCount = 3;
+            this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.NumPanel.Size = new System.Drawing.Size(501, 491);
             this.NumPanel.TabIndex = 1;
             // 
             // Numpad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(557, 467);
+            this.ClientSize = new System.Drawing.Size(554, 571);
             this.Controls.Add(this.NumPanel);
             this.Controls.Add(this.textBox1);
             this.Name = "Numpad";

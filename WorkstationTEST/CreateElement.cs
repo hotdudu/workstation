@@ -52,14 +52,21 @@ namespace WorkstationTEST
             return btn;
         }
 
-        public TextBox CreateBtn(string str,bool isedit,int ind,bool visble,int width=100,int height=100)
+        public TextBox CreateBtn(string str,bool isedit,int ind,bool visble,int width=100,int height=100,bool isauto=false)
         {
             TextBox btn = new TextBox();
             btn.Name = bname;
             btn.Text = str;
             btn.ReadOnly = !isedit;
             btn.Tag = btext;
-            btn.Size = new Size(width, height);
+            if (!isauto)
+            {
+                btn.Size = new Size(width, height);
+            }
+            else
+            {
+                
+            }
             if(isedit)
             {
              btn.TabIndex = ind;
