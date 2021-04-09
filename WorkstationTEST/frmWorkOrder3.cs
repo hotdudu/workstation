@@ -48,7 +48,7 @@ namespace WorkstationTEST
             setpageup.SetBtn((XButton)frmWKbtnU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn((XButton)frmWKbtnD, "Delete::Delete", rtext["frmWKbtnD"]);
             getwitem.Clear();
-            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(true);
             if (getwitem.Count > 0)
             {
                 WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
@@ -178,7 +178,7 @@ namespace WorkstationTEST
                 if (isguid)
                 {
 
-                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(maketid,makeno,Guid.Parse(wid));
+                     getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(maketid,makeno,Guid.Parse(wid),true);
                 }
 
                 else
@@ -241,7 +241,7 @@ namespace WorkstationTEST
             else
             {
                 getwitem.Clear();
-                getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+                getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(true);
                 if (getwitem.Count > 0)
                 {
                     WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
@@ -526,7 +526,7 @@ namespace WorkstationTEST
         private void getCommon()
         {
             getwitem.Clear();
-            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(true);
             if (getwitem.Count > 0)
             {
                 WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();

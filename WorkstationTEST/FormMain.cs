@@ -576,7 +576,7 @@ namespace WorkstationTEST
                     }
 
                     if (wid.HasValue)
-                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,wkmo[0].Text, (Guid)wid);
+                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,wkmo[0].Text, (Guid)wid,true);
                     else
                     {
                         Console.WriteLine("輸入工令格式錯誤");
@@ -804,7 +804,7 @@ namespace WorkstationTEST
 
         private void frmWKbtnU(int tid,string makeno, Guid wid)
         {
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid,true);
             Console.WriteLine("functionU:" + getwitem.Count);
             var WKPanels = tabPage3.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage3.Controls.Find("frmWKRecordnow", true);
@@ -877,7 +877,7 @@ namespace WorkstationTEST
         private void frmWKbtnD(int tid ,string makeno, Guid wid)
         {
             Console.WriteLine("makeno=" + makeno + ",w=" + wid);
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
+            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid,true);
             Console.WriteLine("functionD:" + getwitem.Count);
             var WKPanels = tabPage3.Controls.Find("WKPanel", true);
             var frmWKRecordnows = tabPage3.Controls.Find("frmWKRecordnow", true);

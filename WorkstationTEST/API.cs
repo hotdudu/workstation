@@ -24,6 +24,8 @@ namespace WorkstationTEST
         private string Empdef;
         private string PTdef;
         private int timeout;
+        private string[]filterstring =  new string[] { "完成入庫", "防銹包裝", "表面刻字", "成品檢驗", "鋁柄刻字" };
+        private string[] filterstring1 = new string[] { "入庫", "包裝", "刻字", "檢驗", "熱處理" };
         public API(string url)
         {
             URL = url;
@@ -188,8 +190,20 @@ namespace WorkstationTEST
             return empobj;
         }
 
-        public List<Workitem> GetWorkitem(int tid, string makeno, Guid wid)
+        public List<Workitem> GetWorkitem(int tid, string makeno, Guid wid, bool isout = false)
         {
+            var filter = "";
+            var filter1 = "";
+            var filtero = "";
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                var filtername = "f_GetWorkitem";
+                var filtername1 = "f_GetWorkitem1";
+                var filternameo = "f_GetWorkitemo";
+                filter = oTINI.getKeyValue("SYSTEM", filtername, "");
+                filter1 = oTINI.getKeyValue("SYSTEM", filtername1, "");
+                filtero = oTINI.getKeyValue("SYSTEM", filternameo, "");
+            }
             var load = new loading();
             load.Show();
             var istimeout = false;
@@ -236,12 +250,67 @@ namespace WorkstationTEST
                 load.Close();
                 MessageBox.Show("伺服器連線逾時:" + oex.Message);
             }
+            if (filtero == "1")//外包
+            {
+                witemobj = witemobj.Where(x => x.Outsourcing == isout).ToList();
+                if (!isout)//外包不再過濾字串
+                {
+                    if (filter1 == "1")//模糊過濾(較少筆)
+                    {
+                        foreach (var item in filterstring1)
+                        {
+                            witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                        }
+                    }
+                    else
+                    {
+                        if (filter == "1")//完全過濾(較多筆)
+                        {
+
+                            foreach (var item in filterstring)
+                            {
+                                witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                            }
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (filter1 == "1")//模糊過濾(較少筆)
+                {
+                    foreach (var item in filterstring1)
+                    {
+                        witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                    }
+                }
+                else
+                {
+                    if (filter == "1")//完全過濾(較多筆)
+                    {
+
+                        foreach(var item in filterstring)
+                        {
+                            witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                        }
+
+                    }
+                }
+            }
+
 
             return witemobj;
         }
 
-        public List<Workitem> GetWorkitem()
+        public List<Workitem> GetWorkitem(bool isout = false)
         {
+            var filter = "";
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                var filtername = "f_GetWorkitem";
+                filter = oTINI.getKeyValue("SYSTEM", filtername, "");
+            }
             var load = new loading();
             load.Show();
             var client = new HttpClient();
@@ -281,8 +350,17 @@ namespace WorkstationTEST
                 load.Close();
                 MessageBox.Show("伺服器連線逾時:" + oex.Message);
             }
+            witemobj = witemobj.Where(x => x.Outsourcing == isout).ToList();
+            if (filter == "1")
+            {
+                foreach (var item in filterstring)
+                {
+                    witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                }
 
+            }
             return witemobj;
+
         }
         public List<WorkOrder> GetWorkOrder(int? tenantid, string makeno)
         {
@@ -764,6 +842,7 @@ namespace WorkstationTEST
         public float BadQty { get; set; }
         public float MakeQty { get; set; }
         public string Specification { get; set; }
+        public bool Outsourcing { get; set; }
     }
 
     public class Partner
