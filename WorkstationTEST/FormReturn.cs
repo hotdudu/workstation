@@ -145,7 +145,7 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
-            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DepartNo, NIG);
+            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DefCompany,DepartNo, NIG);
             // List<Button> btnemplist = new List<Button>();
             if (getemp.Count() > 0)
             {

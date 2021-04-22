@@ -40,8 +40,18 @@ namespace WorkstationTEST
             int apitimeout = 20000;
             try
             {
-
-                string cPath = Directory.GetCurrentDirectory() + "\\" + "config.ini";
+                using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+                {
+                    sIP = oTINI.getKeyValue("SYSTEM", "IP", "");
+                    sComport = "COM"+ oTINI.getKeyValue("SYSTEM", "NIG", "");
+                    ndbip = oTINI.getKeyValue("SYSTEM", "Dbip", "");
+                    Empdef = oTINI.getKeyValue("SYSTEM", "Empdef", "");
+                    var to= oTINI.getKeyValue("SYSTEM", "Timeout", "");//暫存
+                    var tryint = int.TryParse(to, out apitimeout);// 逾時時間
+                    PTdef = oTINI.getKeyValue("SYSTEM", "PTdef", "");
+                    getconf = true;
+                }
+                /*string cPath = Directory.GetCurrentDirectory() + "\\" + "config.ini";
                 if (File.Exists(cPath))
                 {
                     string[] lines = System.IO.File.ReadAllLines(@cPath);
@@ -79,13 +89,14 @@ namespace WorkstationTEST
                             }
                         }
                     }
-                }
+                }*/
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("api error:" + ex);
             }
+
             if (!getconf)
             {
                 sIP = "61.221.176.176";
@@ -144,7 +155,7 @@ namespace WorkstationTEST
             }
             return empobj;
         }
-        public List<Empm> GetEmpm(string DepartNo, string NIG)
+        public List<Empm> GetEmpm(string tenantid, string DepartNo, string NIG)
         {
             var load = new loading();
             load.Show();
@@ -154,7 +165,7 @@ namespace WorkstationTEST
                 Method = HttpMethod.Post,
                 RequestUri = new Uri(this.URL),
                 Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
-                new KeyValuePair<string, string>("tenantid","101"),
+                new KeyValuePair<string, string>("tenantid",tenantid),
                  new KeyValuePair<string, string>("word",DepartNo),
                  new KeyValuePair<string, string>("notingroup",NIG),
                 new KeyValuePair<string, string>("iswork","true"),
@@ -805,9 +816,52 @@ namespace WorkstationTEST
             }
             return result;
         }
-
+        private List<Empm> EmployeeDepartment_Filter(string tid, List<Empm> orglist)
+        {
+            List<Empm> Result = orglist;
+            var name = "Emp";
+            var cloumn = "DepartmentNo";
+            var Nfilter = getfilter(name,cloumn, "Not", tid);
+            var Gfilter= getfilter(name,cloumn, "Ok", tid);
+            if (Nfilter.Result != "")
+            {
+                Result=Result.Where(x=>x.EmployeeNo.Contains(Nfilter.))
+            }
+        }
+        public filterobj getfilter(string Func,string cloumn,string PlusOrMinus,string tenant)
+        {
+            var basename = "filter";
+            var filtername = basename + "_" + Func + "_"+cloumn+"_" + PlusOrMinus + "_" + tenant;
+            filterobj returnobj = new filterobj();
+            int tid = 0;
+            int.TryParse(tenant, out tid);
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                try
+                {
+                    var result = "";
+                    result=oTINI.getKeyValue("SYSTEM", filtername, "");
+                    returnobj.Result = result;
+                    returnobj.PlusOrMinus = PlusOrMinus == "Not" ? false : true;
+                    returnobj.TenantId = tid;
+                }
+                catch(Exception ex)
+                {
+                    System.Console.WriteLine("nofilter");
+                }
+            }
+            return returnobj;
+        }
     }
 
+
+    public class filterobj
+    {
+        public bool PlusOrMinus { get; set; }
+        public int TenantId { get; set; }
+        public string Result { get; set; }
+        public string Cloumn { get; set; }
+    }
     public class Emp
     {
         public Guid EmployeeId { get; set; }
