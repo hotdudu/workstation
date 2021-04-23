@@ -185,6 +185,7 @@ namespace WorkstationTEST
                 if (empobj.Count > 0)
                 {
                     empobj = empobj.Where(x => !defemplist.Contains(x.EmployeeNo)).OrderBy(x => x.EmployeeNo).ToList();
+                    empobj = EmployeeDepartment_Filter(tenantid, empobj);
                 }
                 foreach (var item in empobj)
                 {
@@ -825,8 +826,15 @@ namespace WorkstationTEST
             var Gfilter= getfilter(name,cloumn, "Ok", tid);
             if (Nfilter.Result != "")
             {
-                Result=Result.Where(x=>x.EmployeeNo.Contains(Nfilter.))
+                var key = Nfilter.Result.Split(',');
+                Result = Result.Where(x => !key.Contains(x.EmployeeNo.Substring(0,4))).ToList();
             }
+            if (Gfilter.Result != "")
+            {
+                var key2 = Gfilter.Result.Split(',');
+                Result = Result.Where(x => key2.Contains(x.EmployeeNo.Substring(0,4))).ToList();
+            }
+            return Result;
         }
         public filterobj getfilter(string Func,string cloumn,string PlusOrMinus,string tenant)
         {
