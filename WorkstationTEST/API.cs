@@ -43,7 +43,7 @@ namespace WorkstationTEST
                 using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
                 {
                     sIP = oTINI.getKeyValue("SYSTEM", "IP", "");
-                    sComport = "COM"+ oTINI.getKeyValue("SYSTEM", "NIG", "");
+                    sComport = "COM"+ oTINI.getKeyValue("SYSTEM", "COMPORT", "");
                     ndbip = oTINI.getKeyValue("SYSTEM", "Dbip", "");
                     Empdef = oTINI.getKeyValue("SYSTEM", "Empdef", "");
                     var to= oTINI.getKeyValue("SYSTEM", "Timeout", "");//暫存
