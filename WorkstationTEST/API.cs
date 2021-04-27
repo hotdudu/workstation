@@ -471,6 +471,7 @@ namespace WorkstationTEST
                 if (witemobj.Count > 0)
                 {
                     witemobj = witemobj.Where(x => !defarray.Contains(x.ShortName)).ToList();
+                    witemobj = Partner_Filter(tenantid.ToString(), witemobj);
                 }
                 foreach (var item in witemobj)
                 {
@@ -833,6 +834,25 @@ namespace WorkstationTEST
             {
                 var key2 = Gfilter.Result.Split(',');
                 Result = Result.Where(x => key2.Contains(x.EmployeeNo.Substring(0,4))).ToList();
+            }
+            return Result;
+        }
+        private List<Partner> Partner_Filter(string tid, List<Partner> orglist)
+        {
+            List<Partner> Result = orglist;
+            var name = "Partner";
+            var cloumn = "PartnerNo";
+            var Nfilter = getfilter(name, cloumn, "Not", tid);
+            var Gfilter = getfilter(name, cloumn, "Ok", tid);
+            if (Nfilter.Result != "")
+            {
+                var key = Nfilter.Result.Split(',');
+                Result = Result.Where(x => !key.Contains(x.PartnerNo)).ToList();
+            }
+            if (Gfilter.Result != "")
+            {
+                var key2 = Gfilter.Result.Split(',');
+                Result = Result.Where(x => key2.Contains(x.PartnerNo)).ToList();
             }
             return Result;
         }

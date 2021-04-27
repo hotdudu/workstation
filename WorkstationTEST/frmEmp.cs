@@ -21,19 +21,20 @@ namespace WorkstationTEST
                 DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
                 NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
                 DefCompany= oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+                ShowTenants= oTINI.getKeyValue("SYSTEM", "ShowTenants", "");
             }
             //tab = tab1;
         }
         delegate void loadtab(TabControl taba);
         public TabControl tab;
         List<Empm> getemp = new List<Empm>();
-        public string DepartNo = "";
-        public string NIG = "";
-        public string DefCompany = "";
+        public string DepartNo = "";//部門編號開頭
+        public string NIG = "";//不在部門內但要顯示的員工，目前僅能一位，要多位要改API
+        public string DefCompany = "";//預設公司
+        public string ShowTenants = "";//不同公司但員工姓名相同且身分證號相同的話是否開啟選擇畫面
         Dictionary<string, string> rtext = CreateElement.loadresx("WK");
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void frmEmpPageU_Click(object sender, EventArgs e)
@@ -222,13 +223,21 @@ namespace WorkstationTEST
             }
             else if(empinfos.Length==4)
             {
-                var rno = empinfos[2].Split(',');
-                var rten = empinfos[3].Split(',');
-                FormMultiTenant frmt = new FormMultiTenant();
-                frmt.setTenantm(rno,rten);
-                frmt.ShowDialog();
-                frmEmpshowno.Text = frmt.Eno;
-                empname.Text = empinfos[1];
+                if (ShowTenants == "1")
+                {
+                    var rno = empinfos[2].Split(',');
+                    var rten = empinfos[3].Split(',');
+                    FormMultiTenant frmt = new FormMultiTenant();
+                    frmt.setTenantm(rno,rten);
+                    frmt.ShowDialog();
+                    frmEmpshowno.Text = frmt.Eno;
+                    empname.Text = empinfos[1];
+                }
+                else if(ShowTenants=="0")
+                {
+                    frmEmpshowno.Text = empinfos[0];
+                    empname.Text = empinfos[1];
+                }
             }
             else
             {

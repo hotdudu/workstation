@@ -313,7 +313,7 @@ namespace WorkstationTEST
                         var insertScript = "SELECT * FROM WorkDayReports  WHERE PartnerId=@PartnerId  AND  isupdate=1 AND (isreturn=0 OR isreturn is null) Order by StartTime";
                         SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                         if (debug)
-                            MessageBox.Show("partnerid=" + PTSavePartnerId.Text);
+                            MessageBox.Show("partneridr=" +PTSavePartnerId.Text);
                         cmd.Parameters.AddWithValue("@PartnerId", PTSavePartnerId.Text);
                         conn.Open();
                         try
@@ -415,8 +415,9 @@ namespace WorkstationTEST
                     }
                     if (hidelist.Contains(prop.Name))
                     {
-                        var hnum = recordcount % 13;
-                        recordbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, true);
+                        var hnum = recordcount % 12;
+                        Console.WriteLine("hnum=" + thisbtnname + "-" + hnum);
+                        recordbtn = new CreateElement(thisbtnname+"-"+hnum, thisbtntext).CreateBtn(thisbtntext, isedit, 999, true);
                         recordbtn.Tag = recordbtn.Text;
                         recordbtn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
                         recordbtn.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -436,6 +437,7 @@ namespace WorkstationTEST
             int iCol = 0;
             int iRow = 0;
             int ItemsOneRow = displaylist.Count;
+            int recordrows = 8;
             int btnnum = 0;
             var empitemcount = 0;
             var keynum = 1;
@@ -474,7 +476,11 @@ namespace WorkstationTEST
             }
             foreach (var rbitem in btnrlist)
             {
-                iRow = keynum / ItemsOneRow;
+                iRow = keynum % recordrows;
+                if (keynum == recordrows)
+                {
+                    iRow = recordrows;
+                }
                 iCol = keynum % ItemsOneRow;
                 var prestr = "BTNfrmR";
                 empitemcount++;
@@ -699,9 +705,10 @@ namespace WorkstationTEST
             ptid = PTarray[1];
             ptname = PTarray[2];
             pcate = PTarray[0];
-
-            frmPTshowno.Text = ptno;
             frmPTname.Text = ptname;
+            PTSavePartnerId.Text = ptid;
+            frmPTshowno.Text = ptno;
+
             // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
             if (debug)
             {
@@ -1103,7 +1110,7 @@ namespace WorkstationTEST
             {
                 var up = tabPage1.Controls.Find("frmEmpPageU", true);
                 var down = tabPage1.Controls.Find("frmEmpPageD", true);
-                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10","F11" };
                 if (keyupper == "Return")
                 {
                     SendKeys.Send("{TAB}");
@@ -1123,7 +1130,7 @@ namespace WorkstationTEST
                     {
                         if (keyarray[i] == keyupper)
                         {
-                            var estr = "BTNfrmP" + (i + 1);
+                            var estr = "BTN-DayReportId-" + (i + 1);
                             Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
                             var tempbtn = tabPage2.Controls.Find(estr, true);
                             if (tempbtn.Length > 0)
@@ -1329,7 +1336,7 @@ namespace WorkstationTEST
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show("開啟掃描器異常");
+                    MessageBox.Show("開啟掃描器異常");
                 }
             }
 

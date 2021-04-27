@@ -17,15 +17,21 @@ namespace WorkstationTEST
         public frmPartner()
         {
             InitializeComponent();
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+            }
         }
         List<Partner> getwitem = new List<Partner>();
+        private string DefCompany = "";//預設公司
         private void frmPartner_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmPTbtnU, "Insert::Insert", "上一頁");
             setpageup.SetBtn(frmPTbtnD, "Delete::Delete", "下一頁");
-            getwitem = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(101);
+            int tid = int.Parse(DefCompany);
+            getwitem = new API("/CHG/Main/Home/getPartner/", "http://").GetPartner(tid);
             //Int32 tlpColumCount = PTPanel.ColumnCount;
             //Int32 tlpRowCount = PTPanel.RowCount;
             List<Button> btnemplist = new List<Button>();

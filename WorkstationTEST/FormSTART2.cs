@@ -35,7 +35,7 @@ namespace WorkstationTEST
         int tabpageheight = 400;
         // public string sIP;
         public string sComport = new API("x", "x").COMPORT;
-        public bool debug = true;
+        public bool debug = false;
         delegate void Display(Byte[] buffer);
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
         string lang = "";
