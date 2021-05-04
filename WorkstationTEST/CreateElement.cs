@@ -122,7 +122,7 @@ namespace WorkstationTEST
             btn.Name = bname;
             btn.LeftText = no;
             btn.Size = new Size(140, 140);
-            btn.Margin = new Padding(10);
+            btn.Margin = new Padding(5,0,5,0);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Tag = btext;
@@ -151,7 +151,7 @@ namespace WorkstationTEST
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
             btn.Size = new Size(160, 165);
-            btn.Margin = new Padding(20, 50, 20, 50);
+            btn.Margin = new Padding(20, 15, 20, 15);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Image = SetQR(qr, 80, 80, "QR");
@@ -192,7 +192,7 @@ namespace WorkstationTEST
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
             btn.Size = new Size(170, 150);
-            btn.Margin = new Padding(5, 20, 5, 20);
+            btn.Margin = new Padding(5, 15, 5, 15);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Image = SetQR(qr,80, 80, "QR");
@@ -207,7 +207,7 @@ namespace WorkstationTEST
             var qr = no + "::" + key;
             btn.LeftText = no + Environment.NewLine + name;
             btn.Size = new Size(190, 150);
-            btn.Margin = new Padding(0, 20, 0, 20);
+            btn.Margin = new Padding(0, 15, 0, 15);
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Image = SetQR(qr, 80, 80, "QR");

@@ -171,7 +171,7 @@ namespace WorkstationTEST
             this.Activate();
             this.KeyDown += new KeyEventHandler(mybutton_Click);
             var ip = "59.125.158.96";
-            ip = new API("", "").apiip;
+            ip = new API("", "").dbip;
             var sqlstat = "";
             var scanstat = "";
            // var com = "COM4";

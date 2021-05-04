@@ -37,6 +37,7 @@
             this.focust = new System.Windows.Forms.TextBox();
             this.save = new WorkstationTEST.XButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.ermsg = new System.Windows.Forms.TextBox();
             this.msgworktime = new System.Windows.Forms.Label();
             this.msgwork = new System.Windows.Forms.Label();
             this.msgbad = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.ermsg = new System.Windows.Forms.TextBox();
             frmNumbtnD = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -109,7 +109,7 @@
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.NumPanel.Location = new System.Drawing.Point(12, 150);
+            this.NumPanel.Location = new System.Drawing.Point(0, 110);
             this.NumPanel.Margin = new System.Windows.Forms.Padding(1);
             this.NumPanel.Name = "NumPanel";
             this.NumPanel.RowCount = 3;
@@ -184,6 +184,20 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(359, 341);
             this.panel3.TabIndex = 33;
+            // 
+            // ermsg
+            // 
+            this.ermsg.BackColor = System.Drawing.SystemColors.Control;
+            this.ermsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ermsg.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.ermsg.ForeColor = System.Drawing.Color.Red;
+            this.ermsg.Location = new System.Drawing.Point(11, 249);
+            this.ermsg.Multiline = true;
+            this.ermsg.Name = "ermsg";
+            this.ermsg.Size = new System.Drawing.Size(330, 79);
+            this.ermsg.TabIndex = 25;
+            this.ermsg.TabStop = false;
+            this.ermsg.Visible = false;
             // 
             // msgworktime
             // 
@@ -336,20 +350,6 @@
             this.label4.TabIndex = 34;
             this.label4.Text = "label4";
             this.label4.Visible = false;
-            // 
-            // ermsg
-            // 
-            this.ermsg.BackColor = System.Drawing.SystemColors.Control;
-            this.ermsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ermsg.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.ermsg.ForeColor = System.Drawing.Color.Red;
-            this.ermsg.Location = new System.Drawing.Point(11, 249);
-            this.ermsg.Multiline = true;
-            this.ermsg.Name = "ermsg";
-            this.ermsg.Size = new System.Drawing.Size(330, 79);
-            this.ermsg.TabIndex = 25;
-            this.ermsg.TabStop = false;
-            this.ermsg.Visible = false;
             // 
             // frmWorkTime2
             // 

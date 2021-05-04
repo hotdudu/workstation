@@ -271,7 +271,7 @@ namespace WorkstationTEST
             var itemj = 0;
             var dayid = "";
             var headlist = new List<string> { "工令", "產品編號", "規格", "製程", "", "加工日期", "外包數", "單位", "外包單號", "完成"+Environment.NewLine+"數", "不良"+Environment.NewLine+"數", "執行" };
-            var widthlist = new List<int> { 110, 110, 110, 60, 80, 110, 80, 60, 135, 60, 60,135 };
+            var widthlist = new List<int> { 110, 110, 110, 60, 80, 110, 80, 60, 135, 60, 60,145 };
             var displaylist = new List<string> { "MakeNo", "AssetsNo", "Specification", "WorkNo", "WorkName", "WorkDate", "CompleteQty", "UseUnits", "OutNo", "RCompleteQty", "RBadQty" };
             var editlist = new string[] { "RCompleteQty", "RBadQty" };
             var hidelist = new string[] { "DayReportId" };
@@ -569,7 +569,7 @@ namespace WorkstationTEST
                         {
                             actbutton[0].Text = outlist[ui].ToString();
                             actbutton[0].BackColor = Color.Gray;
-                            actbutton[0].Size = new Size(100, 50);
+                            actbutton[0].Size = new Size(140, 50);
                         }
 
 
