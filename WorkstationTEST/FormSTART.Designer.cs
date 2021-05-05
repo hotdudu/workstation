@@ -40,7 +40,17 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.button3 = new WorkstationTEST.XButton();
             this.button4 = new WorkstationTEST.XButton();
+            this.frmEmpshowno = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.empname = new System.Windows.Forms.TextBox();
+            this.frmEmpRecordT = new System.Windows.Forms.Label();
+            this.EMPSave1 = new System.Windows.Forms.TextBox();
+            this.frmEmpRecordnow = new System.Windows.Forms.Label();
+            this.frmEmpPageD = new WorkstationTEST.XButton();
+            this.frmEmpPageU = new WorkstationTEST.XButton();
+            this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
@@ -97,6 +107,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.frmEmpshowno);
             this.tabPage1.Font = new System.Drawing.Font("新細明體", 9F);
             this.tabPage1.Location = new System.Drawing.Point(4, 43);
             this.tabPage1.Name = "tabPage1";
@@ -169,11 +181,95 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // frmEmpshowno
+            // 
+            this.frmEmpshowno.Location = new System.Drawing.Point(193, 13);
+            this.frmEmpshowno.Name = "frmEmpshowno";
+            this.frmEmpshowno.Size = new System.Drawing.Size(100, 22);
+            this.frmEmpshowno.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.empname);
+            this.panel1.Controls.Add(this.frmEmpRecordT);
+            this.panel1.Controls.Add(this.EMPSave1);
+            this.panel1.Controls.Add(this.frmEmpRecordnow);
+            this.panel1.Controls.Add(this.frmEmpPageD);
+            this.panel1.Controls.Add(this.frmEmpPageU);
+            this.panel1.Location = new System.Drawing.Point(0, 44);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1188, 487);
+            this.panel1.TabIndex = 8;
+            // 
+            // empname
+            // 
+            this.empname.CausesValidation = false;
+            this.empname.Location = new System.Drawing.Point(609, 487);
+            this.empname.Name = "empname";
+            this.empname.Size = new System.Drawing.Size(100, 22);
+            this.empname.TabIndex = 17;
+            this.empname.Visible = false;
+            // 
+            // frmEmpRecordT
+            // 
+            this.frmEmpRecordT.AutoSize = true;
+            this.frmEmpRecordT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpRecordT.Location = new System.Drawing.Point(206, 490);
+            this.frmEmpRecordT.Name = "frmEmpRecordT";
+            this.frmEmpRecordT.Size = new System.Drawing.Size(85, 12);
+            this.frmEmpRecordT.TabIndex = 16;
+            this.frmEmpRecordT.Text = "frmEmpRecordT";
+            this.frmEmpRecordT.Visible = false;
+            // 
+            // EMPSave1
+            // 
+            this.EMPSave1.CausesValidation = false;
+            this.EMPSave1.Location = new System.Drawing.Point(453, 487);
+            this.EMPSave1.Name = "EMPSave1";
+            this.EMPSave1.Size = new System.Drawing.Size(100, 22);
+            this.EMPSave1.TabIndex = 15;
+            this.EMPSave1.Visible = false;
+            // 
+            // frmEmpRecordnow
+            // 
+            this.frmEmpRecordnow.AutoSize = true;
+            this.frmEmpRecordnow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpRecordnow.Location = new System.Drawing.Point(56, 490);
+            this.frmEmpRecordnow.Name = "frmEmpRecordnow";
+            this.frmEmpRecordnow.Size = new System.Drawing.Size(98, 12);
+            this.frmEmpRecordnow.TabIndex = 14;
+            this.frmEmpRecordnow.Text = "frmEmpRecordnow";
+            this.frmEmpRecordnow.Visible = false;
+            // 
+            // frmEmpPageD
+            // 
+            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageD.LeftText = null;
+            this.frmEmpPageD.Location = new System.Drawing.Point(1149, 401);
+            this.frmEmpPageD.Name = "frmEmpPageD";
+            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageD.TabIndex = 13;
+            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageD.TopText = null;
+            this.frmEmpPageD.UseVisualStyleBackColor = true;
+            // 
+            // frmEmpPageU
+            // 
+            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageU.LeftText = null;
+            this.frmEmpPageU.Location = new System.Drawing.Point(1150, 10);
+            this.frmEmpPageU.Name = "frmEmpPageU";
+            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageU.TabIndex = 12;
+            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageU.TopText = null;
+            this.frmEmpPageU.UseVisualStyleBackColor = true;
+            // 
             // FormSTART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1246, 643);
+            this.ClientSize = new System.Drawing.Size(1415, 688);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -183,7 +279,11 @@
             this.Text = "FormSTART";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSTART_FormClosed);
             this.Load += new System.EventHandler(this.FormSTART_Load);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -201,5 +301,13 @@
         private System.Windows.Forms.TabPage tabPage3;
         private XButton button3;
         private XButton button4;
+        private System.Windows.Forms.TextBox frmEmpshowno;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox empname;
+        private System.Windows.Forms.Label frmEmpRecordT;
+        private System.Windows.Forms.TextBox EMPSave1;
+        private System.Windows.Forms.Label frmEmpRecordnow;
+        private XButton frmEmpPageD;
+        private XButton frmEmpPageU;
     }
 }

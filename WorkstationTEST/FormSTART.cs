@@ -25,6 +25,13 @@ namespace WorkstationTEST
         public FormSTART(frmMenu fmenu)
         {
             InitializeComponent();
+            using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
+            {
+                DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
+                NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+                ShowTenants = oTINI.getKeyValue("SYSTEM", "ShowTenants", "");
+            }
             this.Tag = fmenu;
             this.KeyPreview = true;
             this.Activate();
@@ -38,6 +45,14 @@ namespace WorkstationTEST
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
         delegate void Display(Byte[] buffer);
 
+        //emp start
+        List<Empm> getemp = new List<Empm>();
+        public string DepartNo = "";//部門編號開頭
+        public string NIG = "";//不在部門內但要顯示的員工，目前僅能一位，要多位要改API
+        public string DefCompany = "";//預設公司
+        public string ShowTenants = "";//不同公司但員工姓名相同且身分證號相同的話是否開啟選擇畫面
+        Dictionary<string, string> rtext2 = CreateElement.loadresx("WK");
+        //emp end
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((sender as TabControl).SelectedIndex)
@@ -151,7 +166,52 @@ namespace WorkstationTEST
             // { SerialPort_DataReceived(dsender, de, emp[0]); };
             openseria();
         }
+        private void setemp()
+        {
+            var setpageup = new CreateElement();
+            setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
+            setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext["frmWKbtnD"]);
+            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DefCompany, DepartNo, NIG);
+            if (getemp.Count() > 0)
+            {
+                int iSpace = 5;
+                int iCol = 0;
+                int iRow = 0;
+                int ItemsOneRow = 5;
+                int totalitem = 10;
+                int btnnum = 0;
+                var empitemcount = 0;
+                var keynum = 0;
+                foreach (var empitem in getemp)
+                {
+                    iRow = keynum / ItemsOneRow;
+                    iCol = keynum % ItemsOneRow;
+                    var prestr = "BTNfrmEmp";
+                    empitemcount++;
+                    if (btnnum + 1 > totalitem)
+                    {
+                        btnnum = 0;
+                    }
+                    btnnum++;
+                    keynum++;
+                    var btnkey = "F" + btnnum;
+                    var poststr = empitemcount.ToString("##");
+                    var thisbtnname = prestr + poststr;
+                    var thisbtntext = empitem.FullName;
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnWithXY(empitem.EmployeeNo, thisbtntext, empitem.EmployeeId, btnkey, iRow, iCol, iSpace, EMPPanel);
 
+                    empbtn = sethandlerEmp(empbtn);
+                    if (keynum > totalitem)
+                    {
+                        empbtn.Visible = false;
+                    }
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
+                    // btnemplist.Add(empbtn);
+                }
+                frmEmpRecordnow.Text = "0";
+            }
+        }
         private void mybutton_Click(object sender, KeyEventArgs e)
         {
             Console.WriteLine("keycoe=" + e.KeyCode);
