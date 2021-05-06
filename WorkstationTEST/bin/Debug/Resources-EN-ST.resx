@@ -187,10 +187,10 @@
     <value>Employee</value>
   </data>
   <data name="tabPage2" xml:space="preserve">
-    <value>WorkOrder</value>
+    <value>Machine</value>
   </data>
   <data name="tabPage3" xml:space="preserve">
-    <value>WorkTime</value>
+    <value>WorkOrder</value>
   </data>
   <data name="worktime" xml:space="preserve">
     <value>WorkTime</value>

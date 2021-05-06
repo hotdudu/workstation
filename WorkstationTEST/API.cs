@@ -112,6 +112,46 @@ namespace WorkstationTEST
             COMPORT = sComport;
             timeout = apitimeout;
         }
+
+        public List<Machine> GetMachine(string tenantid)
+        {
+            var load = new loading();
+            load.Show();
+            var client = new HttpClient();
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("tenantid",tenantid)
+                })
+            };//"http://localhost:56893/CHG/Main/Home/getEmployee/"
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+            List<Machine> machineobj = new List<Machine>();
+            var defemplist = Empdef.Split(',');
+            if (res.StatusCode.ToString() == "OK")
+            {
+                //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                // var Result = JsonConvert.SerializeObject(MS);
+                machineobj = JsonConvert.DeserializeObject<List<Machine>>(res.Content.ReadAsStringAsync().Result);
+                Console.WriteLine("def=" + defemplist.Length);
+                foreach (var item in machineobj)
+                {
+                    Console.WriteLine("Machine=" + item.SubNo);
+                }
+                load.Close();
+            }
+            else
+            {
+                load.Close();
+                MessageBox.Show("伺服器連線異常");
+                Console.WriteLine("伺服器連線異常");
+            }
+            return machineobj;
+        }
+
         public List<Emp> GetEmp()
         {
             var load = new loading();
@@ -1071,6 +1111,16 @@ namespace WorkstationTEST
         public string ShortName { get; set; }
         public string GroupId { get; set; }
         public string Alias { get; set; }
+    }
+    public class Machine
+    {
+        public Guid AssetsItemId { get; set; }
+        public string AssetsName { get; set; }
+        public string SubNo { get; set; }
+        public string Specification { get; set; }
+        public int UseYear { get; set; }
+        public string AssetsRemark { get; set; }
+        public int TenantId { get; set; }
     }
     public class ComboboxItem
     {

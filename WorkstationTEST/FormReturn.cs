@@ -757,7 +757,7 @@ namespace WorkstationTEST
             var totoalrow = Math.Ceiling(EMPPanel.Controls.Count / (decimal)totalitem);
             nowrow++;
             if (nowrow < totoalrow)
-                EMPPanel.Text = nowrow.ToString();
+                frmEmpRecordnow.Text = nowrow.ToString();
             var startnum = nowrow * totalitem + 1;
             var endnum = (nowrow + 1) * totalitem;
             var npoint = 0;

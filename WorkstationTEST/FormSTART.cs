@@ -31,6 +31,7 @@ namespace WorkstationTEST
                 NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
                 DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
                 ShowTenants = oTINI.getKeyValue("SYSTEM", "ShowTenants", "");
+                ShowMachine = int.Parse(oTINI.getKeyValue("SYSTEM", "ShowMachine", ""));
             }
             this.Tag = fmenu;
             this.KeyPreview = true;
@@ -43,47 +44,54 @@ namespace WorkstationTEST
         // public string sIP;
         public string sComport = new API("x", "x").COMPORT;
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
+        Dictionary<string, string> rtext2 = CreateElement.loadresx("WK");
+
         delegate void Display(Byte[] buffer);
 
         //emp start
         List<Empm> getemp = new List<Empm>();
+        List<Machine> getemachine = new List<Machine>();
+        List<Workitem> getwitem = new List<Workitem>();
+        List<WorkOrder> getworkorder = new List<WorkOrder>();
+        bool debug = false;
         public string DepartNo = "";//部門編號開頭
         public string NIG = "";//不在部門內但要顯示的員工，目前僅能一位，要多位要改API
         public string DefCompany = "";//預設公司
         public string ShowTenants = "";//不同公司但員工姓名相同且身分證號相同的話是否開啟選擇畫面
-        Dictionary<string, string> rtext2 = CreateElement.loadresx("WK");
+        public int ShowMachine = 0;//是否顯示設備，以數字型別與Selectindex相加
         //emp end
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((sender as TabControl).SelectedIndex)
             {
                 case 0:
-                    var frmEmp = new frmEmp();
-                    frmEmp.TopLevel = false;
-                    frmEmp.Visible = true;
-                    tabPage1.Controls.Add(frmEmp);
-                    Console.WriteLine("1." + ActiveControl.Name);
+                    /* var frmEmp = new frmEmp();
+                     frmEmp.TopLevel = false;
+                     frmEmp.Visible = true;
+                     tabPage1.Controls.Add(frmEmp);
+                     Console.WriteLine("1." + ActiveControl.Name);*/
+                    //showemp();
                     break;
                 case 1:
-                    var frmWK = new frmWorkOrder();
-                    frmWK.TopLevel = false;
-                    frmWK.Visible = true;
-                    frmWK.Height = tabControl1.Height - 50;
-                    frmWK.Width = tabControl1.Width - 50;
-                    var empbtnu = frmWK.Controls.Find("frmWKbtnU", true);
-                    var empbtnd = frmWK.Controls.Find("frmWKbtnD", true);
-                    var empsave = frmWK.Controls.Find("WKsave", true);
-                    empbtnu[0].Location = new Point(frmWK.Width - 200, empbtnu[0].Location.Y);
-                    empbtnd[0].Location = new Point(frmWK.Width - 200, empbtnd[0].Location.Y);
-                    empsave[0].Location = new Point(frmWK.Width - 200, empbtnu[0].Location.Y - empbtnu[0].Height-20);
-                    tabPage2.Controls.Add(frmWK);
-                    var wk = frmWK.Controls.Find("frmWKWorkitem", false);
-                    var mk = tabPage2.Controls.Find("frmWKMakeno",true);
-                     ActiveControl = mk[0];
-                    var save = frmWK.Controls.Find("WKsave", false);
-                    save[0].Click += new EventHandler(gettabsave);
-                    wk[0].TextChanged += new EventHandler(gettab2);
-                    //mk[0].TextChanged += new EventHandler(gettabnowo);
+                    /* var frmWK = new frmWorkOrder();
+                     frmWK.TopLevel = false;
+                     frmWK.Visible = true;
+                     frmWK.Height = tabControl1.Height - 50;
+                     frmWK.Width = tabControl1.Width - 50;
+                     var empbtnu = frmWK.Controls.Find("frmWKbtnU", true);
+                     var empbtnd = frmWK.Controls.Find("frmWKbtnD", true);
+                     var empsave = frmWK.Controls.Find("WKsave", true);
+                     empbtnu[0].Location = new Point(frmWK.Width - 200, empbtnu[0].Location.Y);
+                     empbtnd[0].Location = new Point(frmWK.Width - 200, empbtnd[0].Location.Y);
+                     empsave[0].Location = new Point(frmWK.Width - 200, empbtnu[0].Location.Y - empbtnu[0].Height-20);
+                     tabPage2.Controls.Add(frmWK);
+                     var wk = frmWK.Controls.Find("frmWKWorkitem", false);
+                     var mk = tabPage2.Controls.Find("frmWKMakeno",true);
+                      ActiveControl = mk[0];
+                     var save = frmWK.Controls.Find("WKsave", false);
+                     save[0].Click += new EventHandler(gettabsave);
+                     wk[0].TextChanged += new EventHandler(gettab2);*/
+                    showmachine();
                     break;
                 case 2:
                    /* var frmWorkTime = new frmWorkTime();
@@ -136,37 +144,114 @@ namespace WorkstationTEST
             this.tabControl1.Width = this.fullwidth - 10;
             this.tabPage1.Text = rtext[tabPage1.Name];
             this.tabPage2.Text = rtext[tabPage2.Name];
+            this.tabPage3.Text = rtext[tabPage3.Name];
             Console.WriteLine("fw=" + fullwidth + ",fh=" + fullheight + ",ch=" + this.tabpageheight);
-            var setpageup = new CreateElement();           
-            setpageup.SetBtn(button1, "PageUp::PageUp", rtext[button1.Name]);
-            setpageup.SetBtn(button2, "PageDown::Next", rtext[button2.Name]);
-            setpageup.SetBtn(button3, "Home::Home", rtext[button3.Name]);
-            setpageup.SetBtn2(button4, "Escape::Escape", rtext[button4.Name]);
-            var frmEmp = new frmEmp();
-            frmEmp.TopLevel = false;
-            frmEmp.Visible = true;
-            frmEmp.Height = tabControl1.Height - 50;
-            frmEmp.Width = tabControl1.Width - 50;
-            var empbtnu = frmEmp.Controls.Find("frmEmpPageU", true);
-            var empbtnd = frmEmp.Controls.Find("frmEmpPageD", true);
-            empbtnu[0].Location = new Point(frmEmp.Width - 200, empbtnu[0].Location.Y);
-            empbtnd[0].Location = new Point(frmEmp.Width - 200, empbtnd[0].Location.Y);
-            tabPage1.Controls.Add(frmEmp);
-            //tabPage1.KeyPress += new KeyPressEventHandler(mybutton_Click);
-            //ActiveControl = tabPage1;
-            var emp = frmEmp.Controls.Find("frmEmpshowno", false);
-            //ActiveControl = emp[0];
-            // FindFocusedControl(this);
-            emp[0].TextChanged += new EventHandler(gettab);
-            // object c = emp[0];
-            // SerialPort serRec = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
-            // serRec.Open();
-            // openseria();
-            // serialPort1.DataReceived+= delegate (object dsender, SerialDataReceivedEventArgs de)
-            // { SerialPort_DataReceived(dsender, de, emp[0]); };
+             var setpageup = new CreateElement();           
+             setpageup.SetBtn(button1, "PageUp::PageUp", rtext[button1.Name]);
+             setpageup.SetBtn(button2, "PageDown::Next", rtext[button2.Name]);
+             setpageup.SetBtn(button3, "Home::Home", rtext[button3.Name]);
+             setpageup.SetBtn2(button4, "Escape::Escape", rtext[button4.Name]);
+            /* var frmEmp = new frmEmp();
+             frmEmp.TopLevel = false;
+             frmEmp.Visible = true;
+             frmEmp.Height = tabControl1.Height - 50;
+             frmEmp.Width = tabControl1.Width - 50;
+             var empbtnu = frmEmp.Controls.Find("frmEmpPageU", true);
+             var empbtnd = frmEmp.Controls.Find("frmEmpPageD", true);
+             empbtnu[0].Location = new Point(frmEmp.Width - 200, empbtnu[0].Location.Y);
+             empbtnd[0].Location = new Point(frmEmp.Width - 200, empbtnd[0].Location.Y);
+             tabPage1.Controls.Add(frmEmp);
+             var emp = frmEmp.Controls.Find("frmEmpshowno", false);
+             emp[0].TextChanged += new EventHandler(gettab);*/
+            showemp();
             openseria();
         }
-        private void setemp()
+        private void frmMachinePageU_Click(object sender, EventArgs e)
+        {
+            btup(machinepanel, frmMachineRecordnow);
+        }
+
+        private void frmMachinePageD_Click(object sender, EventArgs e)
+        {
+            btndown(machinepanel, frmMachineRecordnow);
+
+        }
+
+        private void frmEmpPageU_Click(object sender, EventArgs e)
+        {
+            btup(EMPPanel, frmEmpRecordnow);
+        }
+        private void frmEmpPageD_Click(object sender, EventArgs e)
+        {
+            btndown(EMPPanel, frmEmpRecordnow);
+        }
+        private void btup(Panel Panel, Control recordnow)
+        {
+            var nowrow = 0;
+            var tempn = int.TryParse(recordnow.Text, out nowrow);
+            var totalitem = 10;
+            if (nowrow > 0)
+                nowrow--;
+            recordnow.Text = nowrow.ToString();
+            var startnum = nowrow * totalitem + 1;
+            var endnum = (nowrow + 1) * totalitem;
+            var npoint = 0;
+            foreach (Control contr in Panel.Controls)
+            {
+                npoint++;
+                if (npoint >= startnum && npoint <= endnum && npoint <= Panel.Controls.Count)
+                {
+                    contr.Visible = true;
+                }
+                else
+                {
+                    contr.Visible = false;
+                }
+            }
+
+            var height = Panel.Height;
+            var vheight = nowrow * Panel.Height;
+            if (vheight - (height) < Panel.VerticalScroll.Minimum)
+            { Panel.VerticalScroll.Value = Panel.VerticalScroll.Minimum; }
+            else
+            { Panel.VerticalScroll.Value = vheight; }
+            Panel.PerformLayout();
+        }
+        private void btndown(Panel Panel,Control recordnow)
+        {
+            var nowrow = 0;
+            var tempn = int.TryParse(recordnow.Text, out nowrow);
+            var totalitem = 10;
+            var totoalrow = Math.Ceiling(Panel.Controls.Count / (decimal)totalitem);
+            nowrow++;
+            if (nowrow < totoalrow)
+                recordnow.Text = nowrow.ToString();
+            var startnum = nowrow * totalitem + 1;
+            var endnum = (nowrow + 1) * totalitem;
+            var npoint = 0;
+            var height = Panel.Height;
+            var vheight = Panel.Height * nowrow;
+            if (nowrow < totoalrow)
+            {
+                foreach (Control contr in Panel.Controls)
+                {
+                    npoint++;
+                    Console.Write("ptype=" + contr.GetType() + "," + Panel.Controls.Count);
+                    if (npoint >= startnum && npoint <= endnum && npoint <= Panel.Controls.Count)
+                    {
+                        contr.Visible = true;
+                    }
+                    else
+                    {
+                        contr.Visible = false;
+                    }
+                }
+                Panel.VerticalScroll.Value = vheight;
+                Panel.PerformLayout();
+            }
+
+        }
+        private void showemp()
         {
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext["frmWKbtnU"]);
@@ -198,8 +283,22 @@ namespace WorkstationTEST
                     var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.FullName;
-                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnWithXY(empitem.EmployeeNo, thisbtntext, empitem.EmployeeId, btnkey, iRow, iCol, iSpace, EMPPanel);
-
+                    var rlist = empitem.Rlist;
+                    var IsMultiple = false;
+                    var rno = "";
+                    var rtenant = "";
+                    if (rlist.Count > 1)
+                    {
+                        IsMultiple = true;
+                        var ri = 0;
+                        foreach (var ritem in rlist)
+                        {
+                            rno += (ri == 0 ? ritem.no : "," + ritem.no);
+                            rtenant += (ri == 0 ? ritem.tenant : "," + ritem.tenant);
+                            ri++;
+                        }
+                    }
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnm_panel(empitem.EmployeeNo, thisbtntext, empitem.EmployeeId, btnkey, IsMultiple, rno, rtenant, iRow, iCol, iSpace, EMPPanel);
                     empbtn = sethandlerEmp(empbtn);
                     if (keynum > totalitem)
                     {
@@ -211,7 +310,201 @@ namespace WorkstationTEST
                 }
                 frmEmpRecordnow.Text = "0";
             }
+            frmEmpshowno.TextChanged += new EventHandler(gettab);
         }
+
+        private void showmachine()
+        {
+            var setpageup = new CreateElement();
+            setpageup.SetBtn(frmMachinePageU, "Insert::Insert", rtext["frmWKbtnU"]);
+            setpageup.SetBtn(frmMachinePageD, "Delete::Delete", rtext["frmWKbtnD"]);
+            getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(DefCompany);
+            if (getemachine.Count() > 0)
+            {
+                int iSpace = 5;
+                int iCol = 0;
+                int iRow = 0;
+                int ItemsOneRow = 5;
+                int totalitem = 10;
+                int btnnum = 0;
+                var empitemcount = 0;
+                var keynum = 0;
+                foreach (var empitem in getemachine)
+                {
+                    iRow = keynum / ItemsOneRow;
+                    iCol = keynum % ItemsOneRow;
+                    var prestr = "BTNfrmMachine";
+                    empitemcount++;
+                    if (btnnum + 1 > totalitem)
+                    {
+                        btnnum = 0;
+                    }
+                    btnnum++;
+                    keynum++;
+                    var btnkey = "F" + btnnum;
+                    var poststr = empitemcount.ToString("##");
+                    var thisbtnname = prestr + poststr;
+                    var thisbtntext = empitem.AssetsName;
+                    var rno = "";
+                    var rtenant = "";
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateMachine(empitem.SubNo, thisbtntext, empitem.AssetsItemId, btnkey, iRow, iCol, iSpace,machinepanel);
+                    empbtn = sethandlerMachine(empbtn);
+                    if (keynum > totalitem)
+                    {
+                        empbtn.Visible = false;
+                    }
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
+                    // btnemplist.Add(empbtn);
+                }
+                frmMachineRecordnow.Text = "0";
+                frmMachineshowno.TextChanged += new EventHandler(gettabM);
+            }
+        }
+
+        private void showworkorder()
+        {
+            WKSaveTenantId.Text = DefCompany;
+            Dictionary<string, string> rtext = CreateElement.loadresx("WK");
+            label13.Text = rtext[label13.Name];
+            label1.Text = rtext[label1.Name];
+            label2.Text = rtext[label2.Name];
+            label4.Text = rtext[label4.Name];
+            label5.Text = rtext[label5.Name];
+            label7.Text = rtext[label7.Name];
+            label9.Text = rtext[label9.Name];
+            label12.Text = rtext[label12.Name];
+            label21.Text = rtext[label21.Name];
+            infotitle.Text = rtext[infotitle.Name];
+            labelname.Text = rtext[labelname.Name];
+            //ActiveControl = frmWKMakeno;
+            Console.WriteLine("frmWKload");
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            var setpageup = new CreateElement();
+            setpageup.SetBtn((XButton)frmWKPagrU, "Insert::Insert", rtext[frmWKPagrU.Name]);
+            setpageup.SetBtn((XButton)frmWKPageD, "Delete::Delete", rtext[frmWKPageD.Name]);
+            setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext[WKsave.Name]);
+
+            getwitem.Clear();
+            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+            if (getwitem.Count > 0)
+            {
+                WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
+                frmWKMakeno.Tag = WKSaveWorderId.Text;
+            }
+            List<Button> btnemplist = new List<Button>();
+            if (getwitem.Count() > 0)
+            {
+                int iSpace = 5;
+                int iCol = 0;
+                int iRow = 0;
+                int ItemsOneRow = 5;
+                int totalitem = 10;
+                int btnnum = 0;
+                var empitemcount = 0;
+                var keynum = 0;
+                foreach (var empitem in getwitem)
+                {
+                    iRow = keynum / ItemsOneRow;
+                    iCol = keynum % ItemsOneRow;
+                    var prestr = "BTNfrmEmp";
+                    empitemcount++;
+                    if (btnnum + 1 > totalitem)
+                    {
+                        btnnum = 0;
+                    }
+                    btnnum++;
+                    keynum++;
+                    var btnkey = "F" + btnnum;
+                    var poststr = empitemcount.ToString("##");
+                    var thisbtnname = prestr + poststr;
+                    var thisbtntext = empitem.WorkName;
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtnWithXY(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey, iRow, iCol, iSpace, WKPanel);
+                    empbtn = sethandlerD(empbtn);
+                    if (keynum > totalitem)
+                    {
+                        empbtn.Visible = false;
+                    }
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
+                    btnemplist.Add(empbtn);
+                }
+                frmWKRecordnow.Text = "0";
+                Console.WriteLine("record=" + frmWKRecordnow.Text);
+            }
+
+        }
+        public void newSetEmpNO(string info)
+        {
+            var empinfos = info.Split(':');
+            if (empinfos.Length == 2)
+            {
+                frmEmpshowno.Text = empinfos[0];
+                empname.Text = empinfos[1];
+            }
+            else if (empinfos.Length == 4)
+            {
+                if (ShowTenants == "1")
+                {
+                    var rno = empinfos[2].Split(',');
+                    var rten = empinfos[3].Split(',');
+                    FormMultiTenant frmt = new FormMultiTenant();
+                    frmt.setTenantm(rno, rten);
+                    frmt.ShowDialog();
+                    frmEmpshowno.Text = frmt.Eno;
+                    empname.Text = empinfos[1];
+                }
+                else if (ShowTenants == "0")
+                {
+                    frmEmpshowno.Text = empinfos[0];
+                    empname.Text = empinfos[1];
+                }
+            }
+            else
+            {
+                frmEmpshowno.Text = info;
+            }
+
+        }
+        public Button sethandlerEmp(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(newbtnEMPALL_Click);
+            return sbt;
+        }
+
+        private void newbtnEMPALL_Click(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            newSetEmpNO(tmpButton.Tag.ToString());
+        }
+
+        public void SetMachineNO(string info)
+        {
+            var empinfos = info.Split(':');
+            if (empinfos.Length == 2)
+            {
+                frmMachineshowno.Text = empinfos[0];
+            }
+            else
+            {
+                frmMachineshowno.Text = info;
+            }
+
+        }
+        public Button sethandlerMachine(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(btnMachine_Click);
+            return sbt;
+        }
+
+        private void btnMachine_Click(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            SetMachineNO(tmpButton.Tag.ToString());
+        }
+
         private void mybutton_Click(object sender, KeyEventArgs e)
         {
             Console.WriteLine("keycoe=" + e.KeyCode);
@@ -229,7 +522,6 @@ namespace WorkstationTEST
 
         public void openseria()
         {
-
             serialPort1.PortName = sComport;
             serialPort1.BaudRate = 115200;
             serialPort1.DataBits = 8;
@@ -317,21 +609,36 @@ namespace WorkstationTEST
         }
         private void gettab(object sender, EventArgs e)
         {
-            var gempo = tabPage1.Controls.Find("frmEmpshowno", true);
-            if (gempo[0].Text == "")
+            var nowindex = this.tabControl1.SelectedIndex;
+            if (frmEmpshowno.Text == "")
             {
                 this.tabControl1.SelectedTab = tabPage1;
             }
             else
             {
-                this.tabControl1.SelectedTab = tabPage2;
+                this.tabControl1.SelectedIndex = nowindex+ShowMachine;
             }
             
 
-            Console.WriteLine("tab1 name=" + this.tabControl1.SelectedTab.Name+","+ gempo[0].Text);
+            Console.WriteLine("tab1 name=" + this.tabControl1.SelectedTab.Name+","+ frmEmpshowno.Text);
 
         }
+        private void gettabM(object sender, EventArgs e)
+        {
+            var nowindex = this.tabControl1.SelectedIndex;
+            if (frmMachineshowno.Text == "")
+            {
+                //this.tabControl1.SelectedTab = tabPage1;
+            }
+            else
+            {
+                this.tabControl1.SelectedTab = tabPage3;
+            }
 
+
+            Console.WriteLine("tab1 name=" + this.tabControl1.SelectedTab.Name + "," + frmEmpshowno.Text);
+
+        }
         private void gettabnowo(object sender, EventArgs e)
         {
 
@@ -417,7 +724,6 @@ namespace WorkstationTEST
             int.TryParse(WKSaveTenantId[0].Text, out tid);
             if(workid[0].Text == "")
             {
-
                 info[0].Text=rtext["notselect"];
                 info[0].ForeColor = Color.Crimson;
             }
@@ -672,23 +978,22 @@ namespace WorkstationTEST
             }
             if (t == 0)
             {
-                var up = tabPage1.Controls.Find("frmEmpPageU", true);
-                var down = tabPage1.Controls.Find("frmEmpPageD", true);
+                var up = frmEmpPageU;
+                var down = frmEmpPageD;
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
-
                 if (keyupper == "Delete")
                 {
-                    ((Button)down[0]).PerformClick();
+                    down.PerformClick();
                 }
                 if (keyupper == "Insert")
                 {
-                    ((Button)up[0]).PerformClick();
+                    up.PerformClick();
                 }
                 if (isp)
                 {
-                   var saveno= tabPage1.Controls.Find("frmEmpshowno", true);
+                    var saveno = frmEmpshowno;
                    var infoarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
-                    saveno[0].Text = infoarray[0];
+                    saveno.Text = infoarray[0];
                 }
                 else
                 {
@@ -713,7 +1018,7 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 1)
+            if (t == 2)
             {
                 var mk = tabPage2.Controls.Find("frmWKMakeno", false);
                 var up = tabPage2.Controls.Find("frmWKbtnU", true);
@@ -894,49 +1199,42 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 2)
+            if (t == 1)//設備
             {
-                if (keyupper == "Return")
+                var upm = frmMachinePageU;
+                var downm = frmMachinePageD;
+                string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
+                if (keyupper == "Delete")
                 {
-                    button2.PerformClick();
+                    downm.PerformClick();
                 }
-                string clearkey = "Divide";
-                string[] keyarray = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
+                if (keyupper == "Insert")
+                {
+                    upm.PerformClick();
+                }
                 if (isp)
                 {
-                    var wkno = tabPage3.Controls.Find("frmNumshowno", true);
-                    var winfo = data.Split(new string[] { "::" }, StringSplitOptions.None);
-                    wkno[0].Text = winfo[0];
+                    var saveno = frmMachineshowno;
+                    var infoarray = data.Split(new string[] { "::" }, StringSplitOptions.None);
+                    saveno.Text = infoarray[0];
                 }
                 else
                 {
                     if (keyarray.Contains(keyupper))
                     {
-                        Console.WriteLine("kc"+","+t);
+                        Console.WriteLine("kc");
                         for (var i = 0; i < keyarray.Length; i++)
                         {
                             if (keyarray[i] == keyupper)
                             {
-                                var estr = "BTNfrmEmp" + (i + 1);
+                                var estr = "BTNfrmMachine" + (i + 1);
                                 Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
-                                if(keyupper== clearkey)
+                                var tempbtn = tabPage2.Controls.Find(estr, true);
+                                if (tempbtn.Length > 0)
                                 {
-                                    var numno = tabPage3.Controls.Find("frmNumshowno", true);
-                                    if (numno.Length > 0)
-                                    {
-                                        numno[0].Text = "";
-                                    }
+                                    ((Button)(tempbtn[0])).PerformClick();
+                                    Console.WriteLine("per:" + keychar);
                                 }
-                                else
-                                {
-                                    var tempbtn = tabPage3.Controls.Find(estr, true);
-                                    if (tempbtn.Length > 0)
-                                    {
-                                        ((Button)(tempbtn[0])).PerformClick();
-                                        Console.WriteLine("per:" + keychar);
-                                    }
-                                }
-
                             }
                         }
                     }

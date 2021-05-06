@@ -187,10 +187,10 @@
     <value>Nhân viên</value>
   </data>
   <data name="tabPage2" xml:space="preserve">
-    <value>trình tự công việc</value>
+    <value>máy móc</value>
   </data>
   <data name="tabPage3" xml:space="preserve">
-    <value>thời gian làm việc</value>
+    <value>trình tự công việc</value>
   </data>
   <data name="worktime" xml:space="preserve">
     <value>công việc thời gian</value>
