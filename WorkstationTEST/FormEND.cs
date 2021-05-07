@@ -18,6 +18,10 @@ namespace WorkstationTEST
         [DllImport("user32.dll", EntryPoint = "ShowWindow", CharSet = CharSet.Auto)]
         static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
         public string Menufilter = "";
+        public string ShowTenants = "";//不同公司但員工姓名相同且身分證號相同的話是否開啟選擇畫面
+        public string DepartNo = "";//部門編號開頭
+        public string NIG = "";//不在部門內但要顯示的員工，目前僅能一位，要多位要改API
+        public string DefCompany = "";//預設公司
         public FormEND(frmMenu fmenu)
         {
             InitializeComponent();
@@ -28,6 +32,10 @@ namespace WorkstationTEST
             using (TINI oTINI = new TINI(Path.Combine(Application.StartupPath, "config.ini")))
             {
                 Menufilter = oTINI.getKeyValue("SYSTEM", "Menufilter", "");
+                ShowTenants = oTINI.getKeyValue("SYSTEM", "ShowTenants", "");
+                DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
+                NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
+                DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
             }
         }
         int fullwidth = 600;
@@ -36,13 +44,15 @@ namespace WorkstationTEST
         string sIP = "61.221.176.176";
         string sComport = new API("x", "x").COMPORT;
         delegate void Display(Byte[] buffer);
-
+        List<Empm> getemp = new List<Empm>();
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
 
         }
         List<WorkDayReport> nowrecord = new List<WorkDayReport>();
         Dictionary<string,string> rtext = CreateElement.loadresx();
+        public Dictionary<string, string> rtext2 = CreateElement.loadresx("ST");
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((sender as TabControl).SelectedIndex)
@@ -97,20 +107,126 @@ namespace WorkstationTEST
             tabPage1.Text = rtext["emp"];
             tabPage2.Text = rtext["unwork"];
             Console.WriteLine("fw=" + fullwidth + ",fh=" + fullheight + ",ch=" + this.tabpageheight);
-            var frmEmp = new frmEmp();
-            frmEmp.TopLevel = false;
-            frmEmp.Visible = true;
-            frmEmp.Height = tabControl1.Height - 50;
-            frmEmp.Width = tabControl1.Width - 50;
-            var empbtnu = frmEmp.Controls.Find("frmEmpPageU", true);
-            var empbtnd = frmEmp.Controls.Find("frmEmpPageD", true);
-            empbtnu[0].Location = new Point(frmEmp.Width - 200, empbtnu[0].Location.Y);
-            empbtnd[0].Location = new Point(frmEmp.Width - 200, empbtnd[0].Location.Y);
-            tabPage1.Controls.Add(frmEmp);
-            var emp = frmEmp.Controls.Find("frmEmpshowno", false);
-            emp[0].TextChanged += new EventHandler(gettab);
-
+            /* var frmEmp = new frmEmp();
+             frmEmp.TopLevel = false;
+             frmEmp.Visible = true;
+             frmEmp.Height = tabControl1.Height - 50;
+             frmEmp.Width = tabControl1.Width - 50;
+             var empbtnu = frmEmp.Controls.Find("frmEmpPageU", true);
+             var empbtnd = frmEmp.Controls.Find("frmEmpPageD", true);
+             empbtnu[0].Location = new Point(frmEmp.Width - 200, empbtnu[0].Location.Y);
+             empbtnd[0].Location = new Point(frmEmp.Width - 200, empbtnd[0].Location.Y);
+             tabPage1.Controls.Add(frmEmp);
+             var emp = frmEmp.Controls.Find("frmEmpshowno", false);
+             emp[0].TextChanged += new EventHandler(gettab);*/
+            showemp();
             openseria();
+        }
+        private void showemp()
+        {
+            var setpageup = new CreateElement();
+            setpageup.SetBtn(frmEmpPageU, "Insert::Insert", rtext2["frmWKbtnU"]);
+            setpageup.SetBtn(frmEmpPageD, "Delete::Delete", rtext2["frmWKbtnD"]);
+            getemp = new API("/CHG/Main/Home/getEmployee2/", "http://").GetEmpm(DefCompany, DepartNo, NIG);
+            if (getemp.Count() > 0)
+            {
+                int iSpace = 5;
+                int iCol = 0;
+                int iRow = 0;
+                int ItemsOneRow = 5;
+                int totalitem = 10;
+                int btnnum = 0;
+                var empitemcount = 0;
+                var keynum = 0;
+                foreach (var empitem in getemp)
+                {
+                    iRow = keynum / ItemsOneRow;
+                    iCol = keynum % ItemsOneRow;
+                    var prestr = "BTNfrmEmp";
+                    empitemcount++;
+                    if (btnnum + 1 > totalitem)
+                    {
+                        btnnum = 0;
+                    }
+                    btnnum++;
+                    keynum++;
+                    var btnkey = "F" + btnnum;
+                    var poststr = empitemcount.ToString("##");
+                    var thisbtnname = prestr + poststr;
+                    var thisbtntext = empitem.FullName;
+                    var rlist = empitem.Rlist;
+                    var IsMultiple = false;
+                    var rno = "";
+                    var rtenant = "";
+                    if (rlist.Count > 1)
+                    {
+                        IsMultiple = true;
+                        var ri = 0;
+                        foreach (var ritem in rlist)
+                        {
+                            rno += (ri == 0 ? ritem.no : "," + ritem.no);
+                            rtenant += (ri == 0 ? ritem.tenant : "," + ritem.tenant);
+                            ri++;
+                        }
+                    }
+                    Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateEmpBtnm_panel(empitem.EmployeeNo, thisbtntext, empitem.EmployeeId, btnkey, IsMultiple, rno, rtenant, iRow, iCol, iSpace, EMPPanel);
+                    empbtn = sethandlerEmp(empbtn);
+                    if (keynum > totalitem)
+                    {
+                        empbtn.Visible = false;
+                    }
+                    empbtn.TabStop = false;
+                    empbtn.TabIndex = 99;
+                    // btnemplist.Add(empbtn);
+                }
+                frmEmpRecordnow.Text = "0";
+            }
+            frmEmpshowno.TextChanged += new EventHandler(gettab);
+        }
+
+        public void newSetEmpNO(string info)
+        {
+            var empinfos = info.Split(':');
+            if (empinfos.Length == 2)
+            {
+                frmEmpshowno.Text = empinfos[0];
+                empname.Text = empinfos[1];
+            }
+            else if (empinfos.Length == 4)
+            {
+                if (ShowTenants == "1")
+                {
+                    var rno = empinfos[2].Split(',');
+                    var rten = empinfos[3].Split(',');
+                    FormMultiTenant frmt = new FormMultiTenant();
+                    frmt.setTenantm(rno, rten);
+                    frmt.ShowDialog();
+                    frmEmpshowno.Text = frmt.Eno;
+                    empname.Text = empinfos[1];
+                }
+                else if (ShowTenants == "0")
+                {
+                    frmEmpshowno.Text = empinfos[0];
+                    empname.Text = empinfos[1];
+                }
+            }
+            else
+            {
+                frmEmpshowno.Text = info;
+            }
+
+        }
+        public Button sethandlerEmp(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(newbtnEMPALL_Click);
+            return sbt;
+        }
+
+        private void newbtnEMPALL_Click(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            newSetEmpNO(tmpButton.Tag.ToString());
         }
 
         private void getsearch(object sender, EventArgs e)
@@ -137,17 +253,6 @@ namespace WorkstationTEST
 
         private void gettabd(object sender, EventArgs e)
         {
-          /*  var rTabCd = tabPage2.Controls.Find("frmPTRecordnow", true);
-            var rTabT = tabPage2.Controls.Find("frmRecTotal", true);
-            var tablecount = 0;
-            var totalcount = 0;
-            var isc = int.TryParse(rTabCd[0].Text, out tablecount);
-            var ist = int.TryParse(rTabT[0].Text, out totalcount);
-            if (tablecount + 1 < totalcount)
-            {
-                tablecount += 1;
-                rTabCd[0].Text = tablecount.ToString();
-            }*/
             var nowstr = tabPage2.Controls.Find("RECsearch", true);
             var realstr = nowstr[0].Text.TrimStart().TrimEnd();
             if (realstr != string.Empty)
@@ -166,58 +271,11 @@ namespace WorkstationTEST
             {
                 getstartrec("d");
             }
-           // getstartrec("d");
-           /* var rTab = tabPage2.Controls.Find("RPanel", true);
-            var rTabC = tabPage2.Controls.Find("frmPTRecordnow", true);
-            var totalcaount = blist.Count;
-            int dcount = 0;
-            var tryparse = int.TryParse(rTabC[0].Text, out dcount);
-            for (int i = rTab[0].Controls.Count - 1; i >= 0; --i)
-                rTab[0].Controls[i].Dispose();
-            rTab[0].Controls.Clear();
-            Console.WriteLine("dcount=" + dcount+",tcount="+totalcaount);
-            var tableheadstr = new string[] { "工令", "規格", "製程", "", "仕掛數", "完成數", "不良數", "開始時間", "結束時間", "工時" };
-            if (dcount < totalcaount-1)
-            {
-                dcount++;
-            }
-            var bitem = blist[dcount];
-            if (bitem.Count() > 11)
-            {
-                tableheadstr = new string[] { "工令", "規格", "製程", "", "仕掛數", "Go完成數", "NoGo完成數", "Go不良數", "NoGo不良數", "開始時間", "結束時間", "工時" };
-                ((TableLayoutPanel)rTab[0]).ColumnCount = bitem.Count();
-            }
-                
-            for (var a = 0; a < tableheadstr.Count(); a++)
-            {
-                TextBox templab = new TextBox();
-                templab.Text = tableheadstr[a];
-                templab.ReadOnly = true;
-                templab.Margin = new Padding(0);
-                templab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-                templab.TabIndex = 999;
-                ((TableLayoutPanel)rTab[0]).Controls.Add(templab, a, 0);
-            }
-            for (var j = 0; j < bitem.Count; j++)
-            {
-                Console.WriteLine("Lqty-i=" + dcount + ",j=" + j + ",name=" + bitem[j].Name);
-                ((TableLayoutPanel)rTab[0]).Controls.Add((TextBox)bitem[j], j,1);
-                rTabC[0].Text = dcount.ToString();
-            }
-            */
 
         }
         private void gettabu(object sender, EventArgs e)
         {
-           /* var rTabCd = tabPage2.Controls.Find("frmPTRecordnow", true);
-            var rTabT = tabPage2.Controls.Find("frmRecTotal", true);
-            var tablecount = 0;
-            var isc = int.TryParse(rTabCd[0].Text, out tablecount);
-            if (tablecount - 1>=0)
-            {
-                tablecount -= 1;
-                rTabCd[0].Text = tablecount.ToString();
-            }*/
+
             var nowstr = tabPage2.Controls.Find("RECsearch",true);
             var realstr = nowstr[0].Text.TrimStart().TrimEnd();
             if (realstr != string.Empty)
@@ -236,7 +294,6 @@ namespace WorkstationTEST
             {
                 getstartrec("d");
             }
-           // getstartrec("u");
         }
         private void gettab(object sender, EventArgs e)
         {

@@ -1004,7 +1004,7 @@ namespace WorkstationTEST
     public class WorkDayReport
     {
 
-        public string DayReportId { get; set; }
+        public string DayReportId { get; set; }        
         public string AssetsName { get; set; }
         public string MakeNo { get; set; }
         public string Specification { get; set; }
@@ -1032,6 +1032,7 @@ namespace WorkstationTEST
         public string UseUnits { get; set; }
         public bool localupdate { get; set; }
         public int itemno { get; set; }
+        public string AssetsItemId { get; set; }
 
     }
     public class WorkOutReport

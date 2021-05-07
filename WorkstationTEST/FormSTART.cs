@@ -91,17 +91,23 @@ namespace WorkstationTEST
                      var save = frmWK.Controls.Find("WKsave", false);
                      save[0].Click += new EventHandler(gettabsave);
                      wk[0].TextChanged += new EventHandler(gettab2);*/
+
                     showmachine();
                     break;
                 case 2:
-                   /* var frmWorkTime = new frmWorkTime();
-                    frmWorkTime.TopLevel = false;
-                    frmWorkTime.Visible = true;
-                    frmWorkTime.Height = tabControl1.Height - 50;
-                    frmWorkTime.Width = tabControl1.Width - 50;
-                    tabPage3.Controls.Add(frmWorkTime);
-                    var wtbqty = frmWorkTime.Controls.Find("frmNumshowno", false);*/
+                    /* var frmWorkTime = new frmWorkTime();
+                     frmWorkTime.TopLevel = false;
+                     frmWorkTime.Visible = true;
+                     frmWorkTime.Height = tabControl1.Height - 50;
+                     frmWorkTime.Width = tabControl1.Width - 50;
+                     tabPage3.Controls.Add(frmWorkTime);
+                     var wtbqty = frmWorkTime.Controls.Find("frmNumshowno", false);*/
                     // wtbqty[0].TextChanged += new EventHandler(gettab3);
+                    ActiveControl = frmWKMakeno;
+                    frmWKMakeno.TextChanged += new EventHandler(gettabW);
+                    frmWKWorkitem.TextChanged += new EventHandler(gettabWI);
+                    WKsave.Click += new EventHandler(gettabsave);
+                    showworkorder(true);
                     break;
                 case 3:
                    /* var frmBQTY = new frmBadqty();
@@ -165,6 +171,15 @@ namespace WorkstationTEST
              emp[0].TextChanged += new EventHandler(gettab);*/
             showemp();
             openseria();
+        }
+        private void frmWKPageU_Click(object sender, EventArgs e)
+        {
+            btup(WKPanel, frmWKRecordnow);
+        }
+
+        private void frmWKPageD_Click(object sender, EventArgs e)
+        {
+            btndown(WKPanel, frmWKRecordnow);
         }
         private void frmMachinePageU_Click(object sender, EventArgs e)
         {
@@ -362,39 +377,96 @@ namespace WorkstationTEST
             }
         }
 
-        private void showworkorder()
+        private void showworkorder(bool isinit=false,string makeno="",string wid="",bool iskey=false)
         {
             WKSaveTenantId.Text = DefCompany;
-            Dictionary<string, string> rtext = CreateElement.loadresx("WK");
-            label13.Text = rtext[label13.Name];
-            label1.Text = rtext[label1.Name];
-            label2.Text = rtext[label2.Name];
-            label4.Text = rtext[label4.Name];
-            label5.Text = rtext[label5.Name];
-            label7.Text = rtext[label7.Name];
-            label9.Text = rtext[label9.Name];
-            label12.Text = rtext[label12.Name];
-            label21.Text = rtext[label21.Name];
-            infotitle.Text = rtext[infotitle.Name];
-            labelname.Text = rtext[labelname.Name];
+            int tidval = int.Parse(DefCompany);
+            label13.Text = rtext2[label13.Name];
+            label1.Text = rtext2[label1.Name];
+            label2.Text = rtext2[label2.Name];
+            label4.Text = rtext2[label4.Name];
+            label5.Text = rtext2[label5.Name];
+            label7.Text = rtext2[label7.Name];
+            label9.Text = rtext2[label9.Name];
+            label12.Text = rtext2[label12.Name];
+            label21.Text = rtext2[label21.Name];
+            infotitle.Text = rtext2[infotitle.Name];
+            labelname.Text = rtext2[labelname.Name];
             //ActiveControl = frmWKMakeno;
             Console.WriteLine("frmWKload");
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+           // this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             var setpageup = new CreateElement();
-            setpageup.SetBtn((XButton)frmWKPagrU, "Insert::Insert", rtext[frmWKPagrU.Name]);
-            setpageup.SetBtn((XButton)frmWKPageD, "Delete::Delete", rtext[frmWKPageD.Name]);
-            setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext[WKsave.Name]);
+            setpageup.SetBtn((XButton)frmWKPageU, "Insert::Insert", rtext2["frmWKbtnU"]);
+            setpageup.SetBtn((XButton)frmWKPageD, "Delete::Delete", rtext2["frmWKbtnD"]);
+            setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext2[WKsave.Name]);
 
             getwitem.Clear();
-            getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
-            if (getwitem.Count > 0)
+            if (isinit)
             {
-                WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
-                frmWKMakeno.Tag = WKSaveWorderId.Text;
+                getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem();
+                if (getwitem.Count > 0)
+                {
+                    WKSaveWorderId.Text = getwitem[0].WorkOrderId.ToString();
+                    frmWKMakeno.Tag = WKSaveWorderId.Text;
+                }
             }
+            else
+            {
+                getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval, makeno);
+                if (getworkorder.Count > 0)
+                {
+                    var R_TenantId = "";
+                    if (getworkorder.Count > 1)
+                    {
+                        FormMultiTenant frmt = new FormMultiTenant();
+                        frmt.setTenant(getworkorder);
+                        frmt.ShowDialog();
+                        R_TenantId = frmt.TenantId;
+                    }
+                    else
+                    {
+                        R_TenantId = getworkorder[0].TenantId.ToString();
+
+                    }
+                    if (!string.IsNullOrEmpty(R_TenantId))
+                    {
+                        tidval = int.Parse(R_TenantId);
+                    }
+                    getworkorder = getworkorder.Where(x => x.TenantId == tidval).ToList();
+                    labSpec.Text = getworkorder[0].Specification;
+                    labRemark.Text = getworkorder[0].Remark;
+                    labPName.Text = getworkorder[0].AssetsNo;
+                    labWorkOrder.Text = getworkorder[0].MakeNo;
+                    labQty.Text = getworkorder[0].MakeQty.ToString();
+                    labAssetsName.Text = getworkorder[0].AssetsName;
+                    labUnit.Text = getworkorder[0].UseUnits;
+                    WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
+                    WKSaveMakeNo.Text = getworkorder[0].MakeNo;
+
+                    var pwid = wid != "" ? wid:getworkorder[0].WorkOrderId.ToString();
+                    int.TryParse(WKSaveTenantId.Text, out tidval);
+                    Guid gwid;
+                    var isguid = Guid.TryParse(pwid, out gwid);
+                    if (isguid)
+                        getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval, makeno, gwid);
+                    else
+                    {
+                        Console.WriteLine("輸入工令格式錯誤");
+                        //ActiveControl = this.frmWKMakeno;
+                    }
+                }
+                else
+                {
+                    //MessageBox.Show("無此工令資料");
+                    Console.WriteLine("無此工令資料");
+                    //ActiveControl = this.frmWKMakeno;
+                }
+            }
+
             List<Button> btnemplist = new List<Button>();
             if (getwitem.Count() > 0)
             {
+                WKPanel.Controls.Clear();
                 int iSpace = 5;
                 int iCol = 0;
                 int iRow = 0;
@@ -420,7 +492,7 @@ namespace WorkstationTEST
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.WorkName;
                     Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtnWithXY(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey, iRow, iCol, iSpace, WKPanel);
-                    empbtn = sethandlerD(empbtn);
+                    empbtn = sethandlerWorkOrder(empbtn);
                     if (keynum > totalitem)
                     {
                         empbtn.Visible = false;
@@ -486,6 +558,11 @@ namespace WorkstationTEST
             {
                 frmMachineshowno.Text = empinfos[0];
             }
+            else if (empinfos.Length==3)
+            {
+                frmMachineshowno.Text = empinfos[0];
+                frmAssetsItemId.Text = empinfos[2];
+            }
             else
             {
                 frmMachineshowno.Text = info;
@@ -504,7 +581,41 @@ namespace WorkstationTEST
             Button tmpButton = (Button)sender;
             SetMachineNO(tmpButton.Tag.ToString());
         }
+        public Button sethandlerWorkOrder(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(btnEMPALL_ClickWorkOrder);
+            return sbt;
+        }
+        private void btnEMPALL_ClickWorkOrder(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            SetEmpNOWorkOrder(tmpButton.Tag.ToString(), true);
+        }
+        public void SetEmpNOWorkOrder(string info, bool isdef = false)
+        {
+            var infoarray = info.Split(':');
+            var wkno = infoarray[infoarray.Length - 1];
+            var witemid = infoarray[0];
+            var workid = infoarray[1];
+            if (!isdef)
+            {
+                WKSaveMakeNo.Text = labWorkOrder.Text;
+                WKSaveSpecification.Text = labSpec.Text;
+                WKSaveWorkqty.Text = labQty.Text;
+                WKSaveWorderId.Text = frmWKMakeno.Tag.ToString();
+            }
 
+            WKSaveWitemId.Text = witemid;
+            WKSaveWorkId.Text = workid;
+
+
+            WKSaveWorkNo.Text = wkno;
+
+            WKSaveWorkName.Text = infoarray[2];
+            Console.WriteLine("wkno=" + frmWKWorkitem.Text + ",witemid=" + witemid + ",workid=" + workid + ",workorderid=" + WKSaveWorderId.Text);
+            frmWKWorkitem.Text = wkno;
+        }
         private void mybutton_Click(object sender, KeyEventArgs e)
         {
             Console.WriteLine("keycoe=" + e.KeyCode);
@@ -639,6 +750,74 @@ namespace WorkstationTEST
             Console.WriteLine("tab1 name=" + this.tabControl1.SelectedTab.Name + "," + frmEmpshowno.Text);
 
         }
+        private void gettabW(object sender, EventArgs e)
+        {
+
+            var gmkno = frmWKMakeno;
+            var gwk = frmWKWorkitem;
+            var text = gmkno.Text;
+            infotitle.Text = "";
+            var tid = DefCompany;
+            int tidval = 0;
+            bool iskey = false;
+            if (text != "")
+            {
+                Console.WriteLine("text=" + text);
+                string makeno = "";
+                string wid = "";
+                Console.WriteLine("m=" + text);
+                if (text.IndexOf("::") >= 0)
+                {
+                    iskey = true;
+                    string[] data = text.Split(new string[] { "::" }, StringSplitOptions.None);
+                    makeno = data[0];
+                    wid = data.Length == 4 ? data[data.Length - 2] : data[data.Length - 1];
+                    tid = data.Length == 4 ? data[data.Length - 1] : "";
+                    if (data.Length == 4)
+                    {
+                        tidval = int.Parse(tid);
+                    }
+
+                    if (debug)
+                    {
+                        MessageBox.Show("wid=" + wid + ",tid=" + tid);
+                    }
+
+                    WKSaveTenantId.Text = tid;
+                }
+                showworkorder(false, makeno, wid,iskey);
+            }
+        }
+        private void gettabWI(object sender, EventArgs e)
+        {
+
+            var gmkno = frmWKMakeno;
+            var gwk = frmWKWorkitem;
+            if (gwk.Text != "")
+            {
+                var empnameinfo = empname;
+                var empnoinfo = frmEmpshowno;
+                var wknoinfo = WKSaveWorkNo;
+                var wknameinfo = WKSaveWorkName;
+                var empnot = infoempno;
+                var empnamet = infoempname;
+                var wknot = infowkno;
+                var wknamet = infowkname;
+
+                var lab4 = label4;
+                var lab5 = label5;
+                lab4.Visible = true;
+                lab5.Visible = true;
+                empnamet.Text = empnameinfo.Text;
+                empnot.Text = empnoinfo.Text;
+                wknot.Text = wknoinfo.Text;
+                wknamet.Text = wknameinfo.Text;
+                var ititle = infotitle;
+                ititle.Text = rtext[ititle.Name];
+                System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#111211");
+                ititle.ForeColor = col;
+            }
+        }
         private void gettabnowo(object sender, EventArgs e)
         {
 
@@ -703,34 +882,35 @@ namespace WorkstationTEST
         }
         private void savetab()
         {
-            var empno = tabPage1.Controls.Find("frmEmpshowno", true);
-            var info = tabPage2.Controls.Find("infotitle", true);
-            var workorderitemId = tabPage2.Controls.Find("WKSaveWitemId", true);
-            var workorderid = tabPage2.Controls.Find("WKSaveWorderId", true);
-            var workid = tabPage2.Controls.Find("WKSaveWorkId", true);
-           // var worktime = tabPage3.Controls.Find("frmNumshowno", true);
-           // var bqty = tabPage4.Controls.Find("frmNumshowno", true);
-           // var comqty = tabPage5.Controls.Find("frmNumshowno", true);
-            var MakeNo = tabPage2.Controls.Find("WKSaveMakeNo", true);
-            var Specification = tabPage2.Controls.Find("WKSaveSpecification", true);
-            var WorkNo = tabPage2.Controls.Find("WKSaveWorkNo", true);
-            var Workqty = tabPage2.Controls.Find("WKSaveWorkqty", true);
-            var WorkName = tabPage2.Controls.Find("WKSaveWorkName", true);
-            var AssetsName = tabPage2.Controls.Find("labAssetsName", true);
-            var Unit= tabPage2.Controls.Find("labUnit", true);
-            var WKSaveTenantId= tabPage2.Controls.Find("WKSaveTenantId", true);
+            var empno = frmEmpshowno;
+            var info = infotitle;
+            var workorderitemId = WKSaveWitemId;
+            var workorderid = WKSaveWorderId;
+            var workid = WKSaveWorkId;
+            var AssetsItemId = frmAssetsItemId;
+            // var worktime = tabPage3.Controls.Find("frmNumshowno", true);
+            // var bqty = tabPage4.Controls.Find("frmNumshowno", true);
+            // var comqty = tabPage5.Controls.Find("frmNumshowno", true);
+            var MakeNo = WKSaveMakeNo;
+            var Specification = WKSaveSpecification;
+            var WorkNo = WKSaveWorkNo;
+            var Workqty = WKSaveWorkqty;
+            var WorkName = WKSaveWorkName;
+            var AssetsName = labAssetsName;
+            var Unit = labUnit;
+            var WKSaveTenantIdval = WKSaveTenantId;
             var starttime = DateTime.Now;
             var tid = 0;
-            int.TryParse(WKSaveTenantId[0].Text, out tid);
-            if(workid[0].Text == "")
+            int.TryParse(WKSaveTenantIdval.Text, out tid);
+            if(workid.Text == "")
             {
-                info[0].Text=rtext["notselect"];
-                info[0].ForeColor = Color.Crimson;
+                info.Text=rtext["notselect"];
+                info.ForeColor = Color.Crimson;
             }
             else
             {
                 Guid dayreportid = Guid.NewGuid();
-                Console.WriteLine("empno=" + empno[0].Text + "witenid=" + workorderitemId[0].Text + ",woid=" + workorderid[0].Text + ",workid=" + workid[0].Text + ",did=" + dayreportid + ",won=" + WorkName[0].Text + ",wn=" + WorkNo[0].Text + ",mk=" + MakeNo[0].Text + ",wq=" + Workqty[0].Text + ",sp=" + Specification[0].Text);
+                Console.WriteLine("empno=" + empno.Text + "witenid=" + workorderitemId.Text + ",woid=" + workorderid.Text + ",workid=" + workid.Text + ",did=" + dayreportid + ",won=" + WorkName.Text + ",wn=" + WorkNo.Text + ",mk=" + MakeNo.Text + ",wq=" + Workqty.Text + ",sp=" + Specification.Text+",asid="+AssetsItemId.Text);
                 string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
                 string cnStr = "data source=" + dbPath + ";Version=3;";
                 //decimal bqtyt=0;
@@ -747,7 +927,7 @@ namespace WorkstationTEST
                     BadQty = null,
                     CompleteQty = null,
                     DayReportId = dayreportid.ToString(),
-                    EmpNo = empno[0].Text,
+                    EmpNo = empno.Text,
                     EndTime = null,
                     MakeNo = null,
                     MNo = "",
@@ -756,40 +936,42 @@ namespace WorkstationTEST
                     StartTime = starttime,
                     TenantId = tid,
                     WorkDate = "",
-                    WorkId = workid[0].Text,
+                    WorkId = workid.Text,
                     WorkName = "",
-                    WorkOrderId = workorderid[0].Text,
-                    WorkOrderItemId = workorderitemId[0].Text,
+                    WorkOrderId = workorderid.Text,
+                    WorkOrderItemId = workorderitemId.Text,
                     WorkQty = null,
                     WorkTime = null,
-                    UseUnits = Unit[0].Text
+                    UseUnits = Unit.Text,
+                    AssetsItemId=AssetsItemId.Text
                 };
                 if (File.Exists(dbPath))
                 {
                     using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
-                        var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,EmpNo,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsName,WorkDate,Unit) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @EmpNo,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsName,@WorkDate,@Unit)";
+                        var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,EmpNo,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsName,WorkDate,Unit,AssetsItemId) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @EmpNo,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsName,@WorkDate,@Unit,@AssetsItemId)";
                         SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                         cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
                         cmd.Parameters.AddWithValue("@TenantId", tid);
-                        cmd.Parameters.AddWithValue("@WorkOrderId", workorderid[0].Text);
-                        cmd.Parameters.AddWithValue("@WorkOrderItemId", workorderitemId[0].Text);
-                        cmd.Parameters.AddWithValue("@WorkId", workid[0].Text);
+                        cmd.Parameters.AddWithValue("@WorkOrderId", workorderid.Text);
+                        cmd.Parameters.AddWithValue("@WorkOrderItemId", workorderitemId.Text);
+                        cmd.Parameters.AddWithValue("@WorkId", workid.Text);
                         cmd.Parameters.AddWithValue("@WorkDate", DateTime.Today.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@StartTime", starttime);
                         // cmd.Parameters.AddWithValue("@BadQty", bqty[0].Text);
-                        cmd.Parameters.AddWithValue("@EmpNo", empno[0].Text);
+                        cmd.Parameters.AddWithValue("@EmpNo", empno.Text);
                         // cmd.Parameters.AddWithValue("@CompleteQty", comqty[0].Text);
-                        cmd.Parameters.AddWithValue("@WorkQty", Workqty[0].Text);
-                        cmd.Parameters.AddWithValue("@MakeNo", MakeNo[0].Text);
-                        cmd.Parameters.AddWithValue("@WorkNo", WorkNo[0].Text);
-                        cmd.Parameters.AddWithValue("@WorkName", WorkName[0].Text);
-                        cmd.Parameters.AddWithValue("@Specification", Specification[0].Text);
+                        cmd.Parameters.AddWithValue("@WorkQty", Workqty.Text);
+                        cmd.Parameters.AddWithValue("@MakeNo", MakeNo.Text);
+                        cmd.Parameters.AddWithValue("@WorkNo", WorkNo.Text);
+                        cmd.Parameters.AddWithValue("@WorkName", WorkName.Text);
+                        cmd.Parameters.AddWithValue("@Specification", Specification.Text);
                         //cmd.Parameters.AddWithValue("@WorkTime", worktime[0].Text);
                         cmd.Parameters.AddWithValue("@Out", false);
                         cmd.Parameters.AddWithValue("@isupdate", false);
-                        cmd.Parameters.AddWithValue("@AssetsName", AssetsName[0].Text);
-                        cmd.Parameters.AddWithValue("@Unit", Unit[0].Text);
+                        cmd.Parameters.AddWithValue("@AssetsName", AssetsName.Text);
+                        cmd.Parameters.AddWithValue("@Unit", Unit.Text);
+                        cmd.Parameters.AddWithValue("@AssetsItemId", AssetsItemId.Text);
                         conn.Open();
                         try
                         {
@@ -809,18 +991,18 @@ namespace WorkstationTEST
 
                             tabControl1.SelectedIndex = 1;
                             savestat[0].Visible = false;*/
-                            var tempmkno = MakeNo[0].Text;
-                            var tempwkno = WorkNo[0].Text;
+                            var tempmkno = MakeNo.Text;
+                            var tempwkno = WorkNo.Text;
                             cleardata(false);
-                            var ititle = tabPage2.Controls.Find("infotitle", true);
-                            var lab4 = tabPage2.Controls.Find("label4", true);
-                            var lab5 = tabPage2.Controls.Find("label5", true);
-                            ititle[0].Text = rtext["inserted"]+"  " +tempmkno+"  "+ tempwkno;
-                            ititle[0].ForeColor = Color.MediumSeaGreen;
-                            ititle[0].Font = new Font("", 16, FontStyle.Bold);
-                            lab4[0].Visible = false;
-                            lab5[0].Visible = false;
-                            getinit();
+                            var ititle = infotitle;
+                            var lab4 = label4;
+                            var lab5 = label5;
+                            ititle.Text = rtext["inserted"]+"  " +tempmkno+"  "+ tempwkno;
+                            ititle.ForeColor = Color.MediumSeaGreen;
+                            ititle.Font = new Font("", 16, FontStyle.Bold);
+                            lab4.Visible = false;
+                            lab5.Visible = false;
+                            showworkorder(true);
 
                         }
                         catch (Exception ex)
@@ -838,86 +1020,86 @@ namespace WorkstationTEST
         public void cleardata(bool finish)
         {
             //bnum
-           // var bno = tabPage4.Controls.Find("frmNumshowno", true);
+            // var bno = tabPage4.Controls.Find("frmNumshowno", true);
             //bnum
 
             //num
-           /* var msgemp = tabPage5.Controls.Find("msgemp", true);
-            var msgmkno = tabPage5.Controls.Find("msgmkno", true);
-            var msgwork = tabPage5.Controls.Find("msgwork", true);
-            var msgcomplet = tabPage5.Controls.Find("msgcomplet", true);
-            var msgbad = tabPage5.Controls.Find("msgbad", true);
-            var msgworktime = tabPage5.Controls.Find("msgworktime", true);
-            var nno = tabPage5.Controls.Find("frmNumshowno", true);*/
+            /* var msgemp = tabPage5.Controls.Find("msgemp", true);
+             var msgmkno = tabPage5.Controls.Find("msgmkno", true);
+             var msgwork = tabPage5.Controls.Find("msgwork", true);
+             var msgcomplet = tabPage5.Controls.Find("msgcomplet", true);
+             var msgbad = tabPage5.Controls.Find("msgbad", true);
+             var msgworktime = tabPage5.Controls.Find("msgworktime", true);
+             var nno = tabPage5.Controls.Find("frmNumshowno", true);*/
             //num
 
             //worktime
             //var wt = tabPage3.Controls.Find("frmNumshowno", true);
             //worktime
             //wk
-            var wkn = tabPage2.Controls.Find("frmWKMakeno", true);
-            var wki = tabPage2.Controls.Find("frmWKWorkitem", true);
-            var wkr = tabPage2.Controls.Find("frmWKRecordnow", true);
-            var wkt = tabPage2.Controls.Find("frmWKRecordT", true);
-            var wksm = tabPage2.Controls.Find("WKSaveMakeNo", true);
-            var wksw = tabPage2.Controls.Find("WKSaveWitemId", true);
-            var wksmn = tabPage2.Controls.Find("WKSaveMNo", true);
-            var wkss = tabPage2.Controls.Find("WKSaveSpecification", true);
-            var wksq = tabPage2.Controls.Find("WKSaveWorkqty", true);
-            var wkm = tabPage2.Controls.Find("WKSaveMakeNo", true);
-            var workorderid = tabPage2.Controls.Find("WKSaveWorderId", true);
-            var workid = tabPage2.Controls.Find("WKSaveWorkId", true);
-            var lw = tabPage2.Controls.Find("labWorkOrder", true);
-            var ln = tabPage2.Controls.Find("labPName", true);
-            var ls = tabPage2.Controls.Find("labSpec", true);
-            var lq = tabPage2.Controls.Find("labQty", true);
-            var la= tabPage2.Controls.Find("labAssetsName", true);
-            var lu = tabPage2.Controls.Find("labUnit", true);
+            var wkn = frmWKMakeno;
+            var wki = frmWKWorkitem;
+            var wkr = frmWKRecordnow;
+            var wkt = frmWKRecordT;
+            var wksm = WKSaveMakeNo;
+            var wksw = WKSaveWitemId;
+            var wksmn = WKSaveMNo;
+            var wkss = WKSaveSpecification;
+            var wksq = WKSaveWorkqty;
+            var wkm = WKSaveMakeNo;
+            var workorderid = WKSaveWorderId;
+            var workid = WKSaveWorkId;
+            var lw = labWorkOrder;
+            var ln = labPName;
+            var ls = labSpec;
+            var lq = labQty;
+            var la = labAssetsName;
+            var lu = labUnit;
 
-            var wkwno = tabPage2.Controls.Find("WKSaveWorkNo", true);
-            var wkwna = tabPage2.Controls.Find("WKSaveWorkName", true);
-            var leno = tabPage2.Controls.Find("infoempno", true);
-            var lena = tabPage2.Controls.Find("infoempname", true);
-            var lwno = tabPage2.Controls.Find("infowkno", true);
-            var lwna = tabPage2.Controls.Find("infowkname", true);
+            var wkwno = WKSaveWorkNo;
+            var wkwna = WKSaveWorkName;
+            var leno = infoempno;
+            var lena = infoempname;
+            var lwno = infowkno;
+            var lwna = infowkname;
 
-            var ititle = tabPage2.Controls.Find("infotitle", true);
-            var lab4 = tabPage2.Controls.Find("label4", true);
-            var lab5 = tabPage2.Controls.Find("label5", true);
-            ititle[0].Text = "";
-            lab4[0].Visible = true;
-            lab5[0].Visible = true;
+            var ititle = infotitle;
+            var lab4 = label4;
+            var lab5 = label5;
+            ititle.Text = "";
+            lab4.Visible = true;
+            lab5.Visible = true;
             //wk
             try
             {
                 //nno[0].Text = string.Empty;
                 //bno[0].Text = string.Empty;
                // wt[0].Text = string.Empty;
-                wki[0].Text = string.Empty;
-                wkm[0].Text = string.Empty;
-                wkn[0].Text = string.Empty;
-                wkr[0].Text = string.Empty;
-                wksm[0].Text = string.Empty;
-                wksmn[0].Text = string.Empty;
-                wksq[0].Text = string.Empty;
-                wkss[0].Text = string.Empty;
-                wksw[0].Text = string.Empty;
-                wkt[0].Text = string.Empty;
-                wkn[0].Tag = string.Empty;
-                workorderid[0].Text = string.Empty;
-                workid[0].Text = string.Empty;
-                ln[0].Text = string.Empty;
-                lw[0].Text = string.Empty;
-                ls[0].Text = string.Empty;
-                lq[0].Text = string.Empty;
-                la[0].Text = string.Empty;
-                lu[0].Text = string.Empty;
-                wkwno[0].Text = string.Empty;
-                wkwna[0].Text = string.Empty;
-                leno[0].Text = string.Empty;
-                lena[0].Text = string.Empty;
-                lwna[0].Text = string.Empty;
-                lwno[0].Text = string.Empty;
+                wki.Text = string.Empty;
+                wkm.Text = string.Empty;
+                wkn.Text = string.Empty;
+                wkr.Text = string.Empty;
+                wksm.Text = string.Empty;
+                wksmn.Text = string.Empty;
+                wksq.Text = string.Empty;
+                wkss.Text = string.Empty;
+                wksw.Text = string.Empty;
+                wkt.Text = string.Empty;
+                wkn.Tag = string.Empty;
+                workorderid.Text = string.Empty;
+                workid.Text = string.Empty;
+                ln.Text = string.Empty;
+                lw.Text = string.Empty;
+                ls.Text = string.Empty;
+                lq.Text = string.Empty;
+                la.Text = string.Empty;
+                lu.Text = string.Empty;
+                wkwno.Text = string.Empty;
+                wkwna.Text = string.Empty;
+                leno.Text = string.Empty;
+                lena.Text = string.Empty;
+                lwna.Text = string.Empty;
+                lwno.Text = string.Empty;
                 // msgemp[0].Text = string.Empty;
                 // msgmkno[0].Text = string.Empty;
                 // msgwork[0].Text = string.Empty;
@@ -1020,112 +1202,103 @@ namespace WorkstationTEST
             }
             if (t == 2)
             {
-                var mk = tabPage2.Controls.Find("frmWKMakeno", false);
-                var up = tabPage2.Controls.Find("frmWKbtnU", true);
-                var down = tabPage2.Controls.Find("frmWKbtnD", true);
-                var WKSaveWorderId = tabPage2.Controls.Find("WKSaveWorderId", true);
-                 var wkmo = tabPage2.Controls.Find("frmWKMakeno", true);
-                 var wksave= tabPage2.Controls.Find("WKsave", true); 
-                 var wkrnow = tabPage2.Controls.Find("frmWKRecordnow", true);
+                var up = frmWKPageU;
+                var down = frmWKPageD;
+                var WKSaveWorderIdval = WKSaveWorderId;
+                var wkmo = frmWKMakeno;
+                var wksave = WKsave;
+                var wkrnow = frmWKRecordnow;
                 var tid = "";
                 var tidval = 0;
                 List<Workitem> Wgetwitem = new List<Workitem>();
                 if (keyupper == "F12")
                 {
-                    ((XButton)wksave[0]).PerformClick();
+                    wksave.PerformClick();
                 }
                 if (keyupper == "Return")
-                {                  
-                    List<WorkOrder> Wgetworkorder = new List<WorkOrder>();
-                    Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101, wkmo[0].Text.ToUpper());
-                    Guid? wid = null;
-                    if (Wgetworkorder.Count > 0)
-                    {
-                        var labSpec = tabPage2.Controls.Find("labSpec", true);
-                        var labRemark = tabPage2.Controls.Find("labRemark", true);
-                        var labPName = tabPage2.Controls.Find("labPName", true);
-                        var labWorkOrder = tabPage2.Controls.Find("labWorkOrder", true);
-                        var labQty = tabPage2.Controls.Find("labQty", true);
-                        var labAssetsName = tabPage2.Controls.Find("labAssetsName", true);
-                        var labUnit = tabPage2.Controls.Find("labUnit", true);
-                        var labWKSaveTenantId = tabPage2.Controls.Find("WKSaveTenantId", true);
-                        // var labWorkOrderId = tabPage2.Controls.Find("WKSaveWorderId", true);
-                        // var labWorkOrderItemId = tabPage2.Controls.Find("WKSaveWitemId", true);
-                        // var labWorkId = tabPage2.Controls.Find("WKSaveWorkId", true);
-                        labSpec[0].Text = Wgetworkorder[0].Specification;
-                        labRemark[0].Text = Wgetworkorder[0].Remark;
-                        labPName[0].Text = Wgetworkorder[0].AssetsNo;
-                        labWorkOrder[0].Text = Wgetworkorder[0].MakeNo;
-                        labQty[0].Text = Wgetworkorder[0].MakeQty.ToString();
-                        labAssetsName[0].Text = Wgetworkorder[0].AssetsName;
-                        labUnit[0].Text = Wgetworkorder[0].UseUnits;
-                        labWKSaveTenantId[0].Text = Wgetworkorder[0].TenantId.ToString();
-                        int.TryParse(labWKSaveTenantId[0].Text, out tidval);
-                       // labWorkOrderItemId[0].Text = Wgetworkorder[0].ToString();
-                       // labWorkOrderId[0].Text = Wgetworkorder[0].WorkOrderId.ToString();
-                        //labWorkOrderId[0].Text = Wgetworkorder[0].WorkOrderId.ToString();
-                        
+                {
+                    /* List<WorkOrder> Wgetworkorder = new List<WorkOrder>();
+                     Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101, wkmo.Text.ToUpper());
+                     Guid? wid = null;
+                     if (Wgetworkorder.Count > 0)
+                     {
+                         var labSpecval = labSpec;
+                         var labRemarkval = labRemark;
+                         var labPNameval = labPName;
+                         var labWorkOrderval = labWorkOrder;
+                         var labQtyval = labQty;
+                         var labAssetsNameval = labAssetsName;
+                         var labUnitval = labUnit;
+                         var labWKSaveTenantId = WKSaveTenantId;
+                         labSpecval.Text = Wgetworkorder[0].Specification;
+                         labRemarkval.Text = Wgetworkorder[0].Remark;
+                         labPNameval.Text = Wgetworkorder[0].AssetsNo;
+                         labWorkOrderval.Text = Wgetworkorder[0].MakeNo;
+                         labQtyval.Text = Wgetworkorder[0].MakeQty.ToString();
+                         labAssetsNameval.Text = Wgetworkorder[0].AssetsName;
+                         labUnitval.Text = Wgetworkorder[0].UseUnits;
+                         labWKSaveTenantId.Text = Wgetworkorder[0].TenantId.ToString();
+                         int.TryParse(labWKSaveTenantId.Text, out tidval);                      
+                         wid = Wgetworkorder[0].WorkOrderId;
+                         wkmo.Tag = wid.ToString();
+                     }
+                     else
+                     {
+                         Console.WriteLine("無此工令資料");
+                     }
 
-                        wid = Wgetworkorder[0].WorkOrderId;
-                        wkmo[0].Tag = wid.ToString();
-                    }
-                    else
-                    {
-                        //MessageBox.Show("無此工令資料");
-                        Console.WriteLine("無此工令資料");
-                    }
-
-                    if (wid.HasValue)
-                    {
-                        Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,wkmo[0].Text, (Guid)wid);
-                    }
-                    else
-                    {
-                        Console.WriteLine("輸入工令格式錯誤");
-                    }
-                    var WKPanels = tabPage2.Controls.Find("WKPanel", true);
-                    ((Panel)(WKPanels[0])).Controls.Clear();
-                    var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
-                    var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
-                    var frmWKRecordnow = frmWKRecordnows[0];
-                    var frmWKRecordT = frmWKRecordTs[0];
-                    int iSpace = 5;
-                    int iCol = 0;
-                    int iRow = 0;
-                    int ItemsOneRow = 5;
-                    int totalitem = 10;
-                    List<Button> btnemplist = new List<Button>();
-                    if (Wgetwitem.Count() > 0)
-                    {
-                        var empitemcount = 0;
-                        var keynum = 0;
-                        var btnnum = 0;
-                        foreach (var empitem in Wgetwitem)
-                        {
-                            var prestr = "BTNfrmEmp";
-                            empitemcount++;
-                            iRow = keynum / ItemsOneRow;
-                            iCol = keynum % ItemsOneRow;
-                            if(btnnum+1>totalitem)
-                            {
-                                btnnum = 0;
-                            }
-                            btnnum++;
-                            keynum++;
-                            var btnkey = "F" + btnnum;
-                            var poststr = empitemcount.ToString("##");
-                            var thisbtnname = prestr + poststr;
-                            var thisbtntext = empitem.WorkName;
-                            Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtnWithXY(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey,iRow,iCol,iSpace,WKPanels[0]);
-                            empbtn = sethandlerW(empbtn);
-                            if (keynum > totalitem)
-                            {
-                                empbtn.Visible = false;
-                            }
-                            btnemplist.Add(empbtn);
-                        }
-                        wkrnow[0].Text = "0";
-                    }
+                     if (wid.HasValue)
+                     {
+                         Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,wkmo.Text, (Guid)wid);
+                     }
+                     else
+                     {
+                         Console.WriteLine("輸入工令格式錯誤");
+                     }
+                     var WKPanels = tabPage2.Controls.Find("WKPanel", true);
+                     ((Panel)(WKPanels[0])).Controls.Clear();
+                     var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
+                     var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
+                     var frmWKRecordnow = frmWKRecordnows[0];
+                     var frmWKRecordT = frmWKRecordTs[0];
+                     int iSpace = 5;
+                     int iCol = 0;
+                     int iRow = 0;
+                     int ItemsOneRow = 5;
+                     int totalitem = 10;
+                     List<Button> btnemplist = new List<Button>();
+                     if (Wgetwitem.Count() > 0)
+                     {
+                         var empitemcount = 0;
+                         var keynum = 0;
+                         var btnnum = 0;
+                         foreach (var empitem in Wgetwitem)
+                         {
+                             var prestr = "BTNfrmEmp";
+                             empitemcount++;
+                             iRow = keynum / ItemsOneRow;
+                             iCol = keynum % ItemsOneRow;
+                             if(btnnum+1>totalitem)
+                             {
+                                 btnnum = 0;
+                             }
+                             btnnum++;
+                             keynum++;
+                             var btnkey = "F" + btnnum;
+                             var poststr = empitemcount.ToString("##");
+                             var thisbtnname = prestr + poststr;
+                             var thisbtntext = empitem.WorkName;
+                             Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtnWithXY(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey,iRow,iCol,iSpace,WKPanels[0]);
+                             empbtn = sethandlerW(empbtn);
+                             if (keynum > totalitem)
+                             {
+                                 empbtn.Visible = false;
+                             }
+                             btnemplist.Add(empbtn);
+                         }
+                         wkrnow.Text = "0";
+                     }*/
+                    showworkorder(false, wkmo.Text);
                 }
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
                 if (data == "")
@@ -1136,19 +1309,19 @@ namespace WorkstationTEST
                     {
                         //((Button)down[0]).PerformClick();
 
-                        frmWKbtnD(svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnD(svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId.Text));
                     }
                     if (keyupper == "Insert")
                     {
                         // ((Button)up[0]).PerformClick();
-                        frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId[0].Text));
+                        frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId.Text));
                     }
                     if (keyarray.Contains(keyupper))
                     {
                         Console.WriteLine("kc");
-                        var wkrec = tabPage2.Controls.Find("frmWKRecordnow", true);
+                        var wkrec = frmWKRecordnow;
                         var wkrecn = 0;
-                        var tempcn = int.TryParse(wkrec[0].Text, out wkrecn);
+                        var tempcn = int.TryParse(wkrec.Text, out wkrecn);
                         for (var i = 0; i < keyarray.Length; i++)
                         {
                             if (keyarray[i] == keyupper)
@@ -1161,7 +1334,7 @@ namespace WorkstationTEST
                                 Console.WriteLine("ke=" + keyupper + "," + keyarray[i]);
                                 var estr = "BTNfrmEmp" +(wkrecn * 10+i + 1);
                                 Console.WriteLine("estr=" + estr);
-                                var tempbtn = tabPage2.Controls.Find(estr, true);
+                                var tempbtn = tabPage3.Controls.Find(estr, true);
                                 if (tempbtn.Length > 0)
                                 {
                                     ((Button)(tempbtn[0])).PerformClick();
@@ -1174,15 +1347,15 @@ namespace WorkstationTEST
                 else
                 {
                     Console.WriteLine("hasdata");
-                    var wup = tabPage2.Controls.Find("frmWKbtnU", true);
-                    var wdown = tabPage2.Controls.Find("frmWKbtnD", true);
+                    var wup = frmWKPageU;
+                    var wdown = frmWKPageD;
                     if (keyupper == "Delete")
                     {
-                        ((Button)wdown[0]).PerformClick();
+                        wdown.PerformClick();
                     }
                     if (keyupper == "Insert")
                     {
-                        ((Button)wup[0]).PerformClick();
+                        wup.PerformClick();
                     }
                     if (isp)
                     {
@@ -1685,5 +1858,7 @@ namespace WorkstationTEST
                 }
             }
         }
+
+
     }
 }

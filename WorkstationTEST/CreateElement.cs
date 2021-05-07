@@ -218,7 +218,7 @@ namespace WorkstationTEST
             btn.ImageAlign = ContentAlignment.MiddleCenter;
             btn.TopText = key;
             btn.Image = SetQR(qr, 80, 80, "QR");
-            btn.Tag = no + ":" + name;
+            btn.Tag = no + ":" + name+":"+empid;
             btn.Top = irow * (ispace * 2 + btn.Height) + ispace;
             btn.Left = icol * (ispace + btn.Width);
             btn.Parent = p;
