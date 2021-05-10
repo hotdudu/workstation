@@ -1011,13 +1011,13 @@ namespace WorkstationTEST
         public string WorkNo { get; set; }
         public string WorkName { get; set; }
         public decimal? WorkQty { get; set; }
-        public decimal? AdjustTime { get; set; }
         public decimal? CompleteQty { get; set; }
         public decimal? BadQty { get; set; }
         public decimal? CompletGoQty { get; set; }
         public decimal? CompletNgQty { get; set; }
         public decimal? BadGoQty { get; set; }
         public decimal? BadNgQty { get; set; }
+        public decimal? AdjustTime { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public decimal? WorkTime { get; set; }

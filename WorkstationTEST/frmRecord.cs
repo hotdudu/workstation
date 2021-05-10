@@ -106,5 +106,55 @@ namespace WorkstationTEST
         {
 
         }
+
+        private void emptydata_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmREno_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RECsearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmRecTotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmPTRecordnow_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void focust_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

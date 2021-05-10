@@ -225,4 +225,7 @@
   <data name="qtygreat" xml:space="preserve">
     <value>Input QTY greater than MakeQTY</value>
   </data>
+  <data name="adjust" xml:space="preserve">
+    <value>AdjustTime</value>
+  </data>
 </root>

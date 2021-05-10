@@ -225,4 +225,7 @@
   <data name="qtygreat" xml:space="preserve">
     <value>輸入數量大於仕掛數</value>
   </data>
+  <data name="adjust" xml:space="preserve">
+    <value>調整時間</value>
+  </data>
 </root>

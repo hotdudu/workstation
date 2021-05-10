@@ -81,6 +81,7 @@
             this.RPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.RPanel.Size = new System.Drawing.Size(1300, 0);
             this.RPanel.TabIndex = 3;
+            this.RPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.RPanel_Paint);
             // 
             // frmPTRecordnow
             // 
@@ -91,6 +92,7 @@
             this.frmPTRecordnow.TabIndex = 11;
             this.frmPTRecordnow.Text = "frmPTRecordnow";
             this.frmPTRecordnow.Visible = false;
+            this.frmPTRecordnow.Click += new System.EventHandler(this.frmPTRecordnow_Click);
             // 
             // frmREno
             // 
@@ -99,6 +101,7 @@
             this.frmREno.ReadOnly = true;
             this.frmREno.Size = new System.Drawing.Size(100, 22);
             this.frmREno.TabIndex = 12;
+            this.frmREno.TextChanged += new System.EventHandler(this.frmREno_TextChanged);
             // 
             // label1
             // 
@@ -211,6 +214,7 @@
             this.frmRecTotal.TabIndex = 22;
             this.frmRecTotal.Text = "label8";
             this.frmRecTotal.Visible = false;
+            this.frmRecTotal.Click += new System.EventHandler(this.frmRecTotal_Click);
             // 
             // save
             // 
@@ -222,6 +226,7 @@
             this.save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.save.TopText = null;
             this.save.UseVisualStyleBackColor = false;
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // frmPTbtnD
             // 
@@ -257,6 +262,7 @@
             this.next.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.next.TopText = null;
             this.next.UseVisualStyleBackColor = false;
+            this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // emptydata
             // 
@@ -267,6 +273,7 @@
             this.emptydata.TabIndex = 24;
             this.emptydata.Text = "目前無資料";
             this.emptydata.Visible = false;
+            this.emptydata.Click += new System.EventHandler(this.emptydata_Click);
             // 
             // focust
             // 
@@ -275,6 +282,7 @@
             this.focust.Size = new System.Drawing.Size(100, 22);
             this.focust.TabIndex = 25;
             this.focust.Visible = false;
+            this.focust.TextChanged += new System.EventHandler(this.focust_TextChanged);
             // 
             // label8
             // 
@@ -284,6 +292,7 @@
             this.label8.Size = new System.Drawing.Size(100, 23);
             this.label8.TabIndex = 26;
             this.label8.Text = "搜尋:";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // RECsearch
             // 
@@ -291,6 +300,7 @@
             this.RECsearch.Name = "RECsearch";
             this.RECsearch.Size = new System.Drawing.Size(100, 22);
             this.RECsearch.TabIndex = 27;
+            this.RECsearch.TextChanged += new System.EventHandler(this.RECsearch_TextChanged);
             // 
             // totalcount
             // 
