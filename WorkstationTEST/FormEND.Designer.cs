@@ -40,6 +40,13 @@
             this.frmEmpPageU = new WorkstationTEST.XButton();
             this.frmEmpPageD = new WorkstationTEST.XButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.nowrecordt = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nowrecord2 = new System.Windows.Forms.Label();
+            this.cqty = new System.Windows.Forms.Label();
+            this.totalcount2 = new System.Windows.Forms.Label();
+            this.tqty = new System.Windows.Forms.Label();
+            this.totalcount = new System.Windows.Forms.Label();
             this.RECsearch = new System.Windows.Forms.TextBox();
             this.focust = new System.Windows.Forms.TextBox();
             this.emptydata = new System.Windows.Forms.Label();
@@ -57,12 +64,6 @@
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
-            this.nowrecord2 = new System.Windows.Forms.Label();
-            this.cqty = new System.Windows.Forms.Label();
-            this.totalcount2 = new System.Windows.Forms.Label();
-            this.tqty = new System.Windows.Forms.Label();
-            this.totalcount = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -185,6 +186,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.nowrecordt);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.nowrecord2);
             this.tabPage2.Controls.Add(this.cqty);
@@ -213,20 +215,87 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
+            // nowrecordt
+            // 
+            this.nowrecordt.AutoSize = true;
+            this.nowrecordt.Location = new System.Drawing.Point(1057, 18);
+            this.nowrecordt.Name = "nowrecordt";
+            this.nowrecordt.Size = new System.Drawing.Size(0, 12);
+            this.nowrecordt.TabIndex = 44;
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label8.Location = new System.Drawing.Point(626, 4);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 23);
+            this.label8.TabIndex = 43;
+            this.label8.Text = "搜尋:";
+            // 
+            // nowrecord2
+            // 
+            this.nowrecord2.AutoSize = true;
+            this.nowrecord2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.nowrecord2.ForeColor = System.Drawing.Color.ForestGreen;
+            this.nowrecord2.Location = new System.Drawing.Point(1173, 14);
+            this.nowrecord2.Name = "nowrecord2";
+            this.nowrecord2.Size = new System.Drawing.Size(0, 19);
+            this.nowrecord2.TabIndex = 42;
+            // 
+            // cqty
+            // 
+            this.cqty.AutoSize = true;
+            this.cqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cqty.ForeColor = System.Drawing.Color.ForestGreen;
+            this.cqty.Location = new System.Drawing.Point(1144, 11);
+            this.cqty.Name = "cqty";
+            this.cqty.Size = new System.Drawing.Size(0, 19);
+            this.cqty.TabIndex = 41;
+            // 
+            // totalcount2
+            // 
+            this.totalcount2.AutoSize = true;
+            this.totalcount2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.totalcount2.ForeColor = System.Drawing.Color.ForestGreen;
+            this.totalcount2.Location = new System.Drawing.Point(974, 15);
+            this.totalcount2.Name = "totalcount2";
+            this.totalcount2.Size = new System.Drawing.Size(0, 19);
+            this.totalcount2.TabIndex = 40;
+            // 
+            // tqty
+            // 
+            this.tqty.AutoSize = true;
+            this.tqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.tqty.ForeColor = System.Drawing.Color.ForestGreen;
+            this.tqty.Location = new System.Drawing.Point(925, 15);
+            this.tqty.Name = "tqty";
+            this.tqty.Size = new System.Drawing.Size(0, 19);
+            this.tqty.TabIndex = 39;
+            // 
+            // totalcount
+            // 
+            this.totalcount.AutoSize = true;
+            this.totalcount.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.totalcount.ForeColor = System.Drawing.Color.ForestGreen;
+            this.totalcount.Location = new System.Drawing.Point(868, 14);
+            this.totalcount.Name = "totalcount";
+            this.totalcount.Size = new System.Drawing.Size(0, 19);
+            this.totalcount.TabIndex = 38;
+            // 
             // RECsearch
             // 
             this.RECsearch.Location = new System.Drawing.Point(732, 4);
             this.RECsearch.Name = "RECsearch";
             this.RECsearch.Size = new System.Drawing.Size(100, 22);
             this.RECsearch.TabIndex = 37;
+            this.RECsearch.TextChanged += new System.EventHandler(this.RECsearch_TextChanged);
             // 
             // focust
             // 
-            this.focust.Location = new System.Drawing.Point(951, 527);
+            this.focust.Location = new System.Drawing.Point(1059, 309);
             this.focust.Name = "focust";
             this.focust.Size = new System.Drawing.Size(100, 22);
             this.focust.TabIndex = 36;
-            this.focust.Visible = false;
             // 
             // emptydata
             // 
@@ -264,7 +333,6 @@
             this.frmPTRecordnow.Size = new System.Drawing.Size(89, 12);
             this.frmPTRecordnow.TabIndex = 30;
             this.frmPTRecordnow.Text = "frmPTRecordnow";
-            this.frmPTRecordnow.Visible = false;
             // 
             // NumPanel
             // 
@@ -410,65 +478,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // nowrecord2
-            // 
-            this.nowrecord2.AutoSize = true;
-            this.nowrecord2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.nowrecord2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.nowrecord2.Location = new System.Drawing.Point(1173, 14);
-            this.nowrecord2.Name = "nowrecord2";
-            this.nowrecord2.Size = new System.Drawing.Size(0, 19);
-            this.nowrecord2.TabIndex = 42;
-            // 
-            // cqty
-            // 
-            this.cqty.AutoSize = true;
-            this.cqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cqty.ForeColor = System.Drawing.Color.ForestGreen;
-            this.cqty.Location = new System.Drawing.Point(1158, 11);
-            this.cqty.Name = "cqty";
-            this.cqty.Size = new System.Drawing.Size(0, 19);
-            this.cqty.TabIndex = 41;
-            // 
-            // totalcount2
-            // 
-            this.totalcount2.AutoSize = true;
-            this.totalcount2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.totalcount2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.totalcount2.Location = new System.Drawing.Point(974, 15);
-            this.totalcount2.Name = "totalcount2";
-            this.totalcount2.Size = new System.Drawing.Size(0, 19);
-            this.totalcount2.TabIndex = 40;
-            // 
-            // tqty
-            // 
-            this.tqty.AutoSize = true;
-            this.tqty.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.tqty.ForeColor = System.Drawing.Color.ForestGreen;
-            this.tqty.Location = new System.Drawing.Point(925, 15);
-            this.tqty.Name = "tqty";
-            this.tqty.Size = new System.Drawing.Size(0, 19);
-            this.tqty.TabIndex = 39;
-            // 
-            // totalcount
-            // 
-            this.totalcount.AutoSize = true;
-            this.totalcount.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.totalcount.ForeColor = System.Drawing.Color.ForestGreen;
-            this.totalcount.Location = new System.Drawing.Point(868, 14);
-            this.totalcount.Name = "totalcount";
-            this.totalcount.Size = new System.Drawing.Size(0, 19);
-            this.totalcount.TabIndex = 38;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(626, 4);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 23);
-            this.label8.TabIndex = 43;
-            this.label8.Text = "搜尋:";
-            // 
             // FormEND
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -529,5 +538,6 @@
         private System.Windows.Forms.Label tqty;
         private System.Windows.Forms.Label totalcount;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label nowrecordt;
     }
 }

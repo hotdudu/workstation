@@ -295,7 +295,7 @@ namespace WorkstationTEST
                     btnnum++;
                     keynum++;
                     var btnkey = "F" + btnnum;
-                    var poststr = empitemcount.ToString("##");
+                    var poststr = btnnum.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.FullName;
                     var rlist = empitem.Rlist;
@@ -357,7 +357,7 @@ namespace WorkstationTEST
                     btnnum++;
                     keynum++;
                     var btnkey = "F" + btnnum;
-                    var poststr = empitemcount.ToString("##");
+                    var poststr = btnnum.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.AssetsName;
                     var rno = "";
@@ -1191,8 +1191,9 @@ namespace WorkstationTEST
                                 var tempbtn = tabPage1.Controls.Find(estr, true);
                                 if (tempbtn.Length > 0)
                                 {
-                                    ((Button)(tempbtn[0])).PerformClick();
-                                    Console.WriteLine("per:" + keychar);
+                                    var btn = tempbtn.Where(x => x.Visible == true).FirstOrDefault();
+                                    if (btn != null)
+                                        ((Button)(btn)).PerformClick();
                                 }
                             }
                         }
@@ -1405,8 +1406,9 @@ namespace WorkstationTEST
                                 var tempbtn = tabPage2.Controls.Find(estr, true);
                                 if (tempbtn.Length > 0)
                                 {
-                                    ((Button)(tempbtn[0])).PerformClick();
-                                    Console.WriteLine("per:" + keychar);
+                                    var btn = tempbtn.Where(x => x.Visible == true).FirstOrDefault();
+                                    if (btn != null)
+                                        ((Button)(btn)).PerformClick();
                                 }
                             }
                         }

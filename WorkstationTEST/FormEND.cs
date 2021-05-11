@@ -22,6 +22,7 @@ namespace WorkstationTEST
         public string DepartNo = "";//部門編號開頭
         public string NIG = "";//不在部門內但要顯示的員工，目前僅能一位，要多位要改API
         public string DefCompany = "";//預設公司
+        public string RestTime = "";//休息時間
         public FormEND(frmMenu fmenu)
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace WorkstationTEST
                 DepartNo = oTINI.getKeyValue("SYSTEM", "DepartNo", "");
                 NIG = oTINI.getKeyValue("SYSTEM", "NIG", "");
                 DefCompany = oTINI.getKeyValue("SYSTEM", "DefCompany", "");
+                RestTime= oTINI.getKeyValue("SYSTEM", "RestTime", "");
             }
         }
         int fullwidth = 600;
@@ -50,6 +52,7 @@ namespace WorkstationTEST
 
         }
         List<WorkDayReport> nowrecord = new List<WorkDayReport>();
+        List<WorkDayReport> nowselectrecord = new List<WorkDayReport>();
         Dictionary<string,string> rtext = CreateElement.loadresx();
         public Dictionary<string, string> rtext2 = CreateElement.loadresx("ST");
         Dictionary<string, string> rtext3 = CreateElement.loadresx("WK");
@@ -89,11 +92,14 @@ namespace WorkstationTEST
                     setpageup.SetBtn(next, "Return::Return", "Enter");
                     Int32 tlpColumCountkey = NumPanel.ColumnCount;
                     Int32 tlpRowCountkey = NumPanel.RowCount;
+                    save.Click += new EventHandler(savetab);
                     string[] numlist = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "Clear" };
                     string[] keylist = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "End" };
                     List<Button> btnkeylist = new List<Button>();
                     var empitemcount = 0;
-
+                    for (int i = NumPanel.Controls.Count - 1; i >= 0; --i)
+                        NumPanel.Controls[i].Dispose();
+                    NumPanel.Controls.Clear();
                     for (var empitem = 0; empitem < numlist.Length; empitem++)
                     {
                         var prestr = "BTNkey";
@@ -259,7 +265,7 @@ namespace WorkstationTEST
                     btnnum++;
                     keynum++;
                     var btnkey = "F" + btnnum;
-                    var poststr = empitemcount.ToString("##");
+                    var poststr = btnnum.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.FullName;
                     var rlist = empitem.Rlist;
@@ -340,7 +346,8 @@ namespace WorkstationTEST
         private void showrecord(string empno)
         {
             nowrecord = getinit_record(empno);
-            frmRecTotal.Text = nowrecord.Count.ToString();
+            nowselectrecord = nowrecord;
+            frmRecTotal.Text = nowselectrecord.Count.ToString();
             setview(0,"O");
         }
         private void getsearch(object sender, EventArgs e)
@@ -432,16 +439,18 @@ namespace WorkstationTEST
             var nowfocusf = tabPage2.Controls.Find("focust", true);
             string nowfocusname = nowfocusf[0].Text;
             var nowfocusc = tabPage2.Controls.Find(nowfocusname, true);
-           /* Control actfocused = null;
-            if (act1.Length > 0)
-            {
-                actfocused = act1[0].Focused ? act1[0] : (act2[0].Focused ? act2[0] : (act3[0].Focused ? act3[0] : (act4[0].Focused ? act4[0] : act1[0])));
-            }
-            if (act5.Length > 0)
-            {
-                actfocused = act5[0].Focused ? act5[0] : (act6[0].Focused ? act6[0] : act6[5]);
-            }
-            Console.Write("actfocus=" +actfocused.Name);*/
+            /* Control actfocused = null;
+             if (act1.Length > 0)
+             {
+                 actfocused = act1[0].Focused ? act1[0] : (act2[0].Focused ? act2[0] : (act3[0].Focused ? act3[0] : (act4[0].Focused ? act4[0] : act1[0])));
+             }
+             if (act5.Length > 0)
+             {
+                 actfocused = act5[0].Focused ? act5[0] : (act6[0].Focused ? act6[0] : act6[5]);
+             }
+             Console.Write("actfocus=" +actfocused.Name);*/
+            if (nowfocusc.Length > 0)
+                nowfocusc[0].Text = nowfocusc[0].Text+info;
             if (info == "Clear")
             {
                 if (nowfocusc.Length > 0)
@@ -895,110 +904,169 @@ namespace WorkstationTEST
         private int getsetorder(string act)
         {
             int nowpoint = 0;
+            int totalrow = 0;
+            int.TryParse(frmPTRecordnow.Text, out nowpoint);
+            int.TryParse(frmRecTotal.Text, out totalrow);
+            if (act == "d")
+            {
+                if (nowpoint + 1 < totalrow)
+                {
+                    nowpoint++;
+                }
+            }
             if (act == "u")
             {
-
+                if (nowpoint - 1 >= 0)
+                {
+                    nowpoint--;
+                }
             }
-            return 
+            frmPTRecordnow.Text = nowpoint.ToString();
+            return nowpoint; 
         }
         private void setview(int dataorder,string act)
         {
-            var rp = RPanel;
-            for (int i = rp.Controls.Count - 1; i >= 0; --i)
-                rp.Controls[i].Dispose();
-            rp.Controls.Clear();
-            var temprTabT = frmRecTotal;
-            temprTabT.Text = nowrecord.Count.ToString();
-
-            var temprTC = tabPage2.Controls.Find("totalcount", true);
-            var temprtqty = tabPage2.Controls.Find("tqty", true);
-            var temprTC2 = tabPage2.Controls.Find("totalcount2", true);
-            temprTC[0].Text = rtext["total"];
-            temprtqty[0].Text = temprTabT.Text;
-            temprtqty[0].ForeColor = Color.Blue;
-            temprTC2[0].Text = rtext["record"];
-            var temprN = tabPage2.Controls.Find("nowrecord", true);
-            var temprcqty = tabPage2.Controls.Find("cqty", true);
-            var temprN2 = tabPage2.Controls.Find("nowrecord2", true);
-            temprN[0].Text = rtext["current"];
-            temprcqty[0].Text = ((dataorder + 1).ToString());
-            temprcqty[0].ForeColor = Color.Blue;
-            temprN2[0].Text = rtext["record"];
-            var item = nowrecord[dataorder];
-            var namelist = new string[] { "GP-NP", "GP-WP", "GP-IP", "GR-NR", "GR-IR", "GR-WR" };
-            var hidelist = new string[] { "UseUnits", "TenantId", "WorkOrderId", "WorkOrderItemId", "WorkId", "WorkDate" };
-            var displaylist = new List<string> { "MakeNo", "StartTime", "CompleteQty", "BadQty", "AdjustTime", "WorkQty", "WorkNo", "WorkName", "Specification", "WorkTime", "EndTime" };
-            var editlist = new string[] { "CompleteQty", "BadQty", "AdjustTime" };
-            if (item.UseUnits.TrimStart().TrimEnd() == "Set")
+            if (nowselectrecord.Count > 0)
             {
-                displaylist = new List<string>() { "MakeNo", "StartTime", "CompletGoQty", "CompletNgQty", "BadGoQty", "BadNgQty", "AdjustTime", "WorkQty", "WorkNo", "WorkName", "Specification", "WorkTime", "EndTime" };
-                editlist = new string[] { "CompletGoQty", "CompletNgQty", "BadGoQty", "BadNgQty", "AdjustTime" };
-            }
-            List<TextBox> btnemplist = new List<TextBox>();
-            var dayid = "";
-            var itemj = 0;
-            foreach (var prop in item.GetType().GetProperties())
-            {
-                var cAssetsName = "";
-                if (prop.Name == "DayReportId")
+                var rp = RPanel;
+                for (int i = rp.Controls.Count - 1; i >= 0; --i)
+                    rp.Controls[i].Dispose();
+                rp.Controls.Clear();
+                showrecordmsg(dataorder,nowselectrecord.Count);
+                var item = nowselectrecord[dataorder];
+                var namelist = new string[] { "GP-NP", "GP-WP", "GP-IP", "GR-NR", "GR-IR", "GR-WR" };
+                var hidelist = new string[] { "UseUnits", "TenantId", "WorkOrderId", "WorkOrderItemId", "WorkId", "WorkDate" };
+                var displaylist = new List<string> { "MakeNo", "StartTime", "CompleteQty", "BadQty", "AdjustTime", "WorkQty", "WorkNo", "WorkName", "Specification", "WorkTime", "EndTime" };
+                var editlist = new string[] { "CompleteQty", "BadQty", "AdjustTime" };
+                if (item.UseUnits.TrimStart().TrimEnd() == "Set")
                 {
-                    dayid = prop.GetValue(item).ToString();
+                    displaylist = new List<string>() { "MakeNo", "StartTime", "CompletGoQty", "CompletNgQty", "BadGoQty", "BadNgQty", "AdjustTime", "WorkQty", "WorkNo", "WorkName", "Specification", "WorkTime", "EndTime" };
+                    editlist = new string[] { "CompletGoQty", "CompletNgQty", "BadGoQty", "BadNgQty", "AdjustTime" };
                 }
-                var prestr = "BTN";
-                var poststr = dataorder.ToString("##");
-                var poststr2 = itemj.ToString("##");
-                bool isedit = editlist.Contains(prop.Name);
-                var thisbtnname = prestr + "-" + prop.Name;
-                string thisbtntext = prop.GetValue(item) != null ? prop.GetValue(item).ToString() : "";
-                if (displaylist.Contains(prop.Name))
+                List<TextBox> btnemplist = new List<TextBox>();
+                var dayid = "";
+                var itemj = 0;
+                foreach (var prop in item.GetType().GetProperties())
                 {
-                    itemj++;
-                    TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, itemj, true);
-                    if (isedit)
+                    var cAssetsName = "";
+                    if (prop.Name == "DayReportId")
                     {
-                        empbtn.TextChanged += new EventHandler(CheckQTY);
-                        empbtn.GotFocus += new EventHandler(BtnGotfocus);
+                        dayid = prop.GetValue(item).ToString();
                     }
-                    btnemplist.Add(empbtn);
+                    var prestr = "BTN";
+                    var poststr = dataorder.ToString("##");
+                    var poststr2 = itemj.ToString("##");
+                    bool isedit = editlist.Contains(prop.Name);
+                    var thisbtnname = prestr + "-" + prop.Name;
+                    string thisbtntext = prop.GetValue(item) != null ? prop.GetValue(item).ToString() : "";
+                    if (displaylist.Contains(prop.Name))
+                    {
+                        itemj++;
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, itemj, true);
+                        if (isedit)
+                        {
+                            empbtn.TextChanged += new EventHandler(CheckQTY);
+                            empbtn.GotFocus += new EventHandler(BtnGotfocus);
+                        }
+                        btnemplist.Add(empbtn);
+                    }
+                    if (hidelist.Contains(prop.Name))
+                    {
+                        TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, false);
+                        btnemplist.Add(empbtn);
+                    }
                 }
-                if (hidelist.Contains(prop.Name))
+                TextBox rid = new TextBox();
+                rid.Visible = false;
+                rid.Name = "DayReportId";
+                rid.TabIndex = 999;
+                rid.Text = dayid;
+                btnemplist.Add(rid);
+
+                var tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], rtext["completeqty"], rtext["badqty"],rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
+
+                if (btnemplist.Count > 18)
+                    tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"], rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
+                for (var a = 0; a < tableheadstr.Count(); a++)
                 {
-                    TextBox empbtn = new CreateElement(thisbtnname, thisbtntext).CreateBtn(thisbtntext, isedit, 999, false);
-                    btnemplist.Add(empbtn);
+                    TextBox templab = new TextBox();
+                    templab.Text = tableheadstr[a];
+                    templab.ReadOnly = true;
+                    templab.Margin = new Padding(0);
+                    templab.TabIndex = 999;
+                    templab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+                    rp.Controls.Add(templab, a, 0);
                 }
+
+                for (var j = 0; j < btnemplist.Count; j++)
+                {
+                    rp.Controls.Add((TextBox)btnemplist[j], j, 0 + 1);
+                }
+                var CompleteQty = item.CompleteQty;
+                var BadQty = item.BadQty;
+                var CompletGoQty = item.CompletGoQty;
+                var CompletNgQty = item.CompletNgQty;
+                var BadGoQty = item.BadGoQty;
+                var BadNgQty = item.BadNgQty;
+                var AdjustTime = item.AdjustTime;
+                var EndTime = item.EndTime;
+                var WorkTime = item.WorkTime;
+
+
+                var actg = tabPage2.Controls.Find("BTN-CompleteQty", true);
+                var actn = tabPage2.Controls.Find("BTN-CompletGoQty", true);
+                var actnq = tabPage2.Controls.Find("BTN-CompletNgQty", true);
+                var abtgq = tabPage2.Controls.Find("BTN-BadGoQty", true);
+                var abtnq = tabPage2.Controls.Find("BTN-BadNgQty", true);
+                var abtg = tabPage2.Controls.Find("BTN-BadQty", true);
+                var ajt = tabPage2.Controls.Find("BTN-AdjustTime", true);
+                var aet = tabPage2.Controls.Find("BTN-EndTime", true);
+                var awt = tabPage2.Controls.Find("BTN-WorkTime", true);
+                if (actg.Length > 0) {
+                    actg[0].Text = CompleteQty.HasValue ? (CompleteQty == 0 ? "" : CompleteQty.ToString()) : "";
+                }
+                if (actn.Length > 0)
+                {
+                    actn[0].Text = CompletGoQty.HasValue ? (CompletGoQty == 0 ? "" : CompletGoQty.ToString()) : "";
+                }
+                if (actnq.Length > 0)
+                {
+                    actnq[0].Text = CompletNgQty.HasValue ? (CompletNgQty == 0 ? "" : CompletNgQty.ToString()) : "";
+                }
+                if (abtgq.Length > 0)
+                {
+                    abtgq[0].Text = BadGoQty.HasValue ? (BadGoQty == 0 ? "" : BadGoQty.ToString()) : "";
+                }
+                if (abtnq.Length > 0)
+                {
+                    abtnq[0].Text = BadNgQty.HasValue ? (BadNgQty == 0 ? "" : BadNgQty.ToString()) : "";
+                }
+                if (abtg.Length > 0)
+                {
+                    abtg[0].Text = BadQty.HasValue ? (BadQty == 0 ? "" : BadQty.ToString()) : "";
+                }
+                if (ajt.Length > 0)
+                {
+                    ajt[0].Text = AdjustTime.HasValue ? (AdjustTime == 0 ? "" : AdjustTime.ToString()) : "";
+                }
+                if (aet.Length > 0)
+                {
+                    aet[0].Text = EndTime.HasValue ? EndTime.ToString() : "";
+                }
+                if (awt.Length > 0)
+                {
+                    awt[0].Text = WorkTime.HasValue ? WorkTime.ToString() : "";
+                }
+                if (actg.Count() > 0)
+                    actg[0].Select();
+                if (actn.Count() > 0)
+                    actn[0].Select();
+                emptydata.Visible = false;
             }
-            TextBox rid = new TextBox();
-            rid.Visible = false;
-            rid.Name = "DayReportId";
-            rid.TabIndex = 999;
-            rid.Text = dayid;
-            btnemplist.Add(rid);
-
-            var tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], rtext["completeqty"], rtext["badqty"],rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
-
-            if (btnemplist.Count > 18)
-                tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"], rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
-            for (var a = 0; a < tableheadstr.Count(); a++)
+            else
             {
-                TextBox templab = new TextBox();
-                templab.Text = tableheadstr[a];
-                templab.ReadOnly = true;
-                templab.Margin = new Padding(0);
-                templab.TabIndex = 999;
-                templab.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-                rp.Controls.Add(templab, a, 0);
+                emptydata.Visible = true;
             }
-
-            for (var j = 0; j < btnemplist.Count; j++)
-            {
-                rp.Controls.Add((TextBox)btnemplist[j], j, 0 + 1);
-            }
-            var actg = tabPage2.Controls.Find("BTN-CompleteQty", true);
-            var actn = tabPage2.Controls.Find("BTN-CompletGoQty", true);
-            if (actg.Count() > 0)
-                actg[0].Select();
-            if (actn.Count() > 0)
-                actn[0].Select();
         }
         public void UpdateRecord(string id,DateTime endtime)
         {
@@ -1084,9 +1152,11 @@ namespace WorkstationTEST
                             var tempbtn = tabPage1.Controls.Find(estr, true);
                             if (tempbtn.Length > 0)
                             {
-                                ((Button)(tempbtn[0])).PerformClick();
+                                var btn = tempbtn.Where(x => x.Visible == true).FirstOrDefault();
+                                if(btn!=null)
+                                ((Button)(btn)).PerformClick();
+                            }                          
                                 Console.WriteLine("per:" + keychar);
-                            }
                         }
                     }
                 }
@@ -1316,7 +1386,8 @@ namespace WorkstationTEST
             var WorkTimeS = tabPage2.Controls.Find("BTN-WorkTime", true);
             var MakeNoS= tabPage2.Controls.Find("BTN-MakeNo", true);
             var Units = tabPage2.Controls.Find("BTN-UseUnits", true);
-            var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);        
+            var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);
+            var AdjustTimeS = tabPage2.Controls.Find("BTN-AdjustTime", true);
             //local
             var EmpnoS = tabPage1.Controls.Find("frmEmpshowno", true);
             var WorkDateS= tabPage2.Controls.Find("BTN-WorkDate", true);
@@ -1324,7 +1395,7 @@ namespace WorkstationTEST
             var WorkOrderIdS = tabPage2.Controls.Find("BTN-WorkOrderId", true);
             var WorkOrderItemIdS = tabPage2.Controls.Find("BTN-WorkOrderItemId", true);
             var WorkIdS = tabPage2.Controls.Find("BTN-WorkId", true);
-
+            
             var DayReportId = DayReportIdS[0].Text;
             decimal CompleteQty = decimal.Parse(CompleteQtyS.Length > 0&& CompleteQtyS[0].Text!="" ? CompleteQtyS[0].Text : "0");
             decimal BadQty = decimal.Parse(BadQtyS.Length > 0&& BadQtyS[0].Text!="" ? BadQtyS[0].Text : "0");
@@ -1332,6 +1403,8 @@ namespace WorkstationTEST
             decimal CompletNgQty = decimal.Parse(CompletNgQtyS.Length > 0&& CompletNgQtyS[0].Text!="" ? CompletNgQtyS[0].Text : "0");
             decimal BadGoQty = decimal.Parse(BadGoQtyS.Length > 0&& BadGoQtyS[0].Text !=""? BadGoQtyS[0].Text : "0");
             decimal BadNgQty = decimal.Parse(BadNgQtyS.Length > 0&& BadNgQtyS[0].Text!="" ? BadNgQtyS[0].Text : "0");
+            double AdjustTime = double.Parse(AdjustTimeS.Length > 0 && AdjustTimeS[0].Text != "" ? AdjustTimeS[0].Text : "0");
+            double subtime = double.Parse(RestTime);
             DateTime StartTime = DateTime.Parse(StartTimeS[0].Text);
             DateTime EndTime = EndTimeS.Length > 0 && EndTimeS[0].Text != "" ? DateTime.Parse(EndTimeS[0].Text) : DateTime.Now;
             double WorkTime = Math.Ceiling( EndTime.Subtract(StartTime).TotalMinutes);
@@ -1347,8 +1420,9 @@ namespace WorkstationTEST
             var middletimeend = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 0, 0);
             if (StartTime <= middletimestart && EndTime >= middletimeend)
             {
-                WorkTime -= 60;
+                WorkTime -= subtime;
             }
+            WorkTime -= AdjustTime;
             if (Unit == "Set")
             {
                 if (CompletGoQty + CompletNgQty > 0)
@@ -1493,6 +1567,21 @@ namespace WorkstationTEST
                 {
                     WorkTimeS[0].Text = WorkTime.ToString();
                 }
+                for(var i = 0; i < nowselectrecord.Count; i++)
+                {
+                    if (nowselectrecord[i].DayReportId == DayReportId)
+                    {
+                        nowselectrecord[i].EndTime = EndTime;
+                        nowselectrecord[i].WorkTime = (decimal)WorkTime;
+                        nowselectrecord[i].CompleteQty = CompleteQty;
+                        nowselectrecord[i].CompletGoQty = CompletGoQty;
+                        nowselectrecord[i].CompletNgQty = CompletNgQty;
+                        nowselectrecord[i].BadQty = BadQty;
+                        nowselectrecord[i].BadGoQty = BadGoQty;
+                        nowselectrecord[i].BadNgQty = BadNgQty;
+                        nowselectrecord[i].AdjustTime = (decimal)AdjustTime;
+                    }
+                }
             }
             s.Close();
         }
@@ -1591,7 +1680,7 @@ namespace WorkstationTEST
                         var temprN = tabPage2.Controls.Find("nowrecord", true);
                         var temprcqty = tabPage2.Controls.Find("cqty", true);
                         var temprN2 = tabPage2.Controls.Find("nowrecord2", true);
-                        temprN[0].Text = rtext["current"];
+                        temprN[0].Text = rtext3["current"];
                         temprcqty[0].Text = ((indnum + 1).ToString());
                         temprcqty[0].ForeColor = Color.Blue;
                         temprN2[0].Text = rtext["record"];
@@ -1881,12 +1970,58 @@ namespace WorkstationTEST
 
         private void frmPTbtnU_Click(object sender, EventArgs e)
         {
-
+            var nowrec = getsetorder("u");
+            setview(nowrec, "u");
         }
 
         private void frmPTbtnD_Click(object sender, EventArgs e)
         {
+            var nowrec = getsetorder("d");
+            setview(nowrec, "d");
+        }
 
+        private void RECsearch_TextChanged(object sender, EventArgs e)
+        {
+            if (RECsearch.Text != "")
+            {
+                var realstr = RECsearch.Text.TrimStart().TrimEnd();
+                var mkno = "";
+                if (realstr != string.Empty)
+                {
+                    if (realstr.IndexOf("::") >= 0)
+                    {
+                        mkno = realstr.Split(new string[] { "::" }, StringSplitOptions.None).First().ToUpper();
+
+                    }
+                    else
+                    {
+                        mkno = realstr.ToUpper();
+                    }
+                }
+                nowselectrecord = nowrecord.Where(x => x.MakeNo.StartsWith(mkno)).ToList();
+                frmRecTotal.Text = nowselectrecord.Count.ToString();
+                frmPTRecordnow.Text = "0";
+            }
+            else
+            {
+                nowselectrecord = nowrecord;
+                frmRecTotal.Text = nowselectrecord.Count.ToString();
+                frmPTRecordnow.Text = "0";
+            }
+            setview(0, "o");
+        }
+        private void showrecordmsg(int now,int total) {
+            frmRecTotal.Text = total.ToString();
+            int nowrecord = 0;
+            int.TryParse(frmPTRecordnow.Text, out nowrecord);
+            totalcount.Text = rtext["total"];
+            tqty.Text = frmRecTotal.Text;
+            tqty.ForeColor = Color.Blue;
+            totalcount2.Text = rtext["record"];
+            nowrecordt.Text = rtext["current"];
+            cqty.Text = ((now + 1).ToString());
+            cqty.ForeColor = Color.Blue;
+            nowrecord2.Text = rtext["record"];
         }
     }
 }
