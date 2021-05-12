@@ -179,11 +179,11 @@ namespace WorkstationTEST
             btn.Image = SetQR(qr, 80, 80, "QR");
             if (IsMultiple)
             {
-                btn.Tag = no + ":" + name + ":" + rno + ":" + rtenant;
+                btn.Tag = no + ":" + name + ":" + rno + ":" + rtenant+":"+empid.ToString();
             }
             else
             {
-                btn.Tag = no + ":" + name;
+                btn.Tag = no + ":" + name + ":" + empid.ToString();
             }
             btn.Top = irow * (ispace * 2 + btn.Height) + ispace;
             btn.Left = icol * (ispace + btn.Width);

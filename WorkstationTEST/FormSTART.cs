@@ -334,6 +334,9 @@ namespace WorkstationTEST
             setpageup.SetBtn(frmMachinePageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmMachinePageD, "Delete::Delete", rtext["frmWKbtnD"]);
             getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(DefCompany);
+            for (int i = machinepanel.Controls.Count - 1; i >= 0; --i)
+                machinepanel.Controls[i].Dispose();
+            machinepanel.Controls.Clear();
             if (getemachine.Count() > 0)
             {
                 int iSpace = 5;
@@ -442,7 +445,9 @@ namespace WorkstationTEST
                     labUnit.Text = getworkorder[0].UseUnits;
                     WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
                     WKSaveMakeNo.Text = getworkorder[0].MakeNo;
-
+                    WKSaveSpecification.Text = getworkorder[0].Specification;
+                    WKSaveWorkqty.Text = getworkorder[0].MakeQty.ToString();
+                    WKSaveWorderId.Text = getworkorder[0].WorkOrderId.ToString();
                     var pwid = wid != "" ? wid:getworkorder[0].WorkOrderId.ToString();
                     int.TryParse(WKSaveTenantId.Text, out tidval);
                     Guid gwid;
@@ -509,12 +514,12 @@ namespace WorkstationTEST
         public void newSetEmpNO(string info)
         {
             var empinfos = info.Split(':');
-            if (empinfos.Length == 2)
+            if (empinfos.Length == 3)
             {
                 frmEmpshowno.Text = empinfos[0];
                 empname.Text = empinfos[1];
             }
-            else if (empinfos.Length == 4)
+            else if (empinfos.Length == 5)
             {
                 if (ShowTenants == "1")
                 {
@@ -949,7 +954,7 @@ namespace WorkstationTEST
                 {
                     using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
-                        var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,EmpNo,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsName,WorkDate,Unit,AssetsItemId) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @EmpNo,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsName,@WorkDate,@Unit,@AssetsItemId)";
+                        var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,EmpNo,WorkQty,MakeNo,Specification,WorkName,WorkNo,Out,isupdate,AssetsName,WorkDate,Unit,AssetsItemId,EmployeeName) VALUES (@DayReportId, @TenantId, @WorkOrderId, @WorkOrderItemId, @WorkId, @StartTime, @EmpNo,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@Out,@isupdate,@AssetsName,@WorkDate,@Unit,@AssetsItemId,@EmployeeName)";
                         SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                         cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
                         cmd.Parameters.AddWithValue("@TenantId", tid);
@@ -972,6 +977,7 @@ namespace WorkstationTEST
                         cmd.Parameters.AddWithValue("@AssetsName", AssetsName.Text);
                         cmd.Parameters.AddWithValue("@Unit", Unit.Text);
                         cmd.Parameters.AddWithValue("@AssetsItemId", AssetsItemId.Text);
+                        cmd.Parameters.AddWithValue("@EmployeeName", empname.Text);
                         conn.Open();
                         try
                         {
@@ -1299,7 +1305,7 @@ namespace WorkstationTEST
                          }
                          wkrnow.Text = "0";
                      }*/
-                    showworkorder(false, wkmo.Text);
+                    showworkorder(false, wkmo.Text.ToUpper());
                 }
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
                 if (data == "")
@@ -1308,14 +1314,16 @@ namespace WorkstationTEST
                     //Console.WriteLine("nodata:"+ svmk[0].Text.ToUpper());
                     if (keyupper == "Delete")
                     {
+                        down.PerformClick();
                         //((Button)down[0]).PerformClick();
 
-                        frmWKbtnD(svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId.Text));
+                       // frmWKbtnD(svmk[0].Text.ToUpper(),Guid.Parse(WKSaveWorderId.Text));
                     }
                     if (keyupper == "Insert")
                     {
+                        up.PerformClick();
                         // ((Button)up[0]).PerformClick();
-                        frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId.Text));
+                        //frmWKbtnU(svmk[0].Text.ToUpper(), Guid.Parse(WKSaveWorderId.Text));
                     }
                     if (keyarray.Contains(keyupper))
                     {

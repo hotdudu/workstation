@@ -676,7 +676,8 @@ namespace WorkstationTEST
                 new KeyValuePair<string, string>("WorkOrderItemId", wdr.WorkOrderItemId),
                 new KeyValuePair<string, string>("WorkTime", wdr.WorkTime.HasValue?wdr.WorkTime.ToString():""),
                 new KeyValuePair<string, string>("StartTime", wdr.StartTime.HasValue?wdr.StartTime.ToString():""),
-                 new KeyValuePair<string, string>("EndTime", wdr.EndTime.HasValue?wdr.EndTime.ToString():"")
+                 new KeyValuePair<string, string>("EndTime", wdr.EndTime.HasValue?wdr.EndTime.ToString():""),
+                 new KeyValuePair<string, string>("AssetsItemId", string.IsNullOrEmpty(wdr.AssetsItemId)?"":wdr.AssetsItemId.ToString())
                 };
             var actrequest = new HttpRequestMessage()
             {

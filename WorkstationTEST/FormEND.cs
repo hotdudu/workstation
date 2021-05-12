@@ -348,6 +348,7 @@ namespace WorkstationTEST
             nowrecord = getinit_record(empno);
             nowselectrecord = nowrecord;
             frmRecTotal.Text = nowselectrecord.Count.ToString();
+            frmPTRecordnow.Text = "0";
             setview(0,"O");
         }
         private void getsearch(object sender, EventArgs e)
@@ -806,6 +807,16 @@ namespace WorkstationTEST
             string cnStr = "data source=" + dbPath + ";Version=3;";
             Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
             List<WorkDayReport> wrecord = new List<WorkDayReport>();
+            var employeeno = "";
+
+            if (eno.IndexOf(":") > 0)
+            {
+                employeeno = eno.Split(':').First();
+            }
+            else
+            {
+                employeeno = eno;
+            }
             var ismultipleno = false;
             var marray = Menufilter.Split(';');
             var msubarray = new List<string>();
@@ -843,7 +854,7 @@ namespace WorkstationTEST
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@EmpNo", eno);
+                        cmd.Parameters.AddWithValue("@EmpNo", employeeno);
                     }
                     conn.Open();
                     try
@@ -886,6 +897,7 @@ namespace WorkstationTEST
                                 BadNgQty = row["BadNgQty"] as decimal? ?? null,
                                 itemno = itemcount,
                                 UseUnits = row["Unit"] as string ?? "",
+                                AssetsItemId=row["AssetsItemId"] as string ??"",
                             };
                             wrecord.Add(ritem);
                         }
@@ -935,7 +947,7 @@ namespace WorkstationTEST
                 showrecordmsg(dataorder,nowselectrecord.Count);
                 var item = nowselectrecord[dataorder];
                 var namelist = new string[] { "GP-NP", "GP-WP", "GP-IP", "GR-NR", "GR-IR", "GR-WR" };
-                var hidelist = new string[] { "UseUnits", "TenantId", "WorkOrderId", "WorkOrderItemId", "WorkId", "WorkDate" };
+                var hidelist = new string[] { "UseUnits", "TenantId", "WorkOrderId", "WorkOrderItemId", "WorkId", "WorkDate", "AssetsItemId" };
                 var displaylist = new List<string> { "MakeNo", "StartTime", "CompleteQty", "BadQty", "AdjustTime", "WorkQty", "WorkNo", "WorkName", "Specification", "WorkTime", "EndTime" };
                 var editlist = new string[] { "CompleteQty", "BadQty", "AdjustTime" };
                 if (item.UseUnits.TrimStart().TrimEnd() == "Set")
@@ -985,7 +997,7 @@ namespace WorkstationTEST
 
                 var tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], rtext["completeqty"], rtext["badqty"],rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
 
-                if (btnemplist.Count > 18)
+                if (btnemplist.Count > 20)
                     tableheadstr = new string[] { rtext["makeno"], rtext["spec"], rtext["proc"], "", rtext["makeqty"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"], rtext["adjust"], rtext["starttime"], rtext["endtime"], rtext["worktime"] };
                 for (var a = 0; a < tableheadstr.Count(); a++)
                 {
@@ -1388,6 +1400,7 @@ namespace WorkstationTEST
             var Units = tabPage2.Controls.Find("BTN-UseUnits", true);
             var WorkNoS= tabPage2.Controls.Find("BTN-WorkNo", true);
             var AdjustTimeS = tabPage2.Controls.Find("BTN-AdjustTime", true);
+            var AssetsItemIdS = tabPage2.Controls.Find("BTN-AssetsItemId", true);
             //local
             var EmpnoS = tabPage1.Controls.Find("frmEmpshowno", true);
             var WorkDateS= tabPage2.Controls.Find("BTN-WorkDate", true);
@@ -1395,6 +1408,7 @@ namespace WorkstationTEST
             var WorkOrderIdS = tabPage2.Controls.Find("BTN-WorkOrderId", true);
             var WorkOrderItemIdS = tabPage2.Controls.Find("BTN-WorkOrderItemId", true);
             var WorkIdS = tabPage2.Controls.Find("BTN-WorkId", true);
+
             
             var DayReportId = DayReportIdS[0].Text;
             decimal CompleteQty = decimal.Parse(CompleteQtyS.Length > 0&& CompleteQtyS[0].Text!="" ? CompleteQtyS[0].Text : "0");
@@ -1414,6 +1428,7 @@ namespace WorkstationTEST
             string WorkOrderId = WorkOrderIdS.Length > 0 ? WorkOrderIdS[0].Text : "";
             string WorkOrderItemId = WorkOrderItemIdS.Length > 0 ? WorkOrderItemIdS[0].Text : "";
             string WorkId = WorkIdS.Length > 0 ? WorkIdS[0].Text : "";
+            string AssetsItemId = AssetsItemIdS.Length > 0 ? AssetsItemIdS[0].Text : "";
             string Unit = Units.Length > 0 ? Units[0].Text : "";
             string WorkNo = WorkNoS.Length > 0 ? WorkNoS[0].Text : "";
             var middletimestart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
@@ -1493,6 +1508,7 @@ namespace WorkstationTEST
                 WorkOrderItemId = WorkOrderItemId,
                 WorkQty = null,
                 WorkTime =(decimal) WorkTime,
+                AssetsItemId=AssetsItemId,
             };
             if (File.Exists(dbPath))
             {
@@ -1514,12 +1530,12 @@ namespace WorkstationTEST
                     {
                         conn.Open();
                         cmd.ExecuteNonQuery();
-                        var rTabT = tabPage2.Controls.Find("frmRecTotal", true);
+                       /* var rTabT = tabPage2.Controls.Find("frmRecTotal", true);
                         int rtotalval = 0;
                         var trytotal = int.TryParse(rTabT[0].Text, out rtotalval);
                         if (rtotalval > 0)
                             rtotalval -= 1;
-                        rTabT[0].Text = rtotalval.ToString();
+                        rTabT[0].Text = rtotalval.ToString();*/
 
                         int ind = nowrecord.FindIndex(x => x.DayReportId == DayReportId);
                         if (nowrecord[ind].localupdate == false)
