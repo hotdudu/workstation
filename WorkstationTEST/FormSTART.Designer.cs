@@ -38,11 +38,11 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.frmMachineRecordnow = new System.Windows.Forms.Label();
             this.machinepanel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.frmMachineshowno = new System.Windows.Forms.TextBox();
             this.frmMachinePageU = new WorkstationTEST.XButton();
             this.frmMachinePageD = new WorkstationTEST.XButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Empid = new System.Windows.Forms.Label();
             this.EMPSave1 = new System.Windows.Forms.TextBox();
             this.frmEmpRecordT = new System.Windows.Forms.Label();
             this.empname = new System.Windows.Forms.TextBox();
@@ -102,7 +102,6 @@
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
-            this.Empid = new System.Windows.Forms.Label();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -133,7 +132,6 @@
             this.tabPage2.Controls.Add(this.textBox2);
             this.tabPage2.Controls.Add(this.frmMachineRecordnow);
             this.tabPage2.Controls.Add(this.machinepanel);
-            this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.frmMachineshowno);
             this.tabPage2.Controls.Add(this.frmMachinePageU);
             this.tabPage2.Controls.Add(this.frmMachinePageD);
@@ -204,17 +202,6 @@
             this.machinepanel.Size = new System.Drawing.Size(1027, 350);
             this.machinepanel.TabIndex = 15;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(108, 666);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 12);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "label2";
-            this.label2.Visible = false;
-            // 
             // frmMachineshowno
             // 
             this.frmMachineshowno.Location = new System.Drawing.Point(391, 6);
@@ -269,6 +256,15 @@
             this.tabPage1.Text = "人員";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // Empid
+            // 
+            this.Empid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Empid.Location = new System.Drawing.Point(491, 430);
+            this.Empid.Name = "Empid";
+            this.Empid.Size = new System.Drawing.Size(100, 23);
+            this.Empid.TabIndex = 18;
+            this.Empid.Visible = false;
             // 
             // EMPSave1
             // 
@@ -402,6 +398,7 @@
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "工序";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // label1w
             // 
@@ -954,15 +951,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // Empid
-            // 
-            this.Empid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Empid.Location = new System.Drawing.Point(491, 430);
-            this.Empid.Name = "Empid";
-            this.Empid.Size = new System.Drawing.Size(100, 23);
-            this.Empid.TabIndex = 18;
-            this.Empid.Visible = false;
-            // 
             // FormSTART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1017,7 +1005,6 @@
         private System.Windows.Forms.TextBox textBox2;
         private XButton frmMachinePageU;
         private XButton frmMachinePageD;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox frmMachineshowno;
         private System.Windows.Forms.Label frmMachineRecordnow;
         private System.Windows.Forms.Label frmEmpRecordnow;

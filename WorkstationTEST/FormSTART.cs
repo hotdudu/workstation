@@ -386,7 +386,7 @@ namespace WorkstationTEST
             int tidval = int.Parse(DefCompany);
             label13.Text = rtext2[label13.Name];
             label1.Text = rtext2[label1.Name];
-            label2.Text = rtext2[label2.Name];
+            //label2.Text = rtext2[label2.Name];
             label4.Text = rtext2[label4.Name];
             label5.Text = rtext2[label5.Name];
             label7.Text = rtext2[label7.Name];
@@ -1869,6 +1869,9 @@ namespace WorkstationTEST
             }
         }
 
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
