@@ -121,6 +121,8 @@
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
+            this.labmachine = new System.Windows.Forms.Label();
+            this.msgmachine = new System.Windows.Forms.Label();
             this.tabPage2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -970,6 +972,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.msgmachine);
+            this.panel2.Controls.Add(this.labmachine);
             this.panel2.Controls.Add(this.ermsg);
             this.panel2.Controls.Add(this.msgworktime);
             this.panel2.Controls.Add(this.msgwork);
@@ -995,10 +999,10 @@
             this.ermsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ermsg.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.ermsg.ForeColor = System.Drawing.Color.Red;
-            this.ermsg.Location = new System.Drawing.Point(11, 249);
+            this.ermsg.Location = new System.Drawing.Point(11, 277);
             this.ermsg.Multiline = true;
             this.ermsg.Name = "ermsg";
-            this.ermsg.Size = new System.Drawing.Size(330, 79);
+            this.ermsg.Size = new System.Drawing.Size(330, 51);
             this.ermsg.TabIndex = 25;
             this.ermsg.TabStop = false;
             this.ermsg.Visible = false;
@@ -1007,7 +1011,7 @@
             // 
             this.msgworktime.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.msgworktime.ForeColor = System.Drawing.Color.Blue;
-            this.msgworktime.Location = new System.Drawing.Point(145, 214);
+            this.msgworktime.Location = new System.Drawing.Point(145, 243);
             this.msgworktime.Name = "msgworktime";
             this.msgworktime.Size = new System.Drawing.Size(175, 23);
             this.msgworktime.TabIndex = 24;
@@ -1087,7 +1091,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(5, 213);
+            this.label11.Location = new System.Drawing.Point(7, 243);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(58, 24);
             this.label11.TabIndex = 16;
@@ -1197,6 +1201,26 @@
             this.button1.TopText = null;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // labmachine
+            // 
+            this.labmachine.AutoSize = true;
+            this.labmachine.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labmachine.Location = new System.Drawing.Point(7, 213);
+            this.labmachine.Name = "labmachine";
+            this.labmachine.Size = new System.Drawing.Size(58, 24);
+            this.labmachine.TabIndex = 26;
+            this.labmachine.Text = "設備";
+            // 
+            // msgmachine
+            // 
+            this.msgmachine.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.msgmachine.ForeColor = System.Drawing.Color.Blue;
+            this.msgmachine.Location = new System.Drawing.Point(122, 213);
+            this.msgmachine.Name = "msgmachine";
+            this.msgmachine.Size = new System.Drawing.Size(175, 23);
+            this.msgmachine.TabIndex = 27;
+            this.msgmachine.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormSTART2
             // 
@@ -1325,5 +1349,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label SaveStat;
+        private System.Windows.Forms.Label msgmachine;
+        private System.Windows.Forms.Label labmachine;
     }
 }

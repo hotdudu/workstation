@@ -49,6 +49,7 @@ namespace WorkstationTEST
         delegate void Display(Byte[] buffer);
         public Dictionary<string, string> rtext = CreateElement.loadresx("ST");
         public Dictionary<string, string> rtext2 = CreateElement.loadresx("WK");
+        public Dictionary<string, string> rtext3 = CreateElement.loadresx();
         string lang = "";
         public int ShowMachine = 0;//是否顯示設備，以數字型別與Selectindex相加
         public string DepartNo = "";//部門編號開頭
@@ -332,18 +333,24 @@ namespace WorkstationTEST
                     rp.Controls[i].Dispose();
                 rp.Controls.Clear();
             }
+            if (NumPanel.Controls.Count > 0)
+            {
+                for (int i = NumPanel.Controls.Count - 1; i >= 0; --i)
+                    NumPanel.Controls[i].Dispose();
+                NumPanel.Controls.Clear();
+            }
             var tableheadstr = new string[] { };
             var textarray = new string[] { };
             if (initunit == "Set")
             {
-                tableheadstr = new string[] { rtext["worktime"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"] };
-                textarray = new string[] { "WorkTime", "GoCompleteQty", "NoGoCompleteQty", "GoBadQty", "NoGoBadQty" };
+                tableheadstr = new string[] { rtext["worktime"], "Go" + rtext["completeqty"], "NoGo" + rtext["completeqty"], "Go" + rtext["badqty"], "NoGo" + rtext["badqty"],rtext["adjust"] };
+                textarray = new string[] { "WorkTime", "GoCompleteQty", "NoGoCompleteQty", "GoBadQty", "NoGoBadQty","Adjust" };
 
             }
             else
             {
-                tableheadstr = new string[] { rtext["worktime"], rtext["completeqty"], rtext["badqty"], };
-                textarray = new string[] { "WorkTime", "CompleteQty", "BadQty" };
+                tableheadstr = new string[] { rtext["worktime"], rtext["completeqty"], rtext["badqty"],rtext["adjust"] };
+                textarray = new string[] { "WorkTime", "CompleteQty", "BadQty", "Adjust" };
             }
             for (var a = 0; a < tableheadstr.Count(); a++)
             {
@@ -390,12 +397,36 @@ namespace WorkstationTEST
                 numbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
                 numbox.GotFocus += new EventHandler(BtnGotfocus);
                 rp.Controls.Add(numbox, a, 1);
-
-                Int32 tlpColumCount = NumPanel.ColumnCount;
-                Int32 tlpRowCount = NumPanel.RowCount;
             }
-
-
+            Int32 tlpColumCount = NumPanel.ColumnCount;
+            Int32 tlpRowCount = NumPanel.RowCount;
+            string[] numlist = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "Clear" };
+            string[] keylist = new string[] { "NumPad1", "NumPad2", "NumPad3", "NumPad4", "NumPad5", "NumPad6", "NumPad7", "NumPad8", "NumPad9", "NumPad0", "Decimal", "Divide" };
+            List<Button> btnnumlist = new List<Button>();
+            var numitemcount = 0;
+            for (var empitem = 0; empitem < numlist.Length; empitem++)
+            {
+                var prestr = "BTNfrmNum";
+                numitemcount++;
+                var poststr = numitemcount.ToString("##");
+                var thisbtnname = prestr + poststr;
+                var thisbtntext = numlist[empitem];
+                var btnkey = keylist[empitem];
+                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateNumBtn(numlist[empitem], keylist[empitem]);
+                empbtn = sethandlernum(empbtn);
+                empbtn.TabStop = false;
+                btnnumlist.Add(empbtn);
+            }
+            var j = 0;
+            for (var i = 0; i < tlpRowCount; i += tlpColumCount)
+            {
+                for (; j < btnnumlist.Count && j < tlpColumCount * tlpRowCount; j++)
+                {
+                   // Console.WriteLine("Lqty-i=" + i + ",j=" + j + ",name=" + btnnumlist[j].Name + ",text=" + btnnumlist[j].Text);
+                    NumPanel.Controls.Add(btnnumlist[j], j, i);
+                    frmNumRecordnow.Text = j.ToString();
+                }
+            }
             var st2 = tabPage4.Controls.Find("WorkTime", true);
             ActiveControl = st2[0];
             //var wtbqty = frmNumshowno;
@@ -552,6 +583,50 @@ namespace WorkstationTEST
                 frmWKRecordnow.Text = "0";
                 Console.WriteLine("record=" + frmWKRecordnow.Text);
             }
+
+        }
+
+        public void SetNumNO(string info)
+        {
+            var nowfocusc = this.Controls.Find(focust.Text, true);
+            /* Control actfocused = null;
+             if (act1.Length > 0)
+             {
+                 actfocused = act1[0].Focused ? act1[0] : (act2[0].Focused ? act2[0] : (act3[0].Focused ? act3[0] : (act4[0].Focused ? act4[0] : act1[0])));
+             }
+             if (act5.Length > 0)
+             {
+                 actfocused = act5[0].Focused ? act5[0] : (act6[0].Focused ? act6[0] : act6[5]);
+             }
+             Console.Write("actfocus=" +actfocused.Name);*/
+            if (info == "Clear")
+            {
+                if (nowfocusc.Length > 0)
+                    nowfocusc[0].Text = "";
+                // actfocused.Text = "";
+                // frmNumshowno.Text = "";
+            }
+            else
+            {
+                if (nowfocusc.Length > 0)
+                    nowfocusc[0].Text = nowfocusc[0].Text + info;
+                //  if (nowfocusc.Length > 0) 
+                //    nowfocusc[0].Text = nowfocusc[0].Text + info;
+                // actfocused.Text = actfocused.Text+info;
+                // frmNumshowno.Text = frmNumshowno.Text + info;
+            }
+        }
+        public Button sethandlernum(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(btnnumALL_Click);
+            return sbt;
+        }
+
+        private void btnnumALL_Click(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            SetNumNO(tmpButton.Tag.ToString());
 
         }
 
@@ -1736,13 +1811,14 @@ namespace WorkstationTEST
             var owkno = WKSaveWorkNo;
             var owko = frmWKWorkitem;
             var ounit = labUnit;
-            var ocq = tabPage3.Controls.Find("CompleteQty", true);
-            var obq = tabPage3.Controls.Find("BadQty", true);
-            var ogcq = tabPage3.Controls.Find("GoCompleteQty", true);
-            var ognq = tabPage3.Controls.Find("NoGoCompleteQty", true);
-            var obcq = tabPage3.Controls.Find("GoBadQty", true);
-            var obnq = tabPage3.Controls.Find("NoGoBadQty", true);
-            var owt = tabPage3.Controls.Find("WorkTime", true);
+            var omachine = frmMachineshowno;
+            var ocq = tabPage4.Controls.Find("CompleteQty", true);
+            var obq = tabPage4.Controls.Find("BadQty", true);
+            var ogcq = tabPage4.Controls.Find("GoCompleteQty", true);
+            var ognq = tabPage4.Controls.Find("NoGoCompleteQty", true);
+            var obcq = tabPage4.Controls.Find("GoBadQty", true);
+            var obnq = tabPage4.Controls.Find("NoGoBadQty", true);
+            var owt = tabPage4.Controls.Find("WorkTime", true);
             string[] notincludelist = new string[] { "D16" };
             try
             {
@@ -1760,6 +1836,7 @@ namespace WorkstationTEST
                 msgmkno.Text = omkno.Text;
                 check_makeno = omkno.Text.Trim();
                 msgwork.Text = owko.Text + " " + owkn.Text;
+                msgmachine.Text = omachine.Text;
                 if (owt.Length > 0)
                 {
                     msgworktime.Text = owt[0].Text;

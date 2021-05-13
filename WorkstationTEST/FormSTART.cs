@@ -511,6 +511,7 @@ namespace WorkstationTEST
             }
 
         }
+
         public void newSetEmpNO(string info)
         {
             var empinfos = info.Split(':');
