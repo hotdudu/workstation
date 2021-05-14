@@ -20,6 +20,7 @@ namespace WorkstationTEST
         public string URL;
         public string apiip;
         public string dbip;
+        public string defcompany;
         public string COMPORT;
         private string Empdef;
         private string PTdef;
@@ -47,9 +48,12 @@ namespace WorkstationTEST
                     ndbip = oTINI.getKeyValue("SYSTEM", "Dbip", "");
                     Empdef = oTINI.getKeyValue("SYSTEM", "Empdef", "");
                     var to= oTINI.getKeyValue("SYSTEM", "Timeout", "");//暫存
-                    var tryint = int.TryParse(to, out apitimeout);// 逾時時間
+                    var tryint = int.TryParse(to, out apitimeout);// 逾時時間DefCompany
                     PTdef = oTINI.getKeyValue("SYSTEM", "PTdef", "");
-                    getconf = true;
+                    defcompany = oTINI.getKeyValue("SYSTEM", "defcompany", "");
+                    var workitemfilter = oTINI.getKeyValue("SYSTEM", "filter_WorkOrder_WorkName_Not_"+defcompany, "");
+                    filterstring1 = workitemfilter.Split(',');
+                     getconf = true;
                 }
                 /*string cPath = Directory.GetCurrentDirectory() + "\\" + "config.ini";
                 if (File.Exists(cPath))
@@ -330,21 +334,21 @@ namespace WorkstationTEST
             }
             else
             {
-                if (filter1 == "1")//模糊過濾(較少筆)
+                if (filter1 == "1")//模糊過濾(較多筆)
                 {
                     foreach (var item in filterstring1)
                     {
-                        witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                        witemobj = witemobj.Where(x => !x.WorkName.Contains(item.Trim())).ToList();
                     }
                 }
                 else
                 {
-                    if (filter == "1")//完全過濾(較多筆)
+                    if (filter == "1")//完全過濾(較少筆)
                     {
 
                         foreach(var item in filterstring)
                         {
-                            witemobj = witemobj.Where(x => !x.WorkName.Contains(item)).ToList();
+                            witemobj = witemobj.Where(x => !x.WorkName.Contains(item.Trim())).ToList();
                         }
 
                     }
@@ -894,6 +898,25 @@ namespace WorkstationTEST
             {
                 var key2 = Gfilter.Result.Split(',');
                 Result = Result.Where(x => key2.Contains(x.PartnerNo)).ToList();
+            }
+            return Result;
+        }
+        private List<Workitem> WorkItem_Filter(string tid, List<Workitem> orglist)
+        {
+            List<Workitem> Result = orglist;
+            var name = "WorkOrder";
+            var cloumn = "WorkName";
+            var Nfilter = getfilter(name, cloumn, "Not", tid);
+            var Gfilter = getfilter(name, cloumn, "Ok", tid);
+            if (Nfilter.Result != "")
+            {
+                var key = Nfilter.Result.Split(',');
+                Result = Result.Where(x => !key.Contains(x.WorkName)).ToList();
+            }
+            if (Gfilter.Result != "")
+            {
+                var key2 = Gfilter.Result.Split(',');
+                Result = Result.Where(x => key2.Contains(x.WorkName)).ToList();
             }
             return Result;
         }

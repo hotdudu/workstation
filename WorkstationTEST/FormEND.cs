@@ -1263,11 +1263,11 @@ namespace WorkstationTEST
                                     var bestr = "";
                                     if (keyupper == "Decimal")
                                     {
-                                        bestr = "BTNkey-Decimal";
+                                        bestr = "BTNkeyDecimal";
                                     }
                                     else if (keyupper == "End")
                                     {
-                                        bestr = "BTNkey-End";
+                                        bestr = "BTNkeyEnd";
                                     }
                                     var btempbtn = tabPage2.Controls.Find(bestr, true);
                                     ((Button)(btempbtn[0])).PerformClick();

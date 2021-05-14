@@ -1375,9 +1375,9 @@ namespace WorkstationTEST
                     }
                     else
                     {
-                        var tt = tabPage2.Controls.Find("frmWKMakeno", true);
-                        tt[0].Text = data;
-                        Console.WriteLine("tt=" + tt[0].Name);
+                        var tt = frmWKMakeno;
+                        tt.Text = data;
+                        Console.WriteLine("tt=" + tt.Text);
                     }                    
                 }
 
