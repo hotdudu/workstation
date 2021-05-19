@@ -296,6 +296,7 @@
             this.focust.Name = "focust";
             this.focust.Size = new System.Drawing.Size(100, 22);
             this.focust.TabIndex = 36;
+            this.focust.Visible = false;
             // 
             // emptydata
             // 

@@ -852,7 +852,7 @@ namespace WorkstationTEST
                     btnnum++;
                     keynum++;
                     var btnkey = "F" + btnnum;
-                    var poststr = btnnum.ToString("##");
+                    var poststr = empitemcount.ToString("##");
                     var thisbtnname = prestr + poststr;
                     var thisbtntext = empitem.FullName;
                     var rlist = empitem.Rlist;
@@ -1429,6 +1429,7 @@ namespace WorkstationTEST
             var t = this.tabControl1.SelectedIndex;
             Console.WriteLine("st=" + t + ",ind=" + keychar);
             var keyupper = keychar.ToString();
+
             if (keyupper == "PageUp")
             {
                 button1.PerformClick();
@@ -1449,6 +1450,9 @@ namespace WorkstationTEST
             {
                 var up = frmEmpPageU;
                 var down = frmEmpPageD;
+                var emprec = frmEmpRecordnow;
+                var emprecn = 0;
+                int.TryParse(emprec.Text, out emprecn);
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
 
                 if (keyupper == "Delete")
@@ -1474,8 +1478,13 @@ namespace WorkstationTEST
                         {
                             if (keyarray[i] == keyupper)
                             {
-                                var estr = "BTNfrmEmp" + (i + 1);
-                                Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
+                                var empmiddlestr = "";
+                                if (emprecn > 0)
+                                {
+                                    empmiddlestr = (emprecn * 10).ToString();
+                                }
+                                var estr = "BTNfrmEmp" + (emprecn * 10 + i + 1); ;
+                                //Console.WriteLine("ke=" + keyupper + "," + keyarray[i] + estr);
                                 var tempbtn = tabPage1.Controls.Find(estr, true);
                                 if (tempbtn.Length > 0)
                                 {
@@ -1963,141 +1972,12 @@ namespace WorkstationTEST
 
         private void frmWKbtnU(int tid,string makeno, Guid wid)
         {
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
-            Console.WriteLine("functionU:" + getwitem.Count);
-            var WKPanels = tabPage2.Controls.Find("WKPanel", true);
-            var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
-            var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
-            TableLayoutPanel WKPanel = (TableLayoutPanel)WKPanels[0];
-            var frmWKRecordnow = frmWKRecordnows[0];
-            var frmWKRecordT = frmWKRecordTs[0];
-            Int32 tlpColumCount = WKPanel.ColumnCount;
-            Int32 tlpRowCount = WKPanel.RowCount;
-            List<Button> btnemplist = new List<Button>();
-            int nowrecord = 0;
-            int recordT = 0;
-            bool trynowrecord = int.TryParse(frmWKRecordnow.Text, out nowrecord);
-            bool tryrecordT = int.TryParse(frmWKRecordT.Text, out recordT);
-            var looplimit = nowrecord - recordT;
-            var loopinit = looplimit + 1 - (tlpColumCount * tlpRowCount);
-            Console.WriteLine("u-limit=" + looplimit + ",loopinit=" + loopinit);
-            if (trynowrecord && looplimit > 0)
-            {
-                for (int i = WKPanel.Controls.Count - 1; i >= 0; --i)
-                    WKPanel.Controls[i].Dispose();
-                WKPanel.Controls.Clear();
-            }
-            Console.WriteLine("U-nowrecord=" + nowrecord);
-            if (nowrecord > 0)
-            {
-                Console.WriteLine("U-getemp=" + getwitem.Count());
-                if (getwitem.Count() > 0)
-                {
-                    var empitemcount = 0;
 
-                    var j = loopinit;
-                    var recordU = 0;
-                    Console.WriteLine("U-j=" + j + ",row=" + tlpRowCount + ",col=" + tlpColumCount);
-                    if (j >= 0 && looplimit > 0)
-                    {
-                        var reali = 0;
-                        Console.WriteLine("U-loop=" + loopinit + ",looplimit=" + looplimit);
-                        for (var i = loopinit; i < loopinit + (tlpColumCount * tlpRowCount); i += tlpColumCount)
-                        {
-                            reali++;
-                            var realj = 0;
-                            for (; j < getwitem.Count && j < i + tlpColumCount; j++)
-                            {
-                                recordU++;
-                                Console.WriteLine("U-i=" + i + ",j=" + j + ",name=" + getwitem[j].WorkNo + ",ri=" + reali + ",rj=" + realj);
-                                var prestr = "BTNfrmEmp";
-                                empitemcount++;
-                                var keynum = j % (tlpColumCount * tlpRowCount) + 1;
-                                var btnkey = "F" + keynum;
-                                var poststr = empitemcount.ToString("##");
-                                var thisbtnname = prestr + poststr;
-                                var thisbtntext = getwitem[j].WorkName;
-                                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtn(getwitem[j].WorkNo, thisbtntext, getwitem[j].WorkOrderItemId, getwitem[j].WorkId, btnkey);
-                                empbtn = sethandlerW(empbtn);
-                                WKPanel.Controls.Add(empbtn, realj, reali - 1);
-                                frmWKRecordnow.Text = j.ToString();
-                                realj++;
-                            }
-                        }
-                        frmWKRecordT.Text = recordU.ToString();
-
-                    }
-
-                    Console.WriteLine("record=" + frmWKRecordnow.Text);
-                }
-            }
         }
 
         private void frmWKbtnD(int tid, string makeno,Guid wid)
         {
-            Console.WriteLine("makeno=" + makeno + ",w=" + wid);
-            var getwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tid,makeno, wid);
-            Console.WriteLine("functionD:" + getwitem.Count);
-            var WKPanels = tabPage2.Controls.Find("WKPanel", true);
-            var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
-            var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
-            TableLayoutPanel WKPanel = (TableLayoutPanel)WKPanels[0];
-            var frmWKRecordnow = frmWKRecordnows[0];
-            var frmWKRecordT = frmWKRecordTs[0];
-            Int32 tlpColumCount = WKPanel.ColumnCount;
-            Int32 tlpRowCount = WKPanel.RowCount;
-            List<Button> btnemplist = new List<Button>();
-            int nowrecord = 0;
-            bool trynowrecord = int.TryParse(frmWKRecordnow.Text, out nowrecord);
-            if (trynowrecord && nowrecord < getwitem.Count - 1)
-            {
-                for (int i = WKPanel.Controls.Count - 1; i >= 0; --i)
-                    WKPanel.Controls[i].Dispose();
-                WKPanel.Controls.Clear();
-            }
-            Console.WriteLine("D-nowrecord=" + nowrecord);
-            if (nowrecord > 0)
-            {
-                Console.WriteLine("D-getemp=" + getwitem.Count());
-                if (getwitem.Count() > 0)
-                {
-                    var empitemcount = 0;
-                    var j = nowrecord + 1;
 
-                    Console.WriteLine("D-j=" + j + ",row=" + tlpRowCount + ",col=" + tlpColumCount);
-                    if (j > 0 && nowrecord < getwitem.Count - 1)
-                    {
-                        var reali = 0;
-                        var recordD = 0;
-                        Console.WriteLine("d-tlpRowCount=" + tlpRowCount);
-                        for (var i = nowrecord + 1; i < (nowrecord + 1) + (tlpColumCount * tlpRowCount); i += tlpColumCount)
-                        {
-                            reali++;
-                            var realj = 0;
-                            for (; j < getwitem.Count && j < i + tlpColumCount; j++)
-                            {
-                                recordD++;
-                                Console.WriteLine("D-i=" + i + ",j=" + j + ",name=" + getwitem[j].WorkNo + ",ri=" + reali + ",rj=" + realj);
-                                var prestr = "BTNfrmEmp";
-                                empitemcount++;
-                                var keynum = j % (tlpColumCount * tlpRowCount) + 1;
-                                var btnkey = "F" + keynum;
-                                var poststr = empitemcount.ToString("##");
-                                var thisbtnname = prestr + poststr;
-                                var thisbtntext = getwitem[j].WorkName;
-                                Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtn(getwitem[j].WorkNo, thisbtntext, getwitem[j].WorkOrderItemId, getwitem[j].WorkId, btnkey);
-                                empbtn = sethandlerW(empbtn);
-                                WKPanel.Controls.Add(empbtn, realj, reali - 1);
-                                frmWKRecordnow.Text = j.ToString();
-                                realj++;
-                            }
-                        }
-                        frmWKRecordT.Text = recordD.ToString();
-                    }
-
-                    Console.WriteLine("record=" + frmWKRecordnow.Text);
-                }
-            }
         }
 
         private void CloseSerialOnExit()

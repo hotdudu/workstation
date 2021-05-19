@@ -109,6 +109,7 @@ namespace WorkstationTEST
                         var thisbtntext = numlist[empitem];
                         var btnkey = keylist[empitem];
                         Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateNumBtn(numlist[empitem], keylist[empitem]);
+                        empbtn.TabStop = false;
                         empbtn = sethandlerbtn(empbtn);
                         btnkeylist.Add(empbtn);
                     }
@@ -428,7 +429,7 @@ namespace WorkstationTEST
         }
 
 
-        public void SetkeyNO(string info)
+        public void SetkeyNO(string info,bool iskeyORbarcode=false )
         {
             //var act = ActiveControl;
             var act5 = tabPage2.Controls.Find("BTN-CompleteQty", true);
@@ -451,7 +452,9 @@ namespace WorkstationTEST
              }
              Console.Write("actfocus=" +actfocused.Name);*/
             if (nowfocusc.Length > 0)
-                nowfocusc[0].Text = nowfocusc[0].Text+info;
+            {
+                nowfocusc[0].Text = nowfocusc[0].Text + info;
+            }
             if (info == "Clear")
             {
                 if (nowfocusc.Length > 0)
@@ -1270,7 +1273,8 @@ namespace WorkstationTEST
                                         bestr = "BTNkeyEnd";
                                     }
                                     var btempbtn = tabPage2.Controls.Find(bestr, true);
-                                    ((Button)(btempbtn[0])).PerformClick();
+                                    SetkeyNO(((Button)(btempbtn[0])).Tag.ToString(), true);
+                                    //((Button)(btempbtn[0])).PerformClick();
                                 }
                             }
                         }

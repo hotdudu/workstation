@@ -333,6 +333,19 @@ namespace WorkstationTEST
             btn.Tag = no;
             btn.ImageAlign = ContentAlignment.MiddleCenter;
         }
+        public void SetBtnChangeLabel(XButton btn, string no, string name)
+        {
+            var btnarray = no.Split(new string[] { "::" }, StringSplitOptions.None);
+            var key = btnarray[1];
+            Keys myEnum = (Keys)Enum.Parse(typeof(Keys), key);
+            Console.WriteLine("myEnum=" + myEnum);
+            btn.LeftText = key;
+            btn.TopText = name;
+            btn.Size = new Size(195, 110);
+            btn.Image = SetQR(no, 80, 80, "QR");
+            btn.Tag = no;
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+        }
         public void SetBtn2(XButton btn, string no, string name)
         {
             var btnarray = no.Split(new string[] { "::" }, StringSplitOptions.None);
