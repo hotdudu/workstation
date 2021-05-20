@@ -265,6 +265,7 @@ namespace WorkstationTEST
             setpageup.SetBtn(button2, "PageDown::Next", rtext[button2.Name]);
             setpageup.SetBtn(button3, "Home::Home", rtext[button3.Name]);
             setpageup.SetBtn2(button4, "Escape::Escape", rtext[button4.Name]);
+            save.Click += new EventHandler(savetab);
             /* var frmEmp = new frmEmp();
              frmEmp.TopLevel = false;
              frmEmp.Visible = true;
@@ -526,7 +527,7 @@ namespace WorkstationTEST
                 obnq[0].TextChanged += new EventHandler(getinform);
                 owt[0].TextChanged += new EventHandler(getinform);
             }
-            save.Click += new EventHandler(savetab);
+           
         }
 
         private void showworkorder(bool isinit = false, string makeno = "", string wid = "", bool iskey = false)
@@ -1122,6 +1123,7 @@ namespace WorkstationTEST
         }   
         private void savetab(object sender, EventArgs e)
         {
+            var a = tabControl1.Controls.Find("save", true);
             ermsg.Text = "";
             ermsg.Visible = false;
             var empno = frmEmpshowno;
