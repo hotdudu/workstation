@@ -668,7 +668,7 @@ namespace WorkstationTEST
                 new KeyValuePair<string, string>("CompleteGoQty", wdr.CompletGoQty.HasValue?wdr.CompletGoQty.ToString():""),
                 new KeyValuePair<string, string>("BadNgQty", wdr.BadNgQty.HasValue?wdr.BadNgQty.ToString():""),
                 new KeyValuePair<string, string>("CompletNgQty", wdr.CompletNgQty.HasValue?wdr.CompletNgQty.ToString():""),
-
+                new KeyValuePair<string, string>("AdjustTime", wdr.AdjustTime.HasValue?wdr.AdjustTime.ToString():""),
                 new KeyValuePair<string,string>("DayReportId", wdr.DayReportId),
                 new KeyValuePair<string, string>("EmpNo", wdr.EmpNo),
                 new KeyValuePair<string, string>("MakeNo", wdr.MakeNo),

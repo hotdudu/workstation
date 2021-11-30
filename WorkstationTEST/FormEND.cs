@@ -1489,7 +1489,7 @@ namespace WorkstationTEST
             var wdritem = new WorkDayReport()
             {
                 EmployeeId = "",
-                AdjustTime = null,
+                AdjustTime = (decimal)AdjustTime,
                 BadQty = BadQty,
                 CompleteQty = CompleteQty,
                 CompletGoQty = CompletGoQty,

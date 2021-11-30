@@ -1212,7 +1212,7 @@ namespace WorkstationTEST
             Console.WriteLine("db=" + File.Exists(dbPath) + "," + dbPath);
             var wdritem=new WorkDayReport() {
                 EmployeeId = "",
-                AdjustTime = null,
+                AdjustTime = adjusttime,
                 BadQty = bqty,
                 CompleteQty = cqty,
                 CompletGoQty = cgqty,
@@ -1242,9 +1242,9 @@ namespace WorkstationTEST
                 using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                 {
                     var insertScript = "INSERT INTO WorkDayReports (DayReportId,TenantId,WorkOrderId,WorkOrderItemId,WorkId,StartTime,BadQty,EmpNo,EndTime,"+
-                        "CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,WorkTime,WorkDate,Out,isupdate,AssetsName,CompletGoQty,CompletNgQty,BadGoQty,BadNgQty,Unit,AssetsItemId)" + 
+                        "CompleteQty,WorkQty,MakeNo,Specification,WorkName,WorkNo,WorkTime,WorkDate,Out,isupdate,AssetsName,CompletGoQty,CompletNgQty,BadGoQty,BadNgQty,Unit,AssetsItemId,AdjustTime)" + 
                         " VALUES (@DayReportId,@TenantId,@WorkOrderId,@WorkOrderItemId,@WorkId,@StartTime,@BadQty,@EmpNo,@EndTime,"+
-                        "@CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@WorkTime,@WorkDate,@Out,@isupdate,@AssetsName,@CompletGoQty,@CompletNgQty,@BadGoQty,@BadNgQty,@Unit,@AssetsItemId)";
+                        "@CompleteQty,@WorkQty,@MakeNo,@Specification,@WorkName,@WorkNo,@WorkTime,@WorkDate,@Out,@isupdate,@AssetsName,@CompletGoQty,@CompletNgQty,@BadGoQty,@BadNgQty,@Unit,@AssetsItemId,@AdjustTime)";
                     SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                     cmd.Parameters.AddWithValue("@DayReportId", dayreportid.ToString());
                     cmd.Parameters.AddWithValue("@TenantId", tid);
@@ -1271,7 +1271,8 @@ namespace WorkstationTEST
                     cmd.Parameters.AddWithValue("@BadNgQty", bnqty);
                     cmd.Parameters.AddWithValue("@Unit", unit.Text);
                     cmd.Parameters.AddWithValue("@EndTime", starttime); 
-                    cmd.Parameters.AddWithValue("@AssetsItemId", frmAssetsItemId.Text); 
+                    cmd.Parameters.AddWithValue("@AssetsItemId", frmAssetsItemId.Text);
+                    cmd.Parameters.AddWithValue("@AdjustTime", adjusttime);
 
                     conn.Open();
                     try
