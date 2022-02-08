@@ -156,6 +156,9 @@
   <data name="label9" xml:space="preserve">
     <value>Số lượng sản xuất</value>
   </data>
+  <data name="labelma" xml:space="preserve">
+    <value>請選擇設備</value>
+  </data>
   <data name="labelname" xml:space="preserve">
     <value>Tên tài sản</value>
   </data>

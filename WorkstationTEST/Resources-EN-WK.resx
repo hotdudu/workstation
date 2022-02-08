@@ -156,6 +156,9 @@
   <data name="label9" xml:space="preserve">
     <value>MakeQTY</value>
   </data>
+  <data name="labelma" xml:space="preserve">
+    <value>Select machine</value>
+  </data>
   <data name="labelname" xml:space="preserve">
     <value>AssetsName</value>
   </data>

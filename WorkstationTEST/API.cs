@@ -863,6 +863,67 @@ namespace WorkstationTEST
             }
             return result;
         }
+
+        public returnmsg UploadServerFinish(FinishItems fi)
+        {
+            var client = new HttpClient();
+
+
+            var keyValues = new List<KeyValuePair<string, string>> {
+                new KeyValuePair<string, string>("Id", fi.Id),
+                new KeyValuePair<string,string>("Empno", fi.EmployeeId),
+                new KeyValuePair<string, string>("WorkOrderId", fi.WorkorderId),
+                new KeyValuePair<string, string>("TenantId",fi.TenantId.ToString()),
+                new KeyValuePair<string, string>("Qty",fi.Qty.ToString()),
+                new KeyValuePair<string, string>("Status",fi.Status.ToString()),
+                new KeyValuePair<string, string>("Date",fi.Date.ToString()),
+                };
+            var actrequest = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(this.URL),
+                Content = new FormUrlEncodedContent(keyValues),
+
+            };
+            actrequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            List<Guid> dayid = new List<Guid>();
+            var ermsg = "";
+            var result = new returnmsg();
+            try
+            {
+                HttpResponseMessage res = client.SendAsync(actrequest).GetAwaiter().GetResult();
+
+                if (res.StatusCode.ToString() == "OK")
+                {
+                    //string r = res.Content.ReadAsStringAsync().Result.ToString();
+                    // Message MS = JsonConvert.DeserializeObject<Message>(r);
+                    // var Result = JsonConvert.SerializeObject(MS);
+
+                    result = JsonConvert.DeserializeObject<returnmsg>(res.Content.ReadAsStringAsync().Result);
+                }
+                else if (res.StatusCode.ToString() == "BadRequest")
+                {
+                    ermsg = JsonConvert.DeserializeObject<string>(res.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    Console.WriteLine("伺服器連線異常");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is TaskCanceledException)
+                {
+                    ermsg = "連線逾時";
+                }
+                else
+                {
+                    ermsg = "伺服器發生錯誤";
+                }
+            }
+            return result;
+        }
+
         private List<Empm> EmployeeDepartment_Filter(string tid, List<Empm> orglist)
         {
             List<Empm> Result = orglist;
@@ -1004,7 +1065,6 @@ namespace WorkstationTEST
     }
     public class WorkOrder
     {
-
         public string MakeNo { get; set; }
         public string AssetsNo { get; set; }
         public string Remark { get; set; }
@@ -1014,6 +1074,18 @@ namespace WorkstationTEST
         public string AssetsName { get; set; }
         public int TenantId { get; set; }
         public string UseUnits { get; set; }
+        public string NotSale { get; set; }
+    }
+
+    public class FinishItems
+    {
+        public string Id { get; set; }
+        public int TenantId { get; set; }
+        public string EmployeeId { get; set; }
+        public string WorkorderId { get; set; }
+        public int Status { get; set; }
+        public decimal? Qty { get; set; }
+        public DateTime Date { get; set; }
     }
     public class WorkOrderO : WorkOrder
     {

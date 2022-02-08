@@ -72,7 +72,7 @@ namespace WorkstationTEST
                      Console.WriteLine("1." + ActiveControl.Name);*/
                     //showemp();
                     break;
-                case 1:
+                case 2:
                     /* var frmWK = new frmWorkOrder();
                      frmWK.TopLevel = false;
                      frmWK.Visible = true;
@@ -94,7 +94,7 @@ namespace WorkstationTEST
 
                     showmachine();
                     break;
-                case 2:
+                case 1:
                     /* var frmWorkTime = new frmWorkTime();
                      frmWorkTime.TopLevel = false;
                      frmWorkTime.Visible = true;
@@ -106,7 +106,6 @@ namespace WorkstationTEST
                     ActiveControl = frmWKMakeno;
                     frmWKMakeno.TextChanged += new EventHandler(gettabW);
                     frmWKWorkitem.TextChanged += new EventHandler(gettabWI);
-                    WKsave.Click += new EventHandler(gettabsave);
                     showworkorder(true);
                     break;
                 case 3:
@@ -333,7 +332,26 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmMachinePageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmMachinePageD, "Delete::Delete", rtext["frmWKbtnD"]);
-            getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(DefCompany);
+            machinepanel.Location =new Point(machinepanel.Location.X,panel2.Height) ;
+            labelma.Text =rtext2[labelma.Name];
+            if (ShowMachine == 0)
+            {
+                MSave.Visible = false;
+            }
+            else if (ShowMachine == 1)
+            {
+                setpageup.SetBtn((XButton)MSave, "F12::F12", rtext2[WKsave.Name]);
+            }
+            if (WKSaveTenantId.Text.Trim() == "")
+            {
+                WKSaveTenantId.Text = DefCompany;
+            }
+            infoempname_m.Text = infoempname.Text;
+            infoempno_m.Text = infoempno.Text;
+            infowkname_m.Text = infowkname.Text;
+            infowkno_m.Text = infowkno.Text;
+            int tidval = int.Parse(WKSaveTenantId.Text);
+            getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(tidval.ToString());
             for (int i = machinepanel.Controls.Count - 1; i >= 0; --i)
                 machinepanel.Controls[i].Dispose();
             machinepanel.Controls.Clear();
@@ -382,8 +400,12 @@ namespace WorkstationTEST
 
         private void showworkorder(bool isinit=false,string makeno="",string wid="",bool iskey=false)
         {
-            WKSaveTenantId.Text = DefCompany;
-            int tidval = int.Parse(DefCompany);
+            if (WKSaveTenantId.Text.Trim() == "")
+            {
+                WKSaveTenantId.Text = DefCompany;
+            }
+
+            int tidval = int.Parse(WKSaveTenantId.Text);
             label13.Text = rtext2[label13.Name];
             label1.Text = rtext2[label1.Name];
             //label2.Text = rtext2[label2.Name];
@@ -401,7 +423,15 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn((XButton)frmWKPageU, "Insert::Insert", rtext2["frmWKbtnU"]);
             setpageup.SetBtn((XButton)frmWKPageD, "Delete::Delete", rtext2["frmWKbtnD"]);
-            setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext2[WKsave.Name]);
+            if (ShowMachine == 0)
+            {
+                setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext2[WKsave.Name]);
+                WKsave.Click += new EventHandler(gettabsave);
+            }
+            else if (ShowMachine == 1)
+            {
+                WKsave.Visible = false;
+            }
 
             getwitem.Clear();
             if (isinit)
@@ -415,6 +445,7 @@ namespace WorkstationTEST
             }
             else
             {
+                MessageBox.Show(WKSaveTenantId.ToString());
                 getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval, makeno);
                 if (getworkorder.Count > 0)
                 {
@@ -435,6 +466,11 @@ namespace WorkstationTEST
                     {
                         tidval = int.Parse(R_TenantId);
                     }
+
+
+
+
+
                     getworkorder = getworkorder.Where(x => x.TenantId == tidval).ToList();
                     labSpec.Text = getworkorder[0].Specification;
                     labRemark.Text = getworkorder[0].Remark;
@@ -443,6 +479,9 @@ namespace WorkstationTEST
                     labQty.Text = getworkorder[0].MakeQty.ToString();
                     labAssetsName.Text = getworkorder[0].AssetsName;
                     labUnit.Text = getworkorder[0].UseUnits;
+                    Decimal tempsale = 0;
+                    var istxt= Decimal.TryParse(getworkorder[0].NotSale, out tempsale);
+                    txtnotsale.Text = istxt?tempsale.ToString(): getworkorder[0].NotSale;
                     WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
                     WKSaveMakeNo.Text = getworkorder[0].MakeNo;
                     WKSaveSpecification.Text = getworkorder[0].Specification;
@@ -563,15 +602,18 @@ namespace WorkstationTEST
             if (empinfos.Length == 2)
             {
                 frmMachineshowno.Text = empinfos[0];
+                info_m.Text= empinfos[0];
             }
             else if (empinfos.Length==3)
             {
                 frmMachineshowno.Text = empinfos[0];
                 frmAssetsItemId.Text = empinfos[2];
+                info_m.Text = empinfos[0]+ empinfos[1];
             }
             else
             {
                 frmMachineshowno.Text = info;
+                info_m.Text = info;
             }
 
         }
@@ -733,7 +775,7 @@ namespace WorkstationTEST
             }
             else
             {
-                this.tabControl1.SelectedIndex = nowindex+ShowMachine;
+                this.tabControl1.SelectedTab = tabPage3;
             }
             
 
@@ -749,7 +791,7 @@ namespace WorkstationTEST
             }
             else
             {
-                this.tabControl1.SelectedTab = tabPage3;
+                //this.tabControl1.SelectedTab = tabPage3;
             }
 
 
@@ -822,6 +864,10 @@ namespace WorkstationTEST
                 ititle.Text = rtext[ititle.Name];
                 System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#111211");
                 ititle.ForeColor = col;
+                if (ShowMachine == 1)
+                {
+                    this.tabControl1.SelectedTab = tabPage2;
+                }
             }
         }
         private void gettabnowo(object sender, EventArgs e)
@@ -996,11 +1042,12 @@ namespace WorkstationTEST
                             }
                             Console.WriteLine("up="+up);
 
-                            tabControl1.SelectedIndex = 1;
+                            
                             savestat[0].Visible = false;*/
                             var tempmkno = MakeNo.Text;
                             var tempwkno = WorkNo.Text;
                             cleardata(false);
+                            tabControl1.SelectedTab = tabPage3;
                             var ititle = infotitle;
                             var lab4 = label4;
                             var lab5 = label5;
@@ -1009,7 +1056,7 @@ namespace WorkstationTEST
                             ititle.Font = new Font("", 16, FontStyle.Bold);
                             lab4.Visible = false;
                             lab5.Visible = false;
-                            showworkorder(true);
+                           // showworkorder(true);
 
                         }
                         catch (Exception ex)
@@ -1107,6 +1154,8 @@ namespace WorkstationTEST
                 lena.Text = string.Empty;
                 lwna.Text = string.Empty;
                 lwno.Text = string.Empty;
+                txtnotsale.Text = string.Empty;
+                info_m.Text = string.Empty;
                 // msgemp[0].Text = string.Empty;
                 // msgmkno[0].Text = string.Empty;
                 // msgwork[0].Text = string.Empty;
@@ -1208,7 +1257,7 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 2)
+            if (t == 1)
             {
                 var up = frmWKPageU;
                 var down = frmWKPageD;
@@ -1225,87 +1274,6 @@ namespace WorkstationTEST
                 }
                 if (keyupper == "Return")
                 {
-                    /* List<WorkOrder> Wgetworkorder = new List<WorkOrder>();
-                     Wgetworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(101, wkmo.Text.ToUpper());
-                     Guid? wid = null;
-                     if (Wgetworkorder.Count > 0)
-                     {
-                         var labSpecval = labSpec;
-                         var labRemarkval = labRemark;
-                         var labPNameval = labPName;
-                         var labWorkOrderval = labWorkOrder;
-                         var labQtyval = labQty;
-                         var labAssetsNameval = labAssetsName;
-                         var labUnitval = labUnit;
-                         var labWKSaveTenantId = WKSaveTenantId;
-                         labSpecval.Text = Wgetworkorder[0].Specification;
-                         labRemarkval.Text = Wgetworkorder[0].Remark;
-                         labPNameval.Text = Wgetworkorder[0].AssetsNo;
-                         labWorkOrderval.Text = Wgetworkorder[0].MakeNo;
-                         labQtyval.Text = Wgetworkorder[0].MakeQty.ToString();
-                         labAssetsNameval.Text = Wgetworkorder[0].AssetsName;
-                         labUnitval.Text = Wgetworkorder[0].UseUnits;
-                         labWKSaveTenantId.Text = Wgetworkorder[0].TenantId.ToString();
-                         int.TryParse(labWKSaveTenantId.Text, out tidval);                      
-                         wid = Wgetworkorder[0].WorkOrderId;
-                         wkmo.Tag = wid.ToString();
-                     }
-                     else
-                     {
-                         Console.WriteLine("無此工令資料");
-                     }
-
-                     if (wid.HasValue)
-                     {
-                         Wgetwitem = new API("/CHG/Main/Home/getMakeno/", "http://").GetWorkitem(tidval,wkmo.Text, (Guid)wid);
-                     }
-                     else
-                     {
-                         Console.WriteLine("輸入工令格式錯誤");
-                     }
-                     var WKPanels = tabPage2.Controls.Find("WKPanel", true);
-                     ((Panel)(WKPanels[0])).Controls.Clear();
-                     var frmWKRecordnows = tabPage2.Controls.Find("frmWKRecordnow", true);
-                     var frmWKRecordTs = tabPage2.Controls.Find("frmWKRecordT", true);
-                     var frmWKRecordnow = frmWKRecordnows[0];
-                     var frmWKRecordT = frmWKRecordTs[0];
-                     int iSpace = 5;
-                     int iCol = 0;
-                     int iRow = 0;
-                     int ItemsOneRow = 5;
-                     int totalitem = 10;
-                     List<Button> btnemplist = new List<Button>();
-                     if (Wgetwitem.Count() > 0)
-                     {
-                         var empitemcount = 0;
-                         var keynum = 0;
-                         var btnnum = 0;
-                         foreach (var empitem in Wgetwitem)
-                         {
-                             var prestr = "BTNfrmEmp";
-                             empitemcount++;
-                             iRow = keynum / ItemsOneRow;
-                             iCol = keynum % ItemsOneRow;
-                             if(btnnum+1>totalitem)
-                             {
-                                 btnnum = 0;
-                             }
-                             btnnum++;
-                             keynum++;
-                             var btnkey = "F" + btnnum;
-                             var poststr = empitemcount.ToString("##");
-                             var thisbtnname = prestr + poststr;
-                             var thisbtntext = empitem.WorkName;
-                             Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateWKBtnWithXY(empitem.WorkNo, thisbtntext, empitem.WorkOrderItemId, empitem.WorkId, btnkey,iRow,iCol,iSpace,WKPanels[0]);
-                             empbtn = sethandlerW(empbtn);
-                             if (keynum > totalitem)
-                             {
-                                 empbtn.Visible = false;
-                             }
-                             btnemplist.Add(empbtn);
-                         }
-                         wkrnow.Text = "0";
-                     }*/
                     showworkorder(false, wkmo.Text.ToUpper());
                 }
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
@@ -1382,7 +1350,7 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 1)//設備
+            if (t == 2)//設備
             {
                 var upm = frmMachinePageU;
                 var downm = frmMachinePageD;
@@ -1395,6 +1363,11 @@ namespace WorkstationTEST
                 {
                     upm.PerformClick();
                 }
+                if (keyupper == "F12")
+                {
+                    MSave.PerformClick();
+                }
+
                 if (isp)
                 {
                     var saveno = frmMachineshowno;
@@ -1873,6 +1846,16 @@ namespace WorkstationTEST
         private void tabPage3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MSave_Click(object sender, EventArgs e)
+        {
+            savetab();
         }
     }
 }

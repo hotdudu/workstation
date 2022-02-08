@@ -144,6 +144,12 @@
     <Compile Include="FormReturn.Designer.cs">
       <DependentUpon>FormReturn.cs</DependentUpon>
     </Compile>
+    <Compile Include="FinishItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinishItem.Designer.cs">
+      <DependentUpon>FinishItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSTART.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormReturn.resx">
       <DependentUpon>FormReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinishItem.resx">
+      <DependentUpon>FinishItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSTART.resx">
       <DependentUpon>FormSTART.cs</DependentUpon>

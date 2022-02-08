@@ -39,8 +39,6 @@
             this.frmMachineRecordnow = new System.Windows.Forms.Label();
             this.machinepanel = new System.Windows.Forms.Panel();
             this.frmMachineshowno = new System.Windows.Forms.TextBox();
-            this.frmMachinePageU = new WorkstationTEST.XButton();
-            this.frmMachinePageD = new WorkstationTEST.XButton();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.Empid = new System.Windows.Forms.Label();
             this.EMPSave1 = new System.Windows.Forms.TextBox();
@@ -49,13 +47,9 @@
             this.frmEmpRecordnow = new System.Windows.Forms.Label();
             this.EMPPanel = new System.Windows.Forms.Panel();
             this.frmEmpshowno = new System.Windows.Forms.TextBox();
-            this.frmEmpPageU = new WorkstationTEST.XButton();
-            this.frmEmpPageD = new WorkstationTEST.XButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label1w = new System.Windows.Forms.Label();
-            this.frmWKPageD = new WorkstationTEST.XButton();
-            this.frmWKPageU = new WorkstationTEST.XButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.infowkname = new System.Windows.Forms.Label();
             this.infowkno = new System.Windows.Forms.Label();
@@ -73,11 +67,12 @@
             this.WKSaveWorkName = new System.Windows.Forms.TextBox();
             this.WKSaveMakeNo = new System.Windows.Forms.TextBox();
             this.WKPanel = new System.Windows.Forms.Panel();
-            this.WKsave = new WorkstationTEST.XButton();
             this.frmWKMakeno = new System.Windows.Forms.TextBox();
             this.WKSaveWorkNo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtnotsale = new System.Windows.Forms.Label();
+            this.labnotsale = new System.Windows.Forms.Label();
             this.labUnit = new System.Windows.Forms.Label();
             this.labAssetsName = new System.Windows.Forms.Label();
             this.labelname = new System.Windows.Forms.Label();
@@ -98,16 +93,36 @@
             this.frmWKRecordnow = new System.Windows.Forms.Label();
             this.frmWKWorkitem = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.labelma = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.infowkname_m = new System.Windows.Forms.Label();
+            this.infowkno_m = new System.Windows.Forms.Label();
+            this.infoempname_m = new System.Windows.Forms.Label();
+            this.infoempno_m = new System.Windows.Forms.Label();
+            this.label5_m = new System.Windows.Forms.Label();
+            this.label4_m = new System.Windows.Forms.Label();
+            this.infotitle_m = new System.Windows.Forms.Label();
+            this.label2_m = new System.Windows.Forms.Label();
+            this.info_m = new System.Windows.Forms.Label();
             this.button4 = new WorkstationTEST.XButton();
             this.button3 = new WorkstationTEST.XButton();
             this.button2 = new WorkstationTEST.XButton();
             this.button1 = new WorkstationTEST.XButton();
+            this.frmEmpPageU = new WorkstationTEST.XButton();
+            this.frmEmpPageD = new WorkstationTEST.XButton();
+            this.frmWKPageD = new WorkstationTEST.XButton();
+            this.frmWKPageU = new WorkstationTEST.XButton();
+            this.WKsave = new WorkstationTEST.XButton();
+            this.MSave = new WorkstationTEST.XButton();
+            this.frmMachinePageU = new WorkstationTEST.XButton();
+            this.frmMachinePageD = new WorkstationTEST.XButton();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -126,6 +141,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel2);
+            this.tabPage2.Controls.Add(this.labelma);
+            this.tabPage2.Controls.Add(this.MSave);
             this.tabPage2.Controls.Add(this.frmAssetsItemId);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.textBox1);
@@ -197,43 +215,17 @@
             // 
             this.machinepanel.AutoScroll = true;
             this.machinepanel.AutoScrollMinSize = new System.Drawing.Size(900, 218);
-            this.machinepanel.Location = new System.Drawing.Point(0, 43);
+            this.machinepanel.Location = new System.Drawing.Point(0, 101);
             this.machinepanel.Name = "machinepanel";
             this.machinepanel.Size = new System.Drawing.Size(1027, 350);
             this.machinepanel.TabIndex = 15;
             // 
             // frmMachineshowno
             // 
-            this.frmMachineshowno.Location = new System.Drawing.Point(391, 6);
+            this.frmMachineshowno.Location = new System.Drawing.Point(166, 8);
             this.frmMachineshowno.Name = "frmMachineshowno";
             this.frmMachineshowno.Size = new System.Drawing.Size(100, 22);
             this.frmMachineshowno.TabIndex = 8;
-            // 
-            // frmMachinePageU
-            // 
-            this.frmMachinePageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmMachinePageU.LeftText = null;
-            this.frmMachinePageU.Location = new System.Drawing.Point(1069, 99);
-            this.frmMachinePageU.Name = "frmMachinePageU";
-            this.frmMachinePageU.Size = new System.Drawing.Size(75, 23);
-            this.frmMachinePageU.TabIndex = 16;
-            this.frmMachinePageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmMachinePageU.TopText = null;
-            this.frmMachinePageU.UseVisualStyleBackColor = true;
-            this.frmMachinePageU.Click += new System.EventHandler(this.frmMachinePageU_Click);
-            // 
-            // frmMachinePageD
-            // 
-            this.frmMachinePageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmMachinePageD.LeftText = null;
-            this.frmMachinePageD.Location = new System.Drawing.Point(1069, 370);
-            this.frmMachinePageD.Name = "frmMachinePageD";
-            this.frmMachinePageD.Size = new System.Drawing.Size(75, 23);
-            this.frmMachinePageD.TabIndex = 17;
-            this.frmMachinePageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmMachinePageD.TopText = null;
-            this.frmMachinePageD.UseVisualStyleBackColor = true;
-            this.frmMachinePageD.Click += new System.EventHandler(this.frmMachinePageD_Click);
             // 
             // tabPage1
             // 
@@ -321,38 +313,12 @@
             this.frmEmpshowno.Size = new System.Drawing.Size(100, 22);
             this.frmEmpshowno.TabIndex = 7;
             // 
-            // frmEmpPageU
-            // 
-            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageU.LeftText = null;
-            this.frmEmpPageU.Location = new System.Drawing.Point(1033, 100);
-            this.frmEmpPageU.Name = "frmEmpPageU";
-            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageU.TabIndex = 12;
-            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageU.TopText = null;
-            this.frmEmpPageU.UseVisualStyleBackColor = true;
-            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
-            // 
-            // frmEmpPageD
-            // 
-            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.frmEmpPageD.LeftText = null;
-            this.frmEmpPageD.Location = new System.Drawing.Point(1033, 371);
-            this.frmEmpPageD.Name = "frmEmpPageD";
-            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
-            this.frmEmpPageD.TabIndex = 13;
-            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmEmpPageD.TopText = null;
-            this.frmEmpPageD.UseVisualStyleBackColor = true;
-            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.CausesValidation = false;
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Font = new System.Drawing.Font("新細明體", 25F);
@@ -367,8 +333,6 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label1w);
-            this.tabPage3.Controls.Add(this.frmWKPageD);
-            this.tabPage3.Controls.Add(this.frmWKPageU);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Controls.Add(this.WKSaveTenantId);
             this.tabPage3.Controls.Add(this.label3);
@@ -379,7 +343,6 @@
             this.tabPage3.Controls.Add(this.WKSaveWorkName);
             this.tabPage3.Controls.Add(this.WKSaveMakeNo);
             this.tabPage3.Controls.Add(this.WKPanel);
-            this.tabPage3.Controls.Add(this.WKsave);
             this.tabPage3.Controls.Add(this.frmWKMakeno);
             this.tabPage3.Controls.Add(this.WKSaveWorkNo);
             this.tabPage3.Controls.Add(this.label6);
@@ -390,6 +353,9 @@
             this.tabPage3.Controls.Add(this.WKSaveWitemId);
             this.tabPage3.Controls.Add(this.frmWKRecordnow);
             this.tabPage3.Controls.Add(this.frmWKWorkitem);
+            this.tabPage3.Controls.Add(this.frmWKPageD);
+            this.tabPage3.Controls.Add(this.frmWKPageU);
+            this.tabPage3.Controls.Add(this.WKsave);
             this.tabPage3.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tabPage3.Location = new System.Drawing.Point(4, 43);
             this.tabPage3.Name = "tabPage3";
@@ -409,34 +375,6 @@
             this.label1w.Size = new System.Drawing.Size(150, 25);
             this.label1w.TabIndex = 128;
             this.label1w.Text = "請輸入工令";
-            // 
-            // frmWKPageD
-            // 
-            this.frmWKPageD.CausesValidation = false;
-            this.frmWKPageD.LeftText = null;
-            this.frmWKPageD.Location = new System.Drawing.Point(1196, 378);
-            this.frmWKPageD.Name = "frmWKPageD";
-            this.frmWKPageD.Size = new System.Drawing.Size(28, 23);
-            this.frmWKPageD.TabIndex = 127;
-            this.frmWKPageD.TabStop = false;
-            this.frmWKPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmWKPageD.TopText = null;
-            this.frmWKPageD.UseVisualStyleBackColor = true;
-            this.frmWKPageD.Click += new System.EventHandler(this.frmWKPageD_Click);
-            // 
-            // frmWKPageU
-            // 
-            this.frmWKPageU.CausesValidation = false;
-            this.frmWKPageU.LeftText = null;
-            this.frmWKPageU.Location = new System.Drawing.Point(1196, 249);
-            this.frmWKPageU.Name = "frmWKPageU";
-            this.frmWKPageU.Size = new System.Drawing.Size(28, 23);
-            this.frmWKPageU.TabIndex = 126;
-            this.frmWKPageU.TabStop = false;
-            this.frmWKPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.frmWKPageU.TopText = null;
-            this.frmWKPageU.UseVisualStyleBackColor = true;
-            this.frmWKPageU.Click += new System.EventHandler(this.frmWKPageU_Click);
             // 
             // panel1
             // 
@@ -624,19 +562,6 @@
             this.WKPanel.Size = new System.Drawing.Size(1027, 325);
             this.WKPanel.TabIndex = 125;
             // 
-            // WKsave
-            // 
-            this.WKsave.CausesValidation = false;
-            this.WKsave.LeftText = null;
-            this.WKsave.Location = new System.Drawing.Point(1196, 108);
-            this.WKsave.Name = "WKsave";
-            this.WKsave.Size = new System.Drawing.Size(28, 23);
-            this.WKsave.TabIndex = 123;
-            this.WKsave.TabStop = false;
-            this.WKsave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.WKsave.TopText = null;
-            this.WKsave.UseVisualStyleBackColor = true;
-            // 
             // frmWKMakeno
             // 
             this.frmWKMakeno.HideSelection = false;
@@ -670,6 +595,8 @@
             // panel3
             // 
             this.panel3.CausesValidation = false;
+            this.panel3.Controls.Add(this.txtnotsale);
+            this.panel3.Controls.Add(this.labnotsale);
             this.panel3.Controls.Add(this.labUnit);
             this.panel3.Controls.Add(this.labAssetsName);
             this.panel3.Controls.Add(this.labelname);
@@ -685,15 +612,36 @@
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(534, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(609, 154);
+            this.panel3.Size = new System.Drawing.Size(620, 154);
             this.panel3.TabIndex = 108;
+            // 
+            // txtnotsale
+            // 
+            this.txtnotsale.CausesValidation = false;
+            this.txtnotsale.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txtnotsale.ForeColor = System.Drawing.Color.Blue;
+            this.txtnotsale.Location = new System.Drawing.Point(414, 122);
+            this.txtnotsale.Name = "txtnotsale";
+            this.txtnotsale.Size = new System.Drawing.Size(174, 27);
+            this.txtnotsale.TabIndex = 106;
+            // 
+            // labnotsale
+            // 
+            this.labnotsale.AutoSize = true;
+            this.labnotsale.CausesValidation = false;
+            this.labnotsale.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labnotsale.Location = new System.Drawing.Point(321, 127);
+            this.labnotsale.Name = "labnotsale";
+            this.labnotsale.Size = new System.Drawing.Size(86, 19);
+            this.labnotsale.TabIndex = 105;
+            this.labnotsale.Text = "未  交  數";
             // 
             // labUnit
             // 
             this.labUnit.CausesValidation = false;
             this.labUnit.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labUnit.ForeColor = System.Drawing.Color.Blue;
-            this.labUnit.Location = new System.Drawing.Point(506, 6);
+            this.labUnit.Location = new System.Drawing.Point(575, 4);
             this.labUnit.Name = "labUnit";
             this.labUnit.Size = new System.Drawing.Size(80, 27);
             this.labUnit.TabIndex = 104;
@@ -703,7 +651,7 @@
             this.labAssetsName.CausesValidation = false;
             this.labAssetsName.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labAssetsName.ForeColor = System.Drawing.Color.Blue;
-            this.labAssetsName.Location = new System.Drawing.Point(414, 83);
+            this.labAssetsName.Location = new System.Drawing.Point(414, 84);
             this.labAssetsName.Name = "labAssetsName";
             this.labAssetsName.Size = new System.Drawing.Size(174, 27);
             this.labAssetsName.TabIndex = 102;
@@ -726,7 +674,7 @@
             this.labRemark.ForeColor = System.Drawing.Color.Blue;
             this.labRemark.Location = new System.Drawing.Point(137, 122);
             this.labRemark.Name = "labRemark";
-            this.labRemark.Size = new System.Drawing.Size(451, 27);
+            this.labRemark.Size = new System.Drawing.Size(182, 27);
             this.labRemark.TabIndex = 99;
             // 
             // label21
@@ -752,12 +700,13 @@
             // 
             // labPName
             // 
+            this.labPName.AutoSize = true;
             this.labPName.CausesValidation = false;
             this.labPName.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labPName.ForeColor = System.Drawing.Color.Blue;
             this.labPName.Location = new System.Drawing.Point(137, 44);
             this.labPName.Name = "labPName";
-            this.labPName.Size = new System.Drawing.Size(241, 27);
+            this.labPName.Size = new System.Drawing.Size(0, 27);
             this.labPName.TabIndex = 99;
             // 
             // label13
@@ -787,9 +736,9 @@
             this.labQty.CausesValidation = false;
             this.labQty.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labQty.ForeColor = System.Drawing.Color.Blue;
-            this.labQty.Location = new System.Drawing.Point(403, 3);
+            this.labQty.Location = new System.Drawing.Point(492, 2);
             this.labQty.Name = "labQty";
-            this.labQty.Size = new System.Drawing.Size(97, 27);
+            this.labQty.Size = new System.Drawing.Size(77, 27);
             this.labQty.TabIndex = 99;
             // 
             // label9
@@ -797,7 +746,7 @@
             this.label9.AutoSize = true;
             this.label9.CausesValidation = false;
             this.label9.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(321, 6);
+            this.label9.Location = new System.Drawing.Point(332, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(85, 19);
             this.label9.TabIndex = 99;
@@ -808,7 +757,7 @@
             this.labWorkOrder.CausesValidation = false;
             this.labWorkOrder.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.labWorkOrder.ForeColor = System.Drawing.Color.Blue;
-            this.labWorkOrder.Location = new System.Drawing.Point(137, 1);
+            this.labWorkOrder.Location = new System.Drawing.Point(179, 1);
             this.labWorkOrder.Name = "labWorkOrder";
             this.labWorkOrder.Size = new System.Drawing.Size(215, 27);
             this.labWorkOrder.TabIndex = 99;
@@ -899,6 +848,127 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // labelma
+            // 
+            this.labelma.CausesValidation = false;
+            this.labelma.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelma.Location = new System.Drawing.Point(6, 6);
+            this.labelma.Name = "labelma";
+            this.labelma.Size = new System.Drawing.Size(150, 25);
+            this.labelma.TabIndex = 129;
+            this.labelma.Text = "請選擇設備";
+            this.labelma.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.info_m);
+            this.panel2.Controls.Add(this.label2_m);
+            this.panel2.Controls.Add(this.infowkname_m);
+            this.panel2.Controls.Add(this.infowkno_m);
+            this.panel2.Controls.Add(this.infoempname_m);
+            this.panel2.Controls.Add(this.infoempno_m);
+            this.panel2.Controls.Add(this.label5_m);
+            this.panel2.Controls.Add(this.label4_m);
+            this.panel2.Controls.Add(this.infotitle_m);
+            this.panel2.Location = new System.Drawing.Point(391, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(494, 101);
+            this.panel2.TabIndex = 130;
+            // 
+            // infowkname_m
+            // 
+            this.infowkname_m.CausesValidation = false;
+            this.infowkname_m.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infowkname_m.ForeColor = System.Drawing.Color.Blue;
+            this.infowkname_m.Location = new System.Drawing.Point(324, 31);
+            this.infowkname_m.Name = "infowkname_m";
+            this.infowkname_m.Size = new System.Drawing.Size(152, 27);
+            this.infowkname_m.TabIndex = 106;
+            // 
+            // infowkno_m
+            // 
+            this.infowkno_m.CausesValidation = false;
+            this.infowkno_m.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infowkno_m.ForeColor = System.Drawing.Color.Blue;
+            this.infowkno_m.Location = new System.Drawing.Point(239, 30);
+            this.infowkno_m.Name = "infowkno_m";
+            this.infowkno_m.Size = new System.Drawing.Size(118, 27);
+            this.infowkno_m.TabIndex = 105;
+            // 
+            // infoempname_m
+            // 
+            this.infoempname_m.CausesValidation = false;
+            this.infoempname_m.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infoempname_m.ForeColor = System.Drawing.Color.Blue;
+            this.infoempname_m.Location = new System.Drawing.Point(344, 4);
+            this.infoempname_m.Name = "infoempname_m";
+            this.infoempname_m.Size = new System.Drawing.Size(147, 27);
+            this.infoempname_m.TabIndex = 104;
+            // 
+            // infoempno_m
+            // 
+            this.infoempno_m.CausesValidation = false;
+            this.infoempno_m.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infoempno_m.ForeColor = System.Drawing.Color.Blue;
+            this.infoempno_m.Location = new System.Drawing.Point(230, 4);
+            this.infoempno_m.Name = "infoempno_m";
+            this.infoempno_m.Size = new System.Drawing.Size(118, 27);
+            this.infoempno_m.TabIndex = 103;
+            // 
+            // label5_m
+            // 
+            this.label5_m.AutoSize = true;
+            this.label5_m.CausesValidation = false;
+            this.label5_m.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5_m.Location = new System.Drawing.Point(143, 37);
+            this.label5_m.Name = "label5_m";
+            this.label5_m.Size = new System.Drawing.Size(52, 19);
+            this.label5_m.TabIndex = 102;
+            this.label5_m.Text = "製程:";
+            // 
+            // label4_m
+            // 
+            this.label4_m.AutoSize = true;
+            this.label4_m.CausesValidation = false;
+            this.label4_m.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label4_m.Location = new System.Drawing.Point(147, 4);
+            this.label4_m.Name = "label4_m";
+            this.label4_m.Size = new System.Drawing.Size(52, 19);
+            this.label4_m.TabIndex = 101;
+            this.label4_m.Text = "人員:";
+            // 
+            // infotitle_m
+            // 
+            this.infotitle_m.AutoSize = true;
+            this.infotitle_m.CausesValidation = false;
+            this.infotitle_m.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infotitle_m.Location = new System.Drawing.Point(3, 32);
+            this.infotitle_m.Name = "infotitle_m";
+            this.infotitle_m.Size = new System.Drawing.Size(109, 19);
+            this.infotitle_m.TabIndex = 100;
+            this.infotitle_m.Text = "將新增資料:";
+            // 
+            // label2_m
+            // 
+            this.label2_m.AutoSize = true;
+            this.label2_m.CausesValidation = false;
+            this.label2_m.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2_m.Location = new System.Drawing.Point(143, 73);
+            this.label2_m.Name = "label2_m";
+            this.label2_m.Size = new System.Drawing.Size(52, 19);
+            this.label2_m.TabIndex = 107;
+            this.label2_m.Text = "設備:";
+            // 
+            // info_m
+            // 
+            this.info_m.CausesValidation = false;
+            this.info_m.Font = new System.Drawing.Font("新細明體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.info_m.ForeColor = System.Drawing.Color.Blue;
+            this.info_m.Location = new System.Drawing.Point(230, 65);
+            this.info_m.Name = "info_m";
+            this.info_m.Size = new System.Drawing.Size(246, 27);
+            this.info_m.TabIndex = 108;
+            // 
             // button4
             // 
             this.button4.LeftText = null;
@@ -951,6 +1021,113 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // frmEmpPageU
+            // 
+            this.frmEmpPageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageU.LeftText = null;
+            this.frmEmpPageU.Location = new System.Drawing.Point(1033, 100);
+            this.frmEmpPageU.Name = "frmEmpPageU";
+            this.frmEmpPageU.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageU.TabIndex = 12;
+            this.frmEmpPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageU.TopText = null;
+            this.frmEmpPageU.UseVisualStyleBackColor = true;
+            this.frmEmpPageU.Click += new System.EventHandler(this.frmEmpPageU_Click);
+            // 
+            // frmEmpPageD
+            // 
+            this.frmEmpPageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmEmpPageD.LeftText = null;
+            this.frmEmpPageD.Location = new System.Drawing.Point(1033, 371);
+            this.frmEmpPageD.Name = "frmEmpPageD";
+            this.frmEmpPageD.Size = new System.Drawing.Size(75, 23);
+            this.frmEmpPageD.TabIndex = 13;
+            this.frmEmpPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmEmpPageD.TopText = null;
+            this.frmEmpPageD.UseVisualStyleBackColor = true;
+            this.frmEmpPageD.Click += new System.EventHandler(this.frmEmpPageD_Click);
+            // 
+            // frmWKPageD
+            // 
+            this.frmWKPageD.CausesValidation = false;
+            this.frmWKPageD.LeftText = null;
+            this.frmWKPageD.Location = new System.Drawing.Point(1196, 378);
+            this.frmWKPageD.Name = "frmWKPageD";
+            this.frmWKPageD.Size = new System.Drawing.Size(28, 23);
+            this.frmWKPageD.TabIndex = 127;
+            this.frmWKPageD.TabStop = false;
+            this.frmWKPageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmWKPageD.TopText = null;
+            this.frmWKPageD.UseVisualStyleBackColor = true;
+            this.frmWKPageD.Click += new System.EventHandler(this.frmWKPageD_Click);
+            // 
+            // frmWKPageU
+            // 
+            this.frmWKPageU.CausesValidation = false;
+            this.frmWKPageU.LeftText = null;
+            this.frmWKPageU.Location = new System.Drawing.Point(1196, 249);
+            this.frmWKPageU.Name = "frmWKPageU";
+            this.frmWKPageU.Size = new System.Drawing.Size(28, 23);
+            this.frmWKPageU.TabIndex = 126;
+            this.frmWKPageU.TabStop = false;
+            this.frmWKPageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmWKPageU.TopText = null;
+            this.frmWKPageU.UseVisualStyleBackColor = true;
+            this.frmWKPageU.Click += new System.EventHandler(this.frmWKPageU_Click);
+            // 
+            // WKsave
+            // 
+            this.WKsave.CausesValidation = false;
+            this.WKsave.LeftText = null;
+            this.WKsave.Location = new System.Drawing.Point(1196, 108);
+            this.WKsave.Name = "WKsave";
+            this.WKsave.Size = new System.Drawing.Size(28, 23);
+            this.WKsave.TabIndex = 123;
+            this.WKsave.TabStop = false;
+            this.WKsave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.WKsave.TopText = null;
+            this.WKsave.UseVisualStyleBackColor = true;
+            // 
+            // MSave
+            // 
+            this.MSave.CausesValidation = false;
+            this.MSave.LeftText = null;
+            this.MSave.Location = new System.Drawing.Point(1069, 73);
+            this.MSave.Name = "MSave";
+            this.MSave.Size = new System.Drawing.Size(28, 23);
+            this.MSave.TabIndex = 124;
+            this.MSave.TabStop = false;
+            this.MSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MSave.TopText = null;
+            this.MSave.UseVisualStyleBackColor = true;
+            this.MSave.Click += new System.EventHandler(this.MSave_Click);
+            // 
+            // frmMachinePageU
+            // 
+            this.frmMachinePageU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmMachinePageU.LeftText = null;
+            this.frmMachinePageU.Location = new System.Drawing.Point(1069, 193);
+            this.frmMachinePageU.Name = "frmMachinePageU";
+            this.frmMachinePageU.Size = new System.Drawing.Size(75, 23);
+            this.frmMachinePageU.TabIndex = 16;
+            this.frmMachinePageU.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmMachinePageU.TopText = null;
+            this.frmMachinePageU.UseVisualStyleBackColor = true;
+            this.frmMachinePageU.Click += new System.EventHandler(this.frmMachinePageU_Click);
+            // 
+            // frmMachinePageD
+            // 
+            this.frmMachinePageD.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.frmMachinePageD.LeftText = null;
+            this.frmMachinePageD.Location = new System.Drawing.Point(1069, 370);
+            this.frmMachinePageD.Name = "frmMachinePageD";
+            this.frmMachinePageD.Size = new System.Drawing.Size(75, 23);
+            this.frmMachinePageD.TabIndex = 17;
+            this.frmMachinePageD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.frmMachinePageD.TopText = null;
+            this.frmMachinePageD.UseVisualStyleBackColor = true;
+            this.frmMachinePageD.Click += new System.EventHandler(this.frmMachinePageD_Click);
+            // 
             // FormSTART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -976,6 +1153,8 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1055,5 +1234,19 @@
         private System.Windows.Forms.Label label1w;
         private System.Windows.Forms.TextBox frmAssetsItemId;
         private System.Windows.Forms.Label Empid;
+        private System.Windows.Forms.Label txtnotsale;
+        private System.Windows.Forms.Label labnotsale;
+        private XButton MSave;
+        private System.Windows.Forms.Label labelma;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label info_m;
+        private System.Windows.Forms.Label label2_m;
+        private System.Windows.Forms.Label infowkname_m;
+        private System.Windows.Forms.Label infowkno_m;
+        private System.Windows.Forms.Label infoempname_m;
+        private System.Windows.Forms.Label infoempno_m;
+        private System.Windows.Forms.Label label5_m;
+        private System.Windows.Forms.Label label4_m;
+        private System.Windows.Forms.Label infotitle_m;
     }
 }

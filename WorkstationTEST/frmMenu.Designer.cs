@@ -51,6 +51,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.IN = new System.Windows.Forms.Button();
             this.ousideworkR = new WorkstationTEST.XButton();
+            this.FItem = new WorkstationTEST.XButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,7 +196,7 @@
             // start2
             // 
             this.start2.LeftText = null;
-            this.start2.Location = new System.Drawing.Point(271, 12);
+            this.start2.Location = new System.Drawing.Point(226, 12);
             this.start2.Name = "start2";
             this.start2.Size = new System.Drawing.Size(134, 113);
             this.start2.TabIndex = 23;
@@ -207,7 +208,7 @@
             // ousidework
             // 
             this.ousidework.LeftText = null;
-            this.ousidework.Location = new System.Drawing.Point(703, 12);
+            this.ousidework.Location = new System.Drawing.Point(664, 10);
             this.ousidework.Name = "ousidework";
             this.ousidework.Size = new System.Drawing.Size(132, 113);
             this.ousidework.TabIndex = 2;
@@ -219,7 +220,7 @@
             // endwork
             // 
             this.endwork.LeftText = null;
-            this.endwork.Location = new System.Drawing.Point(507, 12);
+            this.endwork.Location = new System.Drawing.Point(426, 12);
             this.endwork.Name = "endwork";
             this.endwork.Size = new System.Drawing.Size(126, 113);
             this.endwork.TabIndex = 1;
@@ -264,20 +265,33 @@
             // ousideworkR
             // 
             this.ousideworkR.LeftText = null;
-            this.ousideworkR.Location = new System.Drawing.Point(907, 12);
+            this.ousideworkR.Location = new System.Drawing.Point(816, 10);
             this.ousideworkR.Name = "ousideworkR";
-            this.ousideworkR.Size = new System.Drawing.Size(126, 113);
+            this.ousideworkR.Size = new System.Drawing.Size(110, 113);
             this.ousideworkR.TabIndex = 26;
             this.ousideworkR.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.ousideworkR.TopText = null;
             this.ousideworkR.UseVisualStyleBackColor = true;
             this.ousideworkR.Click += new System.EventHandler(this.ousideworkR_Click);
             // 
+            // FItem
+            // 
+            this.FItem.LeftText = null;
+            this.FItem.Location = new System.Drawing.Point(955, 10);
+            this.FItem.Name = "FItem";
+            this.FItem.Size = new System.Drawing.Size(126, 113);
+            this.FItem.TabIndex = 27;
+            this.FItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.FItem.TopText = null;
+            this.FItem.UseVisualStyleBackColor = true;
+            this.FItem.Click += new System.EventHandler(this.FItem_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 647);
+            this.Controls.Add(this.FItem);
             this.Controls.Add(this.ousideworkR);
             this.Controls.Add(this.IN);
             this.Controls.Add(this.button2);
@@ -330,5 +344,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button IN;
         private XButton ousideworkR;
+        private XButton FItem;
     }
 }

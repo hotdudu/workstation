@@ -164,8 +164,9 @@ namespace WorkstationTEST
             setpageup.SetBtn(startwork, "F1::F1", "開始工作");
             setpageup.SetBtn(start2, "F2::F2", "開始工作2");
             setpageup.SetBtn(endwork, "F3::F3", "結束工作");
-            setpageup.SetBtn(ousidework, "F4::F4", "外包");
-            setpageup.SetBtn(ousideworkR, "F6::F6", "外包送回");
+            setpageup.SetBtn(ousidework, "F4::F4", "外包 ",115);
+            setpageup.SetBtn(ousideworkR, "F6::F6", "外包送回",115);
+            setpageup.SetBtn(FItem, "F7::F7", "成品區",110);
             SetControlName(rtext);
             this.KeyPreview = true;
             this.Activate();
@@ -272,6 +273,11 @@ namespace WorkstationTEST
                     var m = new FormReturn(this);
                     m.Show();
                 }
+                if (frm == "f")
+                {
+                    var m = new FinishItem(this);
+                    m.Show();
+                }
             }
             else
             {
@@ -298,6 +304,11 @@ namespace WorkstationTEST
                 if (frm == "r")
                 {
                     var m = new FormReturn(this);
+                    m.Show();
+                }
+                if (frm == "f")
+                {
+                    var m = new FinishItem(this);
                     m.Show();
                 }
             }
@@ -645,11 +656,11 @@ namespace WorkstationTEST
             txtinfo.Text = namelist[txtinfo.Name];
             startwork.LeftText = namelist[startwork.Name];
             endwork.LeftText = namelist[endwork.Name];
-            ousidework.LeftText = namelist[ousidework.Name];
+            //ousidework.LeftText = namelist[ousidework.Name];
             start2.LeftText = namelist[startwork.Name] + "2";
             startwork.Refresh();
             endwork.Refresh();
-            ousidework.Refresh();
+           // ousidework.Refresh();
             start2.Refresh();
             //menu
 
@@ -724,6 +735,11 @@ namespace WorkstationTEST
         private void ousideworkR_Click(object sender, EventArgs e)
         {
             tempclose("r");
+        }
+
+        private void FItem_Click(object sender, EventArgs e)
+        {
+            tempclose("f");
         }
     }
 }

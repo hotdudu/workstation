@@ -156,6 +156,9 @@
   <data name="label9" xml:space="preserve">
     <value>Kuantitas manufaktur</value>
   </data>
+  <data name="labelma" xml:space="preserve">
+    <value>mesin</value>
+  </data>
   <data name="labelname" xml:space="preserve">
     <value>Nama Aset</value>
   </data>

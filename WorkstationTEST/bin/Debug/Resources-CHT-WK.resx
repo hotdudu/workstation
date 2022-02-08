@@ -156,6 +156,9 @@
   <data name="label9" xml:space="preserve">
     <value>製造數量</value>
   </data>
+  <data name="labelma" xml:space="preserve">
+    <value>請選擇設備</value>
+  </data>
   <data name="labelname" xml:space="preserve">
     <value>品        名</value>
   </data>

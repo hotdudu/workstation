@@ -71,7 +71,7 @@ namespace WorkstationTEST
                     tabPage1.Controls.Add(frmEmp);
                     Console.WriteLine("1." + ActiveControl.Name);*/
                     break;
-                case 1:
+                case 2:
                     /*var frmWK = new frmWorkOrder2();
                     frmWK.TopLevel = false;
                     frmWK.Visible = true;
@@ -205,7 +205,7 @@ namespace WorkstationTEST
                      save[0].Click += new EventHandler(savetab);*/
                    showworktime();
                     break;
-                case 2:
+                case 1:
                     /* var frmWK = new frmWorkOrder2();
                      frmWK.TopLevel = false;
                      frmWK.Visible = true;
@@ -533,15 +533,18 @@ namespace WorkstationTEST
         private void showworkorder(bool isinit = false, string makeno = "", string wid = "", bool iskey = false)
         {
             frmWKWorkitem.TextChanged += new EventHandler(gettab2);
-            WKSaveTenantId.Text = DefCompany;
-            int tidval = int.Parse(DefCompany);
+            if (WKSaveTenantId.Text.Trim() == "")
+            {
+                WKSaveTenantId.Text = DefCompany;
+            }
+            int tidval = int.Parse(WKSaveTenantId.Text);
             label13.Text = rtext2[label13.Name];
             label1.Text = rtext2[label1.Name];
             label4.Text = rtext2[label4.Name];
             label5.Text = rtext2[label5.Name];
             label7.Text = rtext2[label7.Name];
             label9.Text = rtext2[label9.Name];
-            labAsset.Text = rtext2["label2"];
+            labAsset.Text = rtext2["label12"];
             label21.Text = rtext2[label21.Name];
             infotitle.Text = rtext2[infotitle.Name];
             labelname.Text = rtext2[labelname.Name];
@@ -592,6 +595,9 @@ namespace WorkstationTEST
                     labQty.Text = getworkorder[0].MakeQty.ToString();
                     labAssetsName.Text = getworkorder[0].AssetsName;
                     labUnit.Text = getworkorder[0].UseUnits;
+                    Decimal tempsale = 0;
+                    var istxt = Decimal.TryParse(getworkorder[0].NotSale, out tempsale);
+                    txtnotsale.Text = istxt ? tempsale.ToString(): getworkorder[0].NotSale;
                     WKSaveTenantId.Text = getworkorder[0].TenantId.ToString();
                     WKSaveMakeNo.Text = getworkorder[0].MakeNo;
                     WKSaveSpecification.Text = getworkorder[0].Specification;
@@ -746,7 +752,12 @@ namespace WorkstationTEST
             var setpageup = new CreateElement();
             setpageup.SetBtn(frmMachinePageU, "Insert::Insert", rtext["frmWKbtnU"]);
             setpageup.SetBtn(frmMachinePageD, "Delete::Delete", rtext["frmWKbtnD"]);
-            getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(DefCompany);
+            if (WKSaveTenantId.Text.Trim() == "")
+            {
+                WKSaveTenantId.Text = DefCompany;
+            }
+            int tidval = int.Parse(WKSaveTenantId.Text);
+            getemachine = new API("/CHG/Main/Home/getMachine/", "http://").GetMachine(tidval.ToString());
             for (int i = machinepanel.Controls.Count - 1; i >= 0; --i)
                 machinepanel.Controls[i].Dispose();
             machinepanel.Controls.Clear();
@@ -1007,7 +1018,7 @@ namespace WorkstationTEST
             }
             else
             {
-                this.tabControl1.SelectedIndex = nowindex + ShowMachine;
+                this.tabControl1.SelectedIndex = nowindex + 1;
 
             }
 
@@ -1021,7 +1032,7 @@ namespace WorkstationTEST
             }
             else
             {
-                this.tabControl1.SelectedTab = tabPage3;
+                this.tabControl1.SelectedTab = tabPage4;
             }
         }
         private void gettabW(object sender, EventArgs e)
@@ -1094,16 +1105,25 @@ namespace WorkstationTEST
         }
         private void gettab2(object sender, EventArgs e)
         {
+            var nowindex = this.tabControl1.SelectedIndex;
             var gmkno = frmWKMakeno;
             var gwk = frmWKWorkitem;
             if (gmkno.Text == ""&& gwk.Text!="")
             {
-                this.tabControl1.SelectedTab = tabPage4;
+                this.tabControl1.SelectedTab = tabPage2;
                 Console.WriteLine("tab=2");
             }
             else
             {
-                this.tabControl1.SelectedTab = tabPage4;
+                if (ShowMachine == 0)
+                {
+                     this.tabControl1.SelectedTab = tabPage4;
+                }
+                else if (ShowMachine == 1)
+                {
+                    this.tabControl1.SelectedTab = tabPage2;
+                }
+
             }
         }
         private void gettab3(object sender, EventArgs e)
@@ -1301,7 +1321,7 @@ namespace WorkstationTEST
                         }
                         Console.WriteLine("up="+up);
                          cleardata(false);
-                        tabControl1.SelectedIndex = 2;
+                        tabControl1.SelectedIndex = 1;
                       //  savestat[0].Visible = false;
 
                     }
@@ -1388,7 +1408,7 @@ namespace WorkstationTEST
                 lw.Text = string.Empty;
                 ls.Text = string.Empty;
                 lq.Text = string.Empty;
-
+                txtnotsale.Text = string.Empty;
                 msgemp.Text = string.Empty;
                 msgmkno.Text = string.Empty;
                 msgwork.Text = string.Empty;
@@ -1500,7 +1520,7 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 2)
+            if (t == 1)
             {
                 var mk = frmWKMakeno;
                 var up = frmWKPageU;
@@ -1646,7 +1666,7 @@ namespace WorkstationTEST
                 }
 
             }
-            if (t == 1)//設備
+            if (t == 2)//設備
             {
                 var upm = frmMachinePageU;
                 var downm = frmMachinePageD;
@@ -2081,6 +2101,11 @@ namespace WorkstationTEST
         private void frmWKPageD_Click(object sender, EventArgs e)
         {
             btndown(WKPanel, frmWKRecordnow);
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
