@@ -426,7 +426,7 @@ namespace WorkstationTEST
             if (ShowMachine == 0)
             {
                 setpageup.SetBtn((XButton)WKsave, "F12::F12", rtext2[WKsave.Name]);
-                WKsave.Click += new EventHandler(gettabsave);
+               // WKsave.Click += new EventHandler(gettabsave);
             }
             else if (ShowMachine == 1)
             {
@@ -445,7 +445,7 @@ namespace WorkstationTEST
             }
             else
             {
-                MessageBox.Show(WKSaveTenantId.ToString());
+                //MessageBox.Show(WKSaveTenantId.ToString());
                 getworkorder = new API("/CHG/Main/Home/getinfo/", "http://").GetWorkOrder(tidval, makeno);
                 if (getworkorder.Count > 0)
                 {
@@ -1854,6 +1854,11 @@ namespace WorkstationTEST
         }
 
         private void MSave_Click(object sender, EventArgs e)
+        {
+            savetab();
+        }
+
+        private void WKsave_Click(object sender, EventArgs e)
         {
             savetab();
         }

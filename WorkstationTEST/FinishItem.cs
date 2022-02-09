@@ -951,7 +951,7 @@ namespace WorkstationTEST
             }
             else
             {
-                MessageBox.Show("emp=" + empno + ",info=" + info + ",workorderid=" + workorderid + ",qty=" + comQty + ",t=" + WKSaveTenantIdval);
+               // MessageBox.Show("emp=" + empno + ",info=" + info + ",workorderid=" + workorderid + ",qty=" + comQty + ",t=" + WKSaveTenantIdval);
                 Guid id = Guid.NewGuid();
                 string dbPath = Directory.GetCurrentDirectory() + "\\" + "wd2.db3";
                 string cnStr = "data source=" + dbPath + ";Version=3;";

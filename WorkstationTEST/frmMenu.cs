@@ -611,6 +611,10 @@ namespace WorkstationTEST
             {
                 ousideworkR.PerformClick();
             }
+            if (keyupper == "F7")
+            {
+                FItem.PerformClick();
+            }
         }
         public void DisplayText(string clickData)
         { ShowData(clickData); }

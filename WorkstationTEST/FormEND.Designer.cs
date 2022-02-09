@@ -334,6 +334,7 @@
             this.frmPTRecordnow.Size = new System.Drawing.Size(89, 12);
             this.frmPTRecordnow.TabIndex = 30;
             this.frmPTRecordnow.Text = "frmPTRecordnow";
+            this.frmPTRecordnow.Visible = false;
             // 
             // NumPanel
             // 

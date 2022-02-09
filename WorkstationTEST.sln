@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkstationTEST", "Workstat
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "workstation2", "workstation2\workstation2.vdproj", "{2E38A4EE-69C6-42E0-85BB-86363B8865AB}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "workstation3", "workstation3\workstation3.vdproj", "{76F46718-9362-469B-B46C-B09D5E9114FA}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "newstation", "newstation\newstation.vdproj", "{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,16 +53,16 @@ Global
 		{2E38A4EE-69C6-42E0-85BB-86363B8865AB}.Release|ARM64.ActiveCfg = Release
 		{2E38A4EE-69C6-42E0-85BB-86363B8865AB}.Release|x64.ActiveCfg = Release
 		{2E38A4EE-69C6-42E0-85BB-86363B8865AB}.Release|x86.ActiveCfg = Release
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Debug|Any CPU.ActiveCfg = Debug
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Debug|ARM.ActiveCfg = Debug
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Debug|ARM64.ActiveCfg = Debug
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Debug|x64.ActiveCfg = Debug
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Debug|x86.ActiveCfg = Debug
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Release|Any CPU.ActiveCfg = Release
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Release|ARM.ActiveCfg = Release
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Release|ARM64.ActiveCfg = Release
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Release|x64.ActiveCfg = Release
-		{76F46718-9362-469B-B46C-B09D5E9114FA}.Release|x86.ActiveCfg = Release
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Debug|Any CPU.ActiveCfg = Debug
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Debug|ARM.ActiveCfg = Debug
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Debug|ARM64.ActiveCfg = Debug
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Debug|x64.ActiveCfg = Debug
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Debug|x86.ActiveCfg = Debug
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Release|Any CPU.ActiveCfg = Release
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Release|ARM.ActiveCfg = Release
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Release|ARM64.ActiveCfg = Release
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Release|x64.ActiveCfg = Release
+		{4CB4A31A-0767-4EFB-847F-1ABBB4D1F94D}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

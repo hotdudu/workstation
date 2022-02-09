@@ -99,5 +99,5 @@ D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\Workstation
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.FormReturn.resources
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.FormMultiTenant.resources
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.Numpad.resources
-D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.csprojResolveAssemblyReference.cache
 D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.FinishItem.resources
+D:\WorkstationTEST20190507\WorkstationTEST\WorkstationTEST\obj\Debug\WorkstationTEST.csprojResolveAssemblyReference.cache

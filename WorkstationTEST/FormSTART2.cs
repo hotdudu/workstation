@@ -1317,7 +1317,7 @@ namespace WorkstationTEST
                             updatecmd.Parameters.AddWithValue("@DayReportId", dayreportid);
                             updatecmd.Parameters.AddWithValue("@error", up.ermsg);
                             updatecmd.ExecuteNonQuery();
-                            MessageBox.Show(up.ermsg);
+                           // MessageBox.Show(up.ermsg);
                         }
                         Console.WriteLine("up="+up);
                          cleardata(false);
