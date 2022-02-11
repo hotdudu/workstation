@@ -1110,7 +1110,7 @@ namespace WorkstationTEST
             var gwk = frmWKWorkitem;
             if (gmkno.Text == ""&& gwk.Text!="")
             {
-                this.tabControl1.SelectedTab = tabPage2;
+                this.tabControl1.SelectedTab = tabPage4;
                 Console.WriteLine("tab=2");
             }
             else

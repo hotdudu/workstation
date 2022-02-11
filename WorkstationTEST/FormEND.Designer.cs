@@ -345,7 +345,7 @@
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.NumPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.NumPanel.Location = new System.Drawing.Point(7, 200);
+            this.NumPanel.Location = new System.Drawing.Point(7, 150);
             this.NumPanel.Name = "NumPanel";
             this.NumPanel.RowCount = 3;
             this.NumPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());

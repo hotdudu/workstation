@@ -805,7 +805,7 @@ namespace WorkstationTEST
             }
             else
             {
-                this.tabControl1.SelectedIndex = nowindex+ShowMachine;
+                this.tabControl1.SelectedTab = tabPage3;
             }
             
 
@@ -942,6 +942,9 @@ namespace WorkstationTEST
             var status = 0;
             var date = DateTime.Now;
             var WKSaveTenantIdval = WKSaveTenantId;
+            var Specification = WKSaveSpecification.Text;
+            var MakeNo = WKSaveMakeNo.Text;
+            var AssetsName = labAssetsName.Text;
             var tid = 0;
             int.TryParse(WKSaveTenantIdval.Text, out tid);
             if(workorderid.Text == "")
@@ -970,7 +973,7 @@ namespace WorkstationTEST
                 {
                     using (SQLiteConnection conn = new SQLiteConnection(cnStr))
                     {
-                        var insertScript = "INSERT INTO FinishItem (Id,TenantId,WorkOrderId,Empno,Qty,Status,Date) VALUES (@Id, @TenantId, @WorkOrderId, @Empno, @Qty, @Status,@Date)";
+                        var insertScript = "INSERT INTO FinishItem (Id,TenantId,WorkOrderId,Empno,Qty,Status,Date,MakeNo,WorkName,Specification) VALUES (@Id, @TenantId, @WorkOrderId, @Empno, @Qty, @Status,@Date,@MakeNo,@WorkName,@Specification)";
                         SQLiteCommand cmd = new SQLiteCommand(insertScript, conn);
                         cmd.Parameters.AddWithValue("@Id", id.ToString());
                         cmd.Parameters.AddWithValue("@TenantId", tid);
@@ -979,6 +982,9 @@ namespace WorkstationTEST
                         cmd.Parameters.AddWithValue("@Qty",comQty);
                         cmd.Parameters.AddWithValue("@Date", DateTime.Today.ToString("yyyy-MM-dd"));
                         cmd.Parameters.AddWithValue("@Status", status);
+                        cmd.Parameters.AddWithValue("@Specification", Specification);
+                        cmd.Parameters.AddWithValue("@MakeNo", MakeNo);
+                        cmd.Parameters.AddWithValue("@WorkName", AssetsName);
                         conn.Open();
                         var s = new saving();
                         s.Show();

@@ -110,7 +110,7 @@ namespace WorkstationTEST
                         var btnkey = keylist[empitem];
                         Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateNumBtn(numlist[empitem], keylist[empitem]);
                         empbtn.TabStop = false;
-                        empbtn = sethandlerbtn(empbtn);
+                        empbtn = sethandlerbtn2(empbtn);
                         btnkeylist.Add(empbtn);
                     }
                     Console.WriteLine("qtybtn=" + btnkeylist.Count + "," + tlpColumCountkey + "," + tlpRowCountkey);
@@ -429,7 +429,7 @@ namespace WorkstationTEST
         }
 
 
-        public void SetkeyNO(string info,bool iskeyORbarcode=false )
+        public void SetkeyNO(string info,bool iskeyORbarcode=false)
         {
             //var act = ActiveControl;
             var act5 = tabPage2.Controls.Find("BTN-CompleteQty", true);
@@ -453,7 +453,7 @@ namespace WorkstationTEST
              Console.Write("actfocus=" +actfocused.Name);*/
             if (nowfocusc.Length > 0)
             {
-                nowfocusc[0].Text = nowfocusc[0].Text + info;
+                    nowfocusc[0].Text = nowfocusc[0].Text + info;
             }
             if (info == "Clear")
             {
@@ -476,14 +476,23 @@ namespace WorkstationTEST
             sbt.Click += new EventHandler(btnkey_Click);
             return sbt;
         }
-
+        public Button sethandlerbtn2(Button bt)
+        {
+            Button sbt = bt;
+            sbt.Click += new EventHandler(btnkey_Click2);
+            return sbt;
+        }
         private void btnkey_Click(object sender, EventArgs e)
         {
             Button tmpButton = (Button)sender;
             SetkeyNO(tmpButton.Tag.ToString());
 
         }
-
+        private void btnkey_Click2(object sender, EventArgs e)
+        {
+            Button tmpButton = (Button)sender;
+            SetkeyNO(tmpButton.Tag.ToString(),true);
+        }
         public Button sethandler(Button bt)
         {
             Button sbt = bt;
@@ -641,7 +650,7 @@ namespace WorkstationTEST
         private void mybutton_Click(object sender, KeyEventArgs e)
         {
             Console.WriteLine("keycoe=" + e.KeyCode.ToString());
-            setkeymap(e.KeyCode.ToString());
+            setkeymap(e.KeyCode.ToString(),"",true,true);
             //tmpb.PerformClick();
         }
         public List<WorkDayReport> getrecord(string eno,string makeno="",string startno="")
@@ -1124,7 +1133,7 @@ namespace WorkstationTEST
         {
 
         }
-        public void setkeymap(string keychar, string data = "",bool isbarcode=false)
+        public void setkeymap(string keychar, string data = "",bool isbarcode=false,bool iskey=false)
         {
             var t = this.tabControl1.SelectedIndex;
             Console.WriteLine("st=" + t + ",ind=" + keychar);
@@ -1259,12 +1268,16 @@ namespace WorkstationTEST
                                 if(keyupper!= "Decimal" && keyupper != "End")
                                 {
                                     var keyval = keyupper.Substring(keyupper.Length - 1);
-                                    setkeyfocus[0].Text = setkeyfocus[0].Text + keyval;
+                                    if (!iskey)
+                                    {
+                                        setkeyfocus[0].Text = setkeyfocus[0].Text + keyval;
+                                    }
+
                                 }
-                                else
+                                else 
                                 {
                                     var bestr = "";
-                                    if (keyupper == "Decimal")
+                                    if (keyupper == "Decimal"&&!iskey)
                                     {
                                         bestr = "BTNkeyDecimal";
                                     }
@@ -1272,8 +1285,13 @@ namespace WorkstationTEST
                                     {
                                         bestr = "BTNkeyEnd";
                                     }
-                                    var btempbtn = tabPage2.Controls.Find(bestr, true);
-                                    SetkeyNO(((Button)(btempbtn[0])).Tag.ToString(), true);
+                                    if (bestr != "")
+                                    {
+                                        var btempbtn = tabPage2.Controls.Find(bestr, true);
+                                        SetkeyNO(((Button)(btempbtn[0])).Tag.ToString(), true);
+                                    }
+
+
                                     //((Button)(btempbtn[0])).PerformClick();
                                 }
                             }
@@ -1887,7 +1905,7 @@ namespace WorkstationTEST
                 var thisbtntext = numlist[empitem];
                 var btnkey = keylist[empitem];
                 Button empbtn = new CreateElement(thisbtnname, thisbtntext).CreateNumBtn(numlist[empitem], keylist[empitem]);
-                empbtn = sethandlerbtn(empbtn);
+                empbtn = sethandlerbtn2(empbtn);
                 btnkeylist.Add(empbtn);
             }
             Console.WriteLine("qtybtn=" + btnkeylist.Count + "," + tlpColumCountkey + "," + tlpRowCountkey);

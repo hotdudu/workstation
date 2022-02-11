@@ -380,7 +380,7 @@ namespace WorkstationTEST
                 {
                     try
                     {
-                        var insertscript = "SELECT DISTINCT EmpNo FROM WorkDayReports ORDER BY EmpNo";
+                        var insertscript = "SELECT EmpNo FROM (SELECT DISTINCT EmpNo FROM WorkDayReports UNION SELECT DISTINCT EmpNo FROM FinishItem) ORDER BY EmpNo";
                         conn.Open();
                         var cmd = new SQLiteCommand(insertscript, conn);
                         using (SQLiteDataReader row = cmd.ExecuteReader())
@@ -410,7 +410,7 @@ namespace WorkstationTEST
 
         }
 
-        private DataTable getdatatable(string empno=" ")
+        private DataTable getdatatable(string empno=" ",int tableindex=0)
         {
             using (DataTable table = new DataTable())
             {
@@ -448,6 +448,7 @@ namespace WorkstationTEST
                         try
                         {
                             var insertScript = "SELECT * FROM WorkDayReports ORDER BY StartTime DESC";
+                            var insertScript2 = "SELECT * FROM FinishItem ORDER BY Date DESC";
                             var ismultipleno = false;
                             var marray = Menufilter.Split(';');
                             var msubarray = new List<string>();
@@ -469,64 +470,111 @@ namespace WorkstationTEST
                                 if (ismultipleno)
                                 {
                                     insertScript= "SELECT * FROM WorkDayReports WHERE EmpNo=@EmpNo OR EmpNo=@EmpNo1 ORDER BY StartTime DESC";
+                                    insertScript2 = "SELECT * FROM FinishItem WHERE EmpNo=@EmpNo OR EmpNo=@EmpNo1 ORDER BY Date DESC";
                                 }
                                 else
                                 {
-                                    insertScript = "SELECT * FROM WorkDayReports WHERE EmpNo=@EmpNo ORDER BY StartTime DESC";
+                                    insertScript = "SELECT * FROM WorkDayReports  WHERE EmpNo=@EmpNo ORDER BY StartTime DESC";
+                                    insertScript2 = "SELECT * FROM FinishItem  WHERE EmpNo=@EmpNo ORDER BY Date DESC";
                                 }
                             }
 
                             //wkd = conn.Query<WorkDayReport>(insertScript).ToList();
                             conn.Open();
                             var cmd =new SQLiteCommand(insertScript, conn);
-                            if(empno!=" ")
+                            var cmd2= new SQLiteCommand(insertScript2, conn);
+                            if (empno!=" ")
                             {
                                 if (ismultipleno)
                                 {
                                     cmd.Parameters.AddWithValue("@EmpNo", msubarray[0]);
                                     cmd.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
+                                    cmd2.Parameters.AddWithValue("@EmpNo", msubarray[0]);
+                                    cmd2.Parameters.AddWithValue("@EmpNo1", msubarray[1]);
                                 }
                                 else
                                 {
                                     cmd.Parameters.AddWithValue("@EmpNo", empno);
+                                    cmd2.Parameters.AddWithValue("@EmpNo", empno);
 
                                 }
                             }
-
-                            using (SQLiteDataReader row = cmd.ExecuteReader())
+                            if (tableindex == 0)
                             {
-                                while (row.Read())
+                                using (SQLiteDataReader row = cmd.ExecuteReader())
                                 {
-                                    wkd.Add(new WorkDayReportMenu() {
-                                        DayReportId = row["DayReportId"] as string ?? "",
-                                        TenantId = row["TenantId"] as int? ?? default(int),
-                                        EmployeeId = row["EmployeeId"] as string ?? "",
-                                        EndTime = row["EndTime"] as DateTime? ?? null,
-                                        AdjustTime = row["AdjustTime"] as decimal? ?? null,
-                                        BadQty = row["BadQty"] as decimal? ?? null,
-                                        CompleteQty = row["CompleteQty"] as decimal? ?? null,
-                                        BadGoQty = row["BadGoQty"] as decimal? ?? null,
-                                        CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
-                                        BadNgQty = row["BadNgQty"] as decimal? ?? null,
-                                        CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
-                                        StartTime = row["StartTime"] as DateTime? ?? null,
-                                        WorkDate = row["WorkDate"].ToString(),
-                                        WorkId = row["WorkId"] as string ?? "",
-                                        WorkOrderId = row["WorkOrderId"] as string ?? "",
-                                        WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
-                                        WorkQty = row["WorkQty"] as decimal? ?? null,
-                                        Specification = row["Specification"] as string ?? "",
-                                        WorkName = row["WorkName"] as string ?? "",
-                                        WorkNo = row["WorkNo"] as string ?? "",
-                                        MakeNo = row["MakeNo"] as string ?? "",
-                                        EmpNo = row["EmpNo"] as string ?? "",
-                                        MNo = row["MNo"] as string ?? "",
-                                        WorkTime = row["WorkTime"] as decimal? ?? null,
-                                        isupdate = row["isupdate"] as Boolean?,
-                                        UseUnits=row["Unit"] as string??"",
-                                    });
+                                    while (row.Read())
+                                    {
+                                        wkd.Add(new WorkDayReportMenu() {
+                                            DayReportId = row["DayReportId"] as string ?? "",
+                                            TenantId = row["TenantId"] as int? ?? default(int),
+                                            EmployeeId = row["EmployeeId"] as string ?? "",
+                                            EndTime = row["EndTime"] as DateTime? ?? null,
+                                            AdjustTime = row["AdjustTime"] as decimal? ?? null,
+                                            BadQty = row["BadQty"] as decimal? ?? null,
+                                            CompleteQty = row["CompleteQty"] as decimal? ?? null,
+                                            BadGoQty = row["BadGoQty"] as decimal? ?? null,
+                                            CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
+                                            BadNgQty = row["BadNgQty"] as decimal? ?? null,
+                                            CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
+                                            StartTime = row["StartTime"] as DateTime? ?? null,
+                                            WorkDate = row["WorkDate"].ToString(),
+                                            WorkId = row["WorkId"] as string ?? "",
+                                            WorkOrderId = row["WorkOrderId"] as string ?? "",
+                                            WorkOrderItemId = row["WorkOrderItemId"] as string ?? "",
+                                            WorkQty = row["WorkQty"] as decimal? ?? null,
+                                            Specification = row["Specification"] as string ?? "",
+                                            WorkName = row["WorkName"] as string ?? "",
+                                            WorkNo = row["WorkNo"] as string ?? "",
+                                            MakeNo = row["MakeNo"] as string ?? "",
+                                            EmpNo = row["EmpNo"] as string ?? "",
+                                            MNo = row["MNo"] as string ?? "",
+                                            WorkTime = row["WorkTime"] as decimal? ?? null,
+                                            isupdate = row["isupdate"] as Boolean?,
+                                            UseUnits=row["Unit"] as string??"",
+                                        });
+                                    }
                                 }
                             }
+                            else if (tableindex == 1)
+                            {
+                                using (SQLiteDataReader row = cmd2.ExecuteReader())
+                                {
+                                    while (row.Read())
+                                    {
+                                        wkd.Add(new WorkDayReportMenu()
+                                        {
+                                            DayReportId = row["Id"] as string ?? "",
+                                            TenantId = row["TenantId"] as int? ?? default(int),
+                                            EmployeeId = "",
+                                            EndTime = null,
+                                            AdjustTime =null,
+                                            BadQty = null,
+                                            CompleteQty = row["Qty"] as decimal? ?? null,
+                                            BadGoQty = null,
+                                            CompletGoQty = null,
+                                            BadNgQty = null,
+                                            CompletNgQty = null,
+                                            StartTime =null,
+                                            WorkDate = row["Date"].ToString(),
+                                            WorkId ="",
+                                            WorkOrderId = row["WorkOrderId"] as string ?? "",
+                                            WorkOrderItemId ="",
+                                            WorkQty = null,
+                                            Specification = row["Specification"] as string ?? "",
+                                            WorkName = "",
+                                            WorkNo = "",
+                                            MakeNo = row["MakeNo"] as string ?? "",
+                                            EmpNo = row["EmpNo"] as string ?? "",
+                                            MNo = "",
+                                            WorkTime = null,
+                                            isupdate = row["isupdate"] as Boolean?,
+                                            UseUnits = "",
+                                        });
+                                    }
+                                }
+                            }
+
                             conn.Close();
                         }
                         catch (Exception ex)
@@ -744,6 +792,13 @@ namespace WorkstationTEST
         private void FItem_Click(object sender, EventArgs e)
         {
             tempclose("f");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var empnoitem = empnolist.SelectedItem;
+            var empnoval = empnoitem == null ? " " : empnoitem.ToString();
+            dataGridView1.DataSource = getdatatable(empnoval.ToString(),1);
         }
     }
 }
