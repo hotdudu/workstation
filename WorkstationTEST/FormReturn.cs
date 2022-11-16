@@ -190,6 +190,9 @@ namespace WorkstationTEST
 
         private void showpartner()
         {
+            var setpageup = new CreateElement();
+            setpageup.SetBtn(frmPTbtnU, "Insert::Insert", rtext["frmWKbtnU"]);
+            setpageup.SetBtn(frmPTbtnD, "Delete::Delete", rtext["frmWKbtnD"]);
             getpartner = new API("/CHG/Main/Home/getPartner2/", "http://").GetPartnerm(int.Parse(DefCompany));
             //List<Button> btnemplist = new List<Button>();
             if (getpartner.Count() > 0)
@@ -352,7 +355,7 @@ namespace WorkstationTEST
                                     MakeNo = row["MakeNo"] as string ?? "",
                                     EmpNo = row["EmpNo"] as string ?? "",
                                     MNo = row["MNo"] as string ?? "",
-                                    Price = row["Price"] as decimal? ?? null,
+                                    Price =0, //row["Price"] as decimal? ?? null,
                                     CompletGoQty = row["CompletGoQty"] as decimal? ?? null,
                                     CompletNgQty = row["CompletNgQty"] as decimal? ?? null,
                                     BadGoQty = row["BadGoQty"] as decimal? ?? null,
@@ -570,6 +573,7 @@ namespace WorkstationTEST
                             actbutton[0].Text = outlist[ui].ToString();
                             actbutton[0].BackColor = Color.Gray;
                             actbutton[0].Size = new Size(140, 50);
+                            actbutton[0].Enabled = false;
                         }
 
 
@@ -686,6 +690,7 @@ namespace WorkstationTEST
             var ptid = "";
             var ptname = "";
             var pcate = "";
+            string dialogptid ="";
             if (PTarray.Length > 4)
             {
                 var rno = PTarray[4].Split(',');
@@ -699,6 +704,7 @@ namespace WorkstationTEST
                 frmt.setTenantm(rno, rten, rpid);
                 frmt.ShowDialog();
                 PTSavePartnerId.Text = frmt.PartnerId;
+                dialogptid = frmt.PartnerId;
 
             }
             ptno = PTarray[3];
@@ -706,7 +712,7 @@ namespace WorkstationTEST
             ptname = PTarray[2];
             pcate = PTarray[0];
             frmPTname.Text = ptname;
-            PTSavePartnerId.Text = ptid;
+            PTSavePartnerId.Text =dialogptid!=""?dialogptid:ptid;
             frmPTshowno.Text = ptno;
 
             // PTSavePartnerId.Text =ptid;//改成在輸入工序階段取得partnerid
@@ -1076,16 +1082,14 @@ namespace WorkstationTEST
             }
             if (t == 1)
             {
-                var up = tabPage1.Controls.Find("frmEmpPageU", true);
-                var down = tabPage1.Controls.Find("frmEmpPageD", true);
                 string[] keyarray = new string[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10" };
                 if (keyupper == "Delete")
                 {
-                    ((Button)down[0]).PerformClick();
+                    frmPTbtnD.PerformClick();
                 }
                 if (keyupper == "Insert")
                 {
-                    ((Button)up[0]).PerformClick();
+                    frmPTbtnU.PerformClick();
                 }
                 if (keyarray.Contains(keyupper))
                 {

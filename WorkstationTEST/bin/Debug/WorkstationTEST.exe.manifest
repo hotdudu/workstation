@@ -134,7 +134,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Vl4uVd6wa88Vd0qJ7gaEV3eb0b+N3c3rSD+hWdM/Zio=</dsig:DigestValue>
+        <dsig:DigestValue>HQvFvhc3qoh67p3yRcQJTl4pZCOHZWUsPJgfbag/1r8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -165,7 +165,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>tREb5ZzcPPsG0h/SYM6WDEMANQJp3DYm9dTAyW1ydaU=</dsig:DigestValue>
+      <dsig:DigestValue>MNf4siVDlCLdiPzlP4EuL5QAfNf//oYpazsSaYDWt0E=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WorkstationTEST.exe.config" size="1596">

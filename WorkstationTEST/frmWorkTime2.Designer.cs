@@ -360,7 +360,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.focust);
-            this.Controls.Add(this.save);
+            //this.Controls.Add(this.save);
             this.Controls.Add(this.RPanel);
             this.Controls.Add(this.NumPanel);
             this.Controls.Add(this.SaveStat);
